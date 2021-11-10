@@ -1,22 +1,15 @@
 <template>
-  <div class="header-item">
-    <div class="top-title">
-      {{ itemData.title }}
-    </div>
-    <div class="con-list">
-      <div
-        v-for="(item, index) in itemData.list"
-        :key="index"
-        class="item"
-        @click="handleClickJump(item.path)"
-      >
-        <div class="item-top">
-          <span>{{ item.title }}</span>
-          <div v-if="item.hot" class="hot-img" />
-          <div v-if="item.new" class="new-img" />
-        </div>
-        <span class="info">{{ item.info }}</span>
+  <div
+    :class="itemData.disable ? 'product-item product-disable' : 'product-item'"
+    @click="handleClickJump(itemData.path)"
+  >
+    <div :class="`left-icon iconfont ${itemData.icon}`" />
+    <div class="right-con">
+      <div class="item-top">
+        <span>{{ itemData.title }}</span>
+        <div v-if="itemData.hot" class="hot-img" />
       </div>
+      <span class="info">{{ itemData.info }}</span>
     </div>
   </div>
 </template>
@@ -45,55 +38,46 @@ export default {
 </script>
 
 <style lang="scss" scoped="scoped">
-.header-item {
-  width: 23.5%;
-  margin-left: 2%;
+.product-item {
   color: #fff;
-  .top-title {
-    height: 16px;
-    color: #7a8185;
-    margin-bottom: 16px;
+  display: flex;
+  width: 301px;
+  padding: 18px 0 18px 20px;
+  height: 82px;
+  .left-icon {
+    font-size: 22px;
+    margin-right: 14px;
   }
-  .con-list {
-    .item {
-      width: 100%;
-      margin-bottom: 16px;
-      background: #2b3033;
-      padding: 16px;
-      border: 1px solid #2b3033;
-      .item-top {
-        display: inline-block;
-        margin-bottom: 5px;
-        position: relative;
-        div {
-          position: absolute;
-          right: -38px;
-          top: 1px;
-          width: 30px;
-          height: 18px;
-          background: url('~/static/img/home/nav_item_icon.png') no-repeat
-            center;
-        }
-        .hot-img {
-          background-position: 0 0;
-        }
-        .new-img {
-          background-position: 0 -20px;
-        }
-      }
-      .info {
-        font-size: 12px;
-        color: #7a8185;
+  .right-con {
+    .item-top {
+      display: inline-block;
+      margin-bottom: 2px;
+      position: relative;
+      span {
+        font-size: 18px;
         display: block;
       }
-    }
-    .item:hover {
-      color: #059fff;
-      border: 1px solid #059fff;
-      .info {
-        color: #059fff;
+      div {
+        position: absolute;
+        right: -38px;
+        top: 50%;
+        transform: translateY(-40%);
+        width: 30px;
+        height: 18px;
+        background: url('~/static/img/home/product-hot.png') no-repeat center;
       }
     }
+    .info {
+      font-size: 12px;
+      display: block;
+    }
   }
+  &:hover {
+    background: #6864e7;
+  }
+}
+.product-disable {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 </style>
