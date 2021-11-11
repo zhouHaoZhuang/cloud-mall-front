@@ -211,3 +211,6 @@ table {
 .iconSSLzhengshu:before {
   content: '\e6d2';
 }
+ul {
+  margin: 0;
+}

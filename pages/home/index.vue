@@ -158,6 +158,197 @@
         </div>
       </div>
     </div>
+    <!-- 优势 -->
+    <div class="wsymain-wrap">
+      <div class="public-box" style="margin-bottom: 80px">
+        <div class="content">
+          <div class="public-title">
+            为什么
+            <span>选择</span>
+            浙江云盾
+          </div>
+          <div class="public-info">
+            完善的云产品，为用户提供多种服务支持和保障，让云端部署更轻松、更高效
+          </div>
+        </div>
+      </div>
+      <div class="container wsymain">
+        <div class="left">
+          <div
+            v-for="(item, index) in wsymainList"
+            :key="index"
+            :class="index === wsymainSelectIndex ? 'item active' : 'item'"
+            :style="item.width"
+            @click="wsymainSelect(index)"
+          >
+            <div
+              v-if="index !== wsymainSelectIndex"
+              class="img"
+              :style="item.bgPosition"
+            />
+            <div v-else class="img" :style="item.activePosition" />
+            <span>{{ item.title }}</span>
+          </div>
+        </div>
+        <div
+          class="right"
+          :style="`background: url(${wsymainDetail.bg}) no-repeat center`"
+        >
+          <h3 class="title">
+            {{ wsymainDetail.title }}
+          </h3>
+          <div class="info">
+            {{ wsymainDetail.info }}
+          </div>
+          <div class="btns">
+            <div class="btn" @click="handleClickJump('')">
+              查看详情
+            </div>
+            <div class="btn" @click="handleClickJump('')">
+              联系我们
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 地图 -->
+    <div class="map-wrap">
+      <div class="public-box" style="margin-bottom: 85px">
+        <div class="content">
+          <div class="public-title">
+            您的业务可以
+            <span>遍布</span>
+            世界各地
+          </div>
+          <div class="public-info">
+            网络拉近了人类的距离，云计算推动了文明的新高度
+          </div>
+        </div>
+      </div>
+      <div class="container map">
+        <div class="content">
+          <div class="region-dot position1">
+            <div class="dot" />
+            <div class="pulse" />
+          </div>
+          <div class="region-dot position2">
+            <div class="dot" />
+            <div class="pulse" />
+          </div>
+          <div class="region-dot position3">
+            <div class="dot" />
+            <div class="pulse" />
+          </div>
+          <div class="region-dot position4">
+            <div class="dot" />
+            <div class="pulse" />
+          </div>
+          <div class="region-dot position5">
+            <div class="dot" />
+            <div class="pulse" />
+          </div>
+          <div class="region-dot position6">
+            <div class="dot" />
+            <div class="pulse" />
+          </div>
+          <div class="region-txt position7">
+            华北
+          </div>
+          <div class="region-dot position8">
+            <div class="dot" />
+            <div class="pulse" />
+          </div>
+          <div class="region-txt position9">
+            华东
+          </div>
+          <div class="region-dot position10">
+            <div class="dot" />
+            <div class="pulse" />
+          </div>
+          <div class="region-txt position11">
+            香港
+          </div>
+          <div class="region-dot position12">
+            <div class="dot" />
+            <div class="pulse" />
+          </div>
+          <div class="region-txt position13">
+            华南
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 解决方案 -->
+    <div class="programme-wrap">
+      <div class="public-box" style="margin-bottom: 80px">
+        <div class="content">
+          <div class="public-title">
+            浙江云盾
+            <span>解决</span>
+            方案
+          </div>
+          <div class="public-info">
+            根据行业特性，为您提供高可用、安全的解决方案
+          </div>
+        </div>
+      </div>
+      <div class="programme">
+        <div class="container programme-content">
+          <div class="banner-list-wrap">
+            <ul
+              :style="`left:${programmeIndex * 300}px`"
+              :class="
+                hasAni
+                  ? programmeDirection === 'left'
+                    ? 'transtion-left'
+                    : 'transtion-right'
+                  : ''
+              "
+            >
+              <li
+                v-for="(item, index) in programmeList"
+                :key="index + item.title"
+                :style="`background: url(${item.bg}) no-repeat center`"
+              >
+                <div class="bg-mask" />
+                <div class="icon" :style="item.iconPosition" />
+                <div class="title">
+                  {{ item.title }}
+                </div>
+                <div class="info">
+                  {{ item.info }}
+                </div>
+                <div class="btn" @click="handleClickJump(item.path)">
+                  查看详情
+                </div>
+              </li>
+            </ul>
+            <div class="arr-l" @click="handleProgrammePrev">
+              <div class="bg" />
+            </div>
+            <div class="arr-r" @click="handleProgrammeNext">
+              <div class="bg" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 新闻动态 -->
+    <div class="news-wrap">
+      <div class="public-box" style="margin-bottom: 80px">
+        <div class="content">
+          <div class="public-title">
+            浙江云盾
+            <span>新闻</span>
+            动态
+          </div>
+          <div class="public-info">
+            为您提供最新行业资讯、活动公告、产品发布，汇聚最前沿最流行的云计算技术
+          </div>
+        </div>
+      </div>
+      <div class="container news" />
+    </div>
   </div>
 </template>
 
@@ -347,7 +538,139 @@ export default {
           name: '软件著作权',
           img: require('~/static/img/home/honor6.png')
         }
-      ]
+      ],
+      wsymainList: [
+        {
+          title: '备案',
+          width: 'width:141px',
+          bgPosition: 'background-position:0px 0px',
+          activePosition: 'background-position:0px -85px',
+          detail: {
+            title: '0元免费备案',
+            info: '为用户提供免费备案服务，备案过程0担忧——1V1备案处理机制，最快1个工作日取得备案号。',
+            bg: require('~/static/img/home/av-bg5.jpg')
+          }
+        },
+        {
+          title: '赔偿',
+          width: 'width:141px',
+          bgPosition: 'background-position:-72px 0px',
+          activePosition: 'background-position:-72px -85px',
+          detail: {
+            title: '100倍故障赔偿',
+            info: '由于浙江云盾故障导致产品无法正常使用，我们将提供100倍的故障时间赔偿让您使用舒心。',
+            bg: require('~/static/img/home/av-bg4.jpg')
+          }
+        },
+        {
+          title: '退款',
+          width: 'width:141px',
+          bgPosition: 'background-position:-144px 0px',
+          activePosition: 'background-position:-144px -85px',
+          detail: {
+            title: '5天无理由退款',
+            info: '浙江云盾承诺用户购买云服务器5天内无条件退款， 致力为您打造更优良的服务器体验环境。',
+            bg: require('~/static/img/home/av-bg3.jpg')
+          }
+        },
+        {
+          title: '客户支持',
+          width: 'width:222px',
+          bgPosition: 'background-position:-216px 0px',
+          activePosition: 'background-position:-216px -85px',
+          detail: {
+            title: '7X24小时多渠道服务支持',
+            info: '专业的售后工程师团队为您提供7*24*365技术服务，保障产品的无忧使用和业务的稳定运行。',
+            bg: require('~/static/img/home/av-bg2.jpg')
+          }
+        },
+        {
+          title: 'VIP服务',
+          width: 'width:222px',
+          bgPosition: 'background-position:-288px 0px',
+          activePosition: 'background-position:-288px -85px',
+          detail: {
+            title: 'VIP多对1服务',
+            info: '浙江云盾针对VIP客户，将通过建立微信群/QQ讨论组/电话等形式为您安排多人的技术团队提供服务。',
+            bg: require('~/static/img/home/av-bg1.jpg')
+          }
+        }
+      ],
+      wsymainDetail: {
+        title: '0元免费备案',
+        info: '为用户提供免费备案服务，备案过程0担忧——1V1备案处理机制，最快1个工作日取得备案号。',
+        bg: require('~/static/img/home/av-bg5.jpg')
+      },
+      wsymainSelectIndex: 0,
+      programmeList: [
+        {
+          title: '金融云解决方案',
+          info: '金融云为客户提供量身定制的云计算服务，IT硬件零投入，云设施运维零维护，高品质保障的售后服务机制，帮助金融用户高效应用云计算服务，是您互联网转型的首选。',
+          path: '',
+          bg: require('~/static/img/home/finance-photo.jpg'),
+          iconPosition: 'background-position:0 -60px'
+        },
+        {
+          title: '移动云解决方案',
+          info: '移动云应用虚拟化系统为客户提供最佳的应用性能及灵活的应用虚拟化服务，帮助客户实现手机、平板电脑等移动设备安全顺畅地访问服务器上各种应用软件。',
+          path: '',
+          bg: require('~/static/img/home/mobile-photo.jpg'),
+          iconPosition: 'background-position:0 -120px'
+        },
+        {
+          title: '电商云解决方案',
+          info: '电商云帮助电商客户快速实现平台搭建、节约成本、应对业务高并发、强化安全防护能力，助力电商客户快速实现金融创新及业务增收的目标。',
+          path: '',
+          bg: require('~/static/img/home/busin-photo.jpg'),
+          iconPosition: 'background-position:0 -180px'
+        },
+        {
+          title: '游戏云解决方案',
+          info: '游戏云为客户游戏开发、游戏运营提供专属服务集群；多场景多类型的游戏部署解决方案，同时提供尊贵VIP售后服务，为客户游戏稳定运行提供基石。',
+          path: '',
+          bg: require('~/static/img/home/game-photo.jpg'),
+          iconPosition: 'background-position:0 -240px'
+        },
+        {
+          title: '网站云解决方案',
+          info: '网站云为企业及开发者提供灵活弹性自动化的基础IT设施建设、按需付费的服务模式及成本的运维服务体系，帮助客户转型，推动企业核心业务创新发展。',
+          path: '',
+          bg: require('~/static/img/home/cloud-photo.jpg'),
+          iconPosition: 'background-position:0 0'
+        },
+        {
+          title: '金融云解决方案',
+          info: '金融云为客户提供量身定制的云计算服务，IT硬件零投入，云设施运维零维护，高品质保障的售后服务机制，帮助金融用户高效应用云计算服务，是您互联网转型的首选。',
+          path: '',
+          bg: require('~/static/img/home/finance-photo.jpg'),
+          iconPosition: 'background-position:0 -60px'
+        },
+        {
+          title: '移动云解决方案',
+          info: '移动云应用虚拟化系统为客户提供最佳的应用性能及灵活的应用虚拟化服务，帮助客户实现手机、平板电脑等移动设备安全顺畅地访问服务器上各种应用软件。',
+          path: '',
+          bg: require('~/static/img/home/mobile-photo.jpg'),
+          iconPosition: 'background-position:0 -120px'
+        },
+        {
+          title: '电商云解决方案',
+          info: '电商云帮助电商客户快速实现平台搭建、节约成本、应对业务高并发、强化安全防护能力，助力电商客户快速实现金融创新及业务增收的目标。',
+          path: '',
+          bg: require('~/static/img/home/busin-photo.jpg'),
+          iconPosition: 'background-position:0 -180px'
+        },
+        {
+          title: '游戏云解决方案',
+          info: '游戏云为客户游戏开发、游戏运营提供专属服务集群；多场景多类型的游戏部署解决方案，同时提供尊贵VIP售后服务，为客户游戏稳定运行提供基石。',
+          path: '',
+          bg: require('~/static/img/home/game-photo.jpg'),
+          iconPosition: 'background-position:0 -240px'
+        }
+      ],
+      programmeIndex: -4,
+      programmeDirection: 'left',
+      programmeLoading: false,
+      hasAni: true
     }
   },
   watch: {
@@ -368,6 +691,13 @@ export default {
     clearInterval(this.time)
   },
   methods: {
+    // 点击跳转
+    handleClickJump (path) {
+      if (!path) {
+        return
+      }
+      this.$router.push(path)
+    },
     // 定时器自动轮播
     bannerTime () {
       this.time = setInterval(() => {
@@ -378,6 +708,39 @@ export default {
     nextBanner () {
       this.bannerIndex = this.bannerIndex === 1 ? 2 : 1
       this.$refs.banner.next()
+    },
+    // 优势选择
+    wsymainSelect (index) {
+      this.wsymainSelectIndex = index
+      this.wsymainDetail = { ...this.wsymainList[index].detail }
+    },
+    // 解决方案下一张
+    handleProgrammeNext () {
+      if (this.programmeLoading) {
+        return
+      }
+      this.programmeLoading = true
+      this.programmeDirection = 'left'
+      this.programmeList.push(this.programmeList[Math.abs(this.programmeIndex)])
+      this.programmeIndex--
+      setTimeout(() => {
+        this.programmeLoading = false
+      }, 800)
+    },
+    // 解决方案上一张
+    handleProgrammePrev () {
+      if (this.programmeLoading) {
+        return
+      }
+      this.programmeLoading = true
+      this.programmeDirection = 'right'
+      this.programmeList.unshift(this.programmeList.pop())
+      this.programmeIndex++
+      setTimeout(() => {
+        // this.hasAni = false
+        // this.programmeIndex = 0
+        this.programmeLoading = false
+      }, 800)
     }
   }
 }
@@ -598,7 +961,7 @@ export default {
         justify-content: center;
         text-align: center;
         width: 200px;
-        padding-top: 30px;
+        padding-top: 10px;
         height: 160px;
         margin: 25px 0 20px 4px;
         .img {
@@ -613,7 +976,368 @@ export default {
       .item:nth-child(1) {
         margin-left: 0;
       }
+      .item:hover {
+        box-shadow: 0px 10px 20px rgba(2, 48, 76, 0.1);
+      }
     }
+  }
+  .wsymain-wrap {
+    background: #f5f6f7;
+    padding: 80px 0;
+    overflow: hidden;
+    .wsymain {
+      display: flex;
+      .left {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        text-align: center;
+        width: 500px;
+        font-size: 18px;
+        height: 315px;
+        overflow: hidden;
+        .item {
+          height: 142px;
+          background: #fff;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          margin-right: 25px;
+          margin-bottom: 30px;
+          padding-top: 20px;
+          color: #000;
+          cursor: pointer;
+          .img {
+            width: 65px;
+            height: 74px;
+            margin: 0 auto 9px;
+            background: url('~/static/img/home/wsymain-icons.png') no-repeat;
+          }
+        }
+        .item.active {
+          color: #fff;
+          background: url('~/static/img/home/av-active.jpg') no-repeat center;
+        }
+      }
+      .right {
+        width: 720px;
+        height: 315px;
+        padding: 40px 0 0 40px;
+        background: #fff;
+        .title {
+          font-size: 30px;
+          color: #000;
+        }
+        .info {
+          font-size: 16px;
+          margin: 16px 0 35px;
+          color: #666;
+          line-height: 30px;
+          width: 380px;
+        }
+        .btns {
+          display: flex;
+          .btn {
+            width: 178px;
+            height: 48px;
+            font-size: 18px;
+            color: #666;
+            margin-right: 20px;
+            border: 1px solid #ddd;
+            line-height: 48px;
+            text-align: center;
+            margin-right: 20px;
+          }
+          .btn:nth-child(1) {
+            border: 1px solid #059fff;
+            background: #059fff;
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+  .map-wrap {
+    padding: 80px 0 40px;
+    background: #fff;
+    .map {
+      width: 100%;
+      position: relative;
+      height: 601px;
+      background: url('~/static/img/home/world-map-bg.png') no-repeat center;
+      .content {
+        position: relative;
+        width: 1000px;
+        margin: 0 auto;
+      }
+      .region-dot,
+      .region-txt {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+      .region-dot {
+        .dot {
+          width: 16px;
+          height: 16px;
+          border-radius: 16px;
+          background: #14cc45;
+        }
+        .pulse {
+          position: absolute;
+          top: -36px;
+          left: -36px;
+          height: 88px;
+          width: 88px;
+          border-radius: 48px;
+          background: #14cc45;
+          opacity: 0.12;
+          animation: warn 2s ease-out;
+          animation-iteration-count: infinite;
+        }
+      }
+      .region-txt {
+        font-size: 16px;
+        color: #808080;
+      }
+      .position1 {
+        left: 50px;
+        top: 126px;
+      }
+      .position2 {
+        left: 179px;
+        top: 230px;
+      }
+      .position3 {
+        left: 258px;
+        top: 443px;
+      }
+      .position4 {
+        left: 545px;
+        top: 206px;
+      }
+      .position5 {
+        left: 829px;
+        top: 230px;
+      }
+      .position6 {
+        left: 884px;
+        top: 222px;
+        .dot,
+        .pulse {
+          background: #059fff;
+        }
+      }
+      .position7 {
+        left: 906px;
+        top: 202px;
+      }
+      .position8 {
+        left: 871px;
+        top: 272px;
+        .dot,
+        .pulse {
+          background: #059fff;
+        }
+      }
+      .position9 {
+        left: 896px;
+        top: 272px;
+      }
+      .position10 {
+        left: 855px;
+        top: 311px;
+        .dot,
+        .pulse {
+          background: #059fff;
+        }
+      }
+      .position11 {
+        left: 872px;
+        top: 321px;
+      }
+      .position12 {
+        left: 832px;
+        top: 302px;
+        .dot,
+        .pulse {
+          background: #059fff;
+        }
+      }
+      .position13 {
+        left: 796px;
+        top: 316px;
+      }
+    }
+  }
+  .programme-wrap {
+    padding-top: 80px;
+    .programme {
+      height: 500px;
+      background: #292e33;
+      .container {
+        width: 1200px;
+      }
+      .programme-content {
+        height: 100%;
+        .banner-list-wrap {
+          position: relative;
+          height: 100%;
+          overflow: hidden;
+          ul {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 999999px;
+            height: 500px;
+            margin: 0;
+            display: flex;
+            li {
+              position: relative;
+              height: 500px;
+              width: 300px;
+              transition: all 0.5s;
+              color: #fff;
+              font-size: 20px;
+              div {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                transition: top 0.5s;
+              }
+              .bg-mask {
+                height: 100%;
+                position: absolute;
+                width: 100%;
+                background-color: #059fff;
+                display: none;
+              }
+              .icon {
+                top: 170px;
+                width: 60px;
+                height: 60px;
+                background: url('~/static/img/home/solution-items-icon.png')
+                  no-repeat;
+              }
+              .title {
+                top: 280px;
+              }
+              .info {
+                text-indent: 26px;
+                font-size: 12px;
+                width: 100%;
+                height: 150px;
+                padding: 0 30px;
+                overflow: hidden;
+                top: 282px;
+                line-height: 2;
+                opacity: 0;
+                transition: all 0.6s;
+              }
+              .btn {
+                top: 452px;
+                width: 118px;
+                height: 34px;
+                line-height: 32px;
+                text-align: center;
+                border: 1px solid #fff;
+                font-size: 14px;
+                opacity: 0;
+                transition: all 0.6s;
+              }
+            }
+            li:nth-child(odd) .bg-mask {
+              opacity: 0.5;
+            }
+            li:nth-child(even) .bg-mask {
+              opacity: 0.8;
+            }
+            li:hover {
+              .icon {
+                top: 76px;
+              }
+              .title {
+                top: 168px;
+              }
+              .info {
+                top: 230px;
+                opacity: 1;
+              }
+              .btn {
+                top: 380px;
+                opacity: 1;
+              }
+              .bg-mask {
+                display: block;
+              }
+            }
+          }
+          .transtion-left {
+            transition: left 0.6s cubic-bezier(0.17, 0.67, 0.95, 0.79);
+          }
+          .transtion-right {
+            transition: left 0.6s;
+          }
+          .arr-l,
+          .arr-r {
+            position: absolute;
+            top: 0;
+            width: 40px;
+            height: 500px;
+            opacity: 0;
+            transition: all 0.5s;
+            background-color: rgba(255, 255, 255, 0.08);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            .bg {
+              width: 20px;
+              height: 36px;
+              background: url('~/static/img/home/index-sprite.png') no-repeat;
+              background-position: 0 -1538px;
+            }
+          }
+          .arr-l {
+            left: 0;
+          }
+          .arr-r {
+            right: 0;
+            .bg {
+              background-position: 0 -1500px;
+            }
+          }
+        }
+        .banner-list-wrap:hover {
+          .arr-l,
+          .arr-r {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+  .news-wrap {
+    padding: 75px 0 55px;
+    overflow: hidden;
+  }
+}
+@keyframes warn {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  30% {
+    transform: scale(0);
+    opacity: 0.1;
+  }
+  60% {
+    transform: scale(0.5);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
   }
 }
 </style>
