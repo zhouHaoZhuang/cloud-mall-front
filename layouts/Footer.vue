@@ -1,0 +1,448 @@
+<template>
+  <div class="layout-footer">
+    <!-- 加入我们 -->
+    <div class="join-wrap">
+      <div class="container join">
+        <span>加入我们，立即开启您的云服务之旅！</span>
+        <div class="btn">
+          免费注册
+        </div>
+      </div>
+    </div>
+    <!-- 底部 -->
+    <div class="footer-wrap">
+      <!-- 优势 -->
+      <div class="advantage-wrap">
+        <div class="container advantage">
+          <div v-for="(item, index) in advantageList" :key="index" class="item">
+            <img :src="item.img" alt="" class="img">
+            <span>{{ item.title }}</span>
+          </div>
+        </div>
+      </div>
+      <!-- 快捷入口 -->
+      <div class="quick-wrap">
+        <div class="container quick">
+          <div v-for="(item, index) in linkList" :key="index" class="item">
+            <div class="title">
+              {{ item.title }}
+            </div>
+            <div class="list">
+              <div
+                v-for="(ele, idx) in item.list"
+                :key="idx"
+                class="list-item"
+                @click="handleClickJump(ele.path)"
+              >
+                {{ ele.name }}
+              </div>
+            </div>
+          </div>
+          <!-- 联系我们 -->
+          <div class="item">
+            <div class="title">
+              联系我们
+            </div>
+            <div class="list">
+              <div class="list-ele">
+                <div class="label">
+                  服务热线：
+                </div>
+                <div class="value">
+                  400-888-8888
+                </div>
+              </div>
+              <div class="list-ele">
+                <div class="label">
+                  电子邮箱：
+                </div>
+                <div class="value">
+                  service@ydidc.com
+                </div>
+              </div>
+              <div class="list-ele">
+                <div class="label">
+                  联系地址：
+                </div>
+                <div class="value">
+                  浙江省杭州市萧山区时代博地大厦1501室
+                </div>
+              </div>
+              <div class="list-outerChain">
+                <div class="ele">
+                  <div class="img-box">
+                    <i />
+                    <img src="~/static/img/home/code.png" alt="">
+                  </div>
+                </div>
+                <div class="ele" />
+                <div class="ele" />
+                <div class="ele" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 友情链接 -->
+      <div class="links-wrap">
+        <div class="links">
+          <div class="img" />
+          <div
+            v-for="(item, index) in cloudLinks"
+            :key="index"
+            class="item"
+            @click="handleClickJump(item.path)"
+          >
+            {{ item.name }}
+          </div>
+        </div>
+      </div>
+      <!-- copyright -->
+      <div class="copyright-wrap">
+        <div class="container">
+          <p>
+            ZKEYS©&nbsp;&nbsp;&nbsp;浙江云盾互联网科技有限公司&nbsp;&nbsp;
+            <span @click="handleClickJump('')">浙ICP备2021017872号-1</span>
+          </p>
+          <p>浙江云盾互联网科技有限公司</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      advantageList: [
+        {
+          title: '100倍故障赔偿',
+          img: require('~/static/img/home/product_footer_1.png')
+        },
+        {
+          title: '5天无理由退款',
+          img: require('~/static/img/home/product_footer_2.png')
+        },
+        {
+          title: '7x24小时服务',
+          img: require('~/static/img/home/product_footer_3.png')
+        },
+        {
+          title: '0元快速备案',
+          img: require('~/static/img/home/product_footer_4.png')
+        },
+        {
+          title: '1V1专席秘书',
+          img: require('~/static/img/home/product_footer_5.png')
+        }
+      ],
+      linkList: [
+        {
+          title: ' 浙江云盾产品',
+          list: [
+            {
+              name: '云服务器',
+              path: ''
+            },
+            {
+              name: '云服务器托管',
+              path: ''
+            },
+            {
+              name: '云虚拟主机',
+              path: ''
+            },
+            {
+              name: '云监控',
+              path: ''
+            }
+          ]
+        },
+        {
+          title: '解决方案',
+          list: [
+            {
+              name: '游戏云解决方案',
+              path: ''
+            },
+            {
+              name: '电商云解决方案',
+              path: ''
+            },
+            {
+              name: '金融云解决方案',
+              path: ''
+            },
+            {
+              name: '网站云解决方案',
+              path: ''
+            },
+            {
+              name: '移动云解决方案',
+              path: ''
+            }
+          ]
+        },
+        {
+          title: '帮助与支持',
+          list: [
+            {
+              name: '产品文档',
+              path: ''
+            },
+            {
+              name: 'Whois查询',
+              path: ''
+            },
+            {
+              name: '控制面板',
+              path: ''
+            },
+            {
+              name: '备案服务',
+              path: ''
+            },
+            {
+              name: '工单服务',
+              path: ''
+            }
+          ]
+        },
+        {
+          title: '其他链接',
+          list: [
+            {
+              name: '公司简介',
+              path: ''
+            },
+            {
+              name: '联系我们',
+              path: ''
+            },
+            {
+              name: '新闻公告',
+              path: ''
+            },
+            {
+              name: '友情链接',
+              path: ''
+            },
+            {
+              name: '服务协议',
+              path: ''
+            }
+          ]
+        }
+      ],
+      cloudLinks: [
+        {
+          name: '阿里云',
+          path: ''
+        },
+        {
+          name: '腾讯云',
+          path: ''
+        },
+        {
+          name: '华为云',
+          path: ''
+        }
+      ]
+    }
+  },
+  methods: {
+    // 点击跳转
+    handleClickJump (path) {
+      if (!path) {
+        return
+      }
+      this.$router.push(path)
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped="scoped">
+.layout-footer {
+  .join-wrap {
+    height: 160px;
+    background: url('~/static/img/home/footer-bg.png') no-repeat center;
+    overflow: hidden;
+    .join {
+      text-align: center;
+      font-size: 24px;
+      color: #fff;
+      padding-top: 30px;
+      .btn {
+        margin: 30px auto 0;
+        width: 120px;
+        height: 36px;
+        line-height: 36px;
+        background-color: #fff;
+        border-radius: 2px;
+        border: solid 1px #fff;
+        font-size: 20px;
+        color: #188ae0;
+        text-align: center;
+      }
+    }
+  }
+  .footer-wrap {
+    height: 634px;
+    background: #292e33;
+    padding-top: 52px;
+    .advantage-wrap {
+      font-size: 16px;
+      color: #fff;
+      margin-bottom: 36px;
+      .advantage {
+        display: flex;
+        justify-content: space-around;
+        padding-bottom: 52px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        .item {
+          margin-right: 80px;
+          span {
+            margin-left: 10px;
+          }
+        }
+      }
+    }
+    .quick-wrap {
+      margin-bottom: 80px;
+      .quick {
+        font-size: 14px;
+        color: #525c66;
+        display: flex;
+        .item {
+          width: 160px;
+          margin-right: 50px;
+          .title {
+            color: #fff;
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-size: 18px;
+          }
+          .list {
+            .list-item {
+              line-height: 30px;
+            }
+            .list-item:hover {
+              color: #fff;
+            }
+            .list-ele {
+              display: flex;
+              line-height: 36px;
+              .value {
+                color: #fff;
+              }
+            }
+            .list-outerChain {
+              display: flex;
+              margin-top: 25px;
+              .ele {
+                width: 38px;
+                height: 38px;
+                margin-right: 20px;
+                background: url('~/static/img/home/icons-qq.png') no-repeat;
+                position: relative;
+                .img-box {
+                  position: absolute;
+                  left: -57px;
+                  bottom: 33px;
+                  background: #fff;
+                  padding: 10px;
+                  margin-bottom: 15px;
+                  display: none;
+                  i {
+                    display: inline-block;
+                    position: absolute;
+                    bottom: -6px;
+                    left: 69px;
+                    width: 0;
+                    height: 0;
+                    line-height: 0;
+                    vertical-align: middle;
+                    border: 6px dashed transparent;
+                    border-top-style: solid;
+                    border-top-color: #fff;
+                    border-bottom-width: 0;
+                  }
+                }
+              }
+              .ele:nth-child(1) {
+                background-position: 0 -46px;
+              }
+              .ele:nth-child(1):hover {
+                background-position: 0 -86px;
+                .img-box {
+                  display: block;
+                }
+              }
+              .ele:nth-child(2) {
+                background-position: -40px -46px;
+              }
+              .ele:nth-child(2):hover {
+                background-position: -40px -86px;
+              }
+              .ele:nth-child(3) {
+                background-position: -80px -46px;
+              }
+              .ele:nth-child(3):hover {
+                background-position: -80px -86px;
+              }
+              .ele:nth-child(4) {
+                background-position: -120px -46px;
+              }
+              .ele:nth-child(4):hover {
+                background-position: -120px -86px;
+              }
+            }
+          }
+        }
+        .item:last-child {
+          width: 340px;
+        }
+      }
+    }
+    .links-wrap {
+      .links {
+        width: 1190px;
+        margin: 0 auto;
+        padding: 28px 0 22px 28px;
+        border-top: 1px solid #414447;
+        position: relative;
+        .img {
+          display: inline-block;
+          width: 25px;
+          height: 20px;
+          background: url('~/static/img/home/icons-qq.png') no-repeat -93px -18px;
+          position: absolute;
+          left: 0;
+          top: 26px;
+        }
+        .item {
+          display: inline-block;
+          color: #7a7d80;
+          font-size: 12px;
+          line-height: 22px;
+          margin-right: 20px;
+        }
+      }
+    }
+    .copyright-wrap {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 20px 0;
+      text-align: center;
+      color: #7a7d80;
+      overflow: hidden;
+      p {
+        line-height: 24px;
+        font-size: 12px;
+        margin: 0;
+      }
+    }
+  }
+}
+</style>

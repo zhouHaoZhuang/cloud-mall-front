@@ -1,15 +1,25 @@
 <template>
   <div>
+    <!-- 头部 -->
     <Header />
+    <!-- 主体-路由出口 -->
     <Nuxt />
+    <!-- 底部 -->
+    <Footer />
+    <!-- 右侧咨询 -->
+    <RightFixed />
   </div>
 </template>
 
 <script>
 import Header from './Header.vue'
+import Footer from './Footer.vue'
+import RightFixed from './RightFixed.vue'
 export default {
   components: {
-    Header
+    Header,
+    Footer,
+    RightFixed
   },
   // middleware: 'auth', // 页面层级的中间件定义
   middleware ({ store, route, redirect, params, query }) {

@@ -496,6 +496,7 @@ export default {
       align-items: center;
       font-size: 18px;
       color: #fff;
+      position: relative;
       .item {
         height: 100%;
         display: flex;
