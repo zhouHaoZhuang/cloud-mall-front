@@ -18,6 +18,8 @@
           <div class="banner-item banner-item2" />
         </a-carousel>
       </div>
+      <!-- 阻止点击指示点切换轮播图 -->
+      <div class="mask-none" />
       <div class="more">
         <div class="container">
           更多>
@@ -604,34 +606,6 @@ export default {
       wsymainSelectIndex: 0,
       programmeList: [
         {
-          title: '金融云解决方案',
-          info: '金融云为客户提供量身定制的云计算服务，IT硬件零投入，云设施运维零维护，高品质保障的售后服务机制，帮助金融用户高效应用云计算服务，是您互联网转型的首选。',
-          path: '',
-          bg: require('~/static/img/home/finance-photo.jpg'),
-          iconPosition: 'background-position:0 -60px'
-        },
-        {
-          title: '移动云解决方案',
-          info: '移动云应用虚拟化系统为客户提供最佳的应用性能及灵活的应用虚拟化服务，帮助客户实现手机、平板电脑等移动设备安全顺畅地访问服务器上各种应用软件。',
-          path: '',
-          bg: require('~/static/img/home/mobile-photo.jpg'),
-          iconPosition: 'background-position:0 -120px'
-        },
-        {
-          title: '电商云解决方案',
-          info: '电商云帮助电商客户快速实现平台搭建、节约成本、应对业务高并发、强化安全防护能力，助力电商客户快速实现金融创新及业务增收的目标。',
-          path: '',
-          bg: require('~/static/img/home/busin-photo.jpg'),
-          iconPosition: 'background-position:0 -180px'
-        },
-        {
-          title: '游戏云解决方案',
-          info: '游戏云为客户游戏开发、游戏运营提供专属服务集群；多场景多类型的游戏部署解决方案，同时提供尊贵VIP售后服务，为客户游戏稳定运行提供基石。',
-          path: '',
-          bg: require('~/static/img/home/game-photo.jpg'),
-          iconPosition: 'background-position:0 -240px'
-        },
-        {
           title: '网站云解决方案',
           info: '网站云为企业及开发者提供灵活弹性自动化的基础IT设施建设、按需付费的服务模式及成本的运维服务体系，帮助客户转型，推动企业核心业务创新发展。',
           path: '',
@@ -676,7 +650,7 @@ export default {
   watch: {
     bannerIndex: {
       handler (newVal, oldVal) {
-        console.log('轮播图切换回调', newVal, oldVal)
+        // console.log('轮播图切换回调', newVal, oldVal)
         this.bottomStyle =
           newVal === 1 ? 'bottom:235px;opacity:1' : 'bottom:-150px;opacity:0'
       },
@@ -685,7 +659,7 @@ export default {
   },
   mounted () {
     this.bannerTime()
-    console.log(this.productList)
+    this.setProgrammeList()
   },
   beforeDestroy () {
     clearInterval(this.time)
@@ -714,6 +688,15 @@ export default {
       this.wsymainSelectIndex = index
       this.wsymainDetail = { ...this.wsymainList[index].detail }
     },
+    // 解决方案轮播数据处理
+    setProgrammeList () {
+      const tempArr = [...this.programmeList]
+      this.programmeList = [
+        ...tempArr.slice(1, tempArr.length),
+        ...this.programmeList,
+        ...tempArr.slice(0, tempArr.length - 1)
+      ]
+    },
     // 解决方案下一张
     handleProgrammeNext () {
       if (this.programmeLoading) {
@@ -721,9 +704,18 @@ export default {
       }
       this.programmeLoading = true
       this.programmeDirection = 'left'
-      this.programmeList.push(this.programmeList[Math.abs(this.programmeIndex)])
-      this.programmeIndex--
+      if (this.programmeIndex === -8) {
+        this.hasAni = false
+        this.programmeIndex = -3
+        setTimeout(() => {
+          this.hasAni = true
+          this.programmeIndex--
+        }, 0)
+      } else {
+        this.programmeIndex--
+      }
       setTimeout(() => {
+        this.hasAni = true
         this.programmeLoading = false
       }, 800)
     },
@@ -734,11 +726,18 @@ export default {
       }
       this.programmeLoading = true
       this.programmeDirection = 'right'
-      this.programmeList.unshift(this.programmeList.pop())
-      this.programmeIndex++
+      if (this.programmeIndex === 0) {
+        this.hasAni = false
+        this.programmeIndex = -5
+        setTimeout(() => {
+          this.hasAni = true
+          this.programmeIndex++
+        }, 0)
+      } else {
+        this.programmeIndex++
+      }
       setTimeout(() => {
-        // this.hasAni = false
-        // this.programmeIndex = 0
+        this.hasAni = true
         this.programmeLoading = false
       }, 800)
     }
@@ -790,6 +789,15 @@ export default {
       .banner-item2 {
         background: url('~/static/img/home/banner2.jpg') no-repeat center;
       }
+    }
+    .mask-none {
+      width: 100%;
+      height: 10px;
+      position: absolute;
+      left: 0;
+      bottom: 75px;
+      background: transparent;
+      cursor: pointer;
     }
     .more {
       height: 50px;
