@@ -3,19 +3,15 @@
 ## Build Setup
 项目包管理采用 yarn,需要使用yarn安装依赖，npm安装可能会造成未知的bug
 ```bash
-# install dependencies
+# 安装依赖
 $ yarn install
 
-# serve with hot reload at localhost:3000
+# 项目运行在 localhost:3000
 $ yarn dev
 
-# build for production and launch server
+# 打包及运行命令
 $ yarn build
 $ yarn start
-
-# generate static project
-$ yarn generate
-```
 
 ## 页面布局
 1. 全局版心类名 .container  /assets/scss/global.scss
