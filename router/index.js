@@ -56,6 +56,34 @@ export const $routes = [
     ]
   },
   {
+    path: '/pc/mysql',
+    name: 'mysql-pc',
+    component: resolve('pages/home/database/mysql/index.vue'),
+    meta: {
+      title: '数据库',
+      icon: 'icon-mysql'
+    },
+  },
+      
+  {
+    path: '/pc/mysql/buy.html',
+    name: 'buy-pc',
+    component: resolve('pages/home/database/buy/index.vue'),
+    meta: {
+      title: '数据库购买',
+      icon: 'icon-buy'
+    }
+  },
+  {
+    path: '/pc/mysql/price.html',
+    name: 'price-pc',
+    component: resolve('pages/home/database/price/index.vue'),
+    meta: {
+      title: '数据库价格',
+      icon: 'icon-price'
+    }
+  },
+  {
     path: '/mb',
     name: 'Home-mb',
     component: resolve('pages/home/index-m.vue'),

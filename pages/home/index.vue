@@ -423,7 +423,7 @@ export default {
             title: '云数据库MySQL',
             info: '稳定可靠、可弹性伸缩的数据方案',
             icon: 'iconyunshujuku',
-            path: '',
+            path: '/pc/mysql',
             hot: false,
             disable: false
           },
