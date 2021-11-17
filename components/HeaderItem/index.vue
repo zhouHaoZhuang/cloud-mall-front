@@ -4,18 +4,15 @@
       {{ itemData.title }}
     </div>
     <div class="con-list">
-      <div
-        v-for="(item, index) in itemData.list"
-        :key="index"
-        class="item"
-        @click="handleClickJump(item.path)"
-      >
-        <div class="item-top">
-          <span>{{ item.title }}</span>
-          <div v-if="item.hot" class="hot-img" />
-          <div v-if="item.new" class="new-img" />
-        </div>
-        <span class="info">{{ item.info }}</span>
+      <div v-for="(item, index) in itemData.list" :key="index" class="item">
+        <a :href="item.path">
+          <div class="item-top">
+            <span>{{ item.title }}</span>
+            <div v-if="item.hot" class="hot-img" />
+            <div v-if="item.new" class="new-img" />
+          </div>
+          <span class="info">{{ item.info }}</span>
+        </a>
       </div>
     </div>
   </div>
@@ -61,6 +58,13 @@ export default {
       background: #2b3033;
       padding: 16px;
       border: 1px solid #2b3033;
+      a {
+        display: block;
+        width: 100%;
+        height: 100%;
+        color: #fff;
+        transition: 0s;
+      }
       .item-top {
         display: inline-block;
         margin-bottom: 5px;
@@ -88,7 +92,9 @@ export default {
       }
     }
     .item:hover {
-      color: #059fff;
+      a {
+        color: #059fff;
+      }
       border: 1px solid #059fff;
       .info {
         color: #059fff;
