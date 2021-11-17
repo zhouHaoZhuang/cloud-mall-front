@@ -317,14 +317,14 @@ export default {
                 {
                   title: '金融解决方案',
                   info: '',
-                  path: '',
+                  path: '/pc/programme/finance',
                   hot: false,
                   new: false
                 },
                 {
                   title: '网站解决方案',
                   info: '',
-                  path: '',
+                  path: '/pc/programme/website',
                   hot: false,
                   new: false
                 }
@@ -336,7 +336,7 @@ export default {
                 {
                   title: '电商解决方案',
                   info: '',
-                  path: '',
+                  path: '/pc/programme/online',
                   hot: false,
                   new: false
                 }
@@ -348,7 +348,7 @@ export default {
                 {
                   title: '移动解决方案',
                   info: '',
-                  path: '',
+                  path: '/pc/programme/move',
                   hot: false,
                   new: false
                 }
@@ -360,7 +360,7 @@ export default {
                 {
                   title: '游戏解决方案',
                   info: '',
-                  path: '',
+                  path: '/pc/programme/game',
                   hot: false,
                   new: false
                 }
@@ -378,7 +378,7 @@ export default {
                 {
                   title: '公司简介',
                   info: '',
-                  path: '',
+                  path: '/pc/about/index?tab=0',
                   hot: false,
                   new: false
                 }
@@ -390,7 +390,7 @@ export default {
                 {
                   title: '新闻公告',
                   info: '',
-                  path: '',
+                  path: '/pc/about/index?tab=1',
                   hot: false,
                   new: false
                 }
@@ -402,7 +402,7 @@ export default {
                 {
                   title: '联系我们',
                   info: '',
-                  path: '',
+                  path: '/pc/about/index?tab=2',
                   hot: false,
                   new: false
                 }
@@ -414,7 +414,7 @@ export default {
                 {
                   title: '代理招募',
                   info: '',
-                  path: '',
+                  path: '/pc/about/recruit',
                   hot: false,
                   new: false
                 }
@@ -424,7 +424,8 @@ export default {
         }
       ],
       hoverIndex: -1,
-      headerItemData: {}
+      headerItemData: {},
+      hoverStyle: ''
     }
   },
   // watch: {
@@ -452,6 +453,7 @@ export default {
       if (!path) {
         return
       }
+      this.headerItemData = {}
       this.$router.push(path)
     },
     // 鼠标移出popup事件

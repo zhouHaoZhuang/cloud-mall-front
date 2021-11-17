@@ -13,19 +13,21 @@ export default ({ app, redirect, params, query, store, req }) => {
 
   // 移动端-pc端跳转适配
   const routerPush = (to, from, next, redirect) => {
-    if (isMobile === '/mb') {
-      if (to.path.includes('pc')) {
-        redirect(to.path.replace('pc', 'mb'))
-      } else {
-        next()
-      }
-    } else {
-      if (to.path.includes('mb')) {
-        redirect(to.path.replace('mb', 'pc'))
-      } else {
-        next()
-      }
-    }
+    // 暂时注释移动端适配
+    // if (isMobile === '/mb') {
+    //   if (to.path.includes('pc')) {
+    //     redirect(to.path.replace('pc', 'mb'))
+    //   } else {
+    //     next()
+    //   }
+    // } else {
+    //   if (to.path.includes('mb')) {
+    //     redirect(to.path.replace('mb', 'pc'))
+    //   } else {
+    //     next()
+    //   }
+    // }
+    next()
   }
   // app == vue实例
   // redirect 跳转函数

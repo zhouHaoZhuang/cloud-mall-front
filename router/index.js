@@ -34,6 +34,7 @@ export const $routes = [
       icon: 'icon-home'
     }
   },
+  // 首页
   {
     path: '/pc',
     name: 'Home-pc',
@@ -101,6 +102,72 @@ export const $routes = [
         }
       }
     ]
+  },
+  // 解决方案
+  {
+    path: '/pc/programme/finance',
+    name: 'Finance-pc',
+    component: resolve('pages/programme/finance.vue'),
+    meta: {
+      title: '金融解决方案',
+      icon: 'icon-home'
+    }
+  },
+  {
+    path: '/pc/programme/online',
+    name: 'Online-pc',
+    component: resolve('pages/programme/online.vue'),
+    meta: {
+      title: '电商解决方案',
+      icon: 'icon-home'
+    }
+  },
+  {
+    path: '/pc/programme/move',
+    name: 'Move-pc',
+    component: resolve('pages/programme/move.vue'),
+    meta: {
+      title: '移动解决方案',
+      icon: 'icon-home'
+    }
+  },
+  {
+    path: '/pc/programme/game',
+    name: 'Game-pc',
+    component: resolve('pages/programme/game.vue'),
+    meta: {
+      title: '游戏解决方案',
+      icon: 'icon-home'
+    }
+  },
+  {
+    path: '/pc/programme/website',
+    name: 'Website-pc',
+    component: resolve('pages/programme/website.vue'),
+    meta: {
+      title: '网站解决方案',
+      icon: 'icon-home'
+    }
+  },
+  // 关于我们
+  {
+    path: '/pc/about/index',
+    name: 'About-pc',
+    component: resolve('pages/about/index.vue'),
+    meta: {
+      title: '关于我们',
+      icon: 'icon-home'
+    }
+  },
+  // 代理招募
+  {
+    path: '/pc/about/recruit',
+    name: 'Recruit-pc',
+    component: resolve('pages/about/recruit.vue'),
+    meta: {
+      title: '代理招募',
+      icon: 'icon-home'
+    }
   }
 ]
 
