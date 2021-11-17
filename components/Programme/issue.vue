@@ -5,7 +5,11 @@
         {{ issueData.title }}
       </div>
       <div class="list">
-        <div v-for="(item, index) in issueData.list" :key="index" class="item">
+        <div
+          v-for="(item, index) in issueData.list"
+          :key="index"
+          :class="issueData.list.length === 3 ? 'item item-width' : 'item'"
+        >
           <div
             class="top-img"
             :style="`background:url(${issueData.bg}) no-repeat`"
@@ -72,6 +76,9 @@ export default {
           line-height: 24px;
         }
       }
+      .item-width {
+        width: 31%;
+      }
       .item:nth-child(2) {
         .top-img {
           background-position: 0 -100px !important;
@@ -96,7 +103,7 @@ export default {
       }
       .item:nth-child(1):hover {
         .top-img {
-          background-position: -100px 0!important;
+          background-position: -100px 0 !important;
         }
       }
       .item:nth-child(2):hover {

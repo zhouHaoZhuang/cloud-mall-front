@@ -14,7 +14,9 @@
             <div
               class="bg"
               :style="`background:url(${item.bg}) no-repeat;width:${
-                item.title === '万兆网络' ? 190 : 180
+                item.title === '万兆网络' || item.title === '别让等待成为习惯'
+                  ? 190
+                  : 180
               }px`"
             />
           </div>

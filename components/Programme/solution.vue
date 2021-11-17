@@ -9,6 +9,9 @@
         :style="`${solutionData.bg};${solutionData.height}`"
       >
         <div class="info-box" :style="solutionData.infoWidth">
+          <div v-if="solutionData.infoTitle" class="infoTitle">
+            {{ solutionData.infoTitle }}
+          </div>
           <p v-for="(item, index) in solutionData.infoList" :key="index">
             {{ item }}
           </p>
@@ -67,6 +70,13 @@ export default {
           text-indent: 0;
           border-radius: 4px;
           background-color: #059fff;
+        }
+        .infoTitle {
+          margin-bottom: 25px;
+          font-size: 24px;
+          color: #333;
+          text-indent: 0;
+          text-align: center;
         }
       }
     }
