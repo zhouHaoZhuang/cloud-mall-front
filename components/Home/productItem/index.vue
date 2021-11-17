@@ -28,6 +28,7 @@ export default {
   methods: {
     // 点击跳转
     handleClickJump (path) {
+      console.log(path)
       if (!path) {
         return
       }
