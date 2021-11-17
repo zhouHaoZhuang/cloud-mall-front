@@ -1,5 +1,5 @@
 <template>
-  <div class="finance-container">
+  <div class="game-container">
     <!-- 轮播图 -->
     <Banner type="game" />
     <!-- 面临的问题 -->
@@ -91,7 +91,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.finance-container {
+.game-container {
   background: #f5f6f7;
 }
 </style>

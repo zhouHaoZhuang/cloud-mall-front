@@ -1,5 +1,5 @@
 <template>
-  <div class="finance-container">
+  <div class="online-container">
     <!-- 轮播图 -->
     <Banner type="online" />
     <!-- 面临的问题 -->
@@ -87,7 +87,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.finance-container {
+.online-container {
   background: #f5f6f7;
   .issue-online {
     background: #fff;

@@ -1,5 +1,5 @@
 <template>
-  <div class="finance-container">
+  <div class="move-container">
     <!-- 轮播图 -->
     <Banner type="move" />
     <!-- 面临的问题 -->
@@ -95,7 +95,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.finance-container {
+.move-container {
   background: #f5f6f7;
 }
 </style>
