@@ -41,7 +41,7 @@ export default {
       solutionData: {
         title: '解决方案构架部署',
         height: 'height: 370px',
-        bg: require('~/static/img/programme/ecommerce-deploy.png'),
+        bg: `background:url(${require('~/static/img/programme/ecommerce-deploy.png')}) no-repeat left top`,
         infoWidth: 'width: 30%',
         infoList: [
           '电商云解决方案具备高弹性可扩展性、成本比传统IT架构节约70%以上、效率高、运维维护成本低等特点，帮助电商企业快速实现平台搭建、节约成本、应对高业务并发、强化安全防护能力等目标，助力电商用户快速实现互联网金融创新。'

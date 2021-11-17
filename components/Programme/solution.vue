@@ -6,7 +6,7 @@
       </div>
       <div
         class="solution-box"
-        :style="`background:url(${solutionData.bg}) no-repeat;${solutionData.height}`"
+        :style="`${solutionData.bg};${solutionData.height}`"
       >
         <div class="info-box" :style="solutionData.infoWidth">
           <p v-for="(item, index) in solutionData.infoList" :key="index">

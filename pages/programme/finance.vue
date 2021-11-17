@@ -48,7 +48,7 @@ export default {
       solutionData: {
         title: '解决方案构架部署',
         height: 'height: 560px',
-        bg: require('~/static/img/programme/financial-deploy.png'),
+        bg: `background:url(${require('~/static/img/programme/financial-deploy.png')}) no-repeat left top`,
         infoWidth: 'width: 35%',
         infoList: [
           '金融云微金融解决方案为P2P、小贷、典当、担保、众筹等小微金融企业提供定制个性化的云计算服务。互联网微金融用户也能享有金融级的安全保障；海量计算、弹性部署能解决互联网业务的海量并发问题，同时大幅降低初创企业IT成本。此外，浙江云盾联手合作伙伴共同打造微金融生态链，提供一站式解决方案平台。',
