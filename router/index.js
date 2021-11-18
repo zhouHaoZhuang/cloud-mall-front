@@ -66,7 +66,7 @@ export const $routes = [
     children: [
       {
         path: '/pc/cloud-price',
-        name: 'cloud',
+        name: 'cloud-price',
         component: resolve('product-su/cloud/cloud-price'),
         meta: {
           title: '价格',
