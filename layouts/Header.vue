@@ -16,28 +16,29 @@
           @mouseleave="mouseLeave"
           @click="handleClickJump(item.path)"
         >
-          <span>{{ item.title }}</span>
-          <img
-            v-if="index === 0"
-            src="~/static/img/home/hot.png"
-            alt=""
-            class="hot"
-          >
-          <div v-if="hoverIndex === index" class="line" />
-          <!-- mask 鼠标进入nav展示列表 -->
-          <div
-            v-if="JSON.stringify(headerItemData) !== '{}'"
-            class="popup-box"
-            @mouseleave="maskMouseLeave"
-          >
-            <div class="container popup-wrap">
-              <HeaderItem
-                v-for="(ele, idx) in headerItemData"
-                :key="idx"
-                :item-data="ele"
-              />
+          <a href="#">
+            <span>{{ item.title }}</span>
+            <img
+              v-if="index === 0"
+              src="~/static/img/home/hot.png"
+              alt=""
+              class="hot"
+            >
+            <!-- mask 鼠标进入nav展示列表 -->
+            <div
+              v-if="JSON.stringify(headerItemData) !== '{}'"
+              class="popup-box"
+              @mouseleave="maskMouseLeave"
+            >
+              <div class="container popup-wrap">
+                <HeaderItem
+                  v-for="(ele, idx) in headerItemData"
+                  :key="idx"
+                  :item-data="ele"
+                />
+              </div>
             </div>
-          </div>
+          </a>
         </div>
       </div>
       <!-- login -->
@@ -114,21 +115,21 @@ export default {
                 {
                   title: '云服务器',
                   info: '高速稳定高弹性的计算服务',
-                  path: '',
+                  path: '/pc/cloud-choose',
                   hot: true,
                   new: false
                 },
                 {
                   title: '负载均衡',
                   info: '高性能流量分发的负载均衡服务',
-                  path: '',
+                  path: '/pc/balancing-ba',
                   hot: false,
                   new: false
                 },
                 {
                   title: '对象存储',
                   info: '高可用、易扩展、低成本、一站式',
-                  path: '',
+                  path: '/pc/object-based-use',
                   hot: false,
                   new: false
                 },
@@ -162,8 +163,8 @@ export default {
                 {
                   title: '域名注册',
                   info: '提供五星级的域名注册服务',
-                  path: '',
-                  hot: false,
+                  path: '/pc/Domain-name',
+                  hot: true,
                   new: false
                 },
                 {
@@ -501,6 +502,7 @@ export default {
       align-items: center;
       font-size: 18px;
       color: #fff;
+<<<<<<< HEAD
       position: relative;
       // >div>span{
       //   width: 72px;
@@ -508,11 +510,14 @@ export default {
       //  >div>span:nth-child(2){
       //   width: 36px;
       // }
+=======
+>>>>>>> 31b6c15e0118254f30cfad334ae31cd4a025ae74
       .item {
         height: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
+<<<<<<< HEAD
         position: relative;
         padding: 0 21px;
         overflow: hidden;
@@ -521,18 +526,24 @@ export default {
           position: absolute;
           top: 10px;
           right: 0;
+=======
+        padding: 0 24px;
+        overflow: hidden;
+        cursor: pointer;
+        box-sizing: border-box;
+        a {
+          color: #fff;
+          transition: 0s;
+>>>>>>> 31b6c15e0118254f30cfad334ae31cd4a025ae74
         }
-        .line {
-          width: 200px;
-          height: 3px;
-          background: #059fff;
+        .hot {
           position: absolute;
-          left: 0;
-          bottom: 0;
+          top: 24px;
+          left: 250px;
         }
         .popup-box {
           display: none;
-          position: fixed;
+          position: absolute;
           top: 80px;
           left: 0;
           right: 0;
@@ -550,13 +561,19 @@ export default {
         }
       }
       .item:hover {
-        color: #059fff;
+        a {
+          color: #059fff;
+          margin-top: 3px;
+        }
+        border-bottom: 3px solid #059fff;
         .popup-box {
           display: block;
         }
       }
       .item:nth-child(1) {
-        color: #fcf53f;
+        a {
+          color: #fcf53f;
+        }
       }
     }
     .login {
