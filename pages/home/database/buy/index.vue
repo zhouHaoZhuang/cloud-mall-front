@@ -35,48 +35,62 @@
       <div class="Insspe">
         <div>实例规格</div>
         <div>
-          <p><span>存储类型</span><span>本地SSD盘</span></p>
+          <p>
+            <span class="atv">存储类型：</span><span class="blue">本地SSD盘</span>
+          </p>
           <p>
             本地SSD盘是指与数据库引擎位于同一节点的SSD盘。将数据存储于本地SSD盘，可以降低I/O延时。
           </p>
           <div>
-            <span>实例规格</span>
+            <span class="atv">实例规格：</span>
             <select id="" name="">
-              <option value="">
+              <option value="1核2G">
                 1核2G
               </option>
-              <option value="">
+              <option value="2核4G">
                 2核4G
               </option>
-              <option value="">
+              <option value="4核8G">
                 4核8G
               </option>
-              <option value="">
+              <option value="4核16G">
                 4核16G
               </option>
-              <option value="">
+              <option value="8核16G">
                 8核16G
               </option>
             </select>
-            <div>
-              <span>存储空间</span>
-              <div>100G 300G 500G</div>
-              <div>
-                <input id="" type="text" name="" value="5">
-                <span>上</span>
-                <span>下</span>
+          </div>
+          <div>
+            <span class="atv">存储空间：</span>
+            <div id="10" @click="clickprog">
+              <div id="100" ref="prog1">
+                100G
               </div>
+              <div id="300" ref="prog3">
+                300G
+              </div>
+              <div id="500" ref="prog5">
+                500G
+              </div>
+              <div ref="prog" class="prog" />
+            </div>
+            &nbsp;
+            <div>
+              <input id="" v-model="space" type="text" name="">
+              <span>上</span>
+              <span>下</span>
             </div>
           </div>
         </div>
       </div>
-      <div>
+      <div class="net">
         <div>网络</div>
         <div>
-          <p><span>网络类型</span><span>经典网格</span></p>
+          <p><span class="atv">网络类型：</span><span>经典网格</span></p>
         </div>
       </div>
-      <div>
+      <div class="purc">
         <div>购买量</div>
         <div>
           <p>
@@ -110,7 +124,74 @@
 </template>
 
 <script>
-export default {}
+export default {
+  data () {
+    return {
+      space: 0
+    }
+  },
+  methods: {
+    clickprog (e) {
+      if (e.path[0].id === '10') {
+        return
+      }
+      console.log(e.target, '///////')
+      // 100G宽度304px  300G宽度158px  500G宽度157px
+      // console.log(e.path[0].offsetWidth, '----')
+      let newwidth = e.offsetX
+      let space = 0
+      if (e.path[0].id === '100') {
+        space = (newwidth / e.path[0].offsetWidth) * 100
+        // console.log(space, '----')
+      } else if (e.path[0].id === '300') {
+        newwidth = e.offsetX + 304
+        space = (e.offsetX / e.path[0].offsetWidth) * 200 + 100
+        // console.log(space, '----')
+      } else if (e.path[0].id === '500') {
+        newwidth = e.offsetX + 304 + 158
+        space = (e.offsetX / e.path[0].offsetWidth) * 200 + 300
+        console.log(space, e.offsetX, e.path[0].offsetWidth, '----')
+      } else if (e.path[0].id === '0') {
+        console.log(e.path)
+      } else {
+        console.log(e.path[0])
+      }
+      console.log(
+        '7777',
+        e.path[0].id,
+        '777777',
+        space,
+        '777777',
+        e.offsetX,
+        '7777'
+      )
+      // console.log(e.offsetX)
+      if (space % 5) {
+        console.log(space, '有余数')
+        space = space - (space % 5) + 5
+        console.log(space, '****')
+      } else {
+        // console.log(e.offsetX, e.path[0].offsetWidth, space, '没有余数')
+      }
+      this.space = space.toFixed(0)
+      this.$refs.prog1.style.color = 'rgb(153, 153, 153)'
+      this.$refs.prog3.style.color = 'rgb(153, 153, 153)'
+      this.$refs.prog5.style.color = 'rgb(153, 153, 153)'
+      if (this.space > 90) {
+        this.$refs.prog1.style.color = '#fff'
+      }
+      if (this.space > 260) {
+        this.$refs.prog3.style.color = '#fff'
+      }
+      if (this.space > 455) {
+        this.$refs.prog5.style.color = '#fff'
+      }
+      const wih = this.$refs.prog
+      wih.style.width = newwidth + 'px'
+      // console.log(wih.offsetWidth)
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -299,6 +380,201 @@ export default {}
       text-align: center;
       padding-left: 5px;
       border: solid 1px rgb(238, 238, 238);
+    }
+    > div:nth-child(2) {
+      padding: 32px 0 16px;
+      margin-bottom: 16px;
+      > p:nth-child(2) {
+        padding: 0 112px 0 106px;
+        margin-bottom: 16px;
+        font-size: 12px;
+        color: rgb(153, 153, 153);
+      }
+      > div:nth-child(3) {
+        select {
+          margin-left: -5px;
+          width: 180px;
+          height: 40px;
+          padding: 10px;
+          color: rgb(0 170 255);
+          border: solid 1px rgb(0 170 255);
+        }
+      }
+      > div:nth-child(4) {
+        display: flex;
+        margin-top: 50px;
+        margin-left: -5px;
+        > div:nth-child(2) {
+          display: flex;
+          width: 620px;
+          position: relative;
+          border: solid 1px rgb(238, 238, 238);
+          > div {
+            position: relative;
+            text-align: right;
+            padding-right: 10px;
+            font-size: 12px;
+            color: rgb(153 153 153);
+            z-index: 100;
+          }
+          // 进度条
+          .prog {
+            width: 50px;
+            height: 20px;
+            background-color: rgb(66, 164, 255);
+            position: absolute;
+            z-index: 80;
+            top: 0;
+            left: 0;
+            transition: width 0.1s;
+          }
+          > div:nth-child(1) {
+            flex: 2;
+            border-right: 1px solid rgb(238, 238, 238);
+          }
+          > div:nth-child(2) {
+            flex: 1;
+            border-right: 1px solid rgb(238, 238, 238);
+          }
+          > div:nth-child(3) {
+            flex: 1;
+          }
+        }
+      }
+    }
+    span {
+      display: inline-block;
+    }
+    .atv {
+      width: 107px;
+      text-align: right;
+      font-size: 14px;
+      color: rgb(153, 153, 153);
+    }
+    .blue {
+      border: 1px solid rgb(221 221 221);
+      width: 130px;
+      height: 35px;
+      line-height: 35px;
+      text-align: center;
+      font-size: 14px;
+      color: rgb(51 51 51);
+      // margin: 8px 0 16px;
+      margin-left: -1px;
+      background-color: rgb(5, 159, 255);
+      color: rgb(255, 255, 255);
+    }
+  }
+  .net:hover {
+    border-color: rgb(5, 159, 255);
+    > div:nth-child(1) {
+      background-color: rgb(5, 159, 255);
+      color: rgb(255, 255, 255);
+    }
+  }
+  .net {
+    width: 1220px;
+    height: 106px;
+    display: flex;
+    margin: 16px auto 0;
+    border: 1px solid rgb(238, 238, 238);
+    border-left: 0;
+    background-color: #fff;
+    > div:nth-child(1) {
+      width: 31px;
+      writing-mode: vertical-lr;
+      height: 108px;
+      background-color: rgb(235, 236, 238);
+      color: rgb(119, 119, 119);
+      margin-top: -2px;
+      text-align: center;
+      padding-left: 5px;
+      border: solid 1px rgb(238, 238, 238);
+    }
+    > div:nth-child(2) {
+      > p {
+        display: flex;
+        height: 100%;
+        align-items: center;
+        > span:nth-child(2) {
+          border: 1px solid rgb(221 221 221);
+          width: 130px;
+          height: 35px;
+          line-height: 35px;
+          text-align: center;
+          font-size: 14px;
+          color: rgb(51 51 51);
+          // margin: 8px 0 16px;
+          margin-left: -1px;
+          background-color: rgb(5, 159, 255);
+          color: rgb(255, 255, 255);
+        }
+      }
+    }
+    .atv {
+      width: 107px;
+      text-align: right;
+      font-size: 14px;
+      color: rgb(153, 153, 153);
+    }
+  }
+  .purc:hover {
+    border-color: rgb(5, 159, 255);
+    > div:nth-child(1) {
+      background-color: rgb(5, 159, 255);
+      color: rgb(255, 255, 255);
+    }
+  }
+  .purc {
+    width: 1220px;
+    height: 226px;
+    display: flex;
+    margin: 16px auto;
+    border: 1px solid rgb(238, 238, 238);
+    border-left: 0;
+    background-color: #fff;
+    > div:nth-child(1) {
+      width: 31px;
+      writing-mode: vertical-lr;
+      height: 228px;
+      background-color: rgb(235, 236, 238);
+      color: rgb(119, 119, 119);
+      margin-top: -2px;
+      text-align: center;
+      padding-left: 5px;
+      border: solid 1px rgb(238, 238, 238);
+    }
+    > div:nth-child(2) {
+      padding: 32px 0 16px;
+      > p > span {
+        display: inline-block;
+      }
+      > p:nth-child(1) {
+        span {
+          line-height: 35px;
+          text-align: center;
+          width: 85px;
+          height: 35px;
+          border: solid 1px rgb(221 221 221);
+          margin-left: -1px;
+          font-size: 14px;
+          color: rgb(85, 85, 85);
+        }
+      }
+      > p > span:nth-child(1) {
+        width: 107px;
+        text-align: right;
+        font-size: 14px;
+        color: rgb(153, 153, 153);
+        border: 0;
+      }
+      > p:nth-child(2) > span:nth-child(1) ~ span {
+        width: 129px;
+        height: 35px;
+        text-align: center;
+        line-height: 35px;
+        border: solid 1px rgb(221 221 221);
+      }
     }
   }
 }
