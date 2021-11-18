@@ -56,50 +56,50 @@ export const $routes = [
     ]
   },
   {
-    path:'/pc/cloud-choose',
-    name:'cloud',
-    component:resolve('product-su/cloud/cloud-choose'),
-    meta:{
-      title:'云服务器',
-      icon:'icon'
+    path: '/pc/cloud-choose',
+    name: 'cloud',
+    component: resolve('product-su/cloud/cloud-choose'),
+    meta: {
+      title: '云服务器',
+      icon: 'icon'
     },
-    children:[
-     {
-      path:'/pc/cloud-price',
-      name:'cloud',
-      component:resolve('product-su/cloud/cloud-price'),
-      meta:{
-      title:'价格',
-      icon:'icon'
+    children: [
+      {
+        path: '/pc/cloud-price',
+        name: 'cloud-price',
+        component: resolve('product-su/cloud/cloud-price'),
+        meta: {
+          title: '价格',
+          icon: 'icon'
         }
-     }
+      }
     ]
   },
   {
-    path:'/pc/balancing-ba',
-    name:'balancing',
-    component:resolve('product-su/balancing/balancing-ba'),
-    meta:{
-      title:'负载均衡',
-      icon:'icon'
+    path: '/pc/balancing-ba',
+    name: 'balancing',
+    component: resolve('product-su/balancing/balancing-ba'),
+    meta: {
+      title: '负载均衡',
+      icon: 'icon'
     }
   },
   {
-    path:'/pc/object-based-use',
-    name:'object',
-    component:resolve('product-su/object-based/object-based-use'),
-    meta:{
-      title:'对象储存',
-      icon:'icon'
+    path: '/pc/object-based-use',
+    name: 'object',
+    component: resolve('product-su/object-based/object-based-use'),
+    meta: {
+      title: '对象储存',
+      icon: 'icon'
     }
   },
   {
-    path:'/pc/Domain-name',
-    name:'domain',
-    component:resolve('product-su/domain/Domain-name'),
-    meta:{
-      title:'域名注册',
-      icon:'icon'
+    path: '/pc/Domain-name',
+    name: 'domain',
+    component: resolve('product-su/domain/Domain-name'),
+    meta: {
+      title: '域名注册',
+      icon: 'icon'
     }
   },
   {
@@ -109,9 +109,9 @@ export const $routes = [
     meta: {
       title: '数据库',
       icon: 'icon-mysql'
-    },
+    }
   },
-      
+
   {
     path: '/pc/mysql/buy.html',
     name: 'buy-pc',

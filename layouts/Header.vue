@@ -480,7 +480,7 @@ export default {
   .header-box {
     height: 100%;
     display: flex;
-    padding: 12px 0;
+    padding: 0;
     width: 1220px;
     .logo {
       width: 142px;
@@ -497,8 +497,8 @@ export default {
       }
     }
     .nav {
+      height: 80px;
       display: flex;
-      align-items: center;
       font-size: 18px;
       color: #fff;
       .item {
@@ -513,6 +513,7 @@ export default {
         a {
           color: #fff;
           transition: 0s;
+          display: inline-block;
         }
         .hot {
           position: absolute;
