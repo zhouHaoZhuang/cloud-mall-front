@@ -231,10 +231,10 @@ export default {
           id: 'support',
           title: '合作支持'
         },
-        {
-          id: 'mess',
-          title: '合作咨询'
-        },
+        // {
+        //   id: 'mess',
+        //   title: '合作咨询'
+        // },
         {
           id: 'condition',
           title: '合作条件'
@@ -431,6 +431,9 @@ export default {
       ]
     }
   },
+  mounted () {
+    this.getElementDetail()
+  },
   methods: {
     // 点击跳转
     handleClickJump (path) {
@@ -448,6 +451,17 @@ export default {
         behavior: 'smooth'
       })
       console.log('导航点击', item, nodeEle)
+    },
+    // 获取所有需要锚点跳转元素
+    getElementDetail () {
+      const result = []
+      this.navList.forEach((ele) => {
+        result.push(document.querySelector(`#${ele.id}`))
+      })
+      console.log('最终获取的元素是', result)
+      result.forEach((ele) => {
+        console.log('获取的元素的位置信息', ele.scrollTop)
+      })
     }
   }
 }
