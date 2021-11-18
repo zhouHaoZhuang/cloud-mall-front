@@ -20,7 +20,11 @@
     <div class="nav-wrap">
       <div class="container">
         <ul class="list">
-          <li v-for="(item, index) in navList" :key="index">
+          <li
+            v-for="(item, index) in navList"
+            :key="index"
+            @click="handleNavJump(item)"
+          >
             <span :class="navSelectIndex === index ? 'active' : ''">{{
               item.title
             }}</span>
@@ -29,7 +33,7 @@
       </div>
     </div>
     <!-- 开放产品能力 -->
-    <div class="open-wrap">
+    <div id="open" class="open-wrap">
       <div class="container">
         <div class="public-title">
           开放产品能力
@@ -52,7 +56,7 @@
       </div>
     </div>
     <!-- 市场机遇 -->
-    <div class="market-wrap">
+    <div id="market" class="market-wrap">
       <div class="container">
         <div class="public-title">
           市场机遇
@@ -83,7 +87,7 @@
       </div>
     </div>
     <!-- 合作优势 -->
-    <div class="advantage-wrap">
+    <div id="advantage" class="advantage-wrap">
       <div class="container">
         <div class="public-title">
           合作优势
@@ -102,7 +106,7 @@
       </div>
     </div>
     <!-- 合作流程 -->
-    <div class="process-wrap">
+    <div id="process" class="process-wrap">
       <div class="container">
         <div class="public-title">
           合作流程
@@ -123,7 +127,7 @@
       </div>
     </div>
     <!-- 合作支持 -->
-    <div class="support-wrap">
+    <div id="support" class="support-wrap">
       <div class="container">
         <div class="public-title">
           合作支持
@@ -149,7 +153,7 @@
       </div>
     </div>
     <!-- 合作条件 -->
-    <div class="condition-wrap">
+    <div id="condition" class="condition-wrap">
       <div class="container">
         <div class="public-title">
           合作条件
@@ -168,7 +172,7 @@
       </div>
     </div>
     <!-- 搭配系统 -->
-    <div class="system-wrap">
+    <div id="system" class="system-wrap">
       <div class="container">
         <div class="public-title">
           搭配系统
@@ -208,35 +212,35 @@ export default {
     return {
       navList: [
         {
-          id: '#',
+          id: 'open',
           title: '开放产品能力'
         },
         {
-          id: '#',
+          id: 'market',
           title: '市场机遇'
         },
         {
-          id: '#',
+          id: 'advantage',
           title: '合作优势'
         },
         {
-          id: '#',
+          id: 'process',
           title: '合作流程 '
         },
         {
-          id: '#',
+          id: 'support',
           title: '合作支持'
         },
         {
-          id: '#',
+          id: 'mess',
           title: '合作咨询'
         },
         {
-          id: '#',
+          id: 'condition',
           title: '合作条件'
         },
         {
-          id: '#',
+          id: 'system',
           title: '搭配系统'
         }
       ],
@@ -434,6 +438,16 @@ export default {
         return
       }
       this.$router.push(path)
+    },
+    // 锚点导航点击
+    handleNavJump (item) {
+      const nodeEle = document.querySelector(`#${item.id}`)
+      nodeEle.scrollIntoView({
+        block: 'start',
+        top: '80px',
+        behavior: 'smooth'
+      })
+      console.log('导航点击', item, nodeEle)
     }
   }
 }
