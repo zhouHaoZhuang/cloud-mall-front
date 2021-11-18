@@ -16,28 +16,29 @@
           @mouseleave="mouseLeave"
           @click="handleClickJump(item.path)"
         >
-          <span>{{ item.title }}</span>
-          <img
-            v-if="index === 0"
-            src="~/static/img/home/hot.png"
-            alt=""
-            class="hot"
-          >
-          <div v-if="hoverIndex === index" class="line" />
-          <!-- mask 鼠标进入nav展示列表 -->
-          <div
-            v-if="JSON.stringify(headerItemData) !== '{}'"
-            class="popup-box"
-            @mouseleave="maskMouseLeave"
-          >
-            <div class="container popup-wrap">
-              <HeaderItem
-                v-for="(ele, idx) in headerItemData"
-                :key="idx"
-                :item-data="ele"
-              />
+          <a href="#">
+            <span>{{ item.title }}</span>
+            <img
+              v-if="index === 0"
+              src="~/static/img/home/hot.png"
+              alt=""
+              class="hot"
+            >
+            <!-- mask 鼠标进入nav展示列表 -->
+            <div
+              v-if="JSON.stringify(headerItemData) !== '{}'"
+              class="popup-box"
+              @mouseleave="maskMouseLeave"
+            >
+              <div class="container popup-wrap">
+                <HeaderItem
+                  v-for="(ele, idx) in headerItemData"
+                  :key="idx"
+                  :item-data="ele"
+                />
+              </div>
             </div>
-          </div>
+          </a>
         </div>
       </div>
       <!-- login -->
@@ -498,32 +499,27 @@ export default {
       align-items: center;
       font-size: 18px;
       color: #fff;
-      position: relative;
       .item {
         height: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
-        position: relative;
         padding: 0 24px;
         overflow: hidden;
         cursor: pointer;
+        box-sizing: border-box;
+        a {
+          color: #fff;
+          transition: 0s;
+        }
         .hot {
           position: absolute;
-          top: 27px;
-          right: 0;
-        }
-        .line {
-          width: 200px;
-          height: 3px;
-          background: #059fff;
-          position: absolute;
-          left: 0;
-          bottom: 0;
+          top: 24px;
+          left: 250px;
         }
         .popup-box {
           display: none;
-          position: fixed;
+          position: absolute;
           top: 80px;
           left: 0;
           right: 0;
@@ -541,13 +537,19 @@ export default {
         }
       }
       .item:hover {
-        color: #059fff;
+        a {
+          color: #059fff;
+          margin-top: 3px;
+        }
+        border-bottom: 3px solid #059fff;
         .popup-box {
           display: block;
         }
       }
       .item:nth-child(1) {
-        color: #fcf53f;
+        a {
+          color: #fcf53f;
+        }
       }
     }
     .login {

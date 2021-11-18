@@ -1,7 +1,7 @@
 <template>
-  <div class="finance-container">
+  <div class="game-container">
     <!-- 轮播图 -->
-    <Banner type="finance" />
+    <Banner type="game" />
     <!-- 面临的问题 -->
     <Issue :issue-data="issueData" />
     <!-- 解决方案构架部署 -->
@@ -9,7 +9,7 @@
     <!-- 服务优势 -->
     <Advantage :advantage-data="advantageData" />
     <!-- 更多解决方案 -->
-    <More type="finance" />
+    <More type="game" />
   </div>
 </template>
 
@@ -24,59 +24,55 @@ export default {
   data () {
     return {
       issueData: {
-        title: '金融云面临的问题',
-        bg: require('~/static/img/programme/f-issue-sprite.png'),
+        title: '游戏云全系列产品',
+        bg: require('~/static/img/programme/g-issue-sprite.png'),
         list: [
           {
-            title: '互联互通',
-            info: '各金融体系、机构的数据标准、接口等有待进一步统一，以便提供更便捷的数据交换和处理；而现实是通常多机构多种标准或接口，系统整合难度大。'
+            title: '专属集群',
+            info: '打造低虚拟化、高可用性的游戏集群，每一个数据中心浙江云盾都配备了万兆独立光纤，搭建了完善的实时监控故障告警技术。硬防可达300G，可有效防御 DDoS 攻击，保障游戏用户网络稳定安全。'
           },
           {
-            title: '数据量大',
-            info: '在国外，如果银行的客户数或账户数超过千万就属于大型银行了，但这与我国的四大银行的一些省级分行的数据量相当，中国工商银行2002年完成的数据集中工程有3亿多账户。数据量太大，数据的存储和处理就成了问题，同时对IT设备的处理能力带来很大的挑战。'
+            title: '高可用产品',
+            info: '浙江云盾为游戏云用户量身打造了高 IO 性能的独立云服务器，平均读写可达 1000Mb/秒，有效避免了游戏卡顿现象。同时通过最新的安全技术，实现高安全的隔离能力，保障游戏用户体验。'
           },
           {
-            title: '数据的安全性',
-            info: '金融领域对于数据安全以及用户隐私保护的需求要比其他任何行业要求都高。金融行业是具体管钱的行业，客户的隐私、企业的数据安全、产品安全等等都尤其重要。'
-          },
-          {
-            title: '成本过高',
-            info: '金融体系、机构整合云端面临技术投入大，成本高，不灵活，运维难度大，交付周期长等问题。'
+            title: '一对一专席秘书服务',
+            info: '浙江云盾为游戏云用户提供尊贵的1对1 VIP专席秘书，专业工程师提供部署游戏上线专业架构指导。提供专业护航支持，专席秘书 60S快速响应用户需求，并进行安排处理问题。运维人员 365 天主动运维，实时监控。'
           }
         ]
       },
       solutionData: {
         title: '解决方案构架部署',
-        height: 'height: 560px',
-        bg: require('~/static/img/programme/financial-deploy.png'),
-        infoWidth: 'width: 35%',
+        height: 'height: 480px',
+        bg: `background:url(${require('~/static/img/programme/game-deploy.png')}) no-repeat left top`,
+        infoWidth: 'width: 30%',
+        infoTitle: '构架说明',
         infoList: [
-          '金融云微金融解决方案为P2P、小贷、典当、担保、众筹等小微金融企业提供定制个性化的云计算服务。互联网微金融用户也能享有金融级的安全保障；海量计算、弹性部署能解决互联网业务的海量并发问题，同时大幅降低初创企业IT成本。此外，浙江云盾联手合作伙伴共同打造微金融生态链，提供一站式解决方案平台。',
-          '在整个产品选择和设计上，浙江云盾努力为金融用户创造一个安全可靠的运行环境，并为用户提供一支可信赖的技术运维支持团队，可以帮助客户完成从前期规划、实施、应用迁移，到后期运维每一阶段的工作，为金融行业持续发展做出贡献。'
+          '浙江云盾游戏云服务，从构建基础设施到游戏上线到后期精细化运营，浙江云盾服务涵盖项目整个发展周期。浙江云盾拥有业内领先的辽宁双线高防节点以及国内优质的BGP多线网络资源，高效稳定的云服务器、云数据库以及专业的安全服务，为用户提供贴心全面的的游戏云解决方案，筑造游戏稳定运行的基石。'
         ]
       },
       advantageData: {
-        title: '金融云服务优势',
+        title: '游戏云服务优势',
         list: [
           {
-            title: '简易操作，灵活管理',
-            info: '集群技术，实现多节点共同参与计算，自动并行处理并负载均衡。浙江云盾服务器基于集群，硬件冗余度非常高，轻松应对硬件故障问题。',
+            title: '游戏更新智能分发网络',
+            info: '开放存储服务与内容分发网络服务结合 ，可实现游戏升级更新包与客户端高速、低成本的分发与加速。',
+            bg: require('~/static/img/programme/gyoushi_img1.png')
+          },
+          {
+            title: '别让卡顿习以为常',
+            info: '游戏云专属服务器集群，高IO读写性能。保证在高并发下依然能够保证稳定的IOPS，有效避免了游戏卡顿现象，提升玩家体验以及留存率。',
             bg: require('~/static/img/programme/fyoushi_img1.png')
           },
           {
-            title: '高可用系统',
-            info: '浙江云盾服务器均采用 Intel Haswell CPU、DDR4 内存，拥有更好的内存计算能力；默认开通 I/O 优化实例，搭配 SSD 固态云盘获得更好的存储性能。',
-            bg: require('~/static/img/programme/fyoushi_img2.png')
+            title: '海量游戏日志存储',
+            info: '启用简单日志服务对游戏日志进行存储查询，通过DPC整合日志数据到ODPS中，实现海量日志数据分析。为游戏云用户提供数据支撑。',
+            bg: require('~/static/img/programme/gyoushi_img2.png')
           },
           {
-            title: 'BGP多线线路',
-            info: '浙江云盾为金融云用户提供BGP多线专线线路，最佳访问路由是由网络上的骨干路由器根据路由跳数与其它技术指标来确定的，不占用服务器的任何系统资源。服务器的上行路由与下行路由都能选择最优的路径，能真正实现高速的单IP访问。',
-            bg: require('~/static/img/programme/fyoushi_img3.png')
-          },
-          {
-            title: '低成本，高性能',
-            info: '随着机房的扩容以及业务的不断增加，信息管理系统的操作也随之变得更加复杂。浙江云盾为用户研发了灵活易用的用户管理中心，让用户简单便捷灵活地管理自己业务。',
-            bg: require('~/static/img/programme/fyoushi_img4.png')
+            title: '别让等待成为习惯',
+            info: '浙江云盾服务器配备万兆独立BGP多线带宽以及优质高防双线路，完美解决玩家南北互通问题，进入不用等，实现跨地域统一管理。300G硬防，轻松应对DDoS攻击，保障玩家游戏稳定体验。',
+            bg: require('~/static/img/programme/eyoushi_img4.png')
           }
         ]
       }
@@ -95,7 +91,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.finance-container {
+.game-container {
   background: #f5f6f7;
 }
 </style>

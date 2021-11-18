@@ -1,7 +1,7 @@
 <template>
-  <div class="finance-container">
+  <div class="website-container">
     <!-- 轮播图 -->
-    <Banner type="finance" />
+    <Banner type="website" />
     <!-- 面临的问题 -->
     <Issue :issue-data="issueData" />
     <!-- 解决方案构架部署 -->
@@ -9,7 +9,7 @@
     <!-- 服务优势 -->
     <Advantage :advantage-data="advantageData" />
     <!-- 更多解决方案 -->
-    <More type="finance" />
+    <More type="website" />
   </div>
 </template>
 
@@ -24,59 +24,59 @@ export default {
   data () {
     return {
       issueData: {
-        title: '金融云面临的问题',
-        bg: require('~/static/img/programme/f-issue-sprite.png'),
+        title: '网站云面临的问题',
+        bg: require('~/static/img/programme/w-issue-sprite.png'),
         list: [
           {
-            title: '互联互通',
-            info: '各金融体系、机构的数据标准、接口等有待进一步统一，以便提供更便捷的数据交换和处理；而现实是通常多机构多种标准或接口，系统整合难度大。'
+            title: '配置选型',
+            info: '如果用户已经拥有网站程序，那么就需要根据实际业务情况选择合适的云服务器，并在服务器上部署程序运行所需要的语言环境。如果用户初次使用云服务，那么如何选择CPU，硬盘，内存，带宽的大小就成为用户首先遇到的问题。'
           },
           {
-            title: '数据量大',
-            info: '在国外，如果银行的客户数或账户数超过千万就属于大型银行了，但这与我国的四大银行的一些省级分行的数据量相当，中国工商银行2002年完成的数据集中工程有3亿多账户。数据量太大，数据的存储和处理就成了问题，同时对IT设备的处理能力带来很大的挑战。'
+            title: 'DDoS攻击',
+            info: '如果用户顺利部署了网站在云服务器上，如何保障网站安全稳定的运行，是所有网站管理者都关心的问题。但是如果自行搭建安全体系往往会让成本成倍的增长，而且很复杂。无疑给用户带来更大的成本以及时间压力。'
           },
           {
-            title: '数据的安全性',
-            info: '金融领域对于数据安全以及用户隐私保护的需求要比其他任何行业要求都高。金融行业是具体管钱的行业，客户的隐私、企业的数据安全、产品安全等等都尤其重要。'
+            title: '数据备份',
+            info: '随着网站的发展，积累的数据越来越多，比如静态文件（代码、图片等）和数据库数据。如果需要用户实时自行备份，那所花费的时间以及精力无疑也会成倍的增长。所以解决如何解决数据备份又是企业以及开发者面临的问题之一！'
           },
           {
-            title: '成本过高',
-            info: '金融体系、机构整合云端面临技术投入大，成本高，不灵活，运维难度大，交付周期长等问题。'
+            title: 'I/O读写',
+            info: '大部分网站都属于交互型网站，速度快，能让多处理器的性能发挥出来。当前技术条件下，I/O是系统性能提高的瓶颈，I/O问题没有解决好， 处理器数量增加不一定带来性能的提升，新增资源有可能被I/O全部消耗掉。'
           }
         ]
       },
       solutionData: {
         title: '解决方案构架部署',
-        height: 'height: 560px',
-        bg: require('~/static/img/programme/financial-deploy.png'),
-        infoWidth: 'width: 35%',
+        height: 'height: 492px',
+        bg: `background:url(${require('~/static/img/programme/web-deploy.png')}) no-repeat left top`,
+        infoTitle: '构架说明',
+        infoWidth: 'width: 30%',
         infoList: [
-          '金融云微金融解决方案为P2P、小贷、典当、担保、众筹等小微金融企业提供定制个性化的云计算服务。互联网微金融用户也能享有金融级的安全保障；海量计算、弹性部署能解决互联网业务的海量并发问题，同时大幅降低初创企业IT成本。此外，浙江云盾联手合作伙伴共同打造微金融生态链，提供一站式解决方案平台。',
-          '在整个产品选择和设计上，浙江云盾努力为金融用户创造一个安全可靠的运行环境，并为用户提供一支可信赖的技术运维支持团队，可以帮助客户完成从前期规划、实施、应用迁移，到后期运维每一阶段的工作，为金融行业持续发展做出贡献。'
+          '浙江云盾网站解决方案为企业以及开发者用户实现灵活弹性自动化的基础IT设施建设、 按需付费的服务模式以及0成本的运维IT服务体系。 把传统的IDC数据中心改造成了一个高度简化、标准化、自动化和弹性灵活的云数据中心。使得企业以及开发者的IT支撑系统从“成本中心”而转型成为推动企业核心业务不断发展的引擎。'
         ]
       },
       advantageData: {
-        title: '金融云服务优势',
+        title: '网站云服务优势',
         list: [
           {
-            title: '简易操作，灵活管理',
-            info: '集群技术，实现多节点共同参与计算，自动并行处理并负载均衡。浙江云盾服务器基于集群，硬件冗余度非常高，轻松应对硬件故障问题。',
-            bg: require('~/static/img/programme/fyoushi_img1.png')
+            title: '弹性扩展',
+            info: '当网站用户在面对云服务器配置选型的问题时，浙江云盾针对网站用户个性的配置选择需求、同时可临时资源扩展的诉求，支持产品随时随地秒级扩展IT资源，轻松解决配置选型问题，高效便捷，节约成本。',
+            bg: require('~/static/img/programme/eyoushi_img3.png')
           },
           {
-            title: '高可用系统',
-            info: '浙江云盾服务器均采用 Intel Haswell CPU、DDR4 内存，拥有更好的内存计算能力；默认开通 I/O 优化实例，搭配 SSD 固态云盘获得更好的存储性能。',
-            bg: require('~/static/img/programme/fyoushi_img2.png')
+            title: '全景备份',
+            info: '针对网站用户面临的备份问题，浙江云盾推出高效便捷的实时全景备份/全景恢复功能。用户可以自定义备份事件，通过控制台一键备份，使数据安全在得到最大的保证的同时，降低用户备份成本。',
+            bg: require('~/static/img/programme/eyoushi_img2.png')
           },
           {
-            title: 'BGP多线线路',
-            info: '浙江云盾为金融云用户提供BGP多线专线线路，最佳访问路由是由网络上的骨干路由器根据路由跳数与其它技术指标来确定的，不占用服务器的任何系统资源。服务器的上行路由与下行路由都能选择最优的路径，能真正实现高速的单IP访问。',
-            bg: require('~/static/img/programme/fyoushi_img3.png')
+            title: '自带防御',
+            info: '随着互联网的发展，DDoS、CC攻击已成为非常普遍的攻击模式。网站安全稳定运行成为了每个用户的愿望！浙江云盾网站解决方案，针对这一问题，各个已开放的节点自带默认防御峰值。真正从根本上解决网络安全问题，保护用户网站免受攻击威胁！',
+            bg: require('~/static/img/programme/wyoushi_img1.png')
           },
           {
-            title: '低成本，高性能',
-            info: '随着机房的扩容以及业务的不断增加，信息管理系统的操作也随之变得更加复杂。浙江云盾为用户研发了灵活易用的用户管理中心，让用户简单便捷灵活地管理自己业务。',
-            bg: require('~/static/img/programme/fyoushi_img4.png')
+            title: '1V1专席秘书',
+            info: '网站用户上云前期面临着多种多样的个性化问题，比如环境部署、数据迁移、售后运维等等，随时都需要有人来协助解决问题。但是行业传统的工单服务模式已被用户广为诟病，因此浙江云盾进行改革创新，每个用户都将配备1名专席客服人员，在正常工作时间帮助解决用户疑难杂症。',
+            bg: require('~/static/img/programme/wyoushi_img2.png')
           }
         ]
       }
@@ -95,7 +95,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.finance-container {
+.website-container {
   background: #f5f6f7;
 }
 </style>
