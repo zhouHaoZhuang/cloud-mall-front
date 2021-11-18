@@ -114,21 +114,21 @@ export default {
                 {
                   title: '云服务器',
                   info: '高速稳定高弹性的计算服务',
-                  path: '',
+                  path: '/pc/cloud-choose',
                   hot: true,
                   new: false
                 },
                 {
                   title: '负载均衡',
                   info: '高性能流量分发的负载均衡服务',
-                  path: '',
+                  path: '/pc/balancing-ba',
                   hot: false,
                   new: false
                 },
                 {
                   title: '对象存储',
                   info: '高可用、易扩展、低成本、一站式',
-                  path: '',
+                  path: '/pc/object-based-use',
                   hot: false,
                   new: false
                 },
@@ -161,8 +161,8 @@ export default {
                 {
                   title: '域名注册',
                   info: '提供五星级的域名注册服务',
-                  path: '',
-                  hot: false,
+                  path: '/pc/Domain-name',
+                  hot: true,
                   new: false
                 },
                 {
