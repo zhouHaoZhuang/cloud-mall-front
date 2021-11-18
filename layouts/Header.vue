@@ -137,13 +137,14 @@ export default {
                   title: '云数据库 MySQL',
                   info: '稳定可靠、可弹性伸缩的数据方案',
                   path: '',
+                  path: '/pc/mysql',
                   hot: false,
                   new: false
                 },
                 {
                   title: '云数据库 SQL Server',
                   info: '安全运行、轻松管理的数据方案',
-                  path: '',
+                  path: '/pc/sqlserver',
                   hot: false,
                   new: false
                 }
@@ -480,6 +481,8 @@ export default {
   .header-box {
     height: 100%;
     display: flex;
+    padding: 12px 0;
+    width: 1220px;
     .logo {
       width: 142px;
       margin-left: 10px;
@@ -499,11 +502,31 @@ export default {
       align-items: center;
       font-size: 18px;
       color: #fff;
+<<<<<<< HEAD
+      position: relative;
+      // >div>span{
+      //   width: 72px;
+      // }
+      //  >div>span:nth-child(2){
+      //   width: 36px;
+      // }
+=======
+>>>>>>> 31b6c15e0118254f30cfad334ae31cd4a025ae74
       .item {
         height: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
+<<<<<<< HEAD
+        position: relative;
+        padding: 0 21px;
+        overflow: hidden;
+        cursor: pointer;
+        .hot {
+          position: absolute;
+          top: 10px;
+          right: 0;
+=======
         padding: 0 24px;
         overflow: hidden;
         cursor: pointer;
@@ -511,6 +534,7 @@ export default {
         a {
           color: #fff;
           transition: 0s;
+>>>>>>> 31b6c15e0118254f30cfad334ae31cd4a025ae74
         }
         .hot {
           position: absolute;
