@@ -75,6 +75,15 @@ export const $routes = [
     }
   },
   {
+    path: '/pc/sqlserver',
+    name: 'sqlserver-pc',
+    component: resolve('pages/home/database/sqlserver/index.vue'),
+    meta: {
+      title: 'SQLServer',
+      icon: 'icon-buy'
+    }
+  },
+  {
     path: '/pc/mysql/price.html',
     name: 'price-pc',
     component: resolve('pages/home/database/price/index.vue'),
