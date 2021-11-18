@@ -431,7 +431,7 @@ export default {
             title: '云数据库 SQL Server',
             info: '安全运行、轻松管理的数据方案',
             icon: 'iconyunshujunkuSQLServer',
-            path: '',
+            path: '/pc/sqlserver',
             hot: false,
             disable: false
           },
