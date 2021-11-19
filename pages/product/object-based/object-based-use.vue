@@ -15,8 +15,10 @@
                 </div>
               </div>
               <p class="product-info-btn">
-                <a href="#" class="info-btn1">立即使用</a>
-                <a href="#" class="info-btn2" @click="product">产品价格</a>
+                <router-link class="info-btn1" to="/pc/object-based-price.html">立即使用</router-link>
+                <!-- <a href="#" class="info-btn1">立即使用</a> -->
+                <router-link class="info-btn2" to="/pc/object-based-price.html">产品价格</router-link>
+                <!-- <a href="#" class="info-btn2" @click="product">产品价格</a> -->
               </p>
             </div>
           </div>
