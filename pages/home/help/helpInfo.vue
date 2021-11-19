@@ -42,18 +42,80 @@ export default {}
 </script>
 
 <style lang="scss" scoped>
-  .helpInfo{
-      width: 100%;
-      >div{
-          width: 100%;
-          display: flex;
-          justify-content: space-around;
-          >div:nth-child(1){
-              background-image: url(https://www.ydidc.com/Uploads/2016-10-27/help_icon_7.png) no-repeat;
-              h4{
-
-              }
-          }
+.helpInfo {
+  width: 100%;
+  margin: 0;
+  > div {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    > div {
+      flex: 1;
+    }
+    > div:nth-child(1) {
+      > h4 {
+        background: url(https://www.ydidc.com/Uploads/2016-10-27/help_icon_7.png)
+          no-repeat;
+        background-size: 30px 30px;
+        background-position: 0 5px;
       }
+    }
+    > div:nth-child(2) {
+      > h4 {
+        background: url(https://www.ydidc.com/Uploads/2016-10-27/help_icon_4.png)
+          no-repeat;
+        background-size: 30px 30px;
+        background-position: 0 5px;
+      }
+    }
+    > div:nth-child(3) {
+      > h4 {
+        background: url(https://www.ydidc.com/Uploads/2016-10-27/help_icon_1.png)
+          no-repeat;
+        background-size: 30px 30px;
+        background-position: 0 5px;
+      }
+    }
+    > div:nth-child(4) {
+      > h4 {
+        background: url(https://www.ydidc.com/Uploads/2016-10-27/help_icon_5.png)
+          no-repeat;
+        background-size: 30px 30px;
+        background-position: 0 5px;
+      }
+    }
+
+    > div {
+      margin: 0 38px 0 20px;
+      h4 {
+        height: 42px;
+        line-height: 42px;
+        font-size: 18px;
+        font-weight: 500;
+        padding-left: 40px;
+        margin-bottom: 0;
+        // border-bottom: 1px solid #000;
+      }
+      p {
+        border-bottom: 1px solid rgb(221 221 221);
+        margin-left: 40px;
+        margin-bottom: 0;
+        height: 39px;
+        line-height: 39px;
+        color: #000;
+      }
+      p:hover {
+        color: rgb(5 159 255);
+        cursor: pointer;
+        background-color: rgb(250, 250, 250);
+      }
+      p:nth-child(2) {
+        border-top: 1px solid rgb(221, 221, 221);
+      }
+    }
+    > div:nth-child(4) {
+      margin: 0;
+    }
   }
+}
 </style>
