@@ -16,8 +16,11 @@
         </ul>
       </div>
     </div>
+  
     <div class="helpInfo">
-        <helpInfo></helpInfo>
+      <router-view>
+      <!-- <helpInfo></helpInfo> -->
+      </router-view>
     </div>
   </div>
 </template>
@@ -53,7 +56,7 @@ export default {
       margin: 0 auto;
       justify-content: space-between;
       .search {
-        background-image: url(https://www.ydidc.com/template/Home/Zkeys/PC/Static/statics/images/help/search.png);
+        background: url(https://www.ydidc.com/template/Home/Zkeys/PC/Static/statics/images/help/search.png) no-repeat;
         border: 0;
         height: 46px;
         width: 120px;
@@ -90,7 +93,9 @@ export default {
 }
 .helpInfo{
     width: 1290px;
-    height: 347px;
+    height: 432px;
     margin: 0 auto;
+    padding-top: 110px;
+    // padding-left: -20px;
 }
 </style>
