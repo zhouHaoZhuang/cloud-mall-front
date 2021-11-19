@@ -6,7 +6,9 @@
           代理招募
         </div>
         <ul class="nav-other-list">
-          <li>代理招募</li>
+          <li>
+            <a href="#">代理招募</a>
+          </li>
         </ul>
       </div>
       <div class="nav-list">
@@ -39,6 +41,7 @@ export default {
   },
   data () {
     return {
+      navSelectIndex: 0,
       scrollTop: 0,
       navShow: true
     }
@@ -51,6 +54,26 @@ export default {
     window.removeEventListener('scroll', this.scrollToTop)
   },
   methods: {
+    // 锚点导航点击
+    handleNavJump (item) {
+      const nodeEle = document.querySelector(`#${item.id}`)
+      nodeEle.scrollIntoView({
+        block: 'start',
+        top: '80px',
+        behavior: 'smooth'
+      })
+    },
+    // 锚点导航跳转后将页面滚动条回滚锚点吸顶导航的高度-因为scrollIntoView方法只能回到顶部，会造成遮挡
+    scrollBackHeight () {
+      const timer = setInterval(() => {
+        const ispeed = Math.floor(-this.scrollTop / 13)
+        document.documentElement.scrollTop = document.body.scrollTop =
+          this.scrollTop + ispeed
+        if (this.scrollTop === 0) {
+          clearInterval(timer)
+        }
+      }, 16)
+    },
     // 获取所有需要锚点跳转元素
     getElementDetail () {
       const result = []
@@ -126,11 +149,29 @@ export default {
         li {
           height: 50px;
           line-height: 50px;
+          a {
+            display: block;
+            height: 100%;
+            color: #4c4c4c;
+            font-size: 14px;
+            padding: 0 23px;
+            transition: 0s;
+            &:hover {
+              background-color: #059fff;
+              color: #fff;
+            }
+          }
         }
       }
       &:hover {
+        background-color: #fafafa;
+        border-left: 1px solid #eee;
+        border-right: 1px solid #eee;
+        margin-left: -1px;
         ul {
           display: block;
+          border: 1px solid #eee;
+          border-top: none;
         }
       }
     }

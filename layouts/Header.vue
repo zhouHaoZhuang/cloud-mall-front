@@ -308,7 +308,7 @@ export default {
         },
         {
           title: '帮助中心',
-          path: '/help'
+          path: '/pc/help'
         },
         {
           title: '解决方案',
