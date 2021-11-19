@@ -93,8 +93,8 @@ export default {
 }
 .helpInfo{
     width: 1290px;
-    height: 432px;
-    margin: 0 auto;
+    // height: 432px;
+    margin: 0 auto 85px;
     padding-top: 110px;
     // padding-left: -20px;
 }

@@ -157,6 +157,15 @@ export const $routes = [
           title: '帮助详情',
           icon: 'icon-cloud'
         }
+      },
+      {
+        path: 'class',
+        name: 'class-pc',
+        component: resolve('pages/home/help/class.vue'),
+        meta: {
+          title: '帮助跳转',
+          icon: 'icon-cloud'
+        }
       }
     ]
   },
