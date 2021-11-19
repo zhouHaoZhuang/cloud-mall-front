@@ -3,11 +3,15 @@
     <div class="container">
       <div class="left">
         <div class="nav-server-name">
-          代理招募
+          {{ linkTitle }}
         </div>
         <ul class="nav-other-list">
-          <li>
-            <a href="#">代理招募</a>
+          <li
+            v-for="(item, index) in linksList"
+            :key="index"
+            :style="`display:${item.title === linkTitle ? 'none' : 'block'}`"
+          >
+            <a :href="item.path">{{ item.title }}</a>
           </li>
         </ul>
       </div>
@@ -45,14 +49,135 @@ export default {
       navSelectIndex: 0,
       scrollTop: 0,
       navShow: true,
-      tempSrollTop: 0
+      linksList: [
+        {
+          title: '弹性云服务器',
+          info: '高速稳定高弹性的计算服务',
+          path: '/pc/cloud-choose',
+          hot: true,
+          new: false
+        },
+        {
+          title: '服务器托管',
+          info: '安全贴心高品质的托管服务',
+          path: '',
+          hot: false,
+          new: false
+        },
+        {
+          title: '裸金属服务器',
+          info: '高性能安全隔离物理集群服务',
+          path: '',
+          hot: false,
+          new: true
+        },
+        {
+          title: '云虚拟主机',
+          info: '基于云计算的虚拟主机服务',
+          path: '',
+          hot: true,
+          new: false
+        },
+        {
+          title: '负载均衡',
+          info: '高性能流量分发的负载均衡服务',
+          path: '/pc/balancing-ba',
+          hot: false,
+          new: false
+        },
+        {
+          title: 'SSL证书',
+          info: '提供一站式的证书部署服务',
+          path: '',
+          hot: false,
+          new: false
+        },
+        {
+          title: '域名注册',
+          info: '提供五星级的域名注册服务',
+          path: '/pc/Domain-name',
+          hot: true,
+          new: false
+        },
+        {
+          title: '云监控',
+          info: '精准灵活超便捷的资源预警服务',
+          path: '',
+          hot: false,
+          new: false
+        },
+        {
+          title: '对象存储',
+          info: '高可用、易扩展、低成本、一站式',
+          path: '/pc/object-based-use',
+          hot: false,
+          new: false
+        },
+        {
+          title: 'CDN加速',
+          info: '智能调度的内容分发服务',
+          path: '',
+          hot: false,
+          new: false
+        },
+        {
+          title: '云数据库 MySQL',
+          info: '稳定可靠、可弹性伸缩的数据方案',
+          path: '/pc/mysql',
+          hot: false,
+          new: false
+        },
+        {
+          title: '云数据库 SQL Server',
+          info: '安全运行、轻松管理的数据方案',
+          path: '/pc/sqlserver',
+          hot: false,
+          new: false
+        },
+        {
+          title: '浙江云盾分销系统',
+          info: '一键部署、低成本、快速运营',
+          path: '',
+          hot: false,
+          new: true
+        },
+        {
+          title: '百度智能建站',
+          info: '智能化构建网站和小程序',
+          path: '',
+          hot: false,
+          new: true
+        },
+        {
+          title: '代理招募',
+          info: '',
+          path: '/pc/about/recruit',
+          hot: false,
+          new: true
+        }
+      ],
+      linkTitle: ''
     }
+  },
+  watch: {
+    $route: {
+      immediate: true,
+      handler (route) {
+        const result = this.linksList.find(ele => ele.path === route.path)
+        this.linkTitle = result.title
+      }
+    }
+  },
+  created () {
+    this.navShow = false
   },
   mounted () {
     window.addEventListener('scroll', this.scrollToTop)
+    this.scrollToTop()
   },
   destroyed () {
     window.removeEventListener('scroll', this.scrollToTop)
+    this.navShow = false
   },
   methods: {
     // 锚点导航点击
@@ -79,6 +204,7 @@ export default {
         document.documentElement.scrollTop ||
         document.body.scrollTop
       this.scrollTop = scrollTop
+      console.log('滚动条触发滚动', scrollTop)
       // 页面内锚点导航距离页面顶部的位置
       const navTop = document.querySelector('#anchor-nav').offsetTop
       if (this.scrollTop > navTop) {
@@ -98,7 +224,7 @@ export default {
   height: 68px;
   position: fixed;
   top: -1px;
-  z-index: 9999;
+  z-index: 99;
   border-top: 1px solid rgba(247, 249, 250, 0.36);
   background: url('~/static/img/common/banner_nav_bg.png') repeat-x;
   display: flex;
