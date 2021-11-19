@@ -1,12 +1,18 @@
 <template>
-  <div v-if="navShow" class="fixed-top-nav">
+  <div class="fixed-top-nav" :style="`opacity:${navShow ? 1 : 0}`">
     <div class="container">
       <div class="left">
         <div class="nav-server-name">
-          代理招募
+          {{ linkTitle }}
         </div>
         <ul class="nav-other-list">
-          <li>代理招募</li>
+          <li
+            v-for="(item, index) in linksList"
+            :key="index"
+            :style="`display:${item.title === linkTitle ? 'none' : 'block'}`"
+          >
+            <a :href="item.path">{{ item.title }}</a>
+          </li>
         </ul>
       </div>
       <div class="nav-list">
@@ -30,6 +36,7 @@
 </template>
 
 <script>
+import VueScrollTo from 'vue-scrollto'
 export default {
   props: {
     navData: {
@@ -39,28 +46,164 @@ export default {
   },
   data () {
     return {
+      navSelectIndex: 0,
       scrollTop: 0,
-      navShow: true
+      oldScrollTop: 0, // 记录上一次滚动结束后的滚动距离
+      navShow: true,
+      linksList: [
+        {
+          title: '弹性云服务器',
+          info: '高速稳定高弹性的计算服务',
+          path: '/pc/cloud-choose',
+          hot: true,
+          new: false
+        },
+        {
+          title: '服务器托管',
+          info: '安全贴心高品质的托管服务',
+          path: '',
+          hot: false,
+          new: false
+        },
+        {
+          title: '裸金属服务器',
+          info: '高性能安全隔离物理集群服务',
+          path: '',
+          hot: false,
+          new: true
+        },
+        {
+          title: '云虚拟主机',
+          info: '基于云计算的虚拟主机服务',
+          path: '',
+          hot: true,
+          new: false
+        },
+        {
+          title: '负载均衡',
+          info: '高性能流量分发的负载均衡服务',
+          path: '/pc/balancing-ba',
+          hot: false,
+          new: false
+        },
+        {
+          title: 'SSL证书',
+          info: '提供一站式的证书部署服务',
+          path: '',
+          hot: false,
+          new: false
+        },
+        {
+          title: '域名注册',
+          info: '提供五星级的域名注册服务',
+          path: '/pc/Domain-name',
+          hot: true,
+          new: false
+        },
+        {
+          title: '云监控',
+          info: '精准灵活超便捷的资源预警服务',
+          path: '',
+          hot: false,
+          new: false
+        },
+        {
+          title: '对象存储',
+          info: '高可用、易扩展、低成本、一站式',
+          path: '/pc/object-based-use',
+          hot: false,
+          new: false
+        },
+        {
+          title: 'CDN加速',
+          info: '智能调度的内容分发服务',
+          path: '',
+          hot: false,
+          new: false
+        },
+        {
+          title: '云数据库 MySQL',
+          info: '稳定可靠、可弹性伸缩的数据方案',
+          path: '/pc/mysql',
+          hot: false,
+          new: false
+        },
+        {
+          title: '云数据库 SQL Server',
+          info: '安全运行、轻松管理的数据方案',
+          path: '/pc/sqlserver',
+          hot: false,
+          new: false
+        },
+        {
+          title: '浙江云盾分销系统',
+          info: '一键部署、低成本、快速运营',
+          path: '',
+          hot: false,
+          new: true
+        },
+        {
+          title: '百度智能建站',
+          info: '智能化构建网站和小程序',
+          path: '',
+          hot: false,
+          new: true
+        },
+        {
+          title: '代理招募',
+          info: '',
+          path: '/pc/about/recruit',
+          hot: false,
+          new: true
+        }
+      ],
+      linkTitle: ''
     }
+  },
+  watch: {
+    $route: {
+      immediate: true,
+      handler (route) {
+        const result = this.linksList.find(ele => ele.path === route.path)
+        this.linkTitle = result.title
+      }
+    },
+    scrollTop: {
+      handler (newVal, oldVal) {
+        setTimeout(() => {
+          if (newVal === this.scrollTop) {
+            this.setNavSelectIndex(this.scrollTop)
+          }
+        }, 20)
+      }
+    }
+  },
+  created () {
+    this.navShow = false
   },
   mounted () {
     window.addEventListener('scroll', this.scrollToTop)
-    this.getElementDetail()
+    this.scrollToTop()
   },
   destroyed () {
     window.removeEventListener('scroll', this.scrollToTop)
+    this.navShow = false
   },
   methods: {
-    // 获取所有需要锚点跳转元素
-    getElementDetail () {
-      const result = []
-      this.navData.forEach((ele) => {
-        result.push(document.querySelector(`#${ele.id}`))
-      })
-      console.log('最终获取的元素是', result)
-      console.log('当前滚动条的位置', document.documentElement.scrollTop)
-      result.forEach((ele) => {
-        console.log('获取的元素的位置信息', ele.offsetTop)
+    // 锚点导航点击
+    handleNavJump (item) {
+      VueScrollTo.scrollTo(`#${item.id}`, 'body', {
+        container: 'body',
+        easing: 'ease-in',
+        force: true,
+        offset: -80,
+        cancelable: true,
+        onDone: (ele) => {
+          // 滚动结束
+          this.navSelectIndex = this.navData.findIndex(j => j.id === ele.id)
+        },
+        x: false,
+        y: true
       })
     },
     // 为了计算距离顶部的高度，当高度大于60显示回顶部图标，小于60则隐藏
@@ -76,8 +219,39 @@ export default {
       if (this.scrollTop > navTop) {
         this.navShow = true
       } else {
-        // this.navShow = false
+        this.navShow = false
+        this.navSelectIndex = 0
       }
+    },
+    // 获取最小差值
+    limit (arr, num) {
+      const newArr = []
+      arr.map((x) => {
+        // 对数组各个数值求差值
+        return newArr.push(Math.abs(x - num))
+      })
+      // 求最小值的索引
+      const index = newArr.indexOf(Math.min.apply(null, newArr))
+      // 返回最小值
+      // return arr[index]
+      // 返回最小值索引
+      return index
+    },
+    // 获取所有需要锚点跳转元素
+    getElementDetail () {
+      const result = []
+      this.navData.forEach((ele) => {
+        result.push(document.querySelector(`#${ele.id}`))
+      })
+      return result.map((ele) => {
+        return ele.offsetTop
+      })
+    },
+    // 页面滚动时设置导航的下划线值
+    setNavSelectIndex (top) {
+      const allNode = this.getElementDetail()
+      const result = this.limit(allNode, top)
+      this.navSelectIndex = result
     }
   }
 }
@@ -89,10 +263,12 @@ export default {
   height: 68px;
   position: fixed;
   top: -1px;
-  z-index: 9999;
+  z-index: 99;
   border-top: 1px solid rgba(247, 249, 250, 0.36);
   background: url('~/static/img/common/banner_nav_bg.png') repeat-x;
   display: flex;
+  opacity: 0;
+  transition: opacity 0.3s;
   .container {
     position: relative;
     .left {
@@ -126,11 +302,29 @@ export default {
         li {
           height: 50px;
           line-height: 50px;
+          a {
+            display: block;
+            height: 100%;
+            color: #4c4c4c;
+            font-size: 14px;
+            padding: 0 23px;
+            transition: 0s;
+            &:hover {
+              background-color: #059fff;
+              color: #fff;
+            }
+          }
         }
       }
       &:hover {
+        background-color: #fafafa;
+        border-left: 1px solid #eee;
+        border-right: 1px solid #eee;
+        margin-left: -1px;
         ul {
           display: block;
+          border: 1px solid #eee;
+          border-top: none;
         }
       }
     }

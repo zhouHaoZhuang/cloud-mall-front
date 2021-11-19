@@ -153,7 +153,28 @@ export const $routes = [
     meta: {
       title: '帮助中心',
       icon: 'icon-help'
-    }
+    },
+    redirect: { name: 'helpInfo-pc' },
+    children: [
+      {
+        path: 'helpInfo',
+        name: 'helpInfo-pc',
+        component: resolve('pages/home/help/helpInfo.vue'),
+        meta: {
+          title: '帮助详情',
+          icon: 'icon-cloud'
+        }
+      },
+      {
+        path: 'class/:cid',
+        name: 'class-pc',
+        component: resolve('pages/home/help/class.vue'),
+        meta: {
+          title: '帮助跳转',
+          icon: 'icon-cloud'
+        }
+      }
+    ]
   },
   {
     path: '/pc/mysql/price.html',
