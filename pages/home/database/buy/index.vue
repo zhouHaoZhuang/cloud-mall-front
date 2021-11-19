@@ -221,6 +221,7 @@ export default {
   background-color: rgb(255, 255, 255);
   margin: 0 auto;
   position: sticky;
+  z-index: 110;
   bottom: 0;
   // padding: 25px 0;
   display: flex;
