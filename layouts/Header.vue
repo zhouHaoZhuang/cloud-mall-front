@@ -15,7 +15,7 @@
           @mouseenter="mouseEnter(index)"
           @mouseleave="mouseLeave"
         >
-          <a :href="item.path">
+          <a :href="item.path" @click="handleClickJump(item.path, $event)">
             <div class="title-wrap">
               {{ item.title }}
               <img
@@ -29,7 +29,6 @@
             <div
               v-if="JSON.stringify(headerItemData) !== '{}'"
               class="popup-box"
-              @mouseleave="maskMouseLeave"
             >
               <div class="container popup-wrap">
                 <HeaderItem
@@ -448,20 +447,12 @@ export default {
     // 鼠标离开
     mouseLeave () {
       this.hoverIndex = -1
-      // this.headerItemData = {}
     },
     // 点击跳转
-    handleClickJump (path) {
+    handleClickJump (path, e) {
       if (!path) {
-        return
+        e.preventDefault()
       }
-      this.headerItemData = {}
-      this.$router.push(path)
-    },
-    // 鼠标移出popup事件
-    maskMouseLeave () {
-      // this.hoverIndex = -1
-      // this.headerItemData = {}
     }
   }
 }
