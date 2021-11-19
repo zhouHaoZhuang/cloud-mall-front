@@ -131,6 +131,15 @@ export const $routes = [
     }
   },
   {
+    path: '/pc/help',
+    name: 'help-pc',
+    component: resolve('pages/home/help/index.vue'),
+    meta: {
+      title: '帮助中心',
+      icon: 'icon-help'
+    }
+  },
+  {
     path: '/pc/mysql/price.html',
     name: 'price-pc',
     component: resolve('pages/home/database/price/index.vue'),
