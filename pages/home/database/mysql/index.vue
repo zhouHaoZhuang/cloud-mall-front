@@ -19,7 +19,7 @@
     </div>
     <div>
       <!--四大标题-->
-      <div class="fourModulesAll">
+      <!-- <div class="fourModulesAll">
         <div class="fourModules">
           <div
             v-for="(item, i) in fourModules"
@@ -30,8 +30,9 @@
             {{ item.name }}
           </div>
         </div>
-      </div>
-      <div id="0" class="Adv">
+      </div> -->
+        <AnchorNav :nav-data="arrTitle" />
+      <div id="Adv" class="Adv">
         <p>{{ fourModules[0].name }}</p>
         <div>
           <div v-for="(item, i) in fourModules[0].advList" :key="i">
@@ -41,7 +42,7 @@
           </div>
         </div>
       </div>
-      <div id="1" class="fun">
+      <div id="fun" class="fun">
         <p>{{ fourModules[1].name }}</p>
         <div>
           <div v-for="(item, i) in fourModules[1].funList" :key="i">
@@ -57,7 +58,7 @@
           </div>
         </div>
       </div>
-      <div id="2" class="scenes">
+      <div id="scenes" class="scenes">
         <p>{{ fourModules[2].name }}</p>
         <div>
           <p>
@@ -89,7 +90,7 @@
           </div>
         </div>
       </div>
-      <div id="3" class="Assoc">
+      <div id="Assoc" class="Assoc">
         <p>{{ fourModules[3].name }}</p>
         <div>
           <div v-for="(v, i) in fourModules[3].assocList" :key="i">
@@ -101,10 +102,13 @@
         </div>
       </div>
     </div>
+    <FixedTopNav :navData = arrTitle></FixedTopNav>
   </div>
 </template>
 
 <script>
+import AnchorNav from '@/components/AnchorNav/index'
+import FixedTopNav from '@/components/FixedTopNav/index'
 export default {
   data () {
     return {
@@ -349,8 +353,30 @@ export default {
           ]
         }
       ],
-      atv: 0
+      atv: 0,
+      arrTitle:[
+        {
+          id:'Adv',
+          title:'产品优势'
+        },
+        {
+          id:'fun',
+          title:'产品功能'
+        },
+        {
+          id:'scenes',
+          title:'应用场景'
+        },
+        {
+          id:'Assoc',
+          title:'关联产品'
+        },
+      ]
     }
+  },
+  components:{
+    FixedTopNav,
+    AnchorNav
   },
   methods: {
     clickTo (i) {

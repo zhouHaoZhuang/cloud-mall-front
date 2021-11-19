@@ -1,13 +1,13 @@
 <template>
   <div class="gdt">
-    <div id="10" @click="clickprog">
-      <div id="100" ref="prog1">
+    <div id="0001" @click="clickprog">
+      <div :id="data.scale[0]" ref="prog1">
         {{ data.scale[0] }}G
       </div>
-      <div id="300" ref="prog3">
+      <div :id="data.scale[1]" ref="prog3">
         {{ data.scale[1] }}G
       </div>
-      <div id="500" ref="prog5">
+      <div :id="data.scale[2]" ref="prog5">
         {{ data.scale[2] }}G
       </div>
       <div ref="prog" class="prog" />
@@ -25,33 +25,27 @@ export default {
   },
   methods: {
     clickprog (e) {
-      if (e.path[0].id === '10') {
+      if (e.path[0].id === '0001') {
         return
       }
       let newwidth = e.offsetX
       let space = 0
-      if (e.path[0].id === '100') {
-        space = (newwidth / e.path[0].offsetWidth) * 100
+      if (e.path[0].id*1 === this.data.scale[0]) {
+        space = (newwidth / e.path[0].offsetWidth) * this.data.scale[0]
         // console.log(space, '----')
-      } else if (e.path[0].id === '300') {
+      } else if (e.path[0].id*1 === this.data.scale[1]) {
         newwidth = e.offsetX + 304
-        space = (e.offsetX / e.path[0].offsetWidth) * 200 + 100
+        space = (e.offsetX / e.path[0].offsetWidth) * (this.data.scale[1] - this.data.scale[0]) + this.data.scale[0]
         // console.log(space, '----')
-      } else if (e.path[0].id === '500') {
+      } else if (e.path[0].id*1 === this.data.scale[2]) {
         newwidth = e.offsetX + 304 + 158
-        space = (e.offsetX / e.path[0].offsetWidth) * 200 + 300
-        // console.log(space, e.offsetX, e.path[0].offsetWidth, '----')
+        space = (e.offsetX / e.path[0].offsetWidth) * (this.data.scale[2] - this.data.scale[1]) +this.data.scale[1]
       } else if (e.path[0].id === '0') {
-        // console.log(e.path)
       } else {
-        // console.log(e.path[0])
       }
       if (space % 5) {
-        // console.log(space, '有余数')
         space = space - (space % 5) + 5
-        // console.log(space, '****')
       } else {
-        // console.log(e.offsetX, e.path[0].offsetWidth, space, '没有余数')
       }
       this.space = space.toFixed(0)
       this.$refs.prog1.style.color = 'rgb(153, 153, 153)'
@@ -68,7 +62,7 @@ export default {
       }
       const wih = this.$refs.prog
       wih.style.width = newwidth + 'px'
-      console.log(this.space, '----')
+    //   console.log(this.space, '----')
       this.data.valfun(this.space)
     }
   }

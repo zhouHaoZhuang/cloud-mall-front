@@ -119,17 +119,17 @@
           </div>
         </div>
       </div>
-      <drag :data="{ scale:[100,300,500],valfun:val }" ></drag>
+      <!-- <drag :data="{ scale:[100,300,500],valfun:val }" ></drag> -->
     </div>
   </div>
 </template>
 
 <script>
-import drag from '../../../../components/drag/index.vue'
+// import drag from '../../../../components/drag/index.vue'
 export default {
-  components: {
-    drag
-  },
+  // components: {
+  //   drag
+  // },
   data () {
     return {
       space: 15
@@ -185,9 +185,9 @@ export default {
       wih.style.width = newwidth + 'px'
       // console.log(wih.offsetWidth)
     },
-    val(kdz){
-      console.log(kdz,"我是子组件的值");
-    }
+    // val(kdz){
+    //   console.log(kdz,"我是子组件的值");
+    // }
   }
 }
 </script>
