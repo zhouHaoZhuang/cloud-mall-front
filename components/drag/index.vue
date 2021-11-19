@@ -1,14 +1,14 @@
 <template>
-  <div>
+  <div class="gdt">
     <div id="10" @click="clickprog">
       <div id="100" ref="prog1">
-        100G
+        {{ data.scale[0] }}G
       </div>
       <div id="300" ref="prog3">
-        300G
+        {{ data.scale[1] }}G
       </div>
       <div id="500" ref="prog5">
-        500G
+        {{ data.scale[2] }}G
       </div>
       <div ref="prog" class="prog" />
     </div>
@@ -17,14 +17,17 @@
 
 <script>
 export default {
+  props: ['data'],
+  data () {
+    return {
+      space: 15
+    }
+  },
   methods: {
     clickprog (e) {
       if (e.path[0].id === '10') {
         return
       }
-      // console.log(e.target, '///////')
-      // 100G宽度304px  300G宽度158px  500G宽度157px
-      // console.log(e.path[0].offsetWidth, '----')
       let newwidth = e.offsetX
       let space = 0
       if (e.path[0].id === '100') {
@@ -65,10 +68,50 @@ export default {
       }
       const wih = this.$refs.prog
       wih.style.width = newwidth + 'px'
-      // console.log(wih.offsetWidth)
+      console.log(this.space, '----')
+      this.data.valfun(this.space)
     }
   }
 }
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.gdt > div {
+  display: flex;
+  width: 620px;
+  position: relative;
+  border: solid 1px rgb(238, 238, 238);
+  > div {
+    position: relative;
+    text-align: right;
+    padding-right: 10px;
+    font-size: 12px;
+    color: rgb(153 153 153);
+    z-index: 100;
+    height: 25px;
+    line-height: 25px;
+  }
+  // 进度条
+  .prog {
+    width: 50px;
+    height: 25px;
+    background-color: rgb(66, 164, 255);
+    position: absolute;
+    z-index: 80;
+    top: 0;
+    left: 0;
+    transition: width 0.1s;
+  }
+  > div:nth-child(1) {
+    flex: 2;
+    border-right: 1px solid rgb(238, 238, 238);
+  }
+  > div:nth-child(2) {
+    flex: 1;
+    border-right: 1px solid rgb(238, 238, 238);
+  }
+  > div:nth-child(3) {
+    flex: 1;
+  }
+}
+</style>
