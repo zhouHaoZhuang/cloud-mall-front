@@ -79,29 +79,7 @@
       </div>
     </div>
     <!-- 选项卡 -->
-    <div class="tab">
-      <div class="tab-bar clearfix">
-        <a
-          v-for="(item, index) in items"
-          :key="index"
-          href="javascript:;"
-          :class="{ active: index === curId }"
-          @click="tab(index)"
-        >{{ item.item }}</a>
-      </div>
-      <div class="tab-con">
-        <div
-          v-for="(content, index) in contents"
-          v-show="index === curId"
-          :key="index"
-        >
-          {{ content.content }}
-        </div>
-        <div>
-            {{}}
-        </div>
-      </div>
-    </div>
+    
   </div>
 </template>
 

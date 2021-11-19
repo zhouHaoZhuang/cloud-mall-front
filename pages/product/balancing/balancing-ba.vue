@@ -27,28 +27,9 @@
       </div>
     </div>
     <!-- 吸顶导航栏 -->
-    <div class="nav-box nav-hide">
-      <div class="auto">
-        <div class="orientation-nav-box">
-          <ul class="banner-nav clearfix">
-            <li>
-              <a href="" class="active"> 产品特点 </a>
-            </li>
-            <li>
-              <a href=""> 产品功能 </a>
-            </li>
-            <li>
-              <a href=""> 架构部署 </a>
-            </li>
-            <li>
-              <a href=""> 常见问题 </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
+    <AnchorNav :nav-data="navList" />
     <!-- 产品特点 -->
-    <div class="server-module auto youshi-module">
+    <div id="trait" class="server-module auto youshi-module">
       <p class="module-title">
         <span class="module-title-name"> 产品特点 </span>
       </p>
@@ -113,7 +94,7 @@
       </div>
     </div>
     <!-- 产品功能 -->
-    <div class="server-module module-marg-top product-power-wrap">
+    <div id="function" class="server-module module-marg-top product-power-wrap">
       <div class="auto">
         <p class="module-title">
           <span class="module-title-name">产品功能</span>
@@ -193,7 +174,7 @@
       </div>
     </div>
     <!-- 架构部署 -->
-    <div class="server-module module-marg-top">
+    <div id="framework" class="server-module module-marg-top">
       <p class="module-title">
         <span class="module-title-name">架构部署</span>
         <span class="group-span"></span>
@@ -201,7 +182,7 @@
       <div class="slb-frame"></div>
     </div>
     <!-- 常见问题 -->
-    <div class="faq-wrap">
+    <div id="process" class="faq-wrap">
       <div class="auto">
         <p class="module-title">
           <span class="module-title-name">常见问题</span>
@@ -236,7 +217,32 @@
 </template>
 
 <script>
-export default {}
+import AnchorNav from '@/components/AnchorNav/index'
+export default {
+  components: { AnchorNav },
+  data(){
+    return{
+      navList:[
+        {
+          id: 'trait',
+          title: '产品特点'
+        },
+        {
+          id: 'function',
+          title: '产品功能'
+        },
+        {
+          id: 'framework',
+          title: '架构部署'
+        },
+        {
+          id: 'process',
+          title: '常见问题 '
+        }
+      ]
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

@@ -25,29 +25,10 @@
         </div>
       </div>
     </div>
-    <!-- 吸顶导航 -->
-    <div class="nav-box nav-hide">
-      <div class="auto">
-        <div class="orientation-nav-box">
-          <ul class="banner-nav clearfix">
-            <li>
-              <a href="" class="active"> 产品优势 </a>
-            </li>
-            <li>
-              <a href=""> 核心功能及服务 </a>
-            </li>
-            <li>
-              <a href=""> 适用场景 </a>
-            </li>
-            <li>
-              <a href=""> 常见问题 </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
+    <!-- 锚点导航 -->
+    <AnchorNav :nav-data="navList" />
     <!-- 产品优势 -->
-    <div class="server-module youshi-module auto">
+    <div id="open" class="server-module youshi-module auto">
       <p class="module-title">
         <span class="module-title-name"> 产品优势 </span>
       </p>
@@ -114,7 +95,7 @@
       </div>
     </div>
     <!-- 核心功能及服务 -->
-    <div class="server-module function-wrap">
+    <div id="market" class="server-module function-wrap">
       <div class="auto">
         <p class="module-title" style="margin-bottom: 50px">
           <span class="module-title-name">核心功能及服务</span>
@@ -212,7 +193,7 @@
       </div>
     </div>
     <!-- 使用场景 -->
-    <div class="server-module scene-wrap">
+    <div id="advantage" class="server-module scene-wrap">
       <div class="auto">
         <p class="module-title">
           <span class="module-title-name">适用场景</span>
@@ -324,7 +305,7 @@
       </div>
     </div>
     <!-- 常见问题 -->
-    <div class="faq-wrap">
+    <div id="process" class="faq-wrap">
       <div class="auto">
         <p class="module-title">
           <span class="module-title-name">常见问题</span>
@@ -359,7 +340,32 @@
 </template>
 
 <script>
-export default {}
+import AnchorNav from '@/components/AnchorNav/index'
+export default {
+  components: { AnchorNav },
+  data(){
+    return{
+      navList:[
+        {
+          id: 'open',
+          title: '产品优势'
+        },
+        {
+          id: 'market',
+          title: '核心功能及服务'
+        },
+        {
+          id: 'advantage',
+          title: '使用场景'
+        },
+        {
+          id: 'process',
+          title: '常见问题 '
+        }
+      ]
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -426,49 +432,6 @@ export default {}
       }
     }
   }
-}
-// 吸顶导航栏
-.nav-hide {
-  border-top: 1px solid #fff;
-  border-bottom: 1px solid #eee;
-}
-.nav-box {
-  width: 100%;
-  height: 68px;
-  .auto {
-    overflow: visible;
-    margin: 0 auto;
-    min-width: 1220px;
-    max-width: 1220px;
-    padding-left: 10px;
-    box-sizing: border-box;
-    .orientation-nav-box {
-      position: relative;
-      .banner-nav {
-        position: absolute;
-        height: 68px;
-        width: 100%;
-        margin: 0 auto;
-        display: flex;
-        justify-content: space-around;
-      }
-      .banner-nav li a:hover,
-      .banner-nav li a.active {
-        border-bottom: 2px solid #059fff;
-      }
-      .banner-nav li a {
-        display: inline-block;
-        padding: 0px 10px;
-        font-size: 14px;
-        color: #4c4c4c;
-        justify-content: space-around;
-      }
-    }
-  }
-}
-.nav-hide .banner-nav li a {
-  height: 68px;
-  line-height: 68px;
 }
 //产品优势
 .auto {

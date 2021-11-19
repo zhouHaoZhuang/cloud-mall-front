@@ -62,18 +62,25 @@ export const $routes = [
     meta: {
       title: '云服务器',
       icon: 'icon'
-    },
-    children: [
-      {
-        path: '/pc/cloud-price',
-        name: 'cloud-price',
-        component: resolve('pages/product/cloud/cloud-price.vue'),
-        meta: {
-          title: '价格',
-          icon: 'icon'
-        }
-      }
-    ]
+    }
+  },
+  {
+    path:'/pc/cloud-price.html',
+    name:'cloud-p',
+    component:resolve('pages/product/cloud/cloud-price.vue'),
+    meta:{
+      title:'云服务器-选购',
+      icon:'icon'
+    }
+  },
+  {
+    path:'/pc/cloud-pin.html',
+    name:'cloud-c',
+    component:resolve('pages/product/cloud/cloud-pin.vue'),
+    meta:{
+      title:'云服务器-产品',
+      icon:'icon'
+    }
   },
   {
     path: '/pc/balancing-ba',

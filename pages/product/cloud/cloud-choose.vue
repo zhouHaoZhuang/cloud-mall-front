@@ -14,8 +14,10 @@
               </div>
             </div>
             <p class="product-info-btn">
-              <a href="#" class="info-btn1">立即选购</a>
-              <a href="#" class="info-btn2">产品价格</a>
+              <router-link class="info-btn1" to="/pc/cloud-price.html">立即选购</router-link>
+              <!-- <a href="#" class="info-btn1">立即选购</a> -->
+              <router-link class="info-btn1" to="/pc/cloud-pin.html">产品价格</router-link>
+              <!-- <a href="#" class="info-btn2">产品价格</a> -->
             </p>
             <p class="product-info-stand">
               支持
@@ -26,32 +28,10 @@
         </div>
       </div>
     </div>
-    <!-- 吸顶导航栏 -->
-    <div class="nav-box nav-hide">
-      <div class="auto">
-        <div class="orientation-nav-box">
-          <ul class="banner-nav clearfix">
-            <li>
-              <a href="" class="active"> 产品优势 </a>
-            </li>
-            <li>
-              <a href=""> 产品功能 </a>
-            </li>
-            <li>
-              <a href=""> 优势对比 </a>
-            </li>
-            <li>
-              <a href=""> 应用场景 </a>
-            </li>
-            <li>
-              <a href=""> 常见问题 </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
+    <!-- 锚点导航栏 -->
+    <AnchorNav :nav-data="navList" />
     <!-- 产品优势 -->
-    <div class="server-module youshi-module auto">
+    <div id="advantage" class="server-module youshi-module auto">
       <p class="module-title">
         <span class="module-title-name"> 产品优势 </span>
       </p>
@@ -136,7 +116,7 @@
       </div>
     </div>
     <!-- 产品功能 -->
-    <div class="server-module module-marg-top product-power-wrap">
+    <div id="function" class="server-module module-marg-top product-power-wrap">
       <div class="auto">
         <p class="module-title">
           <span class="module-title-name">产品功能</span>
@@ -208,7 +188,7 @@
       </div>
     </div>
     <!-- 优势对比 -->
-    <div class="server-module module-marg-top adv-compare-wrap">
+    <div id="comparison" class="server-module module-marg-top adv-compare-wrap">
       <div class="auto">
         <p class="module-title">
           <span class="module-title-name">优势对比</span>
@@ -302,7 +282,7 @@
       </div>
     </div>
     <!-- 应用场景 -->
-    <div class="server-module module-marg-top app-scene-wrap">
+    <div id="scene" class="server-module module-marg-top app-scene-wrap">
       <div class="auto">
         <p class="module-title">
           <span class="module-title-name">应用场景</span>
@@ -349,7 +329,7 @@
       </div>
     </div>
     <!-- 常见问题 -->
-    <div class="faq-wrap">
+    <div id="issue" class="faq-wrap">
       <div class="auto">
         <p class="module-title">
           <span class="module-title-name">常见问题</span>
@@ -384,7 +364,9 @@
 </template>
 
 <script>
+import AnchorNav from '@/components/AnchorNav/index'
 export default {
+  components: { AnchorNav },
   data () {
     return {
       curId: 0,
@@ -422,6 +404,28 @@ export default {
         },
         {
           itb: '网络游戏在近年来发展迅速，除了传统网络终端之外，网页游戏、手机游戏等发展迅速，也让整个游戏市场愈发壮大。浙江云盾按需付费的方式节省了大量现金流和运营费用。'
+        }
+      ],
+      navList:[
+        {
+          id: 'advantage',
+          title: '产品优势'
+        },
+        {
+          id: 'function',
+          title: '产品功能'
+        },
+        {
+          id: 'comparison',
+          title: '优势对比'
+        },
+        {
+          id: 'scene',
+          title: '应用场景 '
+        },
+        {
+          id:'issue',
+          title:'场景问题'
         }
       ]
     }
