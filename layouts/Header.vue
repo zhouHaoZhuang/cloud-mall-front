@@ -14,9 +14,8 @@
           class="item"
           @mouseenter="mouseEnter(index)"
           @mouseleave="mouseLeave"
-          @click="handleClickJump(item.path)"
         >
-          <a href="#">
+          <a :href="item.path">
             <div class="title-wrap">
               {{ item.title }}
               <img
