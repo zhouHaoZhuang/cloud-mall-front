@@ -58,7 +58,7 @@ export const $routes = [
   {
     path: '/pc/cloud-choose',
     name: 'cloud',
-    component: resolve('pages/product/cloud/cloud-choose'),
+    component: resolve('pages/product/cloud/cloud-choose.vue'),
     meta: {
       title: '云服务器',
       icon: 'icon'
@@ -67,7 +67,7 @@ export const $routes = [
       {
         path: '/pc/cloud-price',
         name: 'cloud-price',
-        component: resolve('pages/product/cloud/cloud-price'),
+        component: resolve('pages/product/cloud/cloud-price.vue'),
         meta: {
           title: '价格',
           icon: 'icon'
@@ -78,7 +78,7 @@ export const $routes = [
   {
     path: '/pc/balancing-ba',
     name: 'balancing',
-    component: resolve('pages/product/balancing/balancing-ba'),
+    component: resolve('pages/product/balancing/balancing-ba.vue'),
     meta: {
       title: '负载均衡',
       icon: 'icon'
@@ -87,16 +87,16 @@ export const $routes = [
   {
     path: '/pc/object-based-use',
     name: 'object',
-    component: resolve('pages/product/object-based/object-based-use'),
+    component: resolve('pages/product/object-based/object-based-use.vue'),
     meta: {
       title: '对象储存',
       icon: 'icon'
     }
   },
   {
-    path:'/pc/object-based-price',
+    path:'/pc/object-based-price.html',
     name:'object-price',
-    component:resolve('pages/product/object-based/object-based-price'),
+    component:resolve('pages/product/object-based/object-based-price.vue'),
     meta:{
       title:'对象储存-价格',
       icon:'icon'
@@ -105,7 +105,7 @@ export const $routes = [
   {
     path: '/pc/Domain-name',
     name: 'domain',
-    component: resolve('pages/product/domain/Domain-name'),
+    component: resolve('pages/product/domain/Domain-name.vue'),
     meta: {
       title: '域名注册',
       icon: 'icon'
