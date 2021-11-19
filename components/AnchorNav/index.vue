@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import VueScrollTo from 'vue-scrollto'
 export default {
   components: {},
   props: {
@@ -34,11 +35,14 @@ export default {
   methods: {
     // 锚点导航点击
     handleNavJump (item) {
-      const nodeEle = document.querySelector(`#${item.id}`)
-      nodeEle.scrollIntoView({
-        block: 'start',
-        top: '80px',
-        behavior: 'smooth'
+      VueScrollTo.scrollTo(`#${item.id}`, 'body', {
+        container: 'body',
+        easing: 'ease-in',
+        force: true,
+        offset: -80,
+        cancelable: true,
+        x: false,
+        y: true
       })
     }
   }

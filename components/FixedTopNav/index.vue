@@ -1,5 +1,5 @@
 <template>
-  <div v-if="navShow" class="fixed-top-nav">
+  <div class="fixed-top-nav" :style="`opacity:${navShow ? 1 : 0}`">
     <div class="container">
       <div class="left">
         <div class="nav-server-name">
@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import VueScrollTo from 'vue-scrollto'
 export default {
   props: {
     navData: {
@@ -43,12 +44,12 @@ export default {
     return {
       navSelectIndex: 0,
       scrollTop: 0,
-      navShow: true
+      navShow: true,
+      tempSrollTop: 0
     }
   },
   mounted () {
     window.addEventListener('scroll', this.scrollToTop)
-    this.getElementDetail()
   },
   destroyed () {
     window.removeEventListener('scroll', this.scrollToTop)
@@ -56,34 +57,18 @@ export default {
   methods: {
     // 锚点导航点击
     handleNavJump (item) {
-      const nodeEle = document.querySelector(`#${item.id}`)
-      nodeEle.scrollIntoView({
-        block: 'start',
-        behavior: 'smooth'
-      })
-      document.documentElement.scrollTop = 80
-    },
-    // 锚点导航跳转后将页面滚动条回滚锚点吸顶导航的高度-因为scrollIntoView方法只能回到顶部，会造成遮挡
-    scrollBackHeight () {
-      const timer = setInterval(() => {
-        const ispeed = Math.floor(-this.scrollTop / 13)
-        document.documentElement.scrollTop = document.body.scrollTop =
-          this.scrollTop + ispeed
-        if (this.scrollTop === 80) {
-          clearInterval(timer)
-        }
-      }, 16)
-    },
-    // 获取所有需要锚点跳转元素
-    getElementDetail () {
-      const result = []
-      this.navData.forEach((ele) => {
-        result.push(document.querySelector(`#${ele.id}`))
-      })
-      console.log('最终获取的元素是', result)
-      console.log('当前滚动条的位置', document.documentElement.scrollTop)
-      result.forEach((ele) => {
-        console.log('获取的元素的位置信息', ele.offsetTop)
+      VueScrollTo.scrollTo(`#${item.id}`, 'body', {
+        container: 'body',
+        easing: 'ease-in',
+        force: true,
+        offset: -80,
+        cancelable: true,
+        onDone: (ele) => {
+          // 滚动结束
+          this.navSelectIndex = this.navData.findIndex(j => j.id === ele.id)
+        },
+        x: false,
+        y: true
       })
     },
     // 为了计算距离顶部的高度，当高度大于60显示回顶部图标，小于60则隐藏
@@ -99,7 +84,8 @@ export default {
       if (this.scrollTop > navTop) {
         this.navShow = true
       } else {
-        // this.navShow = false
+        this.navShow = false
+        this.navSelectIndex = 0
       }
     }
   }
@@ -116,6 +102,8 @@ export default {
   border-top: 1px solid rgba(247, 249, 250, 0.36);
   background: url('~/static/img/common/banner_nav_bg.png') repeat-x;
   display: flex;
+  opacity: 0;
+  transition: opacity 0.3s;
   .container {
     position: relative;
     .left {
