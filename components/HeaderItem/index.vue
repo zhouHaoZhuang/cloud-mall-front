@@ -29,15 +29,7 @@ export default {
   data () {
     return {}
   },
-  methods: {
-    // 点击跳转
-    handleClickJump (path) {
-      if (!path) {
-        return
-      }
-      this.$router.push(path)
-    }
-  }
+  methods: {}
 }
 </script>
 

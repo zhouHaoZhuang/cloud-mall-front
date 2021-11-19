@@ -15,7 +15,7 @@
           @mouseenter="mouseEnter(index)"
           @mouseleave="mouseLeave"
         >
-          <a :href="item.path">
+          <a v-if="item.path" :href="item.path">
             <div class="title-wrap">
               {{ item.title }}
               <img
@@ -29,7 +29,30 @@
             <div
               v-if="JSON.stringify(headerItemData) !== '{}'"
               class="popup-box"
-              @mouseleave="maskMouseLeave"
+            >
+              <div class="container popup-wrap">
+                <HeaderItem
+                  v-for="(ele, idx) in headerItemData"
+                  :key="idx"
+                  :item-data="ele"
+                />
+              </div>
+            </div>
+          </a>
+          <a v-else href="javascript:void(0)">
+            <div class="title-wrap">
+              {{ item.title }}
+              <img
+                v-if="index === 0"
+                src="~/static/img/home/hot.png"
+                alt=""
+                class="hot"
+              >
+            </div>
+            <!-- mask 鼠标进入nav展示列表 -->
+            <div
+              v-if="JSON.stringify(headerItemData) !== '{}'"
+              class="popup-box"
             >
               <div class="container popup-wrap">
                 <HeaderItem
@@ -430,15 +453,6 @@ export default {
       hoverStyle: ''
     }
   },
-  // watch: {
-  //   headerItemData: {
-  //     handler (newVal, oldVal) {
-  //       console.log(newVal, oldVal)
-  //     },
-  //     immediate: true,
-  //     deep: true
-  //   }
-  // },
   methods: {
     // 鼠标进入
     mouseEnter (index) {
@@ -448,20 +462,6 @@ export default {
     // 鼠标离开
     mouseLeave () {
       this.hoverIndex = -1
-      // this.headerItemData = {}
-    },
-    // 点击跳转
-    handleClickJump (path) {
-      if (!path) {
-        return
-      }
-      this.headerItemData = {}
-      this.$router.push(path)
-    },
-    // 鼠标移出popup事件
-    maskMouseLeave () {
-      // this.hoverIndex = -1
-      // this.headerItemData = {}
     }
   }
 }

@@ -59,9 +59,9 @@ export default {
       const nodeEle = document.querySelector(`#${item.id}`)
       nodeEle.scrollIntoView({
         block: 'start',
-        top: '80px',
         behavior: 'smooth'
       })
+      document.documentElement.scrollTop = 80
     },
     // 锚点导航跳转后将页面滚动条回滚锚点吸顶导航的高度-因为scrollIntoView方法只能回到顶部，会造成遮挡
     scrollBackHeight () {
@@ -69,7 +69,7 @@ export default {
         const ispeed = Math.floor(-this.scrollTop / 13)
         document.documentElement.scrollTop = document.body.scrollTop =
           this.scrollTop + ispeed
-        if (this.scrollTop === 0) {
+        if (this.scrollTop === 80) {
           clearInterval(timer)
         }
       }, 16)
