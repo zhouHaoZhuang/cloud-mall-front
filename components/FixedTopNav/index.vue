@@ -172,7 +172,6 @@ export default {
       handler (newVal, oldVal) {
         setTimeout(() => {
           if (newVal === this.scrollTop) {
-            console.log('滚动结束', this.scrollTop)
             this.setNavSelectIndex(this.scrollTop)
           }
         }, 20)
