@@ -11,14 +11,30 @@
           >
         </p>
         <ul>
-          <li :class="atvNum === v.cid ? 'atvBlue':''" v-for="v in helpList[useNum].list" :key="v.cid">
+          <li
+            v-for="v in helpList[useNum].list"
+            :key="v.cid"
+            :class="atvNum === v.cid ? 'atvBlue' : ''"
+            @click="checlass(v.cid)"
+          >
             {{ v.name }}
           </li>
         </ul>
       </div>
-      <!-- <div /> -->
+      <div>
+        <img
+          src="https://www.ydidc.com/template/Home/Zkeys/PC/Static/css/module/help/img/help_home.png"
+          alt=""
+        >
+        <span>{{ title }}</span>
+      </div>
     </div>
-    <div v-show="isShow" class="havList" @mouseenter="isShow = true" @mouseleave="isShow = false">
+    <div
+      v-show="isShow"
+      class="havList"
+      @mouseenter="isShow = true"
+      @mouseleave="isShow = false"
+    >
       <helpInfo />
     </div>
   </div>
@@ -128,7 +144,8 @@ export default {
       ],
       useNum: 0,
       isShow: false,
-      atvNum: 0
+      atvNum: 0,
+      title: ''
     }
   },
   watch: {
@@ -140,17 +157,49 @@ export default {
         this.$refs.imgs.src =
           'https://www.ydidc.com/template/Home/Zkeys/PC/Static/css/module/help/img/nav-list.svg'
       }
+    },
+    $route (to, from) {
+      console.log(to)
+    },
+    // 监视搜索词变化
+    '$route.params.cid': {
+      immediate: true,
+      handler (v) {
+        this.init(v)
+      }
     }
   },
   created () {
-    const cid = this.$route.query.cid
-    console.log(cid)
-    this.atvNum = cid
-    if (cid === 5 || 6 || 7 || 8) {
-      this.useNum = 0
-    }
+    this.init(this.$route.params.cid)
   },
-  methods: {}
+  methods: {
+    checlass (cid) {
+      this.atvNum = cid
+      const title = this.helpList[this.useNum].list.find((v) => {
+        return this.atvNum == v.cid
+      })
+      this.title = title.name
+    },
+    init (id) {
+      const cid = id
+      // console.log(cid)
+      this.atvNum = cid * 1
+      if (this.atvNum == 5 || this.atvNum ==6 || this.atvNum ==7 || this.atvNum ==8) {
+        this.useNum = 0
+      } else if (this.atvNum === 15 || this.atvNum ==16 || this.atvNum ==17 || this.atvNum ==21) {
+        this.useNum = 1
+      } else if (this.atvNum === 10 || this.atvNum ==11 || this.atvNum ==12 || this.atvNum ==13 || this.atvNum ==14) {
+        this.useNum = 2
+      } else if (this.atvNum === 23 || this.atvNum ==24 ||this.atvNum ==30 || this.atvNum ==31 || this.atvNum ==32) {
+        this.useNum = 3
+      }
+      const title = this.helpList[this.useNum].list.find((v) => {
+        return this.atvNum == v.cid
+      })
+      console.log(this.useNum,this.atvNum);
+      this.title = title.name
+    }
+  }
 }
 </script>
 
@@ -159,48 +208,62 @@ export default {
   position: relative;
   top: -70px;
   width: 1220px;
-  height: 643px;
+  display: flex;
   background-color: rgb(255, 255, 255);
-  > div {
-      
-      background-color: rgb(245, 246, 247);
-      width: 220px;
+  > div:nth-child(1) {
+    background-color: rgb(245, 246, 247);
+    width: 220px;
+    //   height: 643px;
+
+    //   display: flex;
+
     > p:hover {
       color: rgb(5, 159, 255);
     }
     > p {
+      height: 50px;
+      line-height: 50px;
+      width: 100%;
+      padding-left: 35px;
+      font-weight: bold;
+      font-size: 14px;
+      margin: 0;
+      border-bottom: 1px solid rgb(229 229 229);
+      // background-color: rgb(255, 243, 70);
+      > img {
+        width: 30px;
+        height: 30px;
+        margin-left: 70px;
+      }
+    }
+    > ul {
+      margin: 0;
+      > li {
         height: 50px;
         line-height: 50px;
         width: 100%;
         padding-left: 35px;
-        font-weight: bold;
-        font-size: 14px;
-        margin: 0;
         border-bottom: 1px solid rgb(229 229 229);
-        // background-color: rgb(255, 243, 70);
-        >img{
-            width: 30px;
-            height: 30px;
-            margin-left: 70px;
-        }
+      }
+      .atvBlue {
+        color: rgb(0 136 255);
+        border-left: 5px solid rgb(0 136 255);
+      }
     }
-    >ul{
-        >li{
-            height: 50px;
-            line-height: 50px;
-            width: 100%;
-            padding-left:35px;
-            border-bottom: 1px solid rgb(229 229 229);
-        }
-        .atvBlue{
-            color: rgb(0 136 255);
-            border-left: 5px solid rgb(0 136 255);
-        }
+  }
+  > div:nth-child(2) {
+    height: 50px;
+    line-height: 50px;
+    > img {
+      margin-left: 30px;
+      margin-right: 12px;
     }
   }
 }
 .clas {
   position: relative;
+  //   width: 1220px;
+  //   display: flex;
 }
 .havList {
   width: 1000px;
@@ -208,6 +271,7 @@ export default {
   position: absolute;
   top: -70px;
   right: 70px;
-  border: 1px solid rgb(255, 76, 76);
+  border: 1px solid rgb(230, 230, 230);
+  background-color: #fff;
 }
 </style>

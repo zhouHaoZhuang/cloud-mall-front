@@ -127,7 +127,7 @@
 export default {
   data () {
     return {
-      space: 0
+      space: 15
     }
   },
   methods: {
@@ -135,7 +135,7 @@ export default {
       if (e.path[0].id === '10') {
         return
       }
-      console.log(e.target, '///////')
+      // console.log(e.target, '///////')
       // 100G宽度304px  300G宽度158px  500G宽度157px
       // console.log(e.path[0].offsetWidth, '----')
       let newwidth = e.offsetX
@@ -150,26 +150,16 @@ export default {
       } else if (e.path[0].id === '500') {
         newwidth = e.offsetX + 304 + 158
         space = (e.offsetX / e.path[0].offsetWidth) * 200 + 300
-        console.log(space, e.offsetX, e.path[0].offsetWidth, '----')
+        // console.log(space, e.offsetX, e.path[0].offsetWidth, '----')
       } else if (e.path[0].id === '0') {
-        console.log(e.path)
+        // console.log(e.path)
       } else {
-        console.log(e.path[0])
+        // console.log(e.path[0])
       }
-      console.log(
-        '7777',
-        e.path[0].id,
-        '777777',
-        space,
-        '777777',
-        e.offsetX,
-        '7777'
-      )
-      // console.log(e.offsetX)
       if (space % 5) {
-        console.log(space, '有余数')
+        // console.log(space, '有余数')
         space = space - (space % 5) + 5
-        console.log(space, '****')
+        // console.log(space, '****')
       } else {
         // console.log(e.offsetX, e.path[0].offsetWidth, space, '没有余数')
       }
@@ -421,7 +411,7 @@ export default {
           // 进度条
           .prog {
             width: 50px;
-            height: 20px;
+            height: 25px;
             background-color: rgb(66, 164, 255);
             position: absolute;
             z-index: 80;

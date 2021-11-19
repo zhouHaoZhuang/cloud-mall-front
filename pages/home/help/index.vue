@@ -18,7 +18,7 @@
     </div>
   
     <div class="helpInfo">
-      <router-view>
+      <router-view :key="$route.params.cid">
       <!-- <helpInfo></helpInfo> -->
       </router-view>
     </div>

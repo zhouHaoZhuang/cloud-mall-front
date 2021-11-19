@@ -159,7 +159,7 @@ export const $routes = [
         }
       },
       {
-        path: 'class',
+        path: 'class/:cid',
         name: 'class-pc',
         component: resolve('pages/home/help/class.vue'),
         meta: {

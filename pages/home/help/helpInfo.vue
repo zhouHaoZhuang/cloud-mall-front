@@ -83,10 +83,7 @@ export default {
       console.log(e.path[0].localName)
       console.log(e.path[0].dataset.cid)
       this.$router.push({
-        name: 'class-pc',
-        query: {
-          cid: e.path[0].dataset.cid
-        }
+        path: `/pc/help/class/${e.path[0].dataset.cid}`,
       })
     }
   }
