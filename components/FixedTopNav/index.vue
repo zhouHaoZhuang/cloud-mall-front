@@ -48,6 +48,7 @@ export default {
     return {
       navSelectIndex: 0,
       scrollTop: 0,
+      oldScrollTop: 0, // 记录上一次滚动结束后的滚动距离
       navShow: true,
       linksList: [
         {
@@ -166,6 +167,16 @@ export default {
         const result = this.linksList.find(ele => ele.path === route.path)
         this.linkTitle = result.title
       }
+    },
+    scrollTop: {
+      handler (newVal, oldVal) {
+        setTimeout(() => {
+          if (newVal === this.scrollTop) {
+            console.log('滚动结束', this.scrollTop)
+            this.setNavSelectIndex(this.scrollTop)
+          }
+        }, 20)
+      }
     }
   },
   created () {
@@ -204,7 +215,6 @@ export default {
         document.documentElement.scrollTop ||
         document.body.scrollTop
       this.scrollTop = scrollTop
-      console.log('滚动条触发滚动', scrollTop)
       // 页面内锚点导航距离页面顶部的位置
       const navTop = document.querySelector('#anchor-nav').offsetTop
       if (this.scrollTop > navTop) {
@@ -213,6 +223,36 @@ export default {
         this.navShow = false
         this.navSelectIndex = 0
       }
+    },
+    // 获取最小差值
+    limit (arr, num) {
+      const newArr = []
+      arr.map((x) => {
+        // 对数组各个数值求差值
+        return newArr.push(Math.abs(x - num))
+      })
+      // 求最小值的索引
+      const index = newArr.indexOf(Math.min.apply(null, newArr))
+      // 返回最小值
+      // return arr[index]
+      // 返回最小值索引
+      return index
+    },
+    // 获取所有需要锚点跳转元素
+    getElementDetail () {
+      const result = []
+      this.navData.forEach((ele) => {
+        result.push(document.querySelector(`#${ele.id}`))
+      })
+      return result.map((ele) => {
+        return ele.offsetTop
+      })
+    },
+    // 页面滚动时设置导航的下划线值
+    setNavSelectIndex (top) {
+      const allNode = this.getElementDetail()
+      const result = this.limit(allNode, top)
+      this.navSelectIndex = result
     }
   }
 }
