@@ -17,13 +17,15 @@
           @click="handleClickJump(item.path)"
         >
           <a href="#">
-            <span>{{ item.title }}</span>
-            <img
-              v-if="index === 0"
-              src="~/static/img/home/hot.png"
-              alt=""
-              class="hot"
-            >
+            <div class="title-wrap">
+              {{ item.title }}
+              <img
+                v-if="index === 0"
+                src="~/static/img/home/hot.png"
+                alt=""
+                class="hot"
+              >
+            </div>
             <!-- mask 鼠标进入nav展示列表 -->
             <div
               v-if="JSON.stringify(headerItemData) !== '{}'"
@@ -306,7 +308,7 @@ export default {
         },
         {
           title: '帮助中心',
-          path: '/help'
+          path: '/pc/help'
         },
         {
           title: '解决方案',
@@ -514,11 +516,14 @@ export default {
           color: #fff;
           transition: 0s;
           display: inline-block;
-        }
-        .hot {
-          position: absolute;
-          top: 24px;
-          left: 250px;
+          .title-wrap {
+            position: relative;
+          }
+          .hot {
+            position: absolute;
+            top: -3px;
+            left: 73px;
+          }
         }
         .popup-box {
           display: none;
