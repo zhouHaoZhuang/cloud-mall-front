@@ -188,13 +188,16 @@
         </div>
       </div>
     </div>
+    <!-- 页面顶部吸顶锚点导航 -->
+    <FixedTopNav :nav-data="navList" />
   </div>
 </template>
 
 <script>
 import AnchorNav from '@/components/AnchorNav/index'
+import FixedTopNav from '@/components/FixedTopNav/index'
 export default {
-  components: { AnchorNav },
+  components: { AnchorNav, FixedTopNav },
   data () {
     return {
       navList: [

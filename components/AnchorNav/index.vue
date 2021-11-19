@@ -1,6 +1,6 @@
 <template>
   <!-- 锚点导航 -->
-  <div class="nav-wrap">
+  <div id="anchor-nav" class="nav-wrap">
     <div class="container">
       <ul class="list">
         <li
@@ -31,9 +31,6 @@ export default {
       navSelectIndex: 0
     }
   },
-  mounted () {
-    this.getElementDetail()
-  },
   methods: {
     // 锚点导航点击
     handleNavJump (item) {
@@ -42,18 +39,6 @@ export default {
         block: 'start',
         top: '80px',
         behavior: 'smooth'
-      })
-      console.log('导航点击', item, nodeEle)
-    },
-    // 获取所有需要锚点跳转元素
-    getElementDetail () {
-      const result = []
-      this.navData.forEach((ele) => {
-        result.push(document.querySelector(`#${ele.id}`))
-      })
-      console.log('最终获取的元素是', result)
-      result.forEach((ele) => {
-        console.log('获取的元素的位置信息', ele.scrollTop)
       })
     }
   }
