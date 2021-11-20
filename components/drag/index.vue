@@ -2,13 +2,13 @@
   <div class="gdt">
     <div id="0001" @click="clickprog">
       <div :id="data.scale[0]" ref="prog1">
-        {{ data.scale[0] }}G
+        {{ data.scale[0] }}{{ data.scale[3] }}
       </div>
       <div :id="data.scale[1]" ref="prog3">
-        {{ data.scale[1] }}G
+        {{ data.scale[1] }}{{ data.scale[3] }}
       </div>
       <div :id="data.scale[2]" ref="prog5">
-        {{ data.scale[2] }}G
+        {{ data.scale[2] }}{{ data.scale[3] }}
       </div>
       <div ref="prog" class="prog" />
     </div>

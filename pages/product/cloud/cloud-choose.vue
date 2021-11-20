@@ -301,19 +301,21 @@
             </div>
           </div>
           <div class="app-scene-detail">
-            <div>适用对象</div>
+            <div class="shiyong">适用对象</div>
             <div
               v-for="(content, index) in contents"
               v-show="index === curId"
               :key="index"
+              class="shiyong2"
             >
               {{ content.content }}
             </div>
-            <div>上云建议</div>
+            <div class="shiyong">上云建议</div>
             <div
               v-for="(ita, index) in contentsa"
               v-show="index === curId"
               :key="index"
+              class="shiyong2"
             >
               {{ ita.ita }}
             </div>
@@ -321,8 +323,19 @@
               v-for="(itb, index) in contentsb"
               v-show="index === curId"
               :key="index"
+              class="shiyong3"
             >
               {{ itb.itb }}
+            </div>
+            <div class="app-car-wrap">
+              <div class="app-car-title">推荐配置</div>
+              <div class="app-car-content clearfix">
+                <div>CPU：8核</div>
+                <div>内存：8G</div>
+                <div>带宽：5M</div>
+                <div>默认防护：5/20G</div>
+                <a href="" class="app-buy-button">立即购买</a>
+              </div>
             </div>
           </div>
         </div>
@@ -360,13 +373,15 @@
         </ul>
       </div>
     </div>
+    <FixedTopNav :navData = navList></FixedTopNav>
   </div>
 </template>
 
 <script>
 import AnchorNav from '@/components/AnchorNav/index'
+import FixedTopNav from '@/components/FixedTopNav/index'
 export default {
-  components: { AnchorNav },
+  components: { AnchorNav,FixedTopNav },
   data () {
     return {
       curId: 0,
@@ -811,8 +826,92 @@ export default {
 }
 .app-scene-detail {
   width: 100%;
-  border: 1px solid red;
+  height: 332px;
+  // position: absolute;
+  // top: 48px;
+  // left: 0;
+  background-color: #ffffff;
+  border: solid 1px #cfd6e3;
+  padding: 40px;
+  // z-index: 2;
+  text-align: left;
+  position: relative;
+  > .shiyong{
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    /* line-height: 46px; */
+    letter-spacing: 0px;
+    color: #000000;
+    font-weight: bold;
+    margin-top: 15px;
+  }
+  > .shiyong2{
+    width: 680px;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    line-height: 30px;
+    letter-spacing: 0px;
+    color: #000000;
+    padding-top: 10px;
+  }
+  > .shiyong3{
+    width: 680px;
+    font-size: 14px;
+    font-weight: normal;
+    letter-spacing: 0px;
+    color: #0080ff;
+    line-height: 23px;
+  }
+  > .app-car-wrap{
+    position: absolute;
+    right: 70px;
+    top: 40px;
+    display: inline-block;
+    width: 360px;
+    height: 240px;
+    background: url(~/static/img/cloud/product_sence_bg.png) no-repeat center;
+  > .app-car-title{
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    line-height: 26px;
+    letter-spacing: 0px;
+    color: #ffffff;
+    text-align: center;
+    padding: 24px 0 22px;
+  }
+  > .app-car-content {
+    font-size: 14px;
+    font-weight: normal;
+    letter-spacing: 0px;
+    color: #ffffff;
+    > div{
+      float: left;
+      width: 140px;
+      margin: 0px 0px 0px 40px;
+      padding: 13px 0px 13px 0px;
+    }
+    > a{
+    // display: block;
+    width: 90px;
+    height: 34px;
+    border-radius: 2px;
+    border: solid 1px #ffffff;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    line-height: 33px;
+    letter-spacing: 0px;
+    color: #ffffff;
+    text-align: center;
+    margin: 14px 0 0 42px;
+    }
+  }
+  }
 }
+
 // 常见问题
 .fff .faq-wrap {
   background: #fff;

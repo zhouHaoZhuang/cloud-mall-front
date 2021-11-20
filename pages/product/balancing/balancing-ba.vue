@@ -213,6 +213,7 @@
         </ul>
       </div>
     </div>
+    <FixedTopNav :navData = navList></FixedTopNav>
   </div>
 </template>
 
