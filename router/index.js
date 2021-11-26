@@ -65,21 +65,21 @@ export const $routes = [
     }
   },
   {
-    path:'/pc/cloud-price.html',
-    name:'cloud-p',
-    component:resolve('pages/product/cloud/cloud-price.vue'),
-    meta:{
-      title:'云服务器-选购',
-      icon:'icon'
+    path: '/pc/cloud-price.html',
+    name: 'cloud-p',
+    component: resolve('pages/product/cloud/cloud-price.vue'),
+    meta: {
+      title: '云服务器-选购',
+      icon: 'icon'
     }
   },
   {
-    path:'/pc/cloud-pin.html',
-    name:'cloud-c',
-    component:resolve('pages/product/cloud/cloud-pin.vue'),
-    meta:{
-      title:'云服务器-产品',
-      icon:'icon'
+    path: '/pc/cloud-pin.html',
+    name: 'cloud-c',
+    component: resolve('pages/product/cloud/cloud-pin.vue'),
+    meta: {
+      title: '云服务器-产品',
+      icon: 'icon'
     }
   },
   {
@@ -101,12 +101,12 @@ export const $routes = [
     }
   },
   {
-    path:'/pc/object-based-price.html',
-    name:'object-price',
-    component:resolve('pages/product/object-based/object-based-price.vue'),
-    meta:{
-      title:'对象储存-价格',
-      icon:'icon'
+    path: '/pc/object-based-price.html',
+    name: 'object-price',
+    component: resolve('pages/product/object-based/object-based-price.vue'),
+    meta: {
+      title: '对象储存-价格',
+      icon: 'icon'
     }
   },
   {
@@ -204,6 +204,16 @@ export const $routes = [
         }
       }
     ]
+  },
+  // 服务保障
+  {
+    path: '/pc/assurance',
+    name: 'assurances',
+    component: resolve('pages/assurance/assurance.vue'),
+    meta: {
+      title: '服务保障',
+      icon: 'icon-ass'
+    }
   },
   // 解决方案
   {
