@@ -269,7 +269,7 @@ export default {
         },
         {
           title: '服务保障',
-          path: '',
+          path: '/pc/assurance',
           children: [
             {
               title: '',
