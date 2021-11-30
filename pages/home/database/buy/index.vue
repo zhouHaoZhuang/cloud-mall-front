@@ -73,7 +73,9 @@
               <div id="500" ref="prog5">
                 500G
               </div>
-              <div ref="prog" class="prog" />
+              <div ref="prog" class="prog" >
+                <img src="https://www.ydidc.com/template/Home/Zkeys/PC/Static/css/module/database/img/new-slide_range_bg.png" alt="">
+              </div>
             </div>
             &nbsp;
             <div>
@@ -426,6 +428,19 @@ export default {
             top: 0;
             left: 0;
             transition: width 0.1s;
+            // background: url(https://www.ydidc.com/template/Home/Zkeys/PC/Static/css/module/database/img/new-slide_range_bg.png) 
+            // no-repeat;
+            // background-position: center right;
+            // background-size: 
+            // 20px 40px;
+            >img{
+              width: 15px;
+              height: 27px;
+              float: right;
+              position: relative;
+              top: -2px;
+              left: 10px;
+            }
           }
           > div:nth-child(1) {
             flex: 2;
