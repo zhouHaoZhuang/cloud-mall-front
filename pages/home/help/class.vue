@@ -186,17 +186,17 @@ export default {
       this.atvNum = cid * 1
       if (this.atvNum == 5 || this.atvNum ==6 || this.atvNum ==7 || this.atvNum ==8) {
         this.useNum = 0
-      } else if (this.atvNum === 15 || this.atvNum ==16 || this.atvNum ==17 || this.atvNum ==21) {
+      } else if (this.atvNum == 15 || this.atvNum ==16 || this.atvNum ==17 || this.atvNum ==21) {
         this.useNum = 1
-      } else if (this.atvNum === 10 || this.atvNum ==11 || this.atvNum ==12 || this.atvNum ==13 || this.atvNum ==14) {
+      } else if (this.atvNum == 10 || this.atvNum ==11 || this.atvNum ==12 || this.atvNum ==13 || this.atvNum ==14) {
         this.useNum = 2
-      } else if (this.atvNum === 23 || this.atvNum ==24 ||this.atvNum ==30 || this.atvNum ==31 || this.atvNum ==32) {
+      } else if (this.atvNum == 23 || this.atvNum ==24 ||this.atvNum ==30 || this.atvNum ==31 || this.atvNum ==32) {
         this.useNum = 3
       }
       const title = this.helpList[this.useNum].list.find((v) => {
         return this.atvNum == v.cid
       })
-      console.log(this.useNum,this.atvNum);
+      // console.log(this.useNum,this.atvNum);
       this.title = title.name
     }
   }
