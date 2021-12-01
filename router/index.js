@@ -280,6 +280,15 @@ export const $routes = [
       title: '代理招募',
       icon: 'icon-home'
     }
+  },
+  {
+    path: '/pc/passport/agreement',
+    name: 'Agreement',
+    component: resolve('pages/passport/agreement.vue'),
+    meta: {
+      title: '服务协议',
+      icon: 'icon-home'
+    }
   }
 ]
 
