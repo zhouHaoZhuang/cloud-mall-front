@@ -65,6 +65,15 @@ export const $routes = [
     }
   },
   {
+    path: '/pc/register',
+    name: 'register',
+    component: resolve('pages/passport/register.vue'),
+    meta: {
+      title: '注册',
+      icon: 'icon'
+    }
+  },
+  {
     path: '/pc/cloud-price.html',
     name: 'cloud-p',
     component: resolve('pages/product/cloud/cloud-price.vue'),

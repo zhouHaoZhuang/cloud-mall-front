@@ -16,7 +16,7 @@
           <h4>用户登录</h4>
           <div>
             <div class="borderbule">
-              <input type="text" placeholder=" 手机号/已认证邮箱">
+              <input type="text" placeholder=" 手机号 / 已认证邮箱">
             </div>
             <div class="borderbule">
               <input type="password" placeholder=" 登录密码">
@@ -28,15 +28,11 @@
             <div>
               <p>登录</p>
             </div>
-            <p><span>还没有账号？立即</span><a>免费注册</a></p>
+            <p><span>还没有账号？立即</span> <a>免费注册</a></p>
           </div>
         </div>
       </div>
     </div>
-    <!-- <div v-for="(item, index) in result" :key="index">
-      {{ item.ColTitle }}
-      {{ item.ColInfo }}
-    </div> -->
   </div>
 </template>
 
@@ -114,11 +110,13 @@ export default {
       height: 370px;
       background-color: #fff;
       padding: 40px 40px 38px;
+      margin-right: 50px;
       > h4 {
         text-align: center;
         font-size: 22px;
         font-weight: 700;
         color: rgb(102, 102, 102);
+        margin-bottom: 20px;
       }
       > div > div {
         width: 300px;
@@ -138,24 +136,37 @@ export default {
         background-repeat: no-repeat;
         background-position: 10px -196px;
       }
+      a{
+        color: rgb(0 170 255);
+      }
       > div > div {
         > input {
           width: 150px;
           outline: none;
           border: 0;
-          color: #fff;
+          color: rgb(0, 0, 0);
           line-height: 0;
+          font-size: 14px;
         }
         input:focus {
           outline: none;
           color: #000;
+          font-size: 14px;
         }
       }
       > div > div:nth-child(3) {
         border: 0;
         padding: 0;
+        font-size: 12px;
+        color: rgb(0 170 255);
+        margin-bottom: 10px;
         input {
           width: 15px;
+          position: relative;
+          top: 3px;
+        }
+        >a:nth-child(3){
+          margin-left: 149px;
         }
       }
       > div > div:nth-child(4) {
@@ -164,12 +175,17 @@ export default {
         background-color: rgb(0, 170, 255);
         color: rgb(255, 255, 255);
         text-align: center;
+        margin-bottom: 20px;
         > p {
           margin: 0;
         }
       }
       >div>p:nth-child(5){
         color: #000;
+        font-size: 12px;
+        >span{
+          color: rgb(153 153 153);
+        }
       }
     }
   }
