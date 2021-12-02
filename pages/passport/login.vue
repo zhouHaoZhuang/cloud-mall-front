@@ -28,7 +28,7 @@
             <div>
               <p>登录</p>
             </div>
-            <p><span>还没有账号？立即</span> <a>免费注册</a></p>
+            <p><span>还没有账号？立即</span> <a href="/pc/register">免费注册</a></p>
           </div>
         </div>
       </div>
