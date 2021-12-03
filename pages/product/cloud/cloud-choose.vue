@@ -14,9 +14,19 @@
               </div>
             </div>
             <p class="product-info-btn">
-              <router-link class="info-btn1" to="/pc/cloud-price.html">立即选购</router-link>
+              <router-link
+                class="info-btn1"
+                to="/pc/cloud-price"
+              >
+                立即选购
+              </router-link>
               <!-- <a href="#" class="info-btn1">立即选购</a> -->
-              <router-link class="info-btn1" to="/pc/cloud-pin.html">产品价格</router-link>
+              <router-link
+                class="info-btn1"
+                to="/pc/cloud-product"
+              >
+                产品价格
+              </router-link>
               <!-- <a href="#" class="info-btn2">产品价格</a> -->
             </p>
             <p class="product-info-stand">
@@ -301,7 +311,9 @@
             </div>
           </div>
           <div class="app-scene-detail">
-            <div class="shiyong">适用对象</div>
+            <div class="shiyong">
+              适用对象
+            </div>
             <div
               v-for="(content, index) in contents"
               v-show="index === curId"
@@ -310,7 +322,9 @@
             >
               {{ content.content }}
             </div>
-            <div class="shiyong">上云建议</div>
+            <div class="shiyong">
+              上云建议
+            </div>
             <div
               v-for="(ita, index) in contentsa"
               v-show="index === curId"
@@ -328,7 +342,9 @@
               {{ itb.itb }}
             </div>
             <div class="app-car-wrap">
-              <div class="app-car-title">推荐配置</div>
+              <div class="app-car-title">
+                推荐配置
+              </div>
               <div class="app-car-content clearfix">
                 <div>CPU：8核</div>
                 <div>内存：8G</div>
@@ -373,7 +389,7 @@
         </ul>
       </div>
     </div>
-    <FixedTopNav :navData = navList></FixedTopNav>
+    <FixedTopNav :nav-data="navList" />
   </div>
 </template>
 
@@ -381,7 +397,7 @@
 import AnchorNav from '@/components/AnchorNav/index'
 import FixedTopNav from '@/components/FixedTopNav/index'
 export default {
-  components: { AnchorNav,FixedTopNav },
+  components: { AnchorNav, FixedTopNav },
   data () {
     return {
       curId: 0,
@@ -421,7 +437,7 @@ export default {
           itb: '网络游戏在近年来发展迅速，除了传统网络终端之外，网页游戏、手机游戏等发展迅速，也让整个游戏市场愈发壮大。浙江云盾按需付费的方式节省了大量现金流和运营费用。'
         }
       ],
-      navList:[
+      navList: [
         {
           id: 'advantage',
           title: '产品优势'
@@ -439,8 +455,8 @@ export default {
           title: '应用场景 '
         },
         {
-          id:'issue',
-          title:'场景问题'
+          id: 'issue',
+          title: '场景问题'
         }
       ]
     }
@@ -705,7 +721,6 @@ export default {
       color: #000000;
     }
     .pp-icon {
-      float: left;
       display: inline-block;
       width: 45px;
       height: 45px;
@@ -836,7 +851,7 @@ export default {
   // z-index: 2;
   text-align: left;
   position: relative;
-  > .shiyong{
+  > .shiyong {
     font-size: 16px;
     font-weight: normal;
     font-stretch: normal;
@@ -846,7 +861,7 @@ export default {
     font-weight: bold;
     margin-top: 15px;
   }
-  > .shiyong2{
+  > .shiyong2 {
     width: 680px;
     font-size: 14px;
     font-weight: normal;
@@ -856,7 +871,7 @@ export default {
     color: #000000;
     padding-top: 10px;
   }
-  > .shiyong3{
+  > .shiyong3 {
     width: 680px;
     font-size: 14px;
     font-weight: normal;
@@ -864,7 +879,7 @@ export default {
     color: #0080ff;
     line-height: 23px;
   }
-  > .app-car-wrap{
+  > .app-car-wrap {
     position: absolute;
     right: 70px;
     top: 40px;
@@ -872,43 +887,43 @@ export default {
     width: 360px;
     height: 240px;
     background: url(~/static/img/cloud/product_sence_bg.png) no-repeat center;
-  > .app-car-title{
-    font-size: 16px;
-    font-weight: normal;
-    font-stretch: normal;
-    line-height: 26px;
-    letter-spacing: 0px;
-    color: #ffffff;
-    text-align: center;
-    padding: 24px 0 22px;
-  }
-  > .app-car-content {
-    font-size: 14px;
-    font-weight: normal;
-    letter-spacing: 0px;
-    color: #ffffff;
-    > div{
-      float: left;
-      width: 140px;
-      margin: 0px 0px 0px 40px;
-      padding: 13px 0px 13px 0px;
+    > .app-car-title {
+      font-size: 16px;
+      font-weight: normal;
+      font-stretch: normal;
+      line-height: 26px;
+      letter-spacing: 0px;
+      color: #ffffff;
+      text-align: center;
+      padding: 24px 0 22px;
     }
-    > a{
-    // display: block;
-    width: 90px;
-    height: 34px;
-    border-radius: 2px;
-    border: solid 1px #ffffff;
-    font-size: 14px;
-    font-weight: normal;
-    font-stretch: normal;
-    line-height: 33px;
-    letter-spacing: 0px;
-    color: #ffffff;
-    text-align: center;
-    margin: 14px 0 0 42px;
+    > .app-car-content {
+      font-size: 14px;
+      font-weight: normal;
+      letter-spacing: 0px;
+      color: #ffffff;
+      > div {
+        float: left;
+        width: 140px;
+        margin: 0px 0px 0px 40px;
+        padding: 13px 0px 13px 0px;
+      }
+      > a {
+        // display: block;
+        width: 90px;
+        height: 34px;
+        border-radius: 2px;
+        border: solid 1px #ffffff;
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        line-height: 33px;
+        letter-spacing: 0px;
+        color: #ffffff;
+        text-align: center;
+        margin: 14px 0 0 42px;
+      }
     }
-  }
   }
 }
 

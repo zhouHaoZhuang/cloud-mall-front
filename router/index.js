@@ -65,16 +65,7 @@ export const $routes = [
     }
   },
   {
-    path: '/pc/register',
-    name: 'register',
-    component: resolve('pages/passport/register.vue'),
-    meta: {
-      title: '注册',
-      icon: 'icon'
-    }
-  },
-  {
-    path: '/pc/cloud-price.html',
+    path: '/pc/cloud-price',
     name: 'cloud-p',
     component: resolve('pages/product/cloud/cloud-price.vue'),
     meta: {
@@ -83,11 +74,20 @@ export const $routes = [
     }
   },
   {
-    path: '/pc/cloud-pin.html',
+    path: '/pc/cloud-product',
     name: 'cloud-c',
     component: resolve('pages/product/cloud/cloud-pin.vue'),
     meta: {
       title: '云服务器-产品',
+      icon: 'icon'
+    }
+  },
+  {
+    path: '/pc/register',
+    name: 'register',
+    component: resolve('pages/passport/register.vue'),
+    meta: {
+      title: '注册',
       icon: 'icon'
     }
   },
