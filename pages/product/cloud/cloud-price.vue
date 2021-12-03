@@ -73,9 +73,15 @@
     <div class="net">
       <div>系统信息</div>
       <div>
-        <p><span class="atv">公共镜像：</span><span><input type="text"><input type="text"></span></p>
-        <p><span class="atv">登录方式：</span><span>设置密码</span><span>暂不设置</span></p>
-        <p><span class="atv"></span>主机创建后，自动生成的密码将通过短信的形式发送给您。同时您也可登录浙江云盾控制台重置主机密码</p>
+        <p>
+          <span class="atv">公共镜像：</span><span><input type="text"><input type="text"></span>
+        </p>
+        <p>
+          <span class="atv">登录方式：</span><span>设置密码</span><span>暂不设置</span>
+        </p>
+        <p>
+          <span class="atv" />主机创建后，自动生成的密码将通过短信的形式发送给您。同时您也可登录浙江云盾控制台重置主机密码
+        </p>
       </div>
     </div>
     <div class="purc">
@@ -83,7 +89,7 @@
       <div>
         <p>
           <span>购买时长：</span><span>1个月</span><span>2个月</span><span>3个月</span><span>4个月</span><span>5个月</span><span>6个月</span><span>7个月</span><span>8个月</span><span>9个月</span><span>1年</span><span>2年</span><span>3年</span>
-        </p> 
+        </p>
         <p><span>自动续费：</span><span>是</span><span>否</span></p>
         <p>
           <span>购买台数：</span><input id="" type="text" name="" value="1"><span>上</span><span>下</span>
@@ -508,135 +514,135 @@ export default {
   }
 }
 .net {
-    width: 1220px;
-    height: 175px;
-    display: flex;
-    margin: -27px auto 0;
-    border: 1px solid rgb(238, 238, 238);
-    border-left: 0;
-    background-color: #fff;
-    > div:nth-child(1) {
-      width: 31px;
-      writing-mode: vertical-lr;
-      // height: 108px;
-      background-color: rgb(235, 236, 238);
-      color: rgb(119, 119, 119);
-      margin-top: -2px;
-      text-align: center;
-      padding-left: 5px;
-      border: solid 1px rgb(238, 238, 238);
-    }
-    > div:nth-child(2) {
-      margin-top: 30px;
-      > p {
-        display: flex;
-        // height: 100%;
-        align-items: center;
-        > span:nth-child(2) {
-          > input:nth-child(1) {
-            border: 1px solid rgb(5, 159,255);
-          }
-          > input:nth-child(2) {
-            margin-left: 10px ;
-            border: 1px solid rgb(5, 159,255);
-          }
-        }
-      }
-      > p:nth-child(2){
-         > span:nth-child(2) {
-          border: 1px solid #dddddd;
-          background-color: white;
-          width: 130px;
-          height: 35px;
-          line-height: 35px;
-          text-align: center;
-          font-size: 14px;
-          color: #333333;
-          margin-left: -1px;
-        }
-        > span:nth-child(3) {
-          background-color:  rgb(5,159,255);
-          border: 1px solid #dddddd;
-          // background-color: white;
-          width: 130px;
-          height: 35px;
-          line-height: 35px;
-          text-align: center;
-          font-size: 14px;
-          color: white;
-          margin-left: -1px;
-        }
-      }
-    }
-    > div:nth-child(3) {
+  width: 1220px;
+  height: 175px;
+  display: flex;
+  margin: -27px auto 0;
+  border: 1px solid rgb(238, 238, 238);
+  border-left: 0;
+  background-color: #fff;
+  > div:nth-child(1) {
+    width: 31px;
+    writing-mode: vertical-lr;
+    // height: 108px;
+    background-color: rgb(235, 236, 238);
+    color: rgb(119, 119, 119);
+    margin-top: -2px;
+    text-align: center;
+    padding-left: 5px;
+    border: solid 1px rgb(238, 238, 238);
+  }
+  > div:nth-child(2) {
+    margin-top: 30px;
+    > p {
       display: flex;
+      // height: 100%;
+      align-items: center;
+      > span:nth-child(2) {
+        > input:nth-child(1) {
+          border: 1px solid rgb(5, 159, 255);
+        }
+        > input:nth-child(2) {
+          margin-left: 10px;
+          border: 1px solid rgb(5, 159, 255);
+        }
+      }
     }
-    .atv {
+    > p:nth-child(2) {
+      > span:nth-child(2) {
+        border: 1px solid #dddddd;
+        background-color: white;
+        width: 130px;
+        height: 35px;
+        line-height: 35px;
+        text-align: center;
+        font-size: 14px;
+        color: #333333;
+        margin-left: -1px;
+      }
+      > span:nth-child(3) {
+        background-color: rgb(5, 159, 255);
+        border: 1px solid #dddddd;
+        // background-color: white;
+        width: 130px;
+        height: 35px;
+        line-height: 35px;
+        text-align: center;
+        font-size: 14px;
+        color: white;
+        margin-left: -1px;
+      }
+    }
+  }
+  > div:nth-child(3) {
+    display: flex;
+  }
+  .atv {
+    width: 107px;
+    text-align: right;
+    font-size: 14px;
+    color: rgb(153, 153, 153);
+  }
+}
+.purc:hover {
+  border-color: rgb(5, 159, 255);
+  > div:nth-child(1) {
+    background-color: rgb(5, 159, 255);
+    color: rgb(255, 255, 255);
+  }
+}
+.purc {
+  width: 1220px;
+  height: 226px;
+  display: flex;
+  margin: 16px auto;
+  border: 1px solid rgb(238, 238, 238);
+  border-left: 0;
+  background-color: #fff;
+  > div:nth-child(1) {
+    width: 31px;
+    writing-mode: vertical-lr;
+    height: 228px;
+    background-color: rgb(235, 236, 238);
+    color: rgb(119, 119, 119);
+    margin-top: -2px;
+    text-align: center;
+    padding-left: 5px;
+    border: solid 1px rgb(238, 238, 238);
+  }
+  > div:nth-child(2) {
+    padding: 32px 0 16px;
+    > p > span {
+      display: inline-block;
+    }
+    > p:nth-child(1) {
+      span {
+        line-height: 35px;
+        text-align: center;
+        width: 85px;
+        height: 35px;
+        border: solid 1px rgb(221 221 221);
+        margin-left: -1px;
+        font-size: 14px;
+        color: rgb(85, 85, 85);
+      }
+    }
+    > p > span:nth-child(1) {
       width: 107px;
       text-align: right;
       font-size: 14px;
       color: rgb(153, 153, 153);
+      border: 0;
     }
-  }
-  .purc:hover {
-    border-color: rgb(5, 159, 255);
-    > div:nth-child(1) {
-      background-color: rgb(5, 159, 255);
-      color: rgb(255, 255, 255);
-    }
-  }
-  .purc {
-    width: 1220px;
-    height: 226px;
-    display: flex;
-    margin: 16px auto;
-    border: 1px solid rgb(238, 238, 238);
-    border-left: 0;
-    background-color: #fff;
-    > div:nth-child(1) {
-      width: 31px;
-      writing-mode: vertical-lr;
-      height: 228px;
-      background-color: rgb(235, 236, 238);
-      color: rgb(119, 119, 119);
-      margin-top: -2px;
+    > p:nth-child(2) > span:nth-child(1) ~ span {
+      width: 129px;
+      height: 35px;
       text-align: center;
-      padding-left: 5px;
-      border: solid 1px rgb(238, 238, 238);
-    }
-    > div:nth-child(2) {
-      padding: 32px 0 16px;
-      > p > span {
-        display: inline-block;
-      }
-      > p:nth-child(1) {
-        span {
-          line-height: 35px;
-          text-align: center;
-          width: 85px;
-          height: 35px;
-          border: solid 1px rgb(221 221 221);
-          margin-left: -1px;
-          font-size: 14px;
-          color: rgb(85, 85, 85);
-        }
-      }
-      > p > span:nth-child(1) {
-        width: 107px;
-        text-align: right;
-        font-size: 14px;
-        color: rgb(153, 153, 153);
-        border: 0;
-      }
-      > p:nth-child(2) > span:nth-child(1) ~ span {
-        width: 129px;
-        height: 35px;
-        text-align: center;
-        line-height: 35px;
-        border: solid 1px rgb(221 221 221);
-      }
+      line-height: 35px;
+      border: solid 1px rgb(221 221 221);
     }
   }
+}
 .basset:hover {
   border-color: rgb(5, 159, 255);
   > div:nth-child(1) {

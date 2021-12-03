@@ -30,16 +30,22 @@ export default {
       }
       let newwidth = e.offsetX
       let space = 0
-      if (e.path[0].id*1 === this.data.scale[0]) {
+      if (e.path[0].id * 1 === this.data.scale[0]) {
         space = (newwidth / e.path[0].offsetWidth) * this.data.scale[0]
         // console.log(space, '----')
-      } else if (e.path[0].id*1 === this.data.scale[1]) {
+      } else if (e.path[0].id * 1 === this.data.scale[1]) {
         newwidth = e.offsetX + 304
-        space = (e.offsetX / e.path[0].offsetWidth) * (this.data.scale[1] - this.data.scale[0]) + this.data.scale[0]
+        space =
+          (e.offsetX / e.path[0].offsetWidth) *
+            (this.data.scale[1] - this.data.scale[0]) +
+          this.data.scale[0]
         // console.log(space, '----')
-      } else if (e.path[0].id*1 === this.data.scale[2]) {
+      } else if (e.path[0].id * 1 === this.data.scale[2]) {
         newwidth = e.offsetX + 304 + 158
-        space = (e.offsetX / e.path[0].offsetWidth) * (this.data.scale[2] - this.data.scale[1]) +this.data.scale[1]
+        space =
+          (e.offsetX / e.path[0].offsetWidth) *
+            (this.data.scale[2] - this.data.scale[1]) +
+          this.data.scale[1]
       } else if (e.path[0].id === '0') {
       } else {
       }
@@ -62,7 +68,7 @@ export default {
       }
       const wih = this.$refs.prog
       wih.style.width = newwidth + 'px'
-    //   console.log(this.space, '----')
+      //   console.log(this.space, '----')
       this.data.valfun(this.space)
     }
   }
