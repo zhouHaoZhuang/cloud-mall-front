@@ -54,15 +54,15 @@
           </p>
           <p>
             <span class="atv">SSD数据盘：</span>
-            <drag :data="{ scale: [200, 600, 1000, 'G'], valfun: val }" />
+            <!-- <DragSlider :data="{ scale: [200, 600, 1000, 'G'], valfun: val }" /> -->
           </p>
           <p>
             <span class="atv" />
-            <drag :data="{ scale: [200, 600, 1000, 'G'], valfun: val }" />
+            <!-- <DragSlider :data="{ scale: [200, 600, 1000, 'G'], valfun: val }" /> -->
           </p>
           <p>
             <span class="atv">公网带宽：</span>
-            <drag :data="{ scale: [30, 75, 300, 'M'], valfun: val }" />
+            <DragSlider :value="value" :on-change="changeProgress" />
           </p>
           <p>
             <span class="atv">防御峰值：</span><span class="blue">20G</span><span>30G</span><span>50G</span><span>100G</span><span>200G</span><span>300G</span>
@@ -80,7 +80,9 @@
           <span class="atv">登录方式：</span><span>设置密码</span><span>暂不设置</span>
         </p>
         <p>
-          <span class="atv" />主机创建后，自动生成的密码将通过短信的形式发送给您。同时您也可登录浙江云盾控制台重置主机密码
+          <span
+            class="atv"
+          />主机创建后，自动生成的密码将通过短信的形式发送给您。同时您也可登录浙江云盾控制台重置主机密码
         </p>
       </div>
     </div>
@@ -117,19 +119,24 @@
 </template>
 
 <script>
-import drag from '@/components/drag/index'
+import DragSlider from '@/components/DragSlider/index'
 export default {
   components: {
-    drag
+    DragSlider
   },
   data () {
     return {
-      space: 0
+      space: 0,
+      value: 0
     }
   },
   methods: {
     val (a) {
       console.log(a)
+    },
+    // 修改滑块进度
+    changeProgress (val) {
+      this.value = val
     }
   }
 }
