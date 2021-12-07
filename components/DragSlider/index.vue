@@ -2,13 +2,18 @@
   <!-- 最外层包裹 -->
   <div class="slider-wrap">
     <!-- 滑动输入条的每一块，共计四块 -->
-    <div ref="slider" class="slider-box">
+    <div ref="slider" class="slider-box" @click="handleChangePre">
       <div v-for="item in sliderData" :key="item" class="item">
         {{ item }}
       </div>
     </div>
     <!-- 结构同上,用于进度条修改后所展示的结构,同时包裹在滑动输入条背景盒子里 -->
-    <div class="slider-bg" :style="{ width }">
+    <div
+      ref="sliderBg"
+      class="slider-bg"
+      :style="{ width: width + 'px' }"
+      @click="handleChangePre"
+    >
       <div class="slider-box slider-copy-bg">
         <div v-for="item in sliderData" :key="item" class="item">
           {{ item }}
@@ -16,14 +21,14 @@
       </div>
     </div>
     <!-- 滑块 -->
-    <div ref="trunk" class="slider-btn" :style="{ left }" />
+    <div ref="trunk" class="slider-btn" :style="{ left: left + 'px' }" />
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    // 滑块的进度
+    // 组件默认进度
     value: {
       type: Number,
       default: 0
@@ -33,16 +38,21 @@ export default {
       type: Number,
       default: 1000
     },
-    // 每次滑动步长
-    step: {
-      type: Number,
-      default: 1
-    },
     // 单位  带宽-M 数据盘-G
     company: {
       type: String,
       default: 'G'
     },
+    // 最小值
+    min: {
+      type: Number,
+      default: 0
+    },
+    // 最大值--暂不需要-默认最大值就是进度条最大宽度 600px
+    // max: {
+    //   type: Number,
+    //   default: 1000
+    // },
     // 滑块改动后需要触发的回调,参数可以拿到修改后的滑块值
     onChange: {
       type: Function,
@@ -54,33 +64,9 @@ export default {
       sliderData: [], // 滑动输入条的页面结构渲染数据
       slider: null, // 滚动条DOM元素
       thunk: null, // 拖拽DOM元素
-      progressNum: 0 // 组件内维护的进度
-    }
-  },
-  computed: {
-    // 设置一个百分比，提供计算slider进度宽度和trunk的left值
-    // 对应公式为 当前值-最小值/最大值-最小值 = slider进度width / slider总width
-    // trunk left = slider进度width + trunk宽度/2
-    scale () {
-      return (this.per - this.min) / (this.max - this.min)
-    },
-    width () {
-      if (this.slider) {
-        return this.slider.offsetWidth * this.scale + 'px'
-      } else {
-        return 0 + 'px'
-      }
-    },
-    left () {
-      if (this.slider) {
-        return (
-          this.slider.offsetWidth * this.scale -
-          this.thunk.offsetWidth / 2 +
-          'px'
-        )
-      } else {
-        return 0 + 'px'
-      }
+      per: this.value,
+      width: 0,
+      left: 0
     }
   },
   watch: {
@@ -90,29 +76,37 @@ export default {
         this.sliderData = [...this.setSliderData()]
       },
       immediate: true
+    },
+    // 根据value值控制页面进度条进度
+    value: {
+      handler (newVal, oldVal) {
+        this.width = this.computedWidthAndLeft(newVal)
+        this.left = this.computedWidthAndLeft(newVal) - 8
+      },
+      immediate: true
     }
   },
   // 渲染到页面的时候
   mounted () {
+    // 滑动输入条
     this.slider = this.$refs.slider
+    // 滑块
     this.thunk = this.$refs.trunk
+    // 滑块鼠标按下事件
     this.thunk.onmousedown = (e) => {
-      const width = parseInt(this.width)
       const disX = e.clientX
+      // 滑块鼠标移动事件
       document.onmousemove = (e) => {
-        console.log('移动', e, width, disX)
-        // value, left, width
-        // 当value变化的时候，会通过计算属性修改left，width
         // 拖拽的时候获取的新width
-        // const newWidth = e.clientX - disX + width
-        // // 拖拽的时候得到新的百分比
-        // const scale = newWidth / this.slider.offsetWidth
-        // this.per = Math.ceil((this.max - this.min) * scale + this.min)
-        // this.per = Math.max(this.per, this.min)
-        // this.per = Math.min(this.per, this.max
-        // this.$emit('onChange', )
+        const newWidth = e.clientX - disX + this.width
+        this.per = Math.min(newWidth, 600)
+        if (this.per < this.computedWidthAndLeft(this.min)) {
+          this.per = this.computedWidthAndLeft(this.min)
+        }
       }
+      // 滑块鼠标抬起事件
       document.onmouseup = () => {
+        this.onChange(this.computedValue(this.per))
         document.onmousemove = document.onmouseup = null
       }
       return false
@@ -127,34 +121,40 @@ export default {
         newArr.push(num * (i + 1) + this.company)
       }
       return newArr
+    },
+    // 计算返回进度条宽度等比的实际数据的值
+    computedValue (val) {
+      return parseInt(((val || this.width) / 600) * this.number)
+    },
+    // 根据实际数据的值计算页面宽度+距离左侧距离
+    computedWidthAndLeft (val) {
+      return (val / this.number) * 600
+    },
+    // 点击修改进度
+    handleChangePre (e) {
+      let newPer = e.layerX
+      if (newPer < this.computedWidthAndLeft(this.min)) {
+        newPer = this.computedWidthAndLeft(this.min)
+      }
+      this.onChange(this.computedValue(newPer))
     }
-    // 滑块移动时间 ---按下---移动---停止
-    // 按下
-    // sliderMouseDown (e) {
-    //   console.log('按下', e)
-    // },
-    // // 移动
-    // sliderMouseMove (e) {
-    //   console.log('移动', e)
-    // }
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .slider-wrap {
+  margin: 100px;
   margin-left: 100px;
   position: relative;
   width: 600px;
   height: 35px;
-  padding: 0 8px;
   border: 1px solid #ddd;
-  // border-left: none;
   background-color: #fff;
   border-radius: 2px;
   font-size: 14px;
   .slider-box {
-    width: 584px;
+    width: 600px;
     display: flex;
     .item {
       width: 25%;
@@ -179,6 +179,7 @@ export default {
     background-color: #059fff;
     margin-top: -1px;
     border-radius: 2px 0 0 2px;
+    transition: width 0.2s;
     .slider-copy-bg {
       position: absolute;
       top: 0;
@@ -197,8 +198,8 @@ export default {
     background: url('~/static/img/common/slide_range_bg.png') no-repeat center;
     cursor: pointer;
     z-index: 3;
-    transition: left 0.1s;
     cursor: pointer;
+    transition: left 0.2s;
   }
 }
 </style>
