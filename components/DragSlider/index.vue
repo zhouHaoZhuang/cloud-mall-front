@@ -144,8 +144,6 @@ export default {
 
 <style lang="scss" scoped>
 .slider-wrap {
-  margin: 100px;
-  margin-left: 100px;
   position: relative;
   width: 600px;
   height: 35px;

@@ -8,9 +8,16 @@
           MySQL提供高性能、高可靠的数据库服务。拥有稳定、安全、弹性、经济的特点，默认支持标准的数据库协议，实现监控、故障自动切换、数据备份与恢复、实例管理等多种功能，广泛应用于各类应用场景。
         </span>
         <p>
-          <router-link class="select" to='/pc/mysql/buy.html'>立即选购</router-link>
+          <router-link
+            class="select"
+            to="/pc/mysql/buy"
+          >
+            立即选购
+          </router-link>
           <!-- <a href="">产品价格</a> -->
-          <router-link to='/pc/mysql/price.html'>产品价格</router-link>
+          <router-link to="/pc/mysql/price">
+            产品价格
+          </router-link>
         </p>
         <p>
           <a>支持5天无理由退款</a>
@@ -31,7 +38,7 @@
           </div>
         </div>
       </div> -->
-        <AnchorNav :nav-data="arrTitle" />
+      <AnchorNav :nav-data="arrTitle" />
       <div id="Adv" class="Adv">
         <p>{{ fourModules[0].name }}</p>
         <div>
@@ -102,7 +109,7 @@
         </div>
       </div>
     </div>
-    <FixedTopNav :navData = arrTitle></FixedTopNav>
+    <FixedTopNav :nav-data="arrTitle" />
   </div>
 </template>
 
@@ -110,6 +117,10 @@
 import AnchorNav from '@/components/AnchorNav/index'
 import FixedTopNav from '@/components/FixedTopNav/index'
 export default {
+  components: {
+    FixedTopNav,
+    AnchorNav
+  },
   data () {
     return {
       fourModules: [
@@ -354,29 +365,25 @@ export default {
         }
       ],
       atv: 0,
-      arrTitle:[
+      arrTitle: [
         {
-          id:'Adv',
-          title:'产品优势'
+          id: 'Adv',
+          title: '产品优势'
         },
         {
-          id:'fun',
-          title:'产品功能'
+          id: 'fun',
+          title: '产品功能'
         },
         {
-          id:'scenes',
-          title:'应用场景'
+          id: 'scenes',
+          title: '应用场景'
         },
         {
-          id:'Assoc',
-          title:'关联产品'
-        },
+          id: 'Assoc',
+          title: '关联产品'
+        }
       ]
     }
-  },
-  components:{
-    FixedTopNav,
-    AnchorNav
   },
   methods: {
     clickTo (i) {

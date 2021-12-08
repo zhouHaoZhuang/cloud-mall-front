@@ -22,7 +22,7 @@ export default {
   props: {
     // 组件传递的值
     value: {
-      type: [Number, Boolean],
+      type: [Number, Boolean, String],
       default: 0
     },
     // 渲染组件的数据源
@@ -59,6 +59,7 @@ export default {
     handleChange (val) {
       this.selectValue = val
       this.$emit('changeValue', this.selectValue)
+      this.onChange()
     }
   }
 }

@@ -2,7 +2,7 @@
   <div class="layout-header">
     <div class="container header-box">
       <!-- logo -->
-      <div class="logo">
+      <div class="logo" @click="handleClickJump('/pc')">
         <img src="~/static/img/home/logo.png" alt="">
         <h1>浙江云盾</h1>
       </div>
@@ -462,6 +462,14 @@ export default {
     // 鼠标离开
     mouseLeave () {
       this.hoverIndex = -1
+    },
+    // 点击跳转
+    handleClickJump (path) {
+      console.log(path)
+      if (!path) {
+        return
+      }
+      this.$router.push(path)
     }
   }
 }
@@ -487,6 +495,7 @@ export default {
       width: 142px;
       margin-left: 10px;
       position: relative;
+      cursor: pointer;
       img {
         position: absolute;
         top: 50%;

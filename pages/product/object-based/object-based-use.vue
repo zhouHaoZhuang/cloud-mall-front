@@ -15,9 +15,19 @@
                 </div>
               </div>
               <p class="product-info-btn">
-                <router-link class="info-btn1" to="/pc/object-based-price.html">立即使用</router-link>
+                <router-link
+                  class="info-btn1"
+                  to="/pc/object-based-price"
+                >
+                  立即使用
+                </router-link>
                 <!-- <a href="#" class="info-btn1">立即使用</a> -->
-                <router-link class="info-btn2" to="/pc/object-based-price.html">产品价格</router-link>
+                <router-link
+                  class="info-btn2"
+                  to="/pc/object-based-price"
+                >
+                  产品价格
+                </router-link>
                 <!-- <a href="#" class="info-btn2" @click="product">产品价格</a> -->
               </p>
             </div>
@@ -309,7 +319,7 @@
       <div class="auto">
         <p class="module-title">
           <span class="module-title-name">常见问题</span>
-          <span class="group-span"></span>
+          <span class="group-span" />
         </p>
         <ul class="qa-box clearfix">
           <li>
@@ -317,26 +327,26 @@
               <span>备案指南</span>
               <a href="">更多>></a>
             </p>
-            <div class="qa-box-list"></div>
+            <div class="qa-box-list" />
           </li>
           <li>
             <p class="qa-title qa-title1">
               <span>安全类问题</span>
               <a href="">更多>></a>
             </p>
-            <div class="qa-box-list"></div>
+            <div class="qa-box-list" />
           </li>
           <li>
             <p class="qa-title qa-title1">
               <span>基础类问题</span>
               <a href="">更多>></a>
             </p>
-            <div class="qa-box-list"></div>
+            <div class="qa-box-list" />
           </li>
         </ul>
       </div>
     </div>
-    <FixedTopNav :navData = navList></FixedTopNav>
+    <FixedTopNav :nav-data="navList" />
   </div>
 </template>
 
@@ -344,9 +354,9 @@
 import AnchorNav from '@/components/AnchorNav/index'
 export default {
   components: { AnchorNav },
-  data(){
-    return{
-      navList:[
+  data () {
+    return {
+      navList: [
         {
           id: 'open',
           title: '产品优势'
@@ -613,7 +623,7 @@ export default {
 .scene-table .td1 {
   padding-left: 36px;
   background: #fbfbfb;
-//   text-align: center;
+  //   text-align: center;
   vertical-align: middle !important;
 }
 .scene-table td {
@@ -627,25 +637,25 @@ export default {
   color: #333;
 }
 .table-item-1 {
-    background: url(~/static/img/object/icon-scene-1.png) no-repeat left center;
+  background: url(~/static/img/object/icon-scene-1.png) no-repeat left center;
 }
 .table-item-2 {
-    background: url(~/static/img/object/icon-scene-2.png) no-repeat left center;
+  background: url(~/static/img/object/icon-scene-2.png) no-repeat left center;
 }
 .table-item-3 {
-    background: url(~/static/img/object/icon-scene-3.png) no-repeat left center;
+  background: url(~/static/img/object/icon-scene-3.png) no-repeat left center;
 }
 .table-item-4 {
-    background: url(~/static/img/object/icon-scene-4.png) no-repeat left center;
+  background: url(~/static/img/object/icon-scene-4.png) no-repeat left center;
 }
 .table-item-5 {
-    background: url(~/static/img/object/icon-scene-5.png) no-repeat left center;
+  background: url(~/static/img/object/icon-scene-5.png) no-repeat left center;
 }
 .table-item-6 {
-    background: url(~/static/img/object/icon-scene-6.png) no-repeat left center;
+  background: url(~/static/img/object/icon-scene-6.png) no-repeat left center;
 }
 .table-item-7 {
-    background: url(~/static/img/object/icon-scene-7.png) no-repeat left center;
+  background: url(~/static/img/object/icon-scene-7.png) no-repeat left center;
 }
 .scene-table .td2 {
   padding: 20px 30px 20px 38px;
@@ -670,55 +680,55 @@ export default {
 }
 //常见问题
 .faq-wrap {
-    background-color: #f7f8fa;
-    padding: 30px 0;
+  background-color: #f7f8fa;
+  padding: 30px 0;
 }
 .module-title {
-    position: relative;
-    height: 32px;
-    line-height: 32px;
-    text-align: center;
+  position: relative;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
 }
 .qa-box {
-    margin: 50px 0px 40px 0px;
+  margin: 50px 0px 40px 0px;
 }
 .qa-box li:first-child {
-    border-left: 0px;
+  border-left: 0px;
 }
 .qa-box li {
-    position: relative;
-    float: left;
-    width: 364px;
-    height: 240px;
-    background: #fff;
-    margin: 0 20px;
+  position: relative;
+  float: left;
+  width: 364px;
+  height: 240px;
+  background: #fff;
+  margin: 0 20px;
 }
 .qa-title1 {
-    background-position: 30px 0;
+  background-position: 30px 0;
 }
 .qa-title {
-    position: relative;
-    height: 36px;
-    line-height: 36px;
-    margin-top: 22px;
+  position: relative;
+  height: 36px;
+  line-height: 36px;
+  margin-top: 22px;
 }
 .qa-title span {
-    display: inline-block;
-    margin-left: 30px;
-    font-size: 18px;
-    color: #333;
+  display: inline-block;
+  margin-left: 30px;
+  font-size: 18px;
+  color: #333;
 }
 .qa-title a {
-    position: absolute;
-    right: 22px;
-    top: 0px;
-    display: inline-block;
-    font-size: 12px;
-    color: #0080ff;
+  position: absolute;
+  right: 22px;
+  top: 0px;
+  display: inline-block;
+  font-size: 12px;
+  color: #0080ff;
 }
 .qa-box-list {
-    margin-left: 30px;
-    margin-top: 8px;
-    margin: 8px 0px 0px 30px;
+  margin-left: 30px;
+  margin-top: 8px;
+  margin: 8px 0px 0px 30px;
 }
 </style>

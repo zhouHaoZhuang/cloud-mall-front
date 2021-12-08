@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import direc1 from '../assets/js/directives/directive1.js'
+import * as Directives from '../assets/js/directives/directive1.js'
 
 // 全局指令
-Vue.directive('direc1', direc1)
+Vue.use(Directives)
 
 // 混入methods
 Vue.mixin({
@@ -10,11 +10,13 @@ Vue.mixin({
     $seo (title, content, payload = []) {
       return {
         title,
-        meta: [{
-          hid: 'descript',
-          name: 'keywords',
-          content
-        }].concat(payload)
+        meta: [
+          {
+            hid: 'descript',
+            name: 'keywords',
+            content
+          }
+        ].concat(payload)
       }
     }
   }

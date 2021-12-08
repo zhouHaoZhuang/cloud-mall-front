@@ -110,7 +110,7 @@ export const $routes = [
     }
   },
   {
-    path: '/pc/object-based-price.html',
+    path: '/pc/object-based-price',
     name: 'object-price',
     component: resolve('pages/product/object-based/object-based-price.vue'),
     meta: {
@@ -138,7 +138,7 @@ export const $routes = [
   },
 
   {
-    path: '/pc/mysql/buy.html',
+    path: '/pc/mysql/buy',
     name: 'buy-pc',
     component: resolve('pages/home/database/buy/index.vue'),
     meta: {
@@ -186,7 +186,7 @@ export const $routes = [
     ]
   },
   {
-    path: '/pc/mysql/price.html',
+    path: '/pc/mysql/price',
     name: 'price-pc',
     component: resolve('pages/home/database/price/index.vue'),
     meta: {

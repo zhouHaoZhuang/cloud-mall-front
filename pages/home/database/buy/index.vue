@@ -73,8 +73,11 @@
               <div id="500" ref="prog5">
                 500G
               </div>
-              <div ref="prog" class="prog" >
-                <img src="https://www.ydidc.com/template/Home/Zkeys/PC/Static/css/module/database/img/new-slide_range_bg.png" alt="">
+              <div ref="prog" class="prog">
+                <img
+                  src="https://www.ydidc.com/template/Home/Zkeys/PC/Static/css/module/database/img/new-slide_range_bg.png"
+                  alt=""
+                >
               </div>
             </div>
             &nbsp;
@@ -186,7 +189,7 @@ export default {
       const wih = this.$refs.prog
       wih.style.width = newwidth + 'px'
       // console.log(wih.offsetWidth)
-    },
+    }
     // val(kdz){
     //   console.log(kdz,"我是子组件的值");
     // }
@@ -428,12 +431,12 @@ export default {
             top: 0;
             left: 0;
             transition: width 0.1s;
-            // background: url(https://www.ydidc.com/template/Home/Zkeys/PC/Static/css/module/database/img/new-slide_range_bg.png) 
+            // background: url(https://www.ydidc.com/template/Home/Zkeys/PC/Static/css/module/database/img/new-slide_range_bg.png)
             // no-repeat;
             // background-position: center right;
-            // background-size: 
+            // background-size:
             // 20px 40px;
-            >img{
+            > img {
               width: 15px;
               height: 27px;
               float: right;

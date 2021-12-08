@@ -8,11 +8,11 @@
           提供更经济、更专业、更高效、更可靠的数据库服务。支持基于Windows架构的应用程序，提供了Web界面进行配置、操作数据库实列，并提供可靠的数据备份和恢复、安全管理、监控等功能支持。
         </span>
         <p>
-          <router-link class="select" to="/pc/mysql/buy.html">
+          <router-link class="select" to="/pc/mysql/buy">
             立即选购
           </router-link>
           <!-- <a href="">产品价格</a> -->
-          <router-link to="/pc/mysql/price.html">
+          <router-link to="/pc/mysql/price">
             产品价格
           </router-link>
         </p>
