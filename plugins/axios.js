@@ -9,6 +9,8 @@ export default ({ $axios, redirect, route, store }) => {
   // 请求时拦截
   $axios.onRequest((config) => {
     // config.headers.token = store.state.user.token
+    // config.headers.domain = store.state.user.windowHref
+    console.log(store.state.user.windowHref)
     config.headers.domain = env.DOMAIN_URL
     return config
   })

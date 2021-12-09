@@ -1,5 +1,6 @@
 const urls = {
-  dev: 'http://192.168.0.34:8082',
+  // dev: 'http://192.168.0.34:8082',
+  dev: 'http://8.136.205.83:8082',
   test: 'http://test.com',
   preprod: 'http://preprod.com',
   prod: 'http://prod.com'

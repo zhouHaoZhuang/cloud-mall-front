@@ -1,7 +1,8 @@
 // state
 export const state = () => ({
   token: 'asdfghjkl',
-  userInfo: {}
+  userInfo: {},
+  windowHref: ''
 })
 
 // getters
@@ -13,6 +14,10 @@ export const getters = {
 
 // mutations
 export const mutations = {
+  // 保存当前浏览器地址
+  saveWindowsHref (state, href) {
+    state.windowHref = href
+  },
   // 保存用户信息
   saveUserInfo (state, payload) {
     state.userInfo = { ...payload }
@@ -25,8 +30,13 @@ export const mutations = {
 
 // actions
 export const actions = {
+  // 保存浏览器地址
+  setWindowsHref ({ commit, state }, payload) {
+    commit('saveWindowsHref', payload)
+  },
   getUserInfo ({ commit, state }, payload) {
-    commit('setUserInfo', payload)
+    // commit('setUserInfo', payload)
+    commit('saveToken', payload)
   },
   // vuex调用接口方式
   getList ({ commit, state }, payload) {

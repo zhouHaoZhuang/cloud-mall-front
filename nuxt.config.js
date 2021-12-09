@@ -54,21 +54,21 @@ export default {
     {
       src: '@/plugins/antd-ui',
       ssr: true // 开启服务端渲染
-    }
+    },
+    { src: '~/plugins/vue-persistedstate', ssr: false }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: [
-  ],
+  buildModules: [],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    'cookie-universal-nuxt', // 数据持久化
+    // 'cookie-universal-nuxt', // 数据持久化
     '@nuxtjs/style-resources' // 全局css配置
   ],
 

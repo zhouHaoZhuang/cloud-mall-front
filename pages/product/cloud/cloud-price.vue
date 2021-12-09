@@ -146,7 +146,7 @@
                     增加一块
                   </div>
                 </div>
-                <div class="info-txt">
+                <div v-if="form.dataDisk" class="info-txt">
                   还可以添加
                   <span class="strong"> {{ 4 - form.dataDisk.length }}块 </span>
                   磁盘
@@ -427,6 +427,7 @@ export default {
   async asyncData ({ app }) {
     // 获取地域列表
     const data = await app.$api.cloud.addressList()
+    console.log('获取地域', data)
     const selectAddressId =
       Array.isArray(data.data) && data.data.length > 1
         ? data.data[1].regionId
@@ -553,6 +554,7 @@ export default {
         }
       ],
       // 系统镜像
+      defaultSystem: [],
       systemList: [], // 系统
       systemEditionList: [], // 版本
       // 登录方式
@@ -642,18 +644,26 @@ export default {
   computed: {
     // 返回选择的那个地域名称
     addressName () {
-      const newAddress = this.addressData.find(
-        item => item.regionId === this.selectAddressId
-      )
-      return newAddress.localName
+      if (this.addressData.length > 0) {
+        const newAddress = this.addressData.find(
+          item => item.regionId === this.selectAddressId
+        )
+        return newAddress.localName
+      } else {
+        return ''
+      }
     },
     // 返回磁盘大小
     diskNum () {
-      let sum = 0
-      this.form.dataDisk.forEach((item) => {
-        sum += item.size
-      })
-      return sum
+      if (this.form.dataDisk && Array.isArray(this.form.dataDisk)) {
+        let sum = 0
+        this.form.dataDisk.forEach((item) => {
+          sum += item.size
+        })
+        return sum
+      } else {
+        return 0
+      }
     }
   },
   methods: {
