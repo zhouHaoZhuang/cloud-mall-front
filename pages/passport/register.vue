@@ -470,7 +470,7 @@ div {
             }
             .enter::before {
               content: '';
-              background: url(../../Static/img/register/enter.png) no-repeat;
+              background: url(../../static/img/register/enter.png) no-repeat;
               padding-left: 25px;
               line-height: 22px;
               height: 22px;
