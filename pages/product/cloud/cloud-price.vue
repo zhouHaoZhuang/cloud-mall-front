@@ -122,7 +122,7 @@
                 <DragSlider
                   :value="item.size"
                   :number="item.number"
-                  :min="20"
+                  :min="40"
                   :max="item.number"
                   :on-change="val => changeSsdData(val, index)"
                 />
@@ -427,7 +427,7 @@ export default {
   async asyncData ({ app }) {
     // 获取地域列表
     const data = await app.$api.cloud.addressList()
-    console.log('获取地域', data)
+    console.log('地域列表', data)
     const selectAddressId =
       Array.isArray(data.data) && data.data.length > 1
         ? data.data[1].regionId
@@ -698,7 +698,27 @@ export default {
     // 地域切换
     addressChange (item) {
       this.selectAddressId = item.regionId
-      this.form.regionId = item.regionId
+      // 生成询价+购买参数
+      const newForm = {
+        ...this.form,
+        cpu: 1,
+        memory: 1,
+        period: 1,
+        regionId: item.regionId,
+        dataDisk: [
+          {
+            id: -1,
+            number: 500,
+            default: true,
+            category: 'cloud_essd',
+            performanceLevel: 'PL0',
+            size: 40
+          }
+        ],
+        internetMaxBandwidthOut: 1,
+        tradePrice: '0.00' // 服务器金额
+      }
+      this.form = { ...newForm }
       this.getCpuAndDisk()
     },
     // 获取地域对应的cpu和内存信息
@@ -727,7 +747,6 @@ export default {
             this.getCloudPrice()
           } else {
             this.$message.warning('该地域/内存/CPU下没有实例')
-            console.log('飒飒飒飒是', isReGetPrice, this.preCpu, this.preMemory)
             if (isReGetPrice) {
               this.form.cpu = this.preCpu
               this.form.memory = this.preMemory

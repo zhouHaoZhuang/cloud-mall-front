@@ -48,7 +48,7 @@ export default {
     // 最小值
     min: {
       type: Number,
-      default: 10
+      default: 40
     },
     // 最大值
     max: {
