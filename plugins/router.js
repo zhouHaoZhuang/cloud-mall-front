@@ -13,20 +13,20 @@ export default ({ app, redirect, params, query, store, req }) => {
 
   // 移动端-pc端跳转适配
   const routerPush = (to, from, next, redirect) => {
-    // 暂时注释移动端适配
-    // if (isMobile === '/mb') {
-    //   if (to.path.includes('pc')) {
-    //     redirect(to.path.replace('pc', 'mb'))
-    //   } else {
-    //     next()
-    //   }
-    // } else {
-    //   if (to.path.includes('mb')) {
-    //     redirect(to.path.replace('mb', 'pc'))
-    //   } else {
-    //     next()
-    //   }
-    // }
+    // 移动端适配
+    if (isMobile === '/mb') {
+      if (to.path.includes('pc')) {
+        redirect(to.path.replace('pc', 'mb'))
+      } else {
+        next()
+      }
+    } else {
+      if (to.path.includes('mb')) {
+        redirect(to.path.replace('mb', 'pc'))
+      } else {
+        next()
+      }
+    }
     next()
   }
   // app == vue实例
@@ -46,6 +46,7 @@ export default ({ app, redirect, params, query, store, req }) => {
           routerPush(to, from, next, redirect)
         }
       } else {
+        // 适配移动端
         redirect(`login-${isMobile === '/pc' ? 'pc' : 'mb'}`)
       }
     }

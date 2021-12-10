@@ -1,5 +1,11 @@
 // import { message } from 'ant-design-vue'
 import env from '~/config/env'
+// 根据环境返回domain地址--后端需要请求头携带浏览器地址，字段：domain
+function getDomainUrl (store) {
+  return process.env.NODE_ENV === 'dev'
+    ? env.DOMAIN_URL
+    : store.state.user.windowHref
+}
 // 拦截器
 export default ({ $axios, redirect, route, store }) => {
   // 基本配置
@@ -9,9 +15,7 @@ export default ({ $axios, redirect, route, store }) => {
   // 请求时拦截
   $axios.onRequest((config) => {
     // config.headers.token = store.state.user.token
-    // config.headers.domain = store.state.user.windowHref
-    console.log(store.state.user.windowHref)
-    config.headers.domain = env.DOMAIN_URL
+    config.headers.domain = getDomainUrl(store)
     return config
   })
 

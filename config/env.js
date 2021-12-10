@@ -6,10 +6,10 @@ const urls = {
   prod: 'http://ims.dev.ydidc.com'
 }
 const domains = {
-  dev: 'localhost',
-  test: 'http://test.com',
-  preprod: 'http://preprod.com',
-  prod: 'http://prod.com'
+  dev: 'localhost'
+  // test: 'http://test.com',
+  // preprod: 'http://preprod.com',
+  // prod: 'http://prod.com'
 }
 
 export default {
