@@ -2,14 +2,15 @@
 import { getIsPcOrMobile } from '../utils/index'
 export default ({ app, redirect, params, query, store, req }) => {
   const userAgent = req ? req.headers['user-agent'] : navigator.userAgent || ''
+  // cookies对象
+  const cookies = app.$cookies
   // 返回设备是pc还是移动端
   const isMobile = getIsPcOrMobile(userAgent)
   // token
-  const token = store.state.user.token
-  console.log(token)
+  const token = cookies.get('token') ? cookies.get('token') : ''
 
-  // 免登录白名单
-  const whiteList = ['/login-pc', '/login-mb', '/pc/register']
+  // 需要登录黑名单
+  const blackList = []
 
   // 移动端-pc端跳转适配
   const routerPush = (to, from, next, redirect) => {
@@ -33,26 +34,26 @@ export default ({ app, redirect, params, query, store, req }) => {
   // redirect 跳转函数
   app.router.beforeEach((to, from, next) => {
     // 全局前置守卫 -- 插件
-    // 检测跳转的路由是否在白名单内，存在就直接放行
-    if (whiteList.includes(to.path)) {
-      routerPush(to, from, next, redirect)
-    } else {
+    if (to.path === '/') {
+      redirect(`/${isMobile === '/pc' ? 'pc' : 'mb'}`)
+    } else if (blackList.includes(to.path)) {
       // 本地是否有token
       if (token) {
+        console.log('本地有token嘛', token, to)
         // 已配置pc移动端适配
-        if (to.path === '/') {
-          redirect(isMobile)
-        } else {
-          routerPush(to, from, next, redirect)
-        }
+        routerPush(to, from, next, redirect)
       } else {
-        // 适配移动端
+        // 没有token,跳转登录
         redirect(`login-${isMobile === '/pc' ? 'pc' : 'mb'}`)
       }
+    } else {
+      // 不需要校验登录，直接跳转
+      // 适配移动端
+      routerPush(to, from, next, redirect)
     }
   })
-
-  app.router.afterEach((to, from) => {
-    console.log('插件全局后置守卫')
-  })
+  // 插件全局后置守卫
+  // app.router.afterEach((to, from) => {
+  //   console.log('插件全局后置守卫')
+  // })
 }

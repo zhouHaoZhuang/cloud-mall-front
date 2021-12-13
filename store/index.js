@@ -19,11 +19,9 @@ export const mutations = {
 export const actions = {
   nuxtServerInit (store, { app: { $cookies } }) {
     // 主模块初始化数据到store里 --token信息
-    // console.log('nuxtServerInit')
-    // const user = $cookies.get('user')
-    //   ? $cookies.get('user')
-    //   : { token: '', userInfo: {} }
-    // store.commit('user/saveUserInfo', user)
+    const token = $cookies.get('token') ? $cookies.get('token') : ''
+    // console.log('nuxtServerInit', token)
+    store.commit('user/saveToken', token)
   },
   // 查询列表
   getList ({ commit, state }, params) {

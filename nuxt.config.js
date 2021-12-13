@@ -68,7 +68,7 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    // 'cookie-universal-nuxt', // 数据持久化
+    'cookie-universal-nuxt', // 数据持久化
     '@nuxtjs/style-resources' // 全局css配置
   ],
 

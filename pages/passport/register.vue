@@ -53,6 +53,7 @@
               <input
                 v-model="form.code"
                 placeholder="请输入短信验证码"
+                maxlength="4"
                 @focus="
                   codeEnter = true
                   codeStatus = 0
@@ -156,38 +157,6 @@
             </div>
           </div>
           <div>
-            <label>
-              <span>QQ</span>
-              <span>*</span>
-              <input
-                v-model="form.qq"
-                placeholder="请填写您的QQ号码"
-                @focus="
-                  qqEnter = true
-                  qqStatus = 0
-                "
-                @blur="qqCodeblurfns"
-              >
-            </label>
-            <div>
-              <p
-                v-if="qqStatus === 0"
-                :class="{
-                  start: !qqEnter,
-                  enter: qqEnter
-                }"
-              >
-                请填写QQ号码
-              </p>
-              <p v-else-if="qqStatus === 1" class="stop">
-                QQ格式填写错误
-              </p>
-              <p v-else-if="qqStatus === 2" class="ok">
-                QQ格式填写正确
-              </p>
-            </div>
-          </div>
-          <div>
             <input v-model="isRead" type="checkbox" value="blue">
             <span>
               我已阅读并同意<a
@@ -220,9 +189,6 @@ export default {
       //   确认密码
       confirmPwdEnter: false,
       confirmPwdStatus: 0,
-      //   QQ
-      qqEnter: false,
-      qqStatus: 0,
       // 手机号正则
       phoneReg:
         /^(13[0-9]|14[01456879]|15[0-3,5-9]|16[2567]|17[0-8]|18[0-9]|19[0-3,5-9])\d{8}$/,
@@ -231,8 +197,7 @@ export default {
         phone: '',
         code: '',
         password: '',
-        confrimPassword: '',
-        qq: ''
+        confrimPassword: ''
       },
       // 获取验证码loading
       codeLoading: false,
@@ -259,7 +224,7 @@ export default {
     },
     // 短信验证码失去焦点
     shortblurfns () {
-      if (this.form.code.length === 6) {
+      if (this.form.code.length === 4) {
         this.codeStatus = 2
       } else {
         this.codeStatus = 1
@@ -279,14 +244,6 @@ export default {
         this.confirmPwdStatus = 2
       } else {
         this.confirmPwdStatus = 1
-      }
-    },
-    // QQ号码失去焦点
-    qqCodeblurfns () {
-      if (this.form.qq.length >= 5) {
-        this.qqStatus = 2
-      } else {
-        this.qqStatus = 1
       }
     },
     // 发送验证码
@@ -324,8 +281,36 @@ export default {
     },
     // 注册
     handleRegister () {
+      if (this.phoneStatus !== 2) {
+        this.$message.warning('请输入手机号')
+        return
+      }
+      if (this.codeStatus !== 2) {
+        this.$message.warning('请输入验证码')
+        return
+      }
+      if (this.pwdStatus !== 2) {
+        this.$message.warning('请输入密码')
+        return
+      }
+      if (
+        this.confirmPwdStatus !== 2 &&
+        this.form.password === this.form.confrimPassword
+      ) {
+        this.$message.warning('请输入二次确认密码')
+        return
+      }
+      if (this.isRead.length.length === 0) {
+        this.$message.warning('请勾选服务协议')
+        return
+      }
       this.$api.user.register(this.form).then((res) => {
-        console.log(res)
+        if (res.code === '000000') {
+          this.$message.success('注册成功，请重新登录')
+          this.$router.replace('/login-pc')
+        } else {
+          this.$message.warning(res.msg)
+        }
       })
     }
   }
@@ -515,7 +500,7 @@ div {
             border-radius: 4px;
           }
         }
-        > div:nth-child(6) {
+        > div:nth-child(5) {
           cursor: pointer;
           > input[type='checkbox'] {
             cursor: pointer;
@@ -530,7 +515,7 @@ div {
             background-position: -61px -1px;
           }
         }
-        > div:nth-child(7) {
+        > div:nth-child(6) {
           background-color: rgb(204 204 204);
           color: rgb(255, 255, 255);
           width: 400px;

@@ -30,7 +30,7 @@
               <a>忘记密码？</a>
             </div>
             <div>
-              <p class="login-btn" @click="handleLogin">
+              <p class="login-btn" @click="handleLoginBefore">
                 登录
               </p>
             </div>
@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   data () {
     return {
@@ -57,9 +58,26 @@ export default {
         /^(13[0-9]|14[01456879]|15[0-3,5-9]|16[2567]|17[0-8]|18[0-9]|19[0-3,5-9])\d{8}$/
     }
   },
+  computed: {
+    ...mapState({
+      autoLogin: state => state.user.loginForm.autoLogin,
+      isLogin: state => state.user.isLogin,
+      loginForm: state => state.user.loginForm
+    })
+  },
+  watch: {
+    autoLogin: {
+      handler (newVal) {
+        if (newVal && !this.isLogin) {
+          this.login(this.loginForm)
+        }
+      },
+      immediate: true
+    }
+  },
   methods: {
-    // 登录
-    handleLogin () {
+    // 登录前校验
+    handleLoginBefore () {
       if (this.form.phone === '') {
         this.$message.warning('请输入手机号')
         return
@@ -72,8 +90,22 @@ export default {
         this.$message.warning('请输入密码')
         return
       }
-      this.$api.user.login(this.form).then((res) => {
-        console.log(res)
+      this.login(this.form)
+    },
+    login (form) {
+      this.$api.user.login(form).then((res) => {
+        if (res.code === '000000') {
+          this.$message.success('登录成功')
+          // 保存用户信息
+          this.$store.dispatch('user/login', res.data)
+          // 保存token到cookies
+          this.$cookies.set('token', res.data.token)
+          // 设置是否自动登录
+          this.$store.dispatch('user/setAutoLogin', form)
+          this.$router.replace('/')
+        } else {
+          this.$message.warning(res.msg)
+        }
       })
     }
   }

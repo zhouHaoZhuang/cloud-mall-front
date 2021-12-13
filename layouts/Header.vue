@@ -87,36 +87,37 @@
           备案
         </div>
         <!-- 登录/注册 -->
-        <div class="btns">
-          <div class="btn">
+        <div v-if="!isLogin" class="btns">
+          <div class="btn" @click="handleClickJump('/pc/register')">
             免费注册
           </div>
-          <div class="btn">
+          <div class="btn" @click="handleClickJump('/login-pc')">
             登录
           </div>
         </div>
         <!-- 已登录用户信息 -->
-        <!-- <div class="userinfo">
+        <div v-else class="userinfo">
           <img src="~/static/img/home/member.png" alt="">
           <div class="name">
-            <i>*</i>
-            <span>勇</span>
-          </div> -->
-        <!-- 控制台 -->
-        <!-- <div class="control">
+            <!-- <i>*</i> -->
+            <span>{{ userInfo.username }}</span>
+          </div>
+          <!-- 控制台 -->
+          <div class="control">
             控制台
-          </div> -->
-        <!-- 登出 -->
-        <!-- <div class="logout">
+          </div>
+          <!-- 登出 -->
+          <div class="logout" @click="handleLoginOut">
             退出
           </div>
-        </div> -->
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import HeaderItem from '../components/HeaderItem/index.vue'
 export default {
   components: {
@@ -453,6 +454,12 @@ export default {
       hoverStyle: ''
     }
   },
+  computed: {
+    ...mapState({
+      isLogin: state => state.user.isLogin,
+      userInfo: state => state.user.userInfo
+    })
+  },
   methods: {
     // 鼠标进入
     mouseEnter (index) {
@@ -470,6 +477,13 @@ export default {
         return
       }
       this.$router.push(path)
+    },
+    // 点击退出
+    handleLoginOut () {
+      console.log('点击了退出')
+      this.$cookies.remove('token', { path: '/' })
+      this.$store.dispatch('user/logOut')
+      this.$router.push('/login-pc')
     }
   }
 }
@@ -570,7 +584,7 @@ export default {
     }
     .login {
       height: 100%;
-      margin-left: 86px;
+      margin-left: 56px;
       display: flex;
       align-items: center;
       color: #fff;
@@ -608,7 +622,7 @@ export default {
           z-index: 999;
           position: absolute;
           left: -10px;
-          top: 32px;
+          top: 30px;
           padding-left: 15px;
           .item-select {
             height: 40px;
@@ -643,6 +657,7 @@ export default {
           height: 38px;
           line-height: 38px;
           text-align: center;
+          cursor: pointer;
         }
         .btn:nth-child(1) {
           width: 86px;
@@ -663,12 +678,20 @@ export default {
           margin-left: 5px;
           margin-right: 3px;
           position: relative;
-          padding-left: 7px;
+          padding-left: 3px;
+          display: flex;
+          align-items: center;
           i {
             font-size: 16px;
             position: absolute;
             top: -2px;
             left: 0;
+          }
+          span {
+            width: 40px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
           }
         }
         .control {
@@ -676,6 +699,7 @@ export default {
         }
         .logout {
           margin-left: 7px;
+          cursor: pointer;
         }
         .name:hover,
         .control:hover,
@@ -688,6 +712,6 @@ export default {
 }
 .layout-header:hover {
   background-color: #2b3033;
-  border-bottom: none;
+  border-bottom-color: transparent;
 }
 </style>
