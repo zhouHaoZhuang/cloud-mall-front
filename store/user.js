@@ -1,6 +1,7 @@
 // state
 export const state = () => ({
-  token: 'asdfghjkl',
+  isLogin: false,
+  token: '',
   userInfo: {},
   windowHref: ''
 })
@@ -25,6 +26,10 @@ export const mutations = {
   // 保存token
   saveToken (state, payload) {
     state.token = payload.token
+  },
+  // 设置是否登录状态
+  saveIsLogin (state, status) {
+    state.isLogin = status
   }
 }
 
@@ -41,5 +46,11 @@ export const actions = {
   // vuex调用接口方式
   getList ({ commit, state }, payload) {
     this.$api.home.list({ pageNo: 99 }).then((res) => {})
+  },
+  // 退出登录
+  logOut ({ commit, state }) {
+    commit('saveIsLogin', false)
+    commit('saveToken', { token: '' })
+    commit('setUserInfo', {})
   }
 }

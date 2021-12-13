@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="login-container">
     <!-- <div>登录-pc端</div> -->
     <div class="titleTop">
       <div class="titleInfo">
@@ -16,19 +16,27 @@
           <h4>用户登录</h4>
           <div>
             <div class="borderbule">
-              <input type="text" placeholder=" 手机号 / 已认证邮箱">
+              <input v-model="form.phone" type="text" placeholder="手机号">
             </div>
             <div class="borderbule">
-              <input type="password" placeholder=" 登录密码">
+              <input
+                v-model="form.password"
+                type="password"
+                placeholder="登录密码"
+              >
             </div>
             <div>
-              <input type="checkbox"><a>下次自动登录</a>
+              <input v-model="form.autoLogin" type="checkbox"><a>下次自动登录</a>
               <a>忘记密码？</a>
             </div>
             <div>
-              <p>登录</p>
+              <p class="login-btn" @click="handleLogin">
+                登录
+              </p>
             </div>
-            <p><span>还没有账号？立即</span> <a href="/pc/register">免费注册</a></p>
+            <p>
+              <span>还没有账号？立即</span> <a href="/pc/register">免费注册</a>
+            </p>
           </div>
         </div>
       </div>
@@ -37,42 +45,46 @@
 </template>
 
 <script>
-import env from '~/config/env'
 export default {
-  // nuxt推荐请求方式
-  // async asyncData ({ app }) {
-  //   const dataa = await app.$api.home.list({ action: 'apphome' })
-  //   // console.log('请求之后', dataa)
-  //   return {
-  //     result: dataa
-  //   }
-  // },
   data () {
     return {
-      result: []
+      form: {
+        phone: '',
+        password: '',
+        autoLogin: false
+      },
+      phoneReg:
+        /^(13[0-9]|14[01456879]|15[0-3,5-9]|16[2567]|17[0-8]|18[0-9]|19[0-3,5-9])\d{8}$/
     }
   },
-  // 读数据 返回vuex
-  fetch ({ store }) {
-    // 异步业务逻辑 读取服务端的数据提交给vuex
-    console.log('fetch')
-  },
-  mounted () {
-    // 生命周期调用接口-不推荐
-    this.getList()
-    console.log('环境变量', process.env, process.env.NODE_ENV, env.BASE_URL)
-  },
   methods: {
-    getList () {
-      this.$api.home.list({ action: 'apphome' }).then((res) => {
+    // 登录
+    handleLogin () {
+      if (this.form.phone === '') {
+        this.$message.warning('请输入手机号')
+        return
+      }
+      if (!this.phoneReg.test(this.form.phone)) {
+        this.$message.warning('请输入格式正确的手机号')
+        return
+      }
+      if (this.form.password === '') {
+        this.$message.warning('请输入密码')
+        return
+      }
+      this.$api.user.login(this.form).then((res) => {
         console.log(res)
-        this.result = [...res.data.category]
       })
     }
   }
 }
 </script>
 <style lang="scss" scoped>
+.login-container {
+  .login-btn {
+    cursor: pointer;
+  }
+}
 .titleTop {
   background-image: url(https://www.ydidc.com/template/Home/Zkeys/PC/Static/statics/images/login/login-bg.jpg);
   width: 100%;
@@ -136,7 +148,7 @@ export default {
         background-repeat: no-repeat;
         background-position: 10px -196px;
       }
-      a{
+      a {
         color: rgb(0 170 255);
       }
       > div > div {
@@ -165,7 +177,7 @@ export default {
           position: relative;
           top: 3px;
         }
-        >a:nth-child(3){
+        > a:nth-child(3) {
           margin-left: 149px;
         }
       }
@@ -180,10 +192,10 @@ export default {
           margin: 0;
         }
       }
-      >div>p:nth-child(5){
+      > div > p:nth-child(5) {
         color: #000;
         font-size: 12px;
-        >span{
+        > span {
           color: rgb(153 153 153);
         }
       }

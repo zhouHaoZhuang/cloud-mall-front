@@ -13,6 +13,15 @@ const whiteList = [
     }
   },
   {
+    path: '/pc/register',
+    name: 'register',
+    component: resolve('pages/passport/register.vue'),
+    meta: {
+      title: '注册',
+      icon: 'icon'
+    }
+  },
+  {
     path: '/login-mb',
     name: 'Login-mb',
     component: resolve('pages/passport/login-m.vue'),
@@ -79,15 +88,6 @@ export const $routes = [
     component: resolve('pages/product/cloud/cloud-pin.vue'),
     meta: {
       title: '云服务器-产品',
-      icon: 'icon'
-    }
-  },
-  {
-    path: '/pc/register',
-    name: 'register',
-    component: resolve('pages/passport/register.vue'),
-    meta: {
-      title: '注册',
       icon: 'icon'
     }
   },

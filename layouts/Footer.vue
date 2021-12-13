@@ -1,7 +1,7 @@
 <template>
   <div class="layout-footer">
     <!-- 加入我们 -->
-    <div class="join-wrap">
+    <div v-show="show" class="join-wrap">
       <div class="container join">
         <span>加入我们，立即开启您的云服务之旅！</span>
         <div class="btn">
@@ -12,7 +12,7 @@
     <!-- 底部 -->
     <div class="footer-wrap">
       <!-- 优势 -->
-      <div class="advantage-wrap">
+      <div v-show="show" class="advantage-wrap">
         <div class="container advantage">
           <div v-for="(item, index) in advantageList" :key="index" class="item">
             <img :src="item.img" alt="" class="img">
@@ -21,7 +21,7 @@
         </div>
       </div>
       <!-- 快捷入口 -->
-      <div class="quick-wrap">
+      <div v-show="show" class="quick-wrap">
         <div class="container quick">
           <div v-for="(item, index) in linkList" :key="index" class="item">
             <div class="title">
@@ -84,7 +84,7 @@
         </div>
       </div>
       <!-- 友情链接 -->
-      <div class="links-wrap">
+      <div v-show="show" class="links-wrap">
         <div class="links">
           <div class="img" />
           <div
@@ -248,7 +248,20 @@ export default {
           name: '华为云',
           path: ''
         }
-      ]
+      ],
+      show: true
+    }
+  },
+  watch: {
+    $route: {
+      handler (newVal) {
+        if (newVal.path === '/login-pc') {
+          this.show = false
+        } else {
+          this.show = true
+        }
+      },
+      immediate: true
     }
   },
   methods: {
@@ -289,8 +302,8 @@ export default {
     }
   }
   .footer-wrap {
-    height: 634px;
-    background: #292e33;
+    // height: 634px;
+    background: #2c2c2c;
     padding-top: 52px;
     .advantage-wrap {
       font-size: 16px;

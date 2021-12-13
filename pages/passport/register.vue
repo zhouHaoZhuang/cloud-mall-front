@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="register-container">
     <!-- 黑色头部 -->
     <div class="black" />
     <!-- 白色背景部分 -->
@@ -16,141 +16,173 @@
         </div>
         <div>
           <div>
-            <label><span>手机号码</span><span>*</span><input
-              v-model="phoneNum"
-              placeholder="请输入手机号码"
-              @focus="phoneEnter = false"
-              @blur="phoneblurfns"
-            ></label>
+            <label>
+              <span>手机号码</span>
+              <span>*</span>
+              <input
+                v-model="form.phone"
+                placeholder="请输入手机号码"
+                @focus="
+                  phoneEnter = true
+                  phoneStatus = 0
+                "
+                @blur="phoneblurfns"
+              ></label>
             <div>
               <p
-                v-if="!phoneOk && !phoneError"
+                v-if="phoneStatus === 0"
                 :class="{
-                  start: phoneEnter,
-                  enter: !phoneEnter
+                  start: !phoneEnter,
+                  enter: phoneEnter
                 }"
               >
                 手机号码可用于登陆、激活账号、密码找回
               </p>
-              <p v-else-if="phoneError" class="stop">
+              <p v-else-if="phoneStatus === 1" class="stop">
                 你输入的手机号码不正确
               </p>
-              <p v-else-if="phoneOk" class="ok">
+              <p v-else-if="phoneStatus === 2" class="ok">
                 填写正确
               </p>
             </div>
           </div>
           <div class="short">
-            <!-- https://www.ydidc.com/?m=api&c=captcha&rnd=0.04199048006553  验证码图片-->
-            <!-- https://www.ydidc.com/register/sendMobileCode.html?mobile=17613783718&captcha=bcyw&_=1638328377342
-                返回验证结果-->
-            <label><span>短信验证码</span><span>*</span><input
-              v-model="shortMessage"
-              placeholder="请输入短信验证码"
-              @focus="shortMessageEnter = false"
-              @blur="shortblurfns"
-            ></label>
+            <label>
+              <span>短信验证码</span>
+              <span>*</span>
+              <input
+                v-model="form.code"
+                placeholder="请输入短信验证码"
+                @focus="
+                  codeEnter = true
+                  codeStatus = 0
+                "
+                @blur="shortblurfns"
+              >
+            </label>
             <div>
               <p
-                v-if="shortMessageState == 0"
+                v-if="codeStatus === 0"
                 :class="{
-                  start: shortMessageEnter,
-                  enter: !shortMessageEnter
+                  start: !codeEnter,
+                  enter: codeEnter
                 }"
               >
                 请输入收到的6位验证码
               </p>
-              <p v-else-if="shortMessageState == 1" class="stop">
+              <p v-else-if="codeStatus === 1" class="stop">
                 验证码格式错误
               </p>
-              <p v-else-if="shortMessageState == 2" class="ok">
+              <p v-else-if="codeStatus === 2" class="ok">
                 验证码格式正确
               </p>
             </div>
-            <section @click="sendMessages">
-              发送短信验证
-            </section>
+            <a-button
+              class="section"
+              :style="`background:${codeLoading ? '#ccc' : ''}`"
+              type="primary"
+              :disabled="codeLoading"
+              @click="sendCode"
+            >
+              {{ codeTxt }}
+            </a-button>
           </div>
           <div>
-            <label><span>设置密码</span><span>*</span><input
-              v-model="setpswd"
-              placeholder="请输入密码"
-              type="password"
-              @focus="setpswdEnter = false"
-              @blur="setpswdblurfns"
-            ></label>
+            <label>
+              <span>设置密码</span>
+              <span>*</span>
+              <input
+                v-model="form.password"
+                placeholder="请输入密码"
+                type="password"
+                maxlength="20"
+                @focus="
+                  pwdEnter = true
+                  pwdStatus = 0
+                "
+                @blur="setpswdblurfns"
+              >
+            </label>
             <div>
               <p
-                v-if="setpswdState == 0"
+                v-if="pwdStatus === 0"
                 :class="{
-                  start: setpswdEnter,
-                  enter: !setpswdEnter
+                  start: !pwdEnter,
+                  enter: pwdEnter
                 }"
               >
                 密码由8-20个英文字母、数字和特殊符号组成
               </p>
-              <p v-else-if="setpswdState == 1" class="stop">
+              <p v-else-if="pwdStatus === 1" class="stop">
                 密码格式填写错误
               </p>
-              <p v-else-if="setpswdState == 2" class="ok">
+              <p v-else-if="pwdStatus === 2" class="ok">
                 密码格式填写正确
               </p>
             </div>
           </div>
           <div>
-            <label><span>确认密码</span><span>*</span><input
-              v-model="confirmpswd"
-              placeholder="请再次填写密码"
-              type="password"
-              @focus="confirmpswdEnter = false"
-              @blur="confirmpswdblurfns"
-            ></label>
+            <label>
+              <span>确认密码</span>
+              <span>*</span>
+              <input
+                v-model="form.confrimPassword"
+                placeholder="请再次填写密码"
+                type="password"
+                maxlength="20"
+                @focus="
+                  confirmPwdEnter = true
+                  confirmPwdStatus = 0
+                "
+                @blur="confirmpswdblurfns"
+              >
+            </label>
             <div>
               <p
-                v-if="confirmpswdState == 0"
+                v-if="confirmPwdStatus === 0"
                 :class="{
-                  start: confirmpswdEnter,
-                  enter: !confirmpswdEnter
+                  start: !confirmPwdEnter,
+                  enter: confirmPwdEnter
                 }"
               >
                 请再次输入密码
               </p>
-              <p
-                v-else-if="confirmpswdState == 1 || confirmpswdState == 3"
-                class="stop"
-              >
-                {{
-                  confirmpswdState == 1
-                    ? '两次输入的密码不一致'
-                    : '请再次输入密码'
-                }}
+              <p v-else-if="confirmPwdStatus === 1" class="stop">
+                两次输入的密码不一致
               </p>
-              <p v-else-if="confirmpswdState == 2" class="ok">
+              <p v-else-if="confirmPwdStatus === 2" class="ok">
                 填写正确
               </p>
             </div>
           </div>
           <div>
-            <label><span>QQ</span><span>*</span><input
-              v-model="qqCode"
-              placeholder="请填写您的QQ号码"
-              @focus="qqCodeEnter = false"
-              @blur="qqCodeblurfns"
-            ></label>
+            <label>
+              <span>QQ</span>
+              <span>*</span>
+              <input
+                v-model="form.qq"
+                placeholder="请填写您的QQ号码"
+                @focus="
+                  qqEnter = true
+                  qqStatus = 0
+                "
+                @blur="qqCodeblurfns"
+              >
+            </label>
             <div>
               <p
-                v-if="qqCodeState == 0"
+                v-if="qqStatus === 0"
                 :class="{
-                  start: qqCodeEnter,
-                  enter: !qqCodeEnter
+                  start: !qqEnter,
+                  enter: qqEnter
                 }"
               >
                 请填写QQ号码
               </p>
-              <p v-else-if="qqCodeState == 1" class="stop">
+              <p v-else-if="qqStatus === 1" class="stop">
                 QQ格式填写错误
               </p>
-              <p v-else-if="qqCodeState == 2" class="ok">
+              <p v-else-if="qqStatus === 2" class="ok">
                 QQ格式填写正确
               </p>
             </div>
@@ -162,49 +194,12 @@
                 href="/pc/passport/agreement"
               >《浙江云盾网站服务协议》</a></span>
           </div>
-          <div :class="{ isRead: isRead.length > 0 }">
+          <div :class="{ isRead: isRead.length > 0 }" @click="handleRegister">
             注册账号
           </div>
         </div>
       </div>
     </div>
-    <transition name="slide-fade">
-      <div v-show="isphone" class="isphone">
-        <div>
-          <div />
-          <div>
-            <img
-              src="https://www.ydidc.com/template/Home/Zkeys/PC/Static/lib/plugin/jQuery/dialog/skins/icons/alert.gif"
-              alt=""
-            >
-            <span>请先填写您的手机号码</span>
-          </div>
-        </div>
-      </div>
-    </transition>
-    <transition name="slide-fade">
-      <div v-show="isVerify" class="isVerify">
-        <div>
-          <div />
-          <div>
-            <span>请输入验证码</span>
-            <span @click="isVerify = false">×</span>
-          </div>
-          <div>
-            <span>验证码：</span>
-            <input v-model="VerifyCode" type="text">
-            <img
-              :src="`https://www.ydidc.com/?m=api&c=captcha&rnd=0.${stoc}`"
-              alt=""
-              @click="stochastic"
-            >
-          </div>
-          <div>
-            <span @click="sendVerify">确认发送</span><span @click="isVerify = false">取消</span>
-          </div>
-        </div>
-      </div>
-    </transition>
   </div>
 </template>
 
@@ -212,145 +207,135 @@
 export default {
   data () {
     return {
+      // 下方所有验证的status 0:默认 1:未通过验证 2:验证通过
       // 手机号码验证
-      phoneNum: '',
-      phoneEnter: true,
-      phoneStop: false,
-      phoneOk: false,
-      phoneError: false,
+      phoneEnter: false,
+      phoneStatus: 0,
       //   短信验证码
-      shortMessage: '',
-      shortMessageEnter: true,
-      shortMessageState: 0,
+      codeEnter: false,
+      codeStatus: 0,
       //   设置密码
-      setpswd: '',
-      setpswdEnter: true,
-      setpswdState: 0,
+      pwdEnter: false,
+      pwdStatus: 0,
       //   确认密码
-      confirmpswd: '',
-      confirmpswdEnter: true,
-      confirmpswdState: 0,
+      confirmPwdEnter: false,
+      confirmPwdStatus: 0,
       //   QQ
-      qqCode: '',
-      qqCodeEnter: true,
-      qqCodeState: 0,
+      qqEnter: false,
+      qqStatus: 0,
+      // 手机号正则
+      phoneReg:
+        /^(13[0-9]|14[01456879]|15[0-3,5-9]|16[2567]|17[0-8]|18[0-9]|19[0-3,5-9])\d{8}$/,
+      pwdReg: /(?=.*[0-9])(?=.*[a-z])(?=.*[^a-zA-Z0-9]).{8,20}/,
+      form: {
+        phone: '',
+        code: '',
+        password: '',
+        confrimPassword: '',
+        qq: ''
+      },
+      // 获取验证码loading
+      codeLoading: false,
+      // 定时器id
+      time: null,
+      timeCount: 60,
+      codeTxt: '发送短信验证',
       //   是否同意协议
-      isRead: [],
-      //   手机号错误的提示
-      isphone: false,
-      //  是否显示验证码弹窗
-      isVerify: false,
-      stoc: '',
-      VerifyCode: ''
+      isRead: []
     }
-  },
-  watch: {
-    isVerify () {
-      if (this.isVerify) {
-        this.stochastic()
-      }
-    }
-  },
-  created () {
-    this.stochastic()
   },
   methods: {
-    // 随机生成17位数字
-    stochastic () {
-      this.stoc = Math.floor(
-        (Math.random() + Math.floor(Math.random() * 9 + 1)) * Math.pow(10, 17)
-      )
-    },
-    // 验证码发送
-    sendVerify () {
-      // https://www.ydidc.com/register/sendMobileCode.html?mobile=17613783718&captcha=ckm7&_=1638415044398
-      const url = `https://www.ydidc.com/register/sendMobileCode.html?mobile=${
-        this.phoneNum
-      }&captcha=${this.VerifyCode}&_=${new Date().getTime()}`
-      console.log(url)
-      window.location.assign(url)
-    },
     // 手机号码失去焦点
     phoneblurfns () {
-      // console.log(this.phoneNum,'------');
-      // this.phonefocus = false;
-      if (this.phoneNum[0] === '1' && this.phoneNum.length === 11) {
-        if (this.isPhone(this.phoneNum * 1)) {
-          this.phoneError = false
-          this.phoneOk = true
-        } else {
-          this.phoneOk = false
-          this.phoneError = true
-        }
-      } else {
-        this.phoneOk = false
-        this.phoneError = true
+      if (this.form.phone === '') {
+        this.phoneStatus = 1
+        return
       }
-    },
-    isPhone (phone) {
-      const myreg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/
-      if (!myreg.test(phone)) {
-        return false
+      if (!this.phoneReg.test(this.form.phone)) {
+        this.phoneStatus = 1
       } else {
-        return true
+        this.phoneStatus = 2
       }
     },
     // 短信验证码失去焦点
     shortblurfns () {
-      if (this.shortMessage.length === 6) {
-        this.shortMessageState = 2
+      if (this.form.code.length === 6) {
+        this.codeStatus = 2
       } else {
-        this.shortMessageState = 1
+        this.codeStatus = 1
       }
     },
-    // 设置密码失去焦点
+    // 密码失去焦点
     setpswdblurfns () {
-      if (this.setpswd.length >= 8 && this.setpswd.length <= 20) {
-        this.setpswdState = 2
+      if (this.pwdReg.test(this.form.password)) {
+        this.pwdStatus = 2
       } else {
-        this.setpswdState = 1
+        this.pwdStatus = 1
       }
     },
     // 确认密码失去焦点
     confirmpswdblurfns () {
-      if (this.setpswd === this.confirmpswd && this.confirmpswd.length > 0) {
-        this.confirmpswdState = 2
+      if (this.form.password === this.form.confrimPassword) {
+        this.confirmPwdStatus = 2
       } else {
-        if (this.confirmpswd.length > 0) {
-          this.confirmpswdState = 1
-        } else {
-          this.confirmpswdState = 3
-        }
+        this.confirmPwdStatus = 1
       }
     },
     // QQ号码失去焦点
     qqCodeblurfns () {
-      if (this.qqCode.length >= 5) {
-        this.qqCodeState = 2
+      if (this.form.qq.length >= 5) {
+        this.qqStatus = 2
       } else {
-        if (this.qqCode.length > 0) {
-          this.qqCodeState = 1
-        } else {
-          this.qqCodeState = 0
-        }
+        this.qqStatus = 1
       }
     },
-
-    sendMessages () {
-      if (!this.phoneOk) {
-        this.isphone = true
-        setTimeout(() => {
-          this.isphone = false
-        }, 1000)
-      } else {
-        this.isVerify = true
+    // 发送验证码
+    sendCode () {
+      if (this.codeLoading) {
+        return
       }
+      if (this.form.phone === '') {
+        this.$message.warning('请输入手机号')
+        return
+      }
+      if (!this.phoneReg.test(this.form.phone)) {
+        this.$message.warning('请输入格式正确的手机号')
+        return
+      }
+      this.codeLoading = true
+      this.$api.user.getCode({ receiver: this.form.phone }).then((res) => {
+        console.log(res)
+        this.sendCodeTime()
+      })
+    },
+    // 验证码发送成功后开始倒计时
+    sendCodeTime () {
+      this.time = setInterval(() => {
+        if (this.timeCount - 1 === -1) {
+          clearInterval(this.time)
+          this.codeTxt = '点击后再次发送'
+          this.codeLoading = false
+          this.timeCount = 60
+          return
+        }
+        this.timeCount -= 1
+        this.codeTxt = this.timeCount + '秒后重新发送'
+      }, 1000)
+    },
+    // 注册
+    handleRegister () {
+      this.$api.user.register(this.form).then((res) => {
+        console.log(res)
+      })
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.register-container {
+  background: #fff;
+}
 /* 可以设置不同的进入和离开动画 */
 /* 设置持续时间和动画函数 */
 .slide-fade-enter-active {
@@ -429,8 +414,6 @@ div {
               display: inline-block;
               width: 80px;
               text-align: left;
-
-              //   padding-left: 15px;
             }
             > input {
               border: 0;
@@ -519,21 +502,23 @@ div {
         }
         .short {
           position: relative;
-          > section {
+          .section {
+            cursor: pointer;
             position: absolute;
             top: 3px;
-            right: 2px;
-            width: 108px;
+            right: 3px;
+            min-width: 108px;
             height: 35px;
             text-align: center;
             line-height: 35px;
-            color: rgb(255, 255, 255);
+            color: #fff;
             border-radius: 4px;
-            background-color: rgb(5 159 255);
           }
         }
         > div:nth-child(6) {
+          cursor: pointer;
           > input[type='checkbox'] {
+            cursor: pointer;
             -webkit-appearance: none;
             width: 16px;
             height: 16px;
@@ -554,113 +539,10 @@ div {
           line-height: 40px;
           font-size: 18px;
           font-weight: 400;
+          cursor: pointer;
         }
         .isRead {
           background-color: #059fff !important;
-        }
-      }
-    }
-  }
-  .isphone,
-  .isVerify {
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(0, 0, 0, 0.445);
-  }
-  .isphone {
-    > div {
-      width: 300px;
-      height: 100px;
-      background-color: #fff;
-      > div:nth-child(1) {
-        width: 100%;
-        height: 3px;
-        background-color: rgb(40, 90, 255);
-      }
-      > div:nth-child(2) {
-        width: 100%;
-        height: 97px;
-        display: flex;
-        align-items: center;
-        > img {
-          margin: 0 15px 0 50px;
-        }
-      }
-    }
-  }
-  .isVerify {
-    > div {
-      width: 420px;
-      height: 240px;
-      background-color: #fff;
-      > div:nth-child(1) {
-        width: 100%;
-        height: 4px;
-        background-color: rgb(0, 136, 255);
-      }
-      > div:nth-child(2) {
-        margin: 0 auto;
-        width: 340px;
-        height: 50px;
-        color: rgb(76, 90, 95);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        border-bottom: 1px solid rgb(238, 238, 238);
-        > span {
-          display: inline-block;
-        }
-        > span:nth-child(1) {
-          font-weight: 400;
-          font-size: 20px;
-        }
-        > span:nth-child(2) {
-          font-size: 45px;
-          line-height: 50px;
-          color: rgb(87, 87, 87);
-        }
-      }
-      > div:nth-child(3) {
-        margin: 40px auto;
-        width: 280px;
-        height: 38px;
-        > input {
-          width: 120px;
-          height: 32px;
-          border: rgb(143, 143, 143) 1px solid;
-        }
-        > input:focus {
-          outline: 0;
-        }
-        > img {
-          width: 90px;
-        }
-      }
-      > div:nth-child(4) {
-        width: 380px;
-        margin: 0 auto;
-        text-align: center;
-        > span {
-          display: inline-block;
-          padding: 0 25px;
-          color: rgb(255, 255, 255);
-          border-radius: 3px;
-          font-size: 16px;
-          line-height: 35px;
-        }
-        > span:nth-child(1) {
-          background-color: rgb(0, 136, 255);
-        }
-        > span:nth-child(2) {
-          background-color: rgb(172, 172, 172);
-          margin-left: 25px;
         }
       }
     }

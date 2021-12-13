@@ -9,7 +9,7 @@ export default ({ app, redirect, params, query, store, req }) => {
   console.log(token)
 
   // 免登录白名单
-  const whiteList = ['/login-pc', '/login-mb', '/register']
+  const whiteList = ['/login-pc', '/login-mb', '/pc/register']
 
   // 移动端-pc端跳转适配
   const routerPush = (to, from, next, redirect) => {
