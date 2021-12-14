@@ -3,23 +3,38 @@
     <!-- 轮播图 -->
     <div class="banner-wrap">
       <div class="banner">
-        <a-carousel ref="banner" effect="fade" dots-class="dot">
-          <div class="banner-item banner-item1">
+        <a-carousel
+          ref="banner"
+          effect="fade"
+          dots-class="dot"
+          :autoplay="true"
+        >
+          <div
+            v-for="item in bannerData"
+            :key="item.id"
+            class="banner-item"
+            :style="`background: url(${item.pcPicture}) no-repeat center`"
+            @click="bannerJump(item, 'img')"
+          >
             <!-- info -->
             <div class="container banner-info-box">
               <div class="banner-info" :style="bottomStyle">
-                <h2>浙江云盾助力企业快速上云</h2>
-                <div class="btn">
-                  最新活动
+                <h2 v-if="item.display">
+                  {{ item.title }}
+                </h2>
+                <div v-if="item.display" class="info">
+                  {{ item.describe }}
+                </div>
+                <div class="btn" @click="bannerJump(item, 'btn')">
+                  {{ item.pcButtonName }}
                 </div>
               </div>
             </div>
           </div>
-          <div class="banner-item banner-item2" />
         </a-carousel>
       </div>
       <!-- 阻止点击指示点切换轮播图 -->
-      <div class="mask-none" />
+      <!-- <div class="mask-none" /> -->
       <div class="more">
         <div class="container">
           更多>
@@ -355,13 +370,26 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import ProductItem from '../../components/Home/productItem/index.vue'
 export default {
   components: { ProductItem },
+  async asyncData ({ app }) {
+    // 获取轮播图
+    const bannerData = await app.$api.home.getBannerList({
+      'qp-bannerType-eq': 0,
+      sorter: 'desc'
+    })
+    console.log(bannerData.data.list)
+    return {
+      bannerData: bannerData.data.list
+    }
+  },
   data () {
     return {
       time: null,
       bannerIndex: 1,
+      bannerData: [],
       bottomStyle: 'bottom:235px',
       entranceList: [
         {
@@ -647,24 +675,47 @@ export default {
       hasAni: true
     }
   },
-  watch: {
-    bannerIndex: {
-      handler (newVal, oldVal) {
-        // console.log('轮播图切换回调', newVal, oldVal)
-        this.bottomStyle =
-          newVal === 1 ? 'bottom:235px;opacity:1' : 'bottom:-150px;opacity:0'
-      },
-      immediate: true
-    }
+  // 读数据 返回vuex
+  async fetch ({ app, store }) {
+    // 异步业务逻辑 读取服务端的数据提交给vuex
+    console.log('fetch')
+    // 获取友情链接
+    const linksData = await app.$api.home.getFriendLink()
+    store.dispatch('home/setFriendLinks', linksData.data.list)
+    console.log(linksData.data.list)
   },
+  computed: {
+    ...mapState({
+      friendLinks: state => state.home.friendLinks
+    })
+  },
+  // watch: {
+  //   bannerIndex: {
+  //     handler (newVal, oldVal) {
+  //       // console.log('轮播图切换回调', newVal, oldVal)
+  //       this.bottomStyle =
+  //         newVal === 1 ? 'bottom:235px;opacity:1' : 'bottom:-150px;opacity:0'
+  //     },
+  //     immediate: true
+  //   }
+  // },
   mounted () {
-    this.bannerTime()
+    // this.bannerTime()
     this.setProgrammeList()
   },
   beforeDestroy () {
     clearInterval(this.time)
   },
   methods: {
+    // 轮播图+按钮点击跳转
+    bannerJump (item, type) {
+      window.open(
+        type === 'btn' ? item.pcButtonLink : item.pictureLink,
+        item.openLinkType === '' || item.openLinkType === '0'
+          ? '_blank'
+          : '_self'
+      )
+    },
     // 点击跳转
     handleClickJump (path) {
       if (!path) {
@@ -770,6 +821,11 @@ export default {
               font-size: 46px;
               color: #fff;
             }
+            .info {
+              font-size: 20px;
+              margin: 15px 0 0;
+              line-height: 32px;
+            }
             .btn {
               margin: 75px 0 0;
               font-size: 16px;
@@ -782,12 +838,6 @@ export default {
             }
           }
         }
-      }
-      .banner-item1 {
-        background: url('~/static/img/home/banner1.jpg') no-repeat center;
-      }
-      .banner-item2 {
-        background: url('~/static/img/home/banner2.jpg') no-repeat center;
       }
     }
     .mask-none {

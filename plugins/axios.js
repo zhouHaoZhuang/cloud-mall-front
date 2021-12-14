@@ -10,7 +10,7 @@ function getDomainUrl (store) {
 export default ({ $axios, redirect, route, store }) => {
   // 基本配置
   $axios.defaults.baseURL = env.BASE_URL
-  $axios.defaults.timeout = 3000
+  $axios.defaults.timeout = 5000
 
   // 请求时拦截
   $axios.onRequest((config) => {

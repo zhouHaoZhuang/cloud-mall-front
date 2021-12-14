@@ -1,5 +1,10 @@
 // state
-export const state = () => ({})
+export const state = () => ({
+  // 友情链接
+  friendLinks: [],
+  // 网站设置信息
+  webCompanyInfo: {}
+})
 
 // getters
 export const getters = {
@@ -10,13 +15,24 @@ export const getters = {
 
 // mutations
 export const mutations = {
-  test (state, payload) {}
+  // 保存友情链接
+  saveFriendLinks (state, payload) {
+    state.friendLinks = [...payload]
+  },
+  // 保存网站设置信息
+  saveWebInfo (state, payload) {
+    state.webCompanyInfo = { ...payload }
+  }
 }
 
 // actions
 export const actions = {
-  test ({ commit, state }, payload) {
-    // 异步处理
-    commit('test', {})
+  // 保存友情链接数据
+  setFriendLinks ({ commit, state }, payload) {
+    commit('saveFriendLinks', payload)
+  },
+  // 保存网站全局设置信息
+  setWebCompanyInfo ({ commit, state }, payload) {
+    commit('saveWebInfo', payload)
   }
 }
