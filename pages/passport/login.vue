@@ -235,3 +235,9 @@ export default {
   }
 }
 </style>
+<style>
+html,
+body {
+  background: #2c2c2c !important;
+}
+</style>
