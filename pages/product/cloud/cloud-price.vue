@@ -404,7 +404,7 @@
         </div>
       </div>
       <!-- 购买按钮 -->
-      <div class="buy-btn">
+      <div class="buy-btn" @click="handleBuyCloud">
         立即购买
       </div>
     </div>
@@ -818,6 +818,16 @@ export default {
       this.form.osName = val
       this.form.imageId = this.systemEditionList[0].imageId
       this.handleChangeGetPrice()
+    },
+    // 立即购买
+    handleBuyCloud () {
+      this.$api.cloud
+        .createCloudOrder({
+          ...this.form,
+          // 处理时间，判断是年还是月
+          ...this.setBuyTimeData(this.form.period)
+        })
+        .then((res) => {})
     }
   }
 }

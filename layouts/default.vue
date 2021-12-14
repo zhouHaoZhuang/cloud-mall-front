@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Header from './Header.vue'
 import Footer from './Footer.vue'
 import RightFixed from './RightFixed.vue'
@@ -32,6 +33,22 @@ export default {
   // },
   data () {
     return {}
+  },
+  head () {
+    return {
+      title: this.webInfo.websiteName,
+      link: [
+        {
+          rel: 'icon',
+          href: this.webInfo.websiteLogo
+        }
+      ]
+    }
+  },
+  computed: {
+    ...mapState({
+      webInfo: state => state.home.webInfo
+    })
   },
   watch: {
     $route: {

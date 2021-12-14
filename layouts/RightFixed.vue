@@ -7,15 +7,15 @@
         <div class="box">
           <div class="left" />
           <div class="right">
-            88888888
+            {{ webInfo.qqNumber }}
           </div>
         </div>
       </div>
     </div>
     <div class="item">
       <span>微信咨询</span>
-      <div class="detail">
-        <img src="~/static/img/home/code.png" alt="">
+      <div v-if="webInfo.wechatQrCode" class="detail">
+        <img :src="webInfo.wechatQrCode" alt="">
       </div>
     </div>
     <div class="item">
@@ -25,7 +25,7 @@
         <div class="box">
           <div class="left" />
           <div class="right">
-            400-888-8888
+            {{ webInfo.serverPhone }}
           </div>
         </div>
       </div>
@@ -50,12 +50,18 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   data () {
     return {
       scrollTop: 0,
       btnFlag: false
     }
+  },
+  computed: {
+    ...mapState({
+      webInfo: state => state.home.webInfo
+    })
   },
   mounted () {
     window.addEventListener('scroll', this.scrollToTop)

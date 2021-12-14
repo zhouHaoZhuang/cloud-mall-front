@@ -16,5 +16,23 @@ export default axios => ({
         ...params
       }
     })
+  },
+  // 获取公司信息
+  getCompanyInfo (params) {
+    return axios({
+      url: '/ccCompanyInfo',
+      params: {
+        ...params
+      }
+    })
+  },
+  // 获取网站信息
+  getWebInfo (params) {
+    return axios({
+      url: '/ccWebsiteInfo',
+      params: {
+        ...params
+      }
+    })
   }
 })

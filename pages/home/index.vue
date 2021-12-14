@@ -370,7 +370,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import ProductItem from '../../components/Home/productItem/index.vue'
 export default {
   components: { ProductItem },
@@ -380,7 +379,6 @@ export default {
       'qp-bannerType-eq': 0,
       sorter: 'desc'
     })
-    console.log(bannerData.data.list)
     return {
       bannerData: bannerData.data.list
     }
@@ -678,16 +676,18 @@ export default {
   // 读数据 返回vuex
   async fetch ({ app, store }) {
     // 异步业务逻辑 读取服务端的数据提交给vuex
-    console.log('fetch')
     // 获取友情链接
     const linksData = await app.$api.home.getFriendLink()
     store.dispatch('home/setFriendLinks', linksData.data.list)
-    console.log(linksData.data.list)
-  },
-  computed: {
-    ...mapState({
-      friendLinks: state => state.home.friendLinks
+    // 获取网站信息+公司信息
+    const webInfoData = await app.$api.home.getWebInfo()
+    const companyInfoData = await app.$api.home.getCompanyInfo()
+    let resultData = {}
+    const newArr = [...webInfoData.data.list, ...companyInfoData.data.list]
+    newArr.forEach((item) => {
+      resultData = { ...resultData, ...item }
     })
+    store.dispatch('home/setWebCompanyInfo', resultData)
   },
   // watch: {
   //   bannerIndex: {
@@ -709,8 +709,10 @@ export default {
   methods: {
     // 轮播图+按钮点击跳转
     bannerJump (item, type) {
+      const path = type === 'btn' ? item.pcButtonLink : item.pictureLink
+      const newPath = path.includes('http') ? path : 'https://' + path
       window.open(
-        type === 'btn' ? item.pcButtonLink : item.pictureLink,
+        newPath,
         item.openLinkType === '' || item.openLinkType === '0'
           ? '_blank'
           : '_self'

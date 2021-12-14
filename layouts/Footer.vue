@@ -49,7 +49,7 @@
                   服务热线：
                 </div>
                 <div class="value">
-                  400-888-8888
+                  {{ webInfo.serverPhone }}
                 </div>
               </div>
               <div class="list-ele">
@@ -57,7 +57,7 @@
                   电子邮箱：
                 </div>
                 <div class="value">
-                  service@ydidc.com
+                  {{ webInfo.email }}
                 </div>
               </div>
               <div class="list-ele">
@@ -65,18 +65,18 @@
                   联系地址：
                 </div>
                 <div class="value">
-                  浙江省杭州市萧山区时代博地大厦1501室
+                  {{ webInfo.companyAddress }}
                 </div>
               </div>
               <div class="list-outerChain">
                 <div class="ele">
-                  <div class="img-box">
+                  <div v-if="webInfo.wechatQrCode" class="img-box">
                     <i />
-                    <img src="~/static/img/home/code.png" alt="">
+                    <img :src="webInfo.wechatQrCode" alt="">
                   </div>
                 </div>
                 <div class="ele" />
-                <div class="ele" />
+                <div class="ele" @click="jumpOutside(webInfo.webLink)" />
                 <div class="ele" />
               </div>
             </div>
@@ -88,12 +88,12 @@
         <div class="links">
           <div class="img" />
           <div
-            v-for="(item, index) in cloudLinks"
+            v-for="(item, index) in friendLinks"
             :key="index"
             class="item"
-            @click="handleClickJump(item.path)"
+            @click="jumpOutside(item.linkUrl)"
           >
-            {{ item.name }}
+            {{ item.linkName }}
           </div>
         </div>
       </div>
@@ -101,10 +101,13 @@
       <div class="copyright-wrap">
         <div class="container">
           <p>
-            ZKEYS©&nbsp;&nbsp;&nbsp;浙江云盾互联网科技有限公司&nbsp;&nbsp;
-            <span @click="handleClickJump('')">浙ICP备2021017872号-1</span>
+            {{ webInfo.copyRightInfo }}
+            &nbsp;&nbsp;&nbsp;
+            {{ webInfo.companyName }}
+            &nbsp;&nbsp;
+            <span @click="handleClickJump('')"> {{ webInfo.recordNo }}</span>
           </p>
-          <p>浙江云盾互联网科技有限公司</p>
+          <p>{{ webInfo.bottomInfo }}</p>
         </div>
       </div>
     </div>
@@ -112,6 +115,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   data () {
     return {
@@ -235,22 +239,14 @@ export default {
           ]
         }
       ],
-      cloudLinks: [
-        {
-          name: '阿里云',
-          path: ''
-        },
-        {
-          name: '腾讯云',
-          path: ''
-        },
-        {
-          name: '华为云',
-          path: ''
-        }
-      ],
       show: true
     }
+  },
+  computed: {
+    ...mapState({
+      friendLinks: state => state.home.friendLinks,
+      webInfo: state => state.home.webInfo
+    })
   },
   watch: {
     $route: {
@@ -265,6 +261,11 @@ export default {
     }
   },
   methods: {
+    // 跳转外部链接
+    jumpOutside (path) {
+      const newPath = path.includes('http') ? path : 'https://' + path
+      window.open(newPath, '_blank')
+    },
     // 点击跳转
     handleClickJump (path) {
       if (!path) {
@@ -441,6 +442,7 @@ export default {
           font-size: 12px;
           line-height: 22px;
           margin-right: 20px;
+          cursor: pointer;
         }
       }
     }

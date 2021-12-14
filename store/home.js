@@ -2,8 +2,8 @@
 export const state = () => ({
   // 友情链接
   friendLinks: [],
-  // 网站设置信息
-  webCompanyInfo: {}
+  // 网站信息
+  webInfo: {}
 })
 
 // getters
@@ -21,7 +21,7 @@ export const mutations = {
   },
   // 保存网站设置信息
   saveWebInfo (state, payload) {
-    state.webCompanyInfo = { ...payload }
+    state.webInfo = { ...payload }
   }
 }
 

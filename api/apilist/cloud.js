@@ -27,5 +27,9 @@ export default axios => ({
   // 查询服务器价格
   getCloudPrice (data) {
     return axios.post('/index/query/price', data)
+  },
+  // 创建服务器订单
+  createCloudOrder (data) {
+    return axios.post('/tcOrder', data)
   }
 })
