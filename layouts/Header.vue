@@ -103,7 +103,7 @@
             <span>{{ userInfo.username }}</span>
           </div>
           <!-- 控制台 -->
-          <div class="control">
+          <div class="control" @click="jumpCloudAdmin">
             控制台
           </div>
           <!-- 登出 -->
@@ -119,12 +119,14 @@
 <script>
 import { mapState } from 'vuex'
 import HeaderItem from '../components/HeaderItem/index.vue'
+import { jumpCloudAdmin } from '@/utils/index'
 export default {
   components: {
     HeaderItem
   },
   data () {
     return {
+      jumpCloudAdmin,
       navList: [
         {
           title: '最新活动',

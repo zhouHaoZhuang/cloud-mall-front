@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import env from '@/config/env'
 export const getIsPcOrMobile = (userAgent) => {
   // if (
   //   userAgent.match(
@@ -33,4 +34,9 @@ export const setCpuOrDiskData = (data, company) => {
   } else {
     return []
   }
+}
+// 跳转控制台
+export const jumpCloudAdmin = (type) => {
+  const token = document.cookie
+  window.open(env.ADMIN_URL + `?${token}`, type ? '_blank' : '_self')
 }

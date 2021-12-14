@@ -396,7 +396,7 @@
                   v-text="'>>展开配置<<'"
                 />
               </div>
-              <div class="right-txt">
+              <div v-if="!isLogin" class="right-txt">
                 请先登录，此地域购买需要实名认证
               </div>
             </div>
@@ -413,6 +413,7 @@
 
 <script>
 // import lodash from 'lodash'
+import { mapState } from 'vuex'
 import DragSlider from '@/components/DragSlider/index'
 import TabSelect from '@/components/TabSelect/index'
 import NumberInput from '@/components/NumberInput/index'
@@ -427,7 +428,7 @@ export default {
   async asyncData ({ app }) {
     // 获取地域列表
     const data = await app.$api.cloud.addressList()
-    console.log('地域列表', data)
+    // console.log('地域列表', data)
     const selectAddressId =
       Array.isArray(data.data) && data.data.length > 1
         ? data.data[1].regionId
@@ -639,7 +640,6 @@ export default {
   // 读数据 返回vuex
   fetch ({ store }) {
     // 异步业务逻辑 读取服务端的数据提交给vuex
-    console.log('fetch')
   },
   computed: {
     // 返回选择的那个地域名称
@@ -664,7 +664,10 @@ export default {
       } else {
         return 0
       }
-    }
+    },
+    ...mapState({
+      isLogin: state => state.user.isLogin
+    })
   },
   methods: {
     // 处理询价或者购买时，购买时长的字段
