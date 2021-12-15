@@ -380,7 +380,7 @@ export default {
       sorter: 'desc'
     })
     return {
-      bannerData: bannerData.data.list
+      bannerData: bannerData.data?.list
     }
   },
   data () {
@@ -678,12 +678,15 @@ export default {
     // 异步业务逻辑 读取服务端的数据提交给vuex
     // 获取友情链接
     const linksData = await app.$api.home.getFriendLink()
-    store.dispatch('home/setFriendLinks', linksData.data.list)
+    store.dispatch('home/setFriendLinks', linksData.data?.list || [])
     // 获取网站信息+公司信息
     const webInfoData = await app.$api.home.getWebInfo()
     const companyInfoData = await app.$api.home.getCompanyInfo()
     let resultData = {}
-    const newArr = [...webInfoData.data.list, ...companyInfoData.data.list]
+    const newArr = [
+      ...(webInfoData.data?.list || []),
+      ...(companyInfoData.data?.list || [])
+    ]
     newArr.forEach((item) => {
       resultData = { ...resultData, ...item }
     })

@@ -14,7 +14,17 @@ export default ({ $axios, redirect, route, store }) => {
 
   // 请求时拦截
   $axios.onRequest((config) => {
-    // config.headers.token = store.state.user.token
+    const cookieToken = config.headers.common.cookie
+    const token = store.state.user.token
+      ? store.state.user.token
+      : cookieToken === undefined
+        ? ''
+        : config.headers.common.cookie.includes('token')
+          ? config.headers.common.cookie.substring(6)
+          : ''
+    if (token) {
+      config.headers.token = token
+    }
     config.headers.domain = getDomainUrl(store)
     return config
   })

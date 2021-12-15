@@ -275,7 +275,12 @@
           </div>
           <div class="choose-value">
             <div class="system">
-              <a-input v-model="form.password" class="password-input" />
+              <a-input
+                v-model="form.password"
+                type="password"
+                :max-length="30"
+                class="password-input"
+              />
               <a-tooltip placement="top">
                 <template slot="title">
                   <div>
@@ -297,7 +302,12 @@
           </div>
           <div class="choose-value">
             <div class="system">
-              <a-input v-model="form.okPassword" class="password-input" />
+              <a-input
+                v-model="form.okPassword"
+                type="password"
+                :max-length="30"
+                class="password-input"
+              />
             </div>
           </div>
         </div>
@@ -417,7 +427,7 @@ import { mapState } from 'vuex'
 import DragSlider from '@/components/DragSlider/index'
 import TabSelect from '@/components/TabSelect/index'
 import NumberInput from '@/components/NumberInput/index'
-import { setCpuOrDiskData } from '@/utils/index'
+import { setCpuOrDiskData, jumpCloudAdmin } from '@/utils/index'
 export default {
   components: {
     DragSlider,
@@ -448,6 +458,7 @@ export default {
       })
       const regionDetail =
         regionList.data && regionList.data[0] ? regionList.data[0] : {}
+      // console.log('实例数据', regionList, regionDetail)
       // 获取镜像数据
       const systemList = await app.$api.cloud.systemList({
         regionId: selectAddressId
@@ -486,7 +497,7 @@ export default {
         // defense: 20, // 防御峰值
         osName: '', // 系统名称
         imageId, // 镜像id
-        loginType: 1, // 登录方式
+        loginType: 0, // 登录方式
         password: '',
         okPassword: '',
         period: 1, // 购买时长
@@ -509,13 +520,16 @@ export default {
         form: {
           ...form,
           ...priceData.data
-        }
+        },
+        // 单个实例
+        regionDetail
       }
     }
   },
   data () {
     return {
       setCpuOrDiskData,
+      jumpCloudAdmin,
       // 地域数据
       addressData: [],
       selectAddressId: '',
@@ -634,7 +648,11 @@ export default {
       // 保存上一次选择的cpu
       preCpu: '',
       // 保存上一次选择的内存
-      preMemory: ''
+      preMemory: '',
+      // 单个实例
+      regionDetail: {},
+      // 校验密码正则
+      pwdReg: /(?=.*[0-9])(?=.*[a-z]).{8,30}/
     }
   },
   // 读数据 返回vuex
@@ -824,13 +842,58 @@ export default {
     },
     // 立即购买
     handleBuyCloud () {
-      this.$api.cloud
-        .createCloudOrder({
+      // 判断登录方式是否是设置密码
+      if (this.form.loginType === 1 && !this.form.password) {
+        this.$message.warning('请输入登录密码')
+        return
+      }
+      // 密码格式是否正确
+      if (this.form.password && !this.pwdReg.test(this.form.password)) {
+        this.$message.warning('密码格式不正确')
+        return
+      }
+      // 两次密码是否一致
+      if (this.form.password && this.form.password !== this.form.okPassword) {
+        this.$message.warning('两次登录密码不一致')
+        return
+      }
+      // 判断登录状态
+      if (!this.isLogin) {
+        this.$message.warning('请先登录')
+        return
+      }
+      // 处理时间，判断是年还是月
+      const time = this.setBuyTimeData(this.form.period)
+      // 处理购买时后端所需要数据
+      const newForm = {
+        // 兼容后期可能一次性购买多个
+        orderLineList: [
+          {
+            purchaseDuration: time.period,
+            durationUnit: time.priceUnit,
+            itemCode: this.regionDetail.instanceTypeId,
+            quantity: this.form.amount
+          }
+        ],
+        // 产品编码-从导航云服务点击进来，每个产品都有自己的编码-暂时写死
+        productCode: 'P211214000003',
+        // 询价时所用参数
+        productConfig: {
           ...this.form,
           // 处理时间，判断是年还是月
-          ...this.setBuyTimeData(this.form.period)
-        })
-        .then((res) => {})
+          ...time
+        },
+        // 交易类型
+        tradeType: 1
+      }
+      this.$api.cloud.createCloudOrder(newForm).then((res) => {
+        if (res.code === '000000') {
+          this.$message.success('生成订单成功')
+          this.jumpCloudAdmin()
+        } else {
+          this.$message.warning(res.msg)
+        }
+      })
     }
   }
 }
@@ -1073,6 +1136,12 @@ export default {
     }
   }
   .price-box {
+    position: sticky;
+    z-index: 10;
+    box-shadow: 0 -2px 12px 1px rgba(0, 0, 0, 0.11);
+    border: solid 1px rgb(238, 238, 238);
+    background-color: rgb(255, 255, 255);
+    bottom: 0;
     .buy-btn {
       position: absolute;
       top: 35px;
