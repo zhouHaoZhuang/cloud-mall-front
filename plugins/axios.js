@@ -14,6 +14,7 @@ export default ({ $axios, redirect, route, store }) => {
 
   // 请求时拦截
   $axios.onRequest((config) => {
+    console.log('请求时参数',config);
     const cookieToken = config.headers.common.cookie
     const token = store.state.user.token
       ? store.state.user.token

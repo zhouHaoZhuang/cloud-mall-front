@@ -4,9 +4,11 @@
       <div>
         <div>
           <div>
-            <input type="text" placeholder="请输入您要搜索的关键词...">
+            <input type="text"
+                   placeholder="请输入您要搜索的关键词...">
           </div>
-          <div class="search" />
+          <div class="search"
+               @click="search" />
         </div>
         <ul>
           <li>云服务器</li>
@@ -16,23 +18,25 @@
         </ul>
       </div>
     </div>
-  
+
     <div class="helpInfo">
       <router-view :key="$route.params.cid">
-      <!-- <helpInfo></helpInfo> -->
       </router-view>
     </div>
   </div>
 </template>
 
 <script>
-import helpInfo from './helpInfo.vue'
 export default {
   data () {
     return {}
   },
-  components: {
-    helpInfo
+  methods: {
+    search () {
+      this.$router.push({
+        path: '/pc/help/search'
+      })
+    }
   }
 }
 </script>
@@ -56,7 +60,8 @@ export default {
       margin: 0 auto;
       justify-content: space-between;
       .search {
-        background: url(https://www.ydidc.com/template/Home/Zkeys/PC/Static/statics/images/help/search.png) no-repeat;
+        background: url(https://www.ydidc.com/template/Home/Zkeys/PC/Static/statics/images/help/search.png)
+          no-repeat;
         border: 0;
         height: 46px;
         width: 120px;
@@ -91,11 +96,11 @@ export default {
     }
   }
 }
-.helpInfo{
-    width: 1290px;
-    // height: 432px;
-    margin: 0 auto 85px;
-    padding-top: 110px;
-    // padding-left: -20px;
+.helpInfo {
+  width: 1290px;
+  // height: 432px;
+  margin: 0 auto 85px;
+  padding-top: 110px;
+  // padding-left: -20px;
 }
 </style>
