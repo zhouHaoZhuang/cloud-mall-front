@@ -175,14 +175,23 @@ export const $routes = [
         }
       },
       {
-        path: 'class/:cid',
+        path: 'class/:cid/:tid',
         name: 'class-pc',
         component: resolve('pages/home/help/class.vue'),
         meta: {
           title: '帮助跳转',
           icon: 'icon-cloud'
         }
-      }
+      },
+      {
+        path: 'search',
+        name: 'search-pc',
+        component: resolve('pages/home/help/search.vue'),
+        meta: {
+          title: '帮助中心搜索',
+          icon: 'icon-cloud'
+        }
+      },
     ]
   },
   {

@@ -2,151 +2,81 @@
   <div class="clas">
     <div class="claList">
       <div>
-        <p @mouseenter="isShow = true" @mouseleave="isShow = false">
-          <span>{{ helpList[useNum].title }}</span>
-          <img
-            ref="imgs"
-            src="https://www.ydidc.com/template/Home/Zkeys/PC/Static/css/module/help/img/nav-list.svg"
-            alt=""
-          >
+        <p @mouseenter="isShow = true"
+           @mouseleave="isShow = false">
+          <span>{{ typeList.typeName }}</span>
+          <img ref="imgs"
+               src="https://www.ydidc.com/template/Home/Zkeys/PC/Static/css/module/help/img/nav-list.svg"
+               alt="">
         </p>
         <ul>
-          <li
-            v-for="v in helpList[useNum].list"
-            :key="v.cid"
-            :class="atvNum === v.cid ? 'atvBlue' : ''"
-            @click="checlass(v.cid)"
-          >
-            {{ v.name }}
+          <li v-for="v in typeList.ccHelpTypeList"
+              :key="v.typeCode"
+              :class="atvNum == v.typeCode ? 'atvBlue' : ''"
+              @click="checlass(v.typeCode)">
+            {{ v.typeName }}
           </li>
         </ul>
       </div>
       <div>
-        <img
-          src="https://www.ydidc.com/template/Home/Zkeys/PC/Static/css/module/help/img/help_home.png"
-          alt=""
-        >
+        <img src="https://www.ydidc.com/template/Home/Zkeys/PC/Static/css/module/help/img/help_home.png"
+             alt="">
         <span>{{ title }}</span>
+        <div v-if="contextList.length>0">
+          <div class="context"
+               v-for="v in contextList"
+               :key="v.id">
+            <h1>
+              {{ v.title }}
+            </h1>
+            <p>{{v.context}}</p>
+          </div>
+        </div>
       </div>
     </div>
-    <div
-      v-show="isShow"
-      class="havList"
-      @mouseenter="isShow = true"
-      @mouseleave="isShow = false"
-    >
-      <helpInfo />
+    <div v-show="isShow"
+         class="havList"
+         @mouseenter="isShow = true"
+         @mouseleave="isShow = false">
+      <HelpInfo :HelpTypeList='listAll'></HelpInfo>
     </div>
   </div>
 </template>
 
 <script>
-import helpInfo from './helpInfo.vue'
+import HelpInfo from './helpInfo'
 export default {
-  components: {
-    helpInfo
+  // nuxt推荐请求方式
+  async asyncData ({ app, params }) {
+    // 获取全部帮助中心的列表数据
+    const listAtv = await app.$api.help.getRegionDetail({ id: params.tid })
+    const typeCentext = await app.$api.help.addressList({ helpTypeCode: params.cid })
+    const listAll = await app.$api.help.getRegionDetail()
+    return {
+      typeList: listAtv.data.ccHelpTypeList[0],
+      contextList: typeCentext.data.list,
+      listAll: listAll.data.ccHelpTypeList,
+    }
   },
   data () {
     return {
-      helpList: [
-        {
-          title: '注册与购买',
-          list: [
-            {
-              cid: 5,
-              name: '账户问题'
-            },
-            {
-              cid: 6,
-              name: '选购指南'
-            },
-            {
-              cid: 7,
-              name: '付款结算'
-            },
-            {
-              cid: 8,
-              name: '合同及发票'
-            }
-          ]
-        },
-        {
-          title: '备案问题',
-          list: [
-            {
-              cid: 15,
-              name: '备案指南'
-            },
-            {
-              cid: 16,
-              name: '管局备案要求'
-            },
-            {
-              cid: 17,
-              name: '前置审批说明'
-            },
-            {
-              cid: 21,
-              name: '法律法规'
-            }
-          ]
-        },
-        {
-          title: '云服务问题',
-          list: [
-            {
-              cid: 10,
-              name: '控制台使用'
-            },
-            {
-              cid: 11,
-              name: '基础类问题'
-            },
-            {
-              cid: 12,
-              name: '应用类问题'
-            },
-            {
-              cid: 13,
-              name: '网络类问题'
-            },
-            {
-              cid: 14,
-              name: '安全类问题'
-            }
-          ]
-        },
-        {
-          title: '使用规则',
-          list: [
-            {
-              cid: 23,
-              name: '常见问题'
-            },
-            {
-              cid: 24,
-              name: '规则说明'
-            },
-            {
-              cid: 30,
-              name: '总则'
-            },
-            {
-              cid: 31,
-              name: '信息安全处罚规则'
-            },
-            {
-              cid: 32,
-              name: '法律法规'
-            }
-          ]
-        }
-      ],
       useNum: 0,
       isShow: false,
-      atvNum: 0,
-      title: ''
+      atvNum: '',
+      title: '',
+      typeList: null,
+      contextList: null,
     }
+  },
+  mounted () {
+    this.atvNum = this.$route.params.cid
+    const title = this.typeList.ccHelpTypeList.find((v) => {
+      return this.atvNum == v.typeCode
+    })
+    this.title = title.typeName
+  },
+  components: {
+    HelpInfo
   },
   watch: {
     isShow (val) {
@@ -158,47 +88,27 @@ export default {
           'https://www.ydidc.com/template/Home/Zkeys/PC/Static/css/module/help/img/nav-list.svg'
       }
     },
-    $route (to, from) {
-      console.log(to)
-    },
+
     // 监视搜索词变化
     '$route.params.cid': {
       immediate: true,
       handler (v) {
-        this.init(v)
+        // this.init(v)
       }
     }
-  },
-  created () {
-    this.init(this.$route.params.cid)
   },
   methods: {
     checlass (cid) {
       this.atvNum = cid
-      const title = this.helpList[this.useNum].list.find((v) => {
-        return this.atvNum == v.cid
+      const title = this.typeList.ccHelpTypeList.find((v) => {
+        return this.atvNum == v.typeCode
       })
-      this.title = title.name
+      this.title = title.typeName
+      this.$api.help.addressList({ helpTypeCode: cid }).then(res => {
+        this.contextList = res.data.list
+        console.log(this.contextList, res.data.list, '帮助中心切换了');
+      })
     },
-    init (id) {
-      const cid = id
-      // console.log(cid)
-      this.atvNum = cid * 1
-      if (this.atvNum == 5 || this.atvNum ==6 || this.atvNum ==7 || this.atvNum ==8) {
-        this.useNum = 0
-      } else if (this.atvNum == 15 || this.atvNum ==16 || this.atvNum ==17 || this.atvNum ==21) {
-        this.useNum = 1
-      } else if (this.atvNum == 10 || this.atvNum ==11 || this.atvNum ==12 || this.atvNum ==13 || this.atvNum ==14) {
-        this.useNum = 2
-      } else if (this.atvNum == 23 || this.atvNum ==24 ||this.atvNum ==30 || this.atvNum ==31 || this.atvNum ==32) {
-        this.useNum = 3
-      }
-      const title = this.helpList[this.useNum].list.find((v) => {
-        return this.atvNum == v.cid
-      })
-      // console.log(this.useNum,this.atvNum);
-      this.title = title.name
-    }
   }
 }
 </script>
@@ -242,8 +152,9 @@ export default {
         height: 50px;
         line-height: 50px;
         width: 100%;
-        padding-left: 35px;
+        padding-left: 30px;
         border-bottom: 1px solid rgb(229 229 229);
+        border-left: 5px solid transparent;
       }
       .atvBlue {
         color: rgb(0 136 255);
@@ -262,8 +173,6 @@ export default {
 }
 .clas {
   position: relative;
-  //   width: 1220px;
-  //   display: flex;
 }
 .havList {
   width: 1000px;
@@ -273,5 +182,18 @@ export default {
   right: 70px;
   border: 1px solid rgb(230, 230, 230);
   background-color: #fff;
+}
+.context {
+  margin-left: 20px;
+  padding-left: 20px;
+  h1 {
+    height: 30px;
+  }
+  p {
+    width: 950px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
 </style>
