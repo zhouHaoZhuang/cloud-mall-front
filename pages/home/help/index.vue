@@ -4,21 +4,19 @@
       <div>
         <div>
           <div>
-            <input type="text"
+            <input v-model="keyWords"
+                   type="text"
                    placeholder="请输入您要搜索的关键词...">
           </div>
           <div class="search"
                @click="search" />
         </div>
         <ul>
-          <li>云服务器</li>
-          <li>域名注册</li>
-          <li>虚拟主机</li>
-          <li>服务器租用</li>
+          <li v-for="(item) in hotAll"
+              :key="item.id">{{item.keyWords}}</li>
         </ul>
       </div>
     </div>
-
     <div class="helpInfo">
       <router-view :key="$route.params.cid">
       </router-view>
@@ -28,13 +26,34 @@
 
 <script>
 export default {
+  // nuxt推荐请求方式
+  async asyncData ({ app }) {
+    // 获取全部帮助中心的列表数据
+    const listAll = await app.$api.help.getRegionDetail()
+    const hotAll = await app.$api.help.getHot()
+    // console.log(hotAll, 'hotAll');
+    return {
+      listAll: listAll.data.ccHelpTypeList,
+      hotAll: hotAll.data.list
+    }
+  },
   data () {
-    return {}
+    return {
+      listAll: null,
+      hotAll: null,
+      keyWords: ''
+    }
+  },
+  mounted () {
+
   },
   methods: {
     search () {
       this.$router.push({
-        path: '/pc/help/search'
+        path: '/pc/help/search',
+        query: {
+          keyWords: this.keyWords
+        }
       })
     }
   }

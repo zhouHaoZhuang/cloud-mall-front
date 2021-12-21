@@ -1,15 +1,21 @@
 <template>
   <div class="help-search-container">
-    <h1 class="help-search-top"><img src="https://www.ydidc.com/template/Home/Zkeys/PC/Static/css/module/help/img/help_home.png"
-           alt=""><span>搜索</span><span>"云服务器"</span></h1>
+    <h1 class="help-search-top">
+      <img src="https://www.ydidc.com/template/Home/Zkeys/PC/Static/css/module/help/img/help_home.png"
+           alt=""><span>搜索</span><span>"{{keyWords}}"</span>
+    </h1>
     <div class="help-search-info">
       <ul>
-        <li class="liatv">全部(0)</li>
+        <li class="liatv">全部({{listAll.length}})</li>
         <li>帮助文档(0)</li>
         <li>新闻中心(0)</li>
       </ul>
       <div>
-
+        <div v-for="(item) in listAll"
+             :key='item.id'>
+          <h1>{{item.title}}</h1>
+          <p class="help-search-centext">{{item.context}}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -17,6 +23,36 @@
 
 <script>
 export default {
+
+  async asyncData ({ query, app }) {
+    const keyWords = query.keyWords
+    const listAll = await app.$api.help.getSearchList({ keyWords })
+    // console.log(listAll, '搜索获取的数据');
+    return {
+      listAll: listAll.data,
+      keyWords,
+    }
+  },
+  data () {
+    return {
+      listAll: null,
+      keyWords: '',
+    }
+  },
+  mounted () {
+    // console.log(this.listAll, '搜索');
+  },
+  watch: {
+    // 监视搜索词变化
+    '$route.query.keyWords': {
+      immediate: true,
+      handler (keyWords) {
+        this.$api.help.getSearchList({ keyWords }).then((res) => {
+          this.listAll = res.data
+        })
+      }
+    }
+  }
 
 }
 </script>
@@ -58,6 +94,12 @@ export default {
         color: #0af;
       }
     }
+  }
+  .help-search-centext {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
   }
 }
 </style>

@@ -1,5 +1,5 @@
 export default axios => ({
-	// 获取帮助信息
+	// 获取帮助信息所有分支
 	addressList (params) {
 		return axios({
 			url: `/ccHelpDocument?qp-helpTypeCode-eq=${params.helpTypeCode}`
@@ -12,11 +12,16 @@ export default axios => ({
 			params
 		})
 	},
-
-	// 获取单个地域对应的内存和cpu信息
-	getAddressCpuAndDisk (params) {
+	// 获取搜索热门词
+	getHot(params){
 		return axios({
-			url: `/index/query/property/value/${params.regionId}`
+			url: `/ccHelpDocument?qp-hot-eq=true`,
+			params
+		})
+	},
+	getSearchList(params){
+		return axios({
+			url: `/ccHelpDocument/query/${encodeURI(params.keyWords)}`,
 		})
 	},
 })
