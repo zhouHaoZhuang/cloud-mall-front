@@ -6,7 +6,7 @@
     </h1>
     <div class="help-search-info">
       <ul>
-        <li class="liatv">全部(0)</li>
+        <li class="liatv">全部({{listAll.length}})</li>
         <li>帮助文档(0)</li>
         <li>新闻中心(0)</li>
       </ul>
@@ -42,6 +42,17 @@ export default {
   mounted () {
     // console.log(this.listAll, '搜索');
   },
+  watch: {
+    // 监视搜索词变化
+    '$route.query.keyWords': {
+      immediate: true,
+      handler (keyWords) {
+        this.$api.help.getSearchList({ keyWords }).then((res) => {
+          this.listAll = res.data
+        })
+      }
+    }
+  }
 
 }
 </script>
