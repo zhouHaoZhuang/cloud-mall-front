@@ -99,14 +99,8 @@ export default {
   },
   methods: {
     checlass (cid) {
-      this.atvNum = cid
-      const title = this.typeList.ccHelpTypeList.find((v) => {
-        return this.atvNum == v.typeCode
-      })
-      this.title = title.typeName
-      this.$api.help.addressList({ helpTypeCode: cid }).then(res => {
-        this.contextList = res.data.list
-        console.log(this.contextList, res.data.list, '帮助中心切换了');
+      this.$router.push({
+        path: `/pc/help/class/${cid}/${this.$route.params.tid}`,
       })
     },
   }

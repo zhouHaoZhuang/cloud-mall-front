@@ -5,6 +5,8 @@
            v-if="listAll">
         <div v-for="(item) in listAll"
              :key="item.typeCode">
+          <img :src="item.typeIcon"
+               alt="">
           <h4 :data-tid="item.typeCode">{{item.typeName}}</h4>
           <p v-for="(title) in item.ccHelpTypeList"
              :key="title.typeCode"
@@ -39,6 +41,7 @@ export default {
     }
   },
   mounted () {
+    console.log(this.listAll);
     if (this.HelpTypeList.length > 0) {
       this.listAll = this.HelpTypeList
     }
