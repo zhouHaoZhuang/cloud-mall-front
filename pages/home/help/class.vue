@@ -22,7 +22,7 @@
         <img src="https://www.ydidc.com/template/Home/Zkeys/PC/Static/css/module/help/img/help_home.png"
              alt="">
         <span>{{ title }}</span>
-        <div v-if="contextList.length>0">
+        <div>
           <div class="context"
                v-for="v in contextList"
                :key="v.id">
@@ -52,10 +52,12 @@ export default {
     const listAtv = await app.$api.help.getRegionDetail({ id: params.tid })
     const typeCentext = await app.$api.help.addressList({ helpTypeCode: params.cid })
     const listAll = await app.$api.help.getRegionDetail()
+    console.log(params.tid, params.cid, '帮助中心的列表数据');
     return {
       typeList: listAtv.data.ccHelpTypeList[0],
       contextList: typeCentext.data.list,
       listAll: listAll.data.ccHelpTypeList,
+      tid: params.tid,
     }
   },
   data () {
@@ -66,6 +68,7 @@ export default {
       title: '',
       typeList: null,
       contextList: null,
+      tid: '',
     }
   },
   mounted () {
@@ -88,7 +91,6 @@ export default {
           'https://www.ydidc.com/template/Home/Zkeys/PC/Static/css/module/help/img/nav-list.svg'
       }
     },
-
     // 监视搜索词变化
     '$route.params.cid': {
       immediate: true,
@@ -99,8 +101,9 @@ export default {
   },
   methods: {
     checlass (cid) {
+      console.log(cid, 'cid');
       this.$router.push({
-        path: `/pc/help/class/${cid}/${this.$route.params.tid}`,
+        path: `/pc/help/class/${cid}/${this.tid}`,
       })
     },
   }
