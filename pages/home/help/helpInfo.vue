@@ -51,11 +51,11 @@ export default {
       if (e.path[0].localName !== 'p') {
         return
       }
+      // console.log(e.path[0].dataset.cid, e.path[1].childNodes[2].dataset.tid);
       this.$router.push({
-        path: `/pc/help/class/${e.path[0].dataset.cid}/${e.path[1].childNodes[0].dataset.tid}`,
+        path: `/pc/help/class/${e.path[0].dataset.cid}/${e.path[1].childNodes[2].dataset.tid}`,
       })
     },
-
   }
 }
 </script>

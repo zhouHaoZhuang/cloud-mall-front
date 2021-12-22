@@ -4,7 +4,8 @@
       <img src="https://www.ydidc.com/template/Home/Zkeys/PC/Static/css/module/help/img/help_home.png"
            alt=""><span>搜索</span><span>"{{keyWords}}"</span>
     </h1>
-    <div class="help-search-info">
+    <div class="help-search-info"
+         v-if="listAll">
       <ul>
         <li class="liatv">全部({{listAll.length}})</li>
         <li>帮助文档(0)</li>
