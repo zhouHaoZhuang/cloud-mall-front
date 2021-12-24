@@ -21,7 +21,8 @@ export default axios => ({
   // 查询云服务器ECS支持的镜像
   systemList (params) {
     return axios({
-      url: `/index/query/images/${params.regionId}`
+      url: '/index/query/images',
+      params
     })
   },
   // 查询服务器价格

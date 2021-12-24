@@ -35,8 +35,17 @@ export const setCpuOrDiskData = (data, company) => {
     return []
   }
 }
-// 跳转控制台
-export const jumpCloudAdmin = (type) => {
-  const token = document.cookie
-  window.open(env.ADMIN_URL + `?${token}`, type ? '_blank' : '_self')
+// 跳转控制台-首页
+export const jumpCloudAdmin = (token, type) => {
+  window.open(
+    env.ADMIN_URL + '/#/dashboard' + `?token=${token}`,
+    type ? '_blank' : '_self'
+  )
+}
+// 跳转控制台-详情页
+export const jumpCloudAdminDetail = (id) => {
+  window.open(
+    env.ADMIN_URL + '/#/user/finance/orderdetails' + `?id=${id}`,
+    '_self'
+  )
 }

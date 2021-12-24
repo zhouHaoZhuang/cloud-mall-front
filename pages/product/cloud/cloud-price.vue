@@ -427,7 +427,7 @@ import { mapState } from 'vuex'
 import DragSlider from '@/components/DragSlider/index'
 import TabSelect from '@/components/TabSelect/index'
 import NumberInput from '@/components/NumberInput/index'
-import { setCpuOrDiskData, jumpCloudAdmin } from '@/utils/index'
+import { setCpuOrDiskData, jumpCloudAdminDetail } from '@/utils/index'
 export default {
   components: {
     DragSlider,
@@ -529,7 +529,6 @@ export default {
   data () {
     return {
       setCpuOrDiskData,
-      jumpCloudAdmin,
       // 地域数据
       addressData: [],
       selectAddressId: '',
@@ -889,7 +888,7 @@ export default {
       this.$api.cloud.createCloudOrder(newForm).then((res) => {
         if (res.code === '000000') {
           this.$message.success('生成订单成功')
-          this.jumpCloudAdmin()
+          jumpCloudAdminDetail(res.data.orderNo)
         } else {
           this.$message.warning(res.msg)
         }

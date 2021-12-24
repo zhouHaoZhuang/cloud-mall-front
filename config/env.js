@@ -15,7 +15,7 @@ const domains = {
 }
 // 跳转控制台地址
 const cloudAdminUrl = {
-  dev: 'http://localhost:8000/#/dashboard'
+  dev: 'http://localhost:8000'
   // test: 'http://test.com',
   // preprod: 'http://preprod.com',
   // prod: 'http://prod.com'

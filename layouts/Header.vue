@@ -103,7 +103,7 @@
             <span>{{ userInfo.username }}</span>
           </div>
           <!-- 控制台 -->
-          <div class="control" @click="jumpCloudAdmin">
+          <div class="control" @click="jumpCloudAdmin(token)">
             控制台
           </div>
           <!-- 登出 -->
@@ -459,7 +459,8 @@ export default {
   computed: {
     ...mapState({
       isLogin: state => state.user.isLogin,
-      userInfo: state => state.user.userInfo
+      userInfo: state => state.user.userInfo,
+      token: state => state.user.token
     })
   },
   methods: {
