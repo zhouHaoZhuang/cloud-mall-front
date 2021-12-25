@@ -67,5 +67,6 @@ export const actions = {
     commit('saveIsLogin', false)
     commit('saveToken', { token: '' })
     commit('saveUserInfo', {})
+    commit('saveAutoLogin', { phone: '', password: '', autoLogin: false })
   }
 }
