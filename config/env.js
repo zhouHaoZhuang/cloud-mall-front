@@ -15,10 +15,10 @@ const domains = {
 }
 // 跳转控制台地址
 const cloudAdminUrl = {
-  dev: 'http://localhost:8000'
-  // test: 'http://test.com',
-  // preprod: 'http://preprod.com',
-  // prod: 'http://prod.com'
+  dev: 'http://localhost:8000',
+  test: 'http://console.test.ydidc.com',
+  preprod: 'http://console.preprod.ydidc.com',
+  prod: 'http://console.prod.ydidc.com'
 }
 
 export default {
