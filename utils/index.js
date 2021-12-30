@@ -49,3 +49,16 @@ export const jumpCloudAdminDetail = (id) => {
     '_self'
   )
 }
+// 因服务端渲染特殊性，无法直观查看页面刚进入时发送的请求，使用函数返回格式好看的数据帮助查看
+export const getRequestParams = (config) => {
+  const selectParams = {
+    baseURL: config.baseURL + config.url,
+    method: config.method,
+    params: config.params,
+    data: config.data,
+    timeout: config.timeout,
+    domain: config.domain,
+    token: config.token
+  }
+  console.log('请求时参数', selectParams)
+}
