@@ -9,8 +9,22 @@ $ yarn install
 # 项目运行在 localhost:3000
 $ yarn dev
 
-# 打包及运行命令
+# 打包需要放在服务器的文件或文件夹
+.nuxt 文件夹
+router 文件夹
+static 文件夹
+package.json 文件
+nuxt.config.js 文件
+
+# 打包命令
+#### 开发
+$ yarn build:dev
+#### 测试
+$ yarn build:test
+#### 生产
 $ yarn build
+
+#### 运行命令
 $ yarn start
 
 ## 页面布局

@@ -2,23 +2,20 @@
 const urls = {
   // dev: 'http://192.168.0.34:8082',
   dev: 'http://ims.dev.ydidc.com',
-  test: 'http://ims.dev.ydidc.com',
-  preprod: 'http://ims.dev.ydidc.com',
-  prod: 'http://ims.dev.ydidc.com'
+  test: 'http://ims.test.ydidc.com',
+  prod: 'http://ims.prod.ydidc.com'
 }
 // 请求头携带domain参数
 const domains = {
   dev: 'localhost'
   // test: 'http://test.com',
-  // preprod: 'http://preprod.com',
   // prod: 'http://prod.com'
 }
 // 跳转控制台地址
 const cloudAdminUrl = {
-  dev: 'http://localhost:8000/#/dashboard'
-  // test: 'http://test.com',
-  // preprod: 'http://preprod.com',
-  // prod: 'http://prod.com'
+  dev: 'http://localhost:8000',
+  test: 'http://console.test.ydidc.com',
+  prod: 'http://console.prod.ydidc.com'
 }
 
 export default {

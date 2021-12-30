@@ -1,5 +1,6 @@
 // import { message } from 'ant-design-vue'
 import env from '~/config/env'
+import { getRequestParams } from '~/utils/index'
 // 根据环境返回domain地址--后端需要请求头携带浏览器地址，字段：domain
 function getDomainUrl (store) {
   return process.env.NODE_ENV === 'dev'
@@ -14,7 +15,6 @@ export default ({ $axios, redirect, route, store }) => {
 
   // 请求时拦截
   $axios.onRequest((config) => {
-    console.log('请求时参数',config);
     const cookieToken = config.headers.common.cookie
     const token = store.state.user.token
       ? store.state.user.token
@@ -27,6 +27,8 @@ export default ({ $axios, redirect, route, store }) => {
       config.headers.token = token
     }
     config.headers.domain = getDomainUrl(store)
+    // 查看请求参数
+    getRequestParams(config)
     return config
   })
 

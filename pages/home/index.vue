@@ -1,5 +1,6 @@
 <template>
   <div class="home-container">
+    <!-- {{ process.env.NODE_ENV }} -->
     <!-- 轮播图 -->
     <div class="banner-wrap">
       <div class="banner">

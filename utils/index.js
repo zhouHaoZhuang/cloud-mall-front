@@ -35,8 +35,30 @@ export const setCpuOrDiskData = (data, company) => {
     return []
   }
 }
-// 跳转控制台
-export const jumpCloudAdmin = (type) => {
-  const token = document.cookie
-  window.open(env.ADMIN_URL + `?${token}`, type ? '_blank' : '_self')
+// 跳转控制台-首页
+export const jumpCloudAdmin = (token, type) => {
+  window.open(
+    env.ADMIN_URL + '/#/dashboard' + `?token=${token}`,
+    type ? '_blank' : '_self'
+  )
+}
+// 跳转控制台-详情页
+export const jumpCloudAdminDetail = (id) => {
+  window.open(
+    env.ADMIN_URL + '/#/user/finance/orderdetails' + `?id=${id}`,
+    '_self'
+  )
+}
+// 因服务端渲染特殊性，无法直观查看页面刚进入时发送的请求，使用函数返回格式好看的数据帮助查看
+export const getRequestParams = (config) => {
+  const selectParams = {
+    baseURL: config.baseURL + config.url,
+    method: config.method,
+    params: config.params,
+    data: config.data,
+    timeout: config.timeout,
+    domain: config.domain,
+    token: config.token
+  }
+  console.log('请求时参数', selectParams)
 }
