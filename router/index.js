@@ -191,7 +191,7 @@ export const $routes = [
           title: '帮助中心搜索',
           icon: 'icon-cloud'
         }
-      },
+      }
     ]
   },
   {

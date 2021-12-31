@@ -333,7 +333,7 @@ export default {
         },
         {
           title: '帮助中心',
-          path: '/pc/help'
+          path: '/pc/help/helpInfo'
         },
         {
           title: '解决方案',
