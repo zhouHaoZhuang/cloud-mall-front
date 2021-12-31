@@ -387,11 +387,14 @@
             <div class="price">
               <div class="left-box">
                 <div v-if="isShowCloudSelect" class="cloud-select-info">
-                  {{ addressName }}
-                  {{ form.cpu }}核(CPU) {{ form.memory }}G(内存)
-                  {{ form.internetMaxBandwidthOut }}M(带宽) {{ diskNum }}G(磁盘)
-                  <!-- {{ form.cpu }}G(防御) -->
-                  {{ form.period }}个月 x {{ form.amount }}台(购买量)
+                  <span>{{ addressName }}</span>
+                  <span>{{ form.cpu }}核(CPU)</span>
+                  <span>{{ form.memory }}G(内存)</span>
+                  <span>{{ form.internetMaxBandwidthOut }}M(带宽)</span>
+                  <span>{{ diskNum }}G(磁盘)</span>
+                  <!-- <span>{{ form.cpu }}G(防御)</span> -->
+                  <span>{{ form.period }}个月</span>
+                  <span>x {{ form.amount }}台(购买量)</span>
                 </div>
                 <div
                   v-if="isShowCloudSelect"

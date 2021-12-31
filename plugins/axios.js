@@ -1,43 +1,61 @@
 // import { message } from 'ant-design-vue'
 import env from '~/config/env'
 import { getRequestParams } from '~/utils/index'
+// 删除字符串首尾空格
+function trim (str) {
+  return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '')
+}
+// 将cookie里边的domain和token处理成数组
+function getCookieObj (cookie) {
+  const obj = {
+    domain: '',
+    token: ''
+  }
+  if (cookie === undefined) {
+    return obj
+  }
+  const cookieArr = cookie.split(';')
+  cookieArr.forEach((ele) => {
+    const domainIndex = ele.search('domain')
+    const tokenIndex = ele.search('token')
+    const str = trim(ele)
+    if (domainIndex !== -1) {
+      obj.domain = str.substring(7)
+    }
+    if (tokenIndex !== -1) {
+      obj.token = str.substring(6)
+    }
+  })
+  return obj
+}
+// 处理token
+function getToken (cookie, store) {
+  if (store.state.user.token) {
+    return store.state.user.token
+  }
+  return getCookieObj(cookie).token
+}
 // 根据环境返回domain地址--后端需要请求头携带浏览器地址，字段：domain
 function getDomainUrl (cookie, store) {
   if (process.env.NODE_ENV === 'dev') {
     return env.DOMAIN_URL
   }
-  if (cookie !== undefined) {
-    const index = cookie.lastIndexOf('domain')
-    if (index !== -1) {
-      return cookie.substring(index + 7)
-    }
-  }
   if (store.state.user.windowHref) {
     return store.state.user.windowHref
   }
-  return ''
+  return getCookieObj(cookie).domain
 }
 // 拦截器
 export default ({ $axios, redirect, route, store }) => {
   // 基本配置
   $axios.defaults.baseURL = env.BASE_URL
   $axios.defaults.timeout = 5000
-
   // 请求时拦截
   $axios.onRequest((config) => {
     const cookieToken = config.headers.common.cookie
-    const token = store.state.user.token
-      ? store.state.user.token
-      : cookieToken === undefined
-        ? ''
-        : config.headers.common.cookie.includes('token')
-          ? config.headers.common.cookie.substring(6)
-          : ''
-    if (token) {
-      config.headers.token = token
-    }
+    config.headers.token = getToken(cookieToken, store)
     config.headers.domain = getDomainUrl(cookieToken, store)
-    // // 查看请求参数
+    // 查看请求参数
     getRequestParams(config)
     return config
   })
@@ -46,8 +64,6 @@ export default ({ $axios, redirect, route, store }) => {
   $axios.onResponse((res) => {
     const data = res.data
     const status = data.status
-    // const errmsg = data.errmsg
-    // 从 localstorage 获取 token
     if (status !== 200) {
       // message.warning(errmsg)
       if (status === 10001 || status === 10006 || status === 3) {

@@ -14,20 +14,24 @@
               </div>
             </div>
             <p class="product-info-btn">
-              <router-link
+              <!-- <router-link
                 class="info-btn1"
                 to="/pc/cloud-price"
               >
                 立即选购
-              </router-link>
-              <!-- <a href="#" class="info-btn1">立即选购</a> -->
-              <router-link
+              </router-link> -->
+              <nuxt-link class="info-btn1" to="/pc/cloud-price">
+                立即选购
+              </nuxt-link>
+              <!-- <router-link
                 class="info-btn1"
                 to="/pc/cloud-product"
               >
                 产品价格
-              </router-link>
-              <!-- <a href="#" class="info-btn2">产品价格</a> -->
+              </router-link> -->
+              <nuxt-link class="info-btn1" to="/pc/cloud-product">
+                产品价格
+              </nuxt-link>
             </p>
             <p class="product-info-stand">
               支持
