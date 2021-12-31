@@ -439,13 +439,15 @@ export default {
   },
   // nuxt推荐请求方式
   async asyncData ({ app }) {
+    console.log('进入请求')
     // 获取地域列表
     const data = await app.$api.cloud.addressList()
-    // console.log('地域列表', data)
+    console.log('地域列表', data)
     const selectAddressId =
       Array.isArray(data.data) && data.data.length > 1
         ? data.data[1].regionId
         : ''
+    console.log('地域id', selectAddressId)
     if (selectAddressId) {
       // 获取cpu+内存数据
       const cpuAndDisk = await app.$api.cloud.getAddressCpuAndDisk({
@@ -453,6 +455,7 @@ export default {
       })
       const cpuData = [...setCpuOrDiskData(cpuAndDisk.data?.cpuCoreCount, '核')]
       const memoryData = [...setCpuOrDiskData(cpuAndDisk.data?.memorySize, 'G')]
+      console.log('cpu+内存', cpuAndDisk, cpuData, memoryData)
       // 获取对应的实例和实例属性，属性值---目前页面没有设计选择，默认拿第一个
       const regionList = await app.$api.cloud.getRegionDetail({
         regionId: selectAddressId,

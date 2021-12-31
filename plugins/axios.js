@@ -49,7 +49,7 @@ function getDomainUrl (cookie, store) {
 export default ({ $axios, redirect, route, store }) => {
   // 基本配置
   $axios.defaults.baseURL = env.BASE_URL
-  $axios.defaults.timeout = 5000
+  $axios.defaults.timeout = 10000
   // 请求时拦截
   $axios.onRequest((config) => {
     const cookieToken = config.headers.common.cookie
