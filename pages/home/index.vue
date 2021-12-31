@@ -374,16 +374,16 @@
 import ProductItem from '../../components/Home/productItem/index.vue'
 export default {
   components: { ProductItem },
-  async asyncData ({ app }) {
-    // 获取轮播图
-    const bannerData = await app.$api.home.getBannerList({
-      'qp-bannerType-eq': 0,
-      sorter: 'desc'
-    })
-    return {
-      bannerData: bannerData.data?.list
-    }
-  },
+  // async asyncData ({ app }) {
+  //   // 获取轮播图
+  //   const bannerData = await app.$api.home.getBannerList({
+  //     'qp-bannerType-eq': 0,
+  //     sorter: 'desc'
+  //   })
+  //   return {
+  //     bannerData: bannerData.data?.list
+  //   }
+  // },
   data () {
     return {
       time: null,
@@ -675,24 +675,24 @@ export default {
     }
   },
   // 读数据 返回vuex
-  async fetch ({ app, store }) {
-    // 异步业务逻辑 读取服务端的数据提交给vuex
-    // 获取友情链接
-    const linksData = await app.$api.home.getFriendLink()
-    store.dispatch('home/setFriendLinks', linksData.data?.list || [])
-    // 获取网站信息+公司信息
-    const webInfoData = await app.$api.home.getWebInfo()
-    const companyInfoData = await app.$api.home.getCompanyInfo()
-    let resultData = {}
-    const newArr = [
-      ...(webInfoData.data?.list || []),
-      ...(companyInfoData.data?.list || [])
-    ]
-    newArr.forEach((item) => {
-      resultData = { ...resultData, ...item }
-    })
-    store.dispatch('home/setWebCompanyInfo', resultData)
-  },
+  // async fetch ({ app, store }) {
+  //   // 异步业务逻辑 读取服务端的数据提交给vuex
+  //   // 获取友情链接
+  //   const linksData = await app.$api.home.getFriendLink()
+  //   store.dispatch('home/setFriendLinks', linksData.data?.list || [])
+  //   // 获取网站信息+公司信息
+  //   const webInfoData = await app.$api.home.getWebInfo()
+  //   const companyInfoData = await app.$api.home.getCompanyInfo()
+  //   let resultData = {}
+  //   const newArr = [
+  //     ...(webInfoData.data?.list || []),
+  //     ...(companyInfoData.data?.list || [])
+  //   ]
+  //   newArr.forEach((item) => {
+  //     resultData = { ...resultData, ...item }
+  //   })
+  //   store.dispatch('home/setWebCompanyInfo', resultData)
+  // },
   // watch: {
   //   bannerIndex: {
   //     handler (newVal, oldVal) {
@@ -706,11 +706,44 @@ export default {
   mounted () {
     // this.bannerTime()
     this.setProgrammeList()
+    // 获取数据
+    this.getBanner()
+    // 获取网站信息
+    this.getWebInfo()
   },
   beforeDestroy () {
     clearInterval(this.time)
   },
   methods: {
+    // 获取轮播图
+    getBanner () {
+      this.$api.home
+        .getBannerList({
+          'qp-bannerType-eq': 0,
+          sorter: 'desc'
+        })
+        .then((res) => {
+          this.bannerData = [res.data.list]
+        })
+    },
+    // 获取网站信息
+    async getWebInfo () {
+      // 获取友情链接
+      const linksData = await this.$api.home.getFriendLink()
+      this.$store.dispatch('home/setFriendLinks', linksData.data?.list || [])
+      //   // 获取网站信息+公司信息
+      const webInfoData = await this.$api.home.getWebInfo()
+      const companyInfoData = await this.$api.home.getCompanyInfo()
+      let resultData = {}
+      const newArr = [
+        ...(webInfoData.data?.list || []),
+        ...(companyInfoData.data?.list || [])
+      ]
+      newArr.forEach((item) => {
+        resultData = { ...resultData, ...item }
+      })
+      this.$store.dispatch('home/setWebCompanyInfo', resultData)
+    },
     // 轮播图+按钮点击跳转
     bannerJump (item, type) {
       const path = type === 'btn' ? item.pcButtonLink : item.pictureLink

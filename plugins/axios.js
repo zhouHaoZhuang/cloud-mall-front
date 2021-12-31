@@ -2,10 +2,20 @@
 import env from '~/config/env'
 import { getRequestParams } from '~/utils/index'
 // 根据环境返回domain地址--后端需要请求头携带浏览器地址，字段：domain
-function getDomainUrl (store) {
-  return process.env.NODE_ENV === 'dev'
-    ? env.DOMAIN_URL
-    : store.state.user.windowHref
+function getDomainUrl (cookie, store) {
+  if (process.env.NODE_ENV === 'dev') {
+    return env.DOMAIN_URL
+  }
+  if (cookie !== undefined) {
+    const index = cookie.lastIndexOf('domain')
+    if (index !== -1) {
+      return cookie.substring(index + 7)
+    }
+  }
+  if (store.state.user.windowHref) {
+    return store.state.user.windowHref
+  }
+  return ''
 }
 // 拦截器
 export default ({ $axios, redirect, route, store }) => {
@@ -26,8 +36,8 @@ export default ({ $axios, redirect, route, store }) => {
     if (token) {
       config.headers.token = token
     }
-    config.headers.domain = getDomainUrl(store)
-    // 查看请求参数
+    config.headers.domain = getDomainUrl(cookieToken, store)
+    // // 查看请求参数
     getRequestParams(config)
     return config
   })

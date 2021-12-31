@@ -15,7 +15,7 @@
     <div class="item">
       <span>微信咨询</span>
       <div v-if="webInfo.wechatQrCode" class="detail">
-        <img :src="webInfo.wechatQrCode" alt="">
+        <img class="img" :src="webInfo.wechatQrCode" alt="">
       </div>
     </div>
     <div class="item">
@@ -143,6 +143,10 @@ export default {
         display: flex;
         align-items: center;
         line-height: 18px;
+      }
+      .img {
+        width: 100%;
+        height: 100%;
       }
       &::after {
         content: '';
