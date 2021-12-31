@@ -14,8 +14,20 @@
               </div>
             </div>
             <p class="product-info-btn">
-              <a href="/pc/cloud-price" class="info-btn1">立即选购</a>
-              <a href="/pc/cloud-product" class="info-btn1">产品价格</a>
+              <router-link
+                class="info-btn1"
+                to="/pc/cloud-price"
+              >
+                立即选购
+              </router-link>
+              <!-- <a href="#" class="info-btn1">立即选购</a> -->
+              <router-link
+                class="info-btn1"
+                to="/pc/cloud-product"
+              >
+                产品价格
+              </router-link>
+              <!-- <a href="#" class="info-btn2">产品价格</a> -->
             </p>
             <p class="product-info-stand">
               支持
