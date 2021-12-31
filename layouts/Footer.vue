@@ -362,8 +362,10 @@ export default {
                 background: url('~/static/img/home/icons-qq.png') no-repeat;
                 position: relative;
                 .img-box {
+                  width: 120px;
+                  height: 120px;
                   position: absolute;
-                  left: -57px;
+                  left: -42px;
                   bottom: 33px;
                   background: #fff;
                   padding: 10px;
@@ -373,7 +375,7 @@ export default {
                     display: inline-block;
                     position: absolute;
                     bottom: -6px;
-                    left: 69px;
+                    left: 56px;
                     width: 0;
                     height: 0;
                     line-height: 0;
@@ -382,6 +384,10 @@ export default {
                     border-top-style: solid;
                     border-top-color: #fff;
                     border-bottom-width: 0;
+                  }
+                  img{
+                    width: 100%;
+                    height: 100%;
                   }
                 }
               }
