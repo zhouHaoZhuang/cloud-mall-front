@@ -28,7 +28,6 @@ export default ({ app, redirect, params, query, store, req }) => {
         next()
       }
     }
-    next()
   }
   // app == vue实例
   // redirect 跳转函数
