@@ -35,7 +35,7 @@ export default ({ app, redirect, params, query, store, req }) => {
     // 全局前置守卫 -- 插件
     if (to.path === '/') {
       redirect(`/${isMobile === '/pc' ? 'pc' : 'mb'}`)
-    } else if (blackList.includes(to.path)) {
+    } else if (blackList.findIndex(ele => ele === to.path) !== -1) {
       // 本地是否有token
       if (token) {
         console.log('本地有token嘛', token, to)
