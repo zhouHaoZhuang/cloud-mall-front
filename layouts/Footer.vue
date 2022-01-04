@@ -385,7 +385,7 @@ export default {
                     border-top-color: #fff;
                     border-bottom-width: 0;
                   }
-                  img{
+                  img {
                     width: 100%;
                     height: 100%;
                   }
