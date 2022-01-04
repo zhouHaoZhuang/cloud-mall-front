@@ -36,7 +36,7 @@
       </div>
       <!-- 新闻公告 -->
       <div v-if="tabSelectIndex === 1" class="news">
-        <div></div>
+        <div />
         <div class="public-box">
           新闻公告
         </div>
@@ -46,7 +46,9 @@
         <div class="list">
           <div
             class="item"
-            :style="{backgroundImage: `url(${require('~/static/img/about/contact_tel.png')})`}"
+            :style="{
+              backgroundImage: `url(${require('~/static/img/about/contact_tel.png')})`
+            }"
           >
             <div class="title">
               服务热线：{{ webInfo.serverPhone }}
@@ -54,7 +56,9 @@
           </div>
           <div
             class="item"
-            :style="{backgroundImage: `url(${require('~/static/img/about/contact_qq.png')})`}"
+            :style="{
+              backgroundImage: `url(${require('~/static/img/about/contact_qq.png')})`
+            }"
           >
             <div class="title">
               在线QQ：{{ webInfo.qqNumber }}
@@ -62,7 +66,9 @@
           </div>
           <div
             class="item"
-            :style="{backgroundImage: `url(${require('~/static/img/about/contact_email.png')})`}"
+            :style="{
+              backgroundImage: `url(${require('~/static/img/about/contact_email.png')})`
+            }"
           >
             <div class="title">
               企业邮箱：{{ webInfo.email }}
@@ -70,7 +76,9 @@
           </div>
           <div
             class="item"
-            :style="{backgroundImage: `url(${require('~/static/img/about/contact_postage.png')})`}"
+            :style="{
+              backgroundImage: `url(${require('~/static/img/about/contact_postage.png')})`
+            }"
           >
             <div class="title">
               邮政编码：{{ webInfo.companyAddress }}
@@ -78,7 +86,9 @@
           </div>
           <div
             class="item"
-            :style="{backgroundImage: `url(${require('~/static/img/about/contact_address.png')})`}"
+            :style="{
+              backgroundImage: `url(${require('~/static/img/about/contact_address.png')})`
+            }"
           >
             <div class="title-address">
               企业通讯地址
@@ -190,8 +200,8 @@
 </template>
 
 <script>
-import Statement from '@/components/About/statement'
 import { mapState } from 'vuex'
+import Statement from '@/components/About/statement'
 export default {
   components: { Statement },
   data () {
