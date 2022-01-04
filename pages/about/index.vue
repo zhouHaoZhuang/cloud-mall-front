@@ -36,6 +36,7 @@
       </div>
       <!-- 新闻公告 -->
       <div v-if="tabSelectIndex === 1" class="news">
+        <div></div>
         <div class="public-box">
           新闻公告
         </div>
@@ -44,14 +45,45 @@
       <div v-if="tabSelectIndex === 2" class="contact">
         <div class="list">
           <div
-            v-for="(item, index) in contactList"
-            :key="index"
             class="item"
-            :style="item.bg"
+            :style="{backgroundImage: `url(${require('~/static/img/about/contact_tel.png')})`}"
           >
             <div class="title">
-              {{ item.title }}
+              服务热线：{{ webInfo.serverPhone }}
             </div>
+          </div>
+          <div
+            class="item"
+            :style="{backgroundImage: `url(${require('~/static/img/about/contact_qq.png')})`}"
+          >
+            <div class="title">
+              在线QQ：{{ webInfo.qqNumber }}
+            </div>
+          </div>
+          <div
+            class="item"
+            :style="{backgroundImage: `url(${require('~/static/img/about/contact_email.png')})`}"
+          >
+            <div class="title">
+              企业邮箱：{{ webInfo.email }}
+            </div>
+          </div>
+          <div
+            class="item"
+            :style="{backgroundImage: `url(${require('~/static/img/about/contact_postage.png')})`}"
+          >
+            <div class="title">
+              邮政编码：{{ webInfo.companyAddress }}
+            </div>
+          </div>
+          <div
+            class="item"
+            :style="{backgroundImage: `url(${require('~/static/img/about/contact_address.png')})`}"
+          >
+            <div class="title-address">
+              企业通讯地址
+            </div>
+            <div>{{ webInfo.companyAddress }}</div>
           </div>
         </div>
       </div>
@@ -159,34 +191,13 @@
 
 <script>
 import Statement from '@/components/About/statement'
+import { mapState } from 'vuex'
 export default {
   components: { Statement },
   data () {
     return {
       tabList: ['公司简介', '新闻公告', '联系我们', '法律声明', '友情链接'],
       tabSelectIndex: 0,
-      contactList: [
-        {
-          title: '服务热线：400-888-8888',
-          bg: `background-image: url(${require('~/static/img/about/contact_tel.png')})`
-        },
-        {
-          title: '在线QQ：88888888',
-          bg: `background-image: url(${require('~/static/img/about/contact_qq.png')})`
-        },
-        {
-          title: '企业邮箱：service@ydidc.com',
-          bg: `background-image: url(${require('~/static/img/about/contact_email.png')})`
-        },
-        {
-          title: '邮政编码：311200',
-          bg: `background-image: url(${require('~/static/img/about/contact_postage.png')})`
-        },
-        {
-          title: '企业通讯地址',
-          bg: `background-image: url(${require('~/static/img/about/contact_address.png')})`
-        }
-      ],
       linkList: [
         {
           name: '阿里云',
@@ -212,6 +223,12 @@ export default {
       imgMessage: false,
       loading: false
     }
+  },
+  computed: {
+    ...mapState({
+      friendLinks: state => state.home.friendLinks,
+      webInfo: state => state.home.webInfo
+    })
   },
   watch: {
     $route: {
@@ -343,6 +360,12 @@ export default {
           text-align: left;
           .title {
             margin: 24px 0;
+            font-size: 16px;
+            font-weight: 700;
+            color: #000;
+          }
+          .title-address {
+            margin: 13px 0;
             font-size: 16px;
             font-weight: 700;
             color: #000;
