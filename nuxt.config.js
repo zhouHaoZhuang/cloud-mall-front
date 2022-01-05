@@ -1,5 +1,9 @@
 import router from './router/index'
 export default {
+  server: {
+    prot: 3000,
+    host: '0.0.0.0'
+  },
   env: {
     NODE_ENV: process.env.NODE_ENV
   },
