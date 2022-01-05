@@ -19,7 +19,11 @@ export const getWindowUrl = (url) => {
   const newUrl = url.includes('http://')
     ? url.replace('http://', '')
     : url.replace('https://', '')
-  return newUrl.substring(0, newUrl.indexOf('/'))
+  const str = newUrl.substring(0, newUrl.indexOf('/'))
+  const index1 = str.lastIndexOf('.')
+  const index2 = str.lastIndexOf('.', index1 - 1)
+  const result = str.substring(index2 + 1)
+  return result
 }
 // 处理cpu+内存数据  data:默认数组  company:单位
 export const setCpuOrDiskData = (data, company) => {
