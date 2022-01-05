@@ -32,6 +32,7 @@ export default ({ app, redirect, params, query, store, req }) => {
   // app == vue实例
   // redirect 跳转函数
   app.router.beforeEach((to, from, next) => {
+    console.log('路由跳转时', to, isMobile, process.env.NODE_ENV)
     // 全局前置守卫 -- 插件
     if (to.path === '/') {
       redirect(`/${isMobile === '/pc' ? 'pc' : 'mb'}`)
