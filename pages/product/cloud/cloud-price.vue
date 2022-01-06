@@ -72,7 +72,7 @@
               <TabSelect
                 v-model="form.cpu"
                 :list="cpuData"
-                :on-change="handleCpuOrMemoryChange"
+                @change="handleCpuOrMemoryChange('cpu')"
               />
             </div>
           </div>
@@ -86,7 +86,7 @@
               <TabSelect
                 v-model="form.memory"
                 :list="memoryData"
-                :on-change="handleCpuOrMemoryChange"
+                @change="handleCpuOrMemoryChange('memory')"
               />
             </div>
           </div>
@@ -442,20 +442,25 @@ export default {
     console.log('进入请求')
     // 获取地域列表
     const data = await app.$api.cloud.addressList()
-    console.log('地域列表', data)
+    // console.log('地域列表', data)
     const selectAddressId =
       Array.isArray(data.data) && data.data.length > 1
         ? data.data[1].regionId
         : ''
-    console.log('地域id', selectAddressId)
+    // console.log('地域id', selectAddressId)
     if (selectAddressId) {
-      // 获取cpu+内存数据
-      const cpuAndDisk = await app.$api.cloud.getAddressCpuAndDisk({
+      // 获取cpu数据
+      const cpu = await app.$api.cloud.getAddressCpu({
         regionId: selectAddressId
       })
-      const cpuData = [...setCpuOrDiskData(cpuAndDisk.data?.cpuCoreCount, '核')]
-      const memoryData = [...setCpuOrDiskData(cpuAndDisk.data?.memorySize, 'G')]
-      console.log('cpu+内存', cpuAndDisk, cpuData, memoryData)
+      const cpuData = [...setCpuOrDiskData(cpu.data?.cpuCoreCount, '核')]
+      // 获取内存数据
+      const disk = await app.$api.cloud.getAddressDisk({
+        regionId: selectAddressId,
+        cpuCoreCount: cpuData[0].value
+      })
+      const memoryData = [...setCpuOrDiskData(disk.data, 'G')]
+      // console.log('cpu+内存', cpuData, memoryData)
       // 获取对应的实例和实例属性，属性值---目前页面没有设计选择，默认拿第一个
       const regionList = await app.$api.cloud.getRegionDetail({
         regionId: selectAddressId,
@@ -650,19 +655,11 @@ export default {
           value: 0
         }
       ],
-      // 保存上一次选择的cpu
-      preCpu: '',
-      // 保存上一次选择的内存
-      preMemory: '',
       // 单个实例
       regionDetail: {},
       // 校验密码正则
       pwdReg: /(?=.*[0-9])(?=.*[a-z]).{8,30}/
     }
-  },
-  // 读数据 返回vuex
-  fetch ({ store }) {
-    // 异步业务逻辑 读取服务端的数据提交给vuex
   },
   computed: {
     // 返回选择的那个地域名称
@@ -742,25 +739,40 @@ export default {
           }
         ],
         internetMaxBandwidthOut: 1,
-        tradePrice: '0.00' // 服务器金额
+        tradePrice: '价格计算中...' // 服务器金额
       }
       this.form = { ...newForm }
-      this.getCpuAndDisk()
+      this.getCpu()
     },
-    // 获取地域对应的cpu和内存信息
-    getCpuAndDisk () {
+    // 获取地域对应的cpu信息
+    getCpu () {
       this.$api.cloud
-        .getAddressCpuAndDisk({ regionId: this.selectAddressId })
+        .getAddressCpu({ regionId: this.selectAddressId })
         .then((res) => {
           this.cpuData = [...setCpuOrDiskData(res.data?.cpuCoreCount, '核')]
-          this.memoryData = [...setCpuOrDiskData(res.data?.memorySize, 'G')]
-          this.form.cpu = this.cpuData[0]?.value
+          if (this.cpuData.length > 0) {
+            this.form.cpu = this.cpuData[0]?.value
+            this.getDisk()
+          } else {
+            this.memoryData = []
+          }
+        })
+    },
+    // 获取地域对应的内存信息
+    getDisk (cpu) {
+      this.$api.cloud
+        .getAddressDisk({
+          regionId: this.selectAddressId,
+          cpuCoreCount: cpu || this.cpuData[0].value
+        })
+        .then((res) => {
+          this.memoryData = [...setCpuOrDiskData(res.data, 'G')]
           this.form.memory = this.memoryData[0]?.value
           this.getRegionData()
         })
     },
     // 获取对应的实例和实例属性，属性值---目前页面没有设计选择，默认拿第一个
-    getRegionData (isReGetPrice) {
+    getRegionData () {
       this.$api.cloud
         .getRegionDetail({
           regionId: this.selectAddressId,
@@ -773,11 +785,6 @@ export default {
             this.getCloudPrice()
           } else {
             this.$message.warning('该地域/内存/CPU下没有实例')
-            if (isReGetPrice) {
-              this.form.cpu = this.preCpu
-              this.form.memory = this.preMemory
-              this.getCloudPrice()
-            }
           }
         })
     },
@@ -825,12 +832,12 @@ export default {
       this.handleChangeGetPrice()
     },
     // cpu+内存 发生改变，需要先请求实例列表，再去请求价格
-    handleCpuOrMemoryChange () {
-      // 暂存当前选择的cpu和内存，防止没有实例价格出现问题
-      // const newForm = lodash.cloneDeep(this.form)
-      this.preCpu = '1'
-      this.preMemory = '1.0'
-      this.getRegionData(true)
+    handleCpuOrMemoryChange (type) {
+      if (type === 'cpu') {
+        this.getDisk(this.form.cpu)
+      } else {
+        this.getRegionData()
+      }
     },
     // cpu+内存+数据盘+带宽+镜像+购买时长+数量发生改变，再次进行询价
     handleChangeGetPrice () {

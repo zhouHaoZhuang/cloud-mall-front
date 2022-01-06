@@ -34,11 +34,6 @@ export default {
     width: {
       type: String,
       default: '129'
-    },
-    // tab点击后的回调，参数是当前选择的tab
-    onChange: {
-      type: Function,
-      default: () => {}
     }
   },
   data () {
@@ -59,7 +54,7 @@ export default {
     handleChange (val) {
       this.selectValue = val
       this.$emit('changeValue', this.selectValue)
-      this.onChange()
+      this.$emit('change')
     }
   }
 }

@@ -31,7 +31,7 @@ export const setCpuOrDiskData = (data, company) => {
     const newData = data.sort((a, b) => a - b)
     return newData.map((item) => {
       return {
-        title: item.replace('.0', '') + company,
+        title: String(item).replace('.0', '') + company,
         value: item
       }
     })
