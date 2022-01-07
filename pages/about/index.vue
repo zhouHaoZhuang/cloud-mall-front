@@ -3,8 +3,12 @@
     <!-- 轮播图 -->
     <div class="banner-wrap">
       <div class="container">
-        <p>关于我们</p>
+        <p>杭州云盾科技</p>
         <p>质量为本、客户为根、勇于拼搏、务实创新</p>
+        <div class="product">
+          了解产品
+        </div>
+        
         <div class="tabs">
           <div
             v-for="(item, index) in tabList"
@@ -15,78 +19,101 @@
             {{ item }}
           </div>
         </div>
+        <div class="tabs-container" />
       </div>
     </div>
     <!-- 主体部分 -->
     <div class="about-content container">
       <!-- 公司简介 -->
       <div v-if="tabSelectIndex === 0" class="introduce">
-        <div class="public-box">公司介绍</div>
-        <div class="p-box">
-          <p>
-            公司成立于2007年，是国内领先的互联网业务平台服务提供商。公司专注为用户提供低价高性能云计算产品，致力于云计算应用的易用性开发，并引导云计算在国内普及。目前公司研发以及运营云服务基础设施服务平台（IaaS），面向全球客户提供基于云计算的IT解决方案与客户服务，拥有丰富的国内BGP、双线高防、香港等优质的IDC资源。
-          </p>
-          <p>
-            公司一直秉承"以人为本、客户为尊、永续创新"的价值观，坚持"以微笑收获友善，
-            以尊重收获理解，以责任收获支持，以谦卑收获成长"的行为观向客户提供全面优质的互联网应用服务。
-          </p>
+        <div class="introduce-all">
+          <div class="introduce-img">
+            <img src="~/static/img/about/company.png" alt="">
+          </div>
+          <div class="introduce-info">
+            <div class="public-title">
+              公司简介
+            </div>
+            <div class="bottom-line" />
+            <p>
+              公司成立于2007年，是国内领先的互联网业务平台服务提供商。公司专注为用户提供低价高性能云计算产品，致力于云计算应用的易用性开发，并引导云计算在国内普及。目前公司研发以及运营云服务基础设施服务平台（IaaS），面向全球客户提供基于云计算的IT解决方案与客户服务，拥有丰富的国内BGP、双线高防、香港等优质的IDC资源。
+            </p>
+            <p>
+              公司一直秉承"以人为本、客户为尊、永续创新"的价值观，坚持"以微笑收获友善，
+              以尊重收获理解，以责任收获支持，以谦卑收获成长"的行为观向客户提供全面优质的互联网应用服务。
+            </p>
+          </div>
+        </div>
+        <div class="contact-all">
+          <div class="container contact">
+            <div class="contact-info">
+              <div class="public-title">
+                联系方式
+              </div>
+              <div class="list">
+                <div
+                  class="item"
+                  :style="{
+                    backgroundImage: `url(${require('~/static/img/about/contact_tel.png')})`
+                  }"
+                >
+                  <div class="title">
+                    <div>全国咨询电话</div>
+                    {{ webInfo.serverPhone }}
+                  </div>
+                </div>
+                <div
+                  class="item"
+                  :style="{
+                    backgroundImage: `url(${require('~/static/img/about/contact_qq.png')})`
+                  }"
+                >
+                  <div class="title">
+                    <div>QQ咨询</div>
+                    {{ webInfo.qqNumber }}
+                  </div>
+                </div>
+                <div
+                  class="item"
+                  :style="{
+                    backgroundImage: `url(${require('~/static/img/about/contact_email.png')})`
+                  }"
+                >
+                  <div class="title">
+                    <div>邮箱/E-mail</div>
+                    {{ webInfo.email }}
+                  </div>
+                </div>
+                <div
+                  class="item"
+                  :style="{
+                    backgroundImage: `url(${require('~/static/img/about/contact_postage.png')})`
+                  }"
+                >
+                  <div class="title">
+                    <div>邮政编码</div>
+                    {{ webInfo.postcode || '311200' }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="contact-img">
+              1
+            </div>
+          </div>
         </div>
       </div>
       <!-- 新闻公告 -->
       <div v-if="tabSelectIndex === 1" class="news">
         <div />
-        <div class="public-box">新闻公告</div>
-      </div>
-      <!-- 联系我们 -->
-      <div v-if="tabSelectIndex === 2" class="contact">
-        <div class="list">
-          <div
-            class="item"
-            :style="{
-              backgroundImage: `url(${require('~/static/img/about/contact_tel.png')})`
-            }"
-          >
-            <div class="title">服务热线：{{ webInfo.serverPhone }}</div>
-          </div>
-          <div
-            class="item"
-            :style="{
-              backgroundImage: `url(${require('~/static/img/about/contact_qq.png')})`
-            }"
-          >
-            <div class="title">在线QQ：{{ webInfo.qqNumber }}</div>
-          </div>
-          <div
-            class="item"
-            :style="{
-              backgroundImage: `url(${require('~/static/img/about/contact_email.png')})`
-            }"
-          >
-            <div class="title">企业邮箱：{{ webInfo.email }}</div>
-          </div>
-          <div
-            class="item"
-            :style="{
-              backgroundImage: `url(${require('~/static/img/about/contact_postage.png')})`
-            }"
-          >
-            <div class="title">邮政编码：{{ webInfo.postcode }}</div>
-          </div>
-          <div
-            class="item"
-            :style="{
-              backgroundImage: `url(${require('~/static/img/about/contact_address.png')})`
-            }"
-          >
-            <div class="title-address">企业通讯地址</div>
-            <div>{{ webInfo.companyAddress }}</div>
-          </div>
+        <div class="public-box">
+          新闻公告
         </div>
       </div>
       <!-- 法律声明 -->
-      <Statement v-if="tabSelectIndex === 3" />
+      <Statement v-if="tabSelectIndex === 2" />
       <!-- 友情链接 -->
-      <div v-if="tabSelectIndex === 4" class="friendship">
+      <div v-if="tabSelectIndex === 3" class="friendship">
         <div class="links">
           <a
             v-for="(item, index) in linkList"
@@ -95,36 +122,48 @@
             class="item"
             target="_blank"
           >
-            <img :src="item.img" :alt="item.name" />
+            <img :src="item.img" :alt="item.name">
           </a>
         </div>
         <div class="info-con">
-          <div class="public-box">交换链接说明</div>
+          <div class="public-box">
+            交换链接说明
+          </div>
           <p class="info1">
             符合PR>=5，Alexa排名20,000以内的网站，可以和浙江云盾相互添加网站链接，具体操作方式如下：
           </p>
           <div class="step-box">
-            <div class="share-link-left-title">在贵站添加浙江云盾链接</div>
+            <div class="share-link-left-title">
+              在贵站添加浙江云盾链接
+            </div>
             <p class="share-link-left-title-introduce">
               您可以根据下方提示，在您的网站中插入浙江云盾的文字链接、图片链接代码。
             </p>
-            <div class="share-code-title">文字链接代码：</div>
+            <div class="share-code-title">
+              文字链接代码：
+            </div>
             <div class="code-wrap">
               <div class="left">
                 <div class="code-box" v-text="txtCode" />
                 <div class="btn-box">
-                  <div class="btn" @click="handleCopy('txt')">复制代码</div>
+                  <div class="btn" @click="handleCopy('txt')">
+                    复制代码
+                  </div>
                   <div class="success" :style="`opacity:${txtMessage ? 1 : 0}`">
                     您已复制成功
                   </div>
                 </div>
               </div>
               <div class="right">
-                <div class="share-code-title">文字预览效果：</div>
+                <div class="share-code-title">
+                  文字预览效果：
+                </div>
                 <a target="_blank" href="#">浙江云盾</a>
               </div>
             </div>
-            <div class="share-code-title">图片链接代码：</div>
+            <div class="share-code-title">
+              图片链接代码：
+            </div>
             <div class="code-wrap">
               <div class="left">
                 <div class="code-box">
@@ -133,16 +172,20 @@
                   <div v-text="imgCode3" />
                 </div>
                 <div class="btn-box">
-                  <div class="btn" @click="handleCopy('img')">复制代码</div>
+                  <div class="btn" @click="handleCopy('img')">
+                    复制代码
+                  </div>
                   <div class="success" :style="`opacity:${imgMessage ? 1 : 0}`">
                     您已复制成功
                   </div>
                 </div>
               </div>
               <div class="right">
-                <div class="share-code-title">图片预览效果：</div>
+                <div class="share-code-title">
+                  图片预览效果：
+                </div>
                 <div class="img-box">
-                  <img src="https://ydidc.com/logo_small.gif" alt="" />
+                  <img src="https://ydidc.com/logo_small.gif" alt="">
                 </div>
               </div>
             </div>
@@ -174,9 +217,9 @@ import { mapState } from 'vuex'
 import Statement from '@/components/About/statement'
 export default {
   components: { Statement },
-  data() {
+  data () {
     return {
-      tabList: ['公司简介', '新闻公告', '联系我们', '法律声明', '友情链接'],
+      tabList: ['公司简介', '新闻公告', '法律声明', '友情链接'],
       tabSelectIndex: 0,
       linkList: [
         {
@@ -213,21 +256,21 @@ export default {
   watch: {
     $route: {
       immediate: true,
-      handler(route) {
+      handler (route) {
         this.tabSelectIndex = route.query.tab * 1
       }
     }
   },
-  created() {
+  created () {
     this.getNewsInfo()
   },
   methods: {
     // tab选择
-    onChangeTab(index) {
+    onChangeTab (index) {
       this.tabSelectIndex = index
     },
     // 点击复制
-    handleCopy(type) {
+    handleCopy (type) {
       if (this.loading) {
         return
       }
@@ -236,7 +279,7 @@ export default {
         type === 'txt'
           ? this.txtCode
           : this.imgCode1 + this.imgCode2 + this.imgCode3
-      this.$copyText(txt).then(e => {
+      this.$copyText(txt).then((e) => {
         if (type === 'txt') {
           this.txtMessage = true
         } else {
@@ -253,9 +296,9 @@ export default {
       })
     },
     // 获取新闻信息
-    async getNewsInfo() {
+    async getNewsInfo () {
       const newsData = await this.$api.news.getAllNewsList()
-      console.log('newsData',newsData);
+      console.log('newsData', newsData)
     }
   }
 }
@@ -266,16 +309,32 @@ export default {
   background: #fff;
   .banner-wrap {
     position: relative;
-    height: 400px;
+    top: 0px;
+    height: 657px;
     min-width: 1220px;
     overflow: hidden;
-    background: url('~/static/img/about/banner.jpg') top center #020305
-      no-repeat;
+    background: url('~/static/img/about/banner.png') center #0a1d46 no-repeat;
+    background-size: cover;
     padding-top: 155px;
     color: #fff;
     .container {
       position: relative;
       height: 100%;
+      .product {
+        position: absolute;
+        top: 234px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 220px;
+        height: 60px;
+        line-height: 60px;
+        text-align: center;
+        background: linear-gradient(169deg, #0b73f0, #2fb4ff);
+        border-radius: 30px;
+        font-size: 20px;
+        font-weight: 500;
+        color: #ffffff;
+      }
       p:nth-child(1) {
         font-size: 36px;
         margin: 0 0 35px;
@@ -288,7 +347,7 @@ export default {
         margin: 0;
       }
       .tabs {
-        height: 50px;
+        height: 80px;
         position: absolute;
         left: 0;
         bottom: 0;
@@ -296,24 +355,32 @@ export default {
         z-index: 5;
         display: flex;
         .tab-item {
-          width: 20%;
+          width: 25%;
           font-size: 18px;
           text-align: center;
-          line-height: 50px;
+          line-height: 80px;
           cursor: pointer;
         }
         .tab-item:hover {
-          background: #059fff;
+          background: #1d7aec;
         }
         .active {
-          background: #059fff;
+          background: #1d7aec;
         }
+      }
+      .tabs-container {
+        position: absolute;
+        bottom: 0px;
+        transform: translateX(-350px);
+        width: 2000px;
+        height: 80px;
+        background: #091937;
+        opacity: 0.5;
       }
     }
   }
   .about-content {
     min-height: 500px;
-    padding-bottom: 58px;
     .public-box {
       margin: 34px 0;
       padding-left: 20px;
@@ -324,39 +391,85 @@ export default {
       text-align: left;
       color: #059fff;
     }
-    .introduce {
-      p {
-        margin: 0;
-        text-indent: 2em;
-        font-size: 16px;
-        color: #000;
-      }
+    .public-title {
+      font-size: 36px;
+      font-family: PingFang SC;
+      font-weight: bold;
+      color: #333333;
     }
-    .contact {
-      padding: 58px 0;
-      .list {
-        margin-top: 44px;
-        margin-left: 100px;
+    .introduce {
+      height: 1200px;
+      .introduce-all {
         display: flex;
-        flex-wrap: wrap;
-        .item {
-          margin-bottom: 60px;
-          width: 49%;
-          height: 80px;
-          padding-left: 100px;
-          background: no-repeat left center;
-          text-align: left;
-          .title {
-            margin: 24px 0;
-            font-size: 16px;
-            font-weight: 700;
-            color: #000;
+        justify-content: space-between;
+        box-sizing: border-box;
+        padding: 100px 0;
+        width: 100%;
+        height: 700px;
+        background-color: #fff;
+        .introduce-img {
+          width: 610px;
+          height: 500px;
+          img {
+            width: 100%;
+            height: 100%;
           }
-          .title-address {
-            margin: 13px 0;
+        }
+        .introduce-info {
+          width: 610px;
+          height: 500px;
+          padding: 48px 120px 95px;
+          .bottom-line {
+            width: 50px;
+            height: 3px;
+            margin: 32px 0 29px 0;
+            background: #0257b2;
+          }
+          p {
             font-size: 16px;
-            font-weight: 700;
-            color: #000;
+            font-weight: 500;
+            color: #666666;
+          }
+        }
+      }
+      .contact-all {
+        position: absolute;
+        left: 0px;
+        width: 100%;
+        height: 500px;
+        background-color: #f8fafb;
+        .contact {
+          display: flex;
+          justify-content: space-between;
+          box-sizing: border-box;
+          padding: 100px 0;
+          .contact-info {
+            width: 610px;
+            height: 300px;
+            .list {
+              display: flex;
+              flex-wrap: wrap;
+              margin-top: 70px;
+              .item {
+                margin-bottom: 60px;
+                width: 49%;
+                height: 46px;
+                padding-left: 70px;
+                background: no-repeat left center;
+                background-size: contain;
+                text-align: left;
+                .title {
+                  font-size: 16px;
+                  font-weight: 500;
+                  color: #333333;
+                }
+              }
+            }
+          }
+          .contact-img {
+            width: 610px;
+            height: 300px;
+            background-color: red;
           }
         }
       }
