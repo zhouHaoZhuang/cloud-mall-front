@@ -50,7 +50,7 @@ export const jumpCloudAdmin = (token, type) => {
 export const jumpCloudAdminDetail = (id, token) => {
   window.open(
     env.ADMIN_URL +
-      '/#/user/finance/orderdetails' +
+      '/#/user/finance/orderDetail' +
       `?id=${id}` +
       `&token=${token}`,
     '_self'
