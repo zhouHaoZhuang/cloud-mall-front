@@ -4,5 +4,14 @@ export default axios => ({
     return axios({
       url: '/ccNews/AllList'
     })
+  },
+  // 查询一系列资源对象，也就是列表
+  getNews (params) {
+    return axios({
+      url: '/ccNews',
+      params: {
+        ...params
+      }
+    })
   }
 })

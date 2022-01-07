@@ -21,9 +21,7 @@
     <div class="about-content container">
       <!-- 公司简介 -->
       <div v-if="tabSelectIndex === 0" class="introduce">
-        <div class="public-box">
-          公司介绍
-        </div>
+        <div class="public-box">公司介绍</div>
         <div class="p-box">
           <p>
             公司成立于2007年，是国内领先的互联网业务平台服务提供商。公司专注为用户提供低价高性能云计算产品，致力于云计算应用的易用性开发，并引导云计算在国内普及。目前公司研发以及运营云服务基础设施服务平台（IaaS），面向全球客户提供基于云计算的IT解决方案与客户服务，拥有丰富的国内BGP、双线高防、香港等优质的IDC资源。
@@ -37,9 +35,7 @@
       <!-- 新闻公告 -->
       <div v-if="tabSelectIndex === 1" class="news">
         <div />
-        <div class="public-box">
-          新闻公告
-        </div>
+        <div class="public-box">新闻公告</div>
       </div>
       <!-- 联系我们 -->
       <div v-if="tabSelectIndex === 2" class="contact">
@@ -50,9 +46,7 @@
               backgroundImage: `url(${require('~/static/img/about/contact_tel.png')})`
             }"
           >
-            <div class="title">
-              服务热线：{{ webInfo.serverPhone }}
-            </div>
+            <div class="title">服务热线：{{ webInfo.serverPhone }}</div>
           </div>
           <div
             class="item"
@@ -60,9 +54,7 @@
               backgroundImage: `url(${require('~/static/img/about/contact_qq.png')})`
             }"
           >
-            <div class="title">
-              在线QQ：{{ webInfo.qqNumber }}
-            </div>
+            <div class="title">在线QQ：{{ webInfo.qqNumber }}</div>
           </div>
           <div
             class="item"
@@ -70,9 +62,7 @@
               backgroundImage: `url(${require('~/static/img/about/contact_email.png')})`
             }"
           >
-            <div class="title">
-              企业邮箱：{{ webInfo.email }}
-            </div>
+            <div class="title">企业邮箱：{{ webInfo.email }}</div>
           </div>
           <div
             class="item"
@@ -80,9 +70,7 @@
               backgroundImage: `url(${require('~/static/img/about/contact_postage.png')})`
             }"
           >
-            <div class="title">
-              邮政编码：{{ webInfo.companyAddress }}
-            </div>
+            <div class="title">邮政编码：{{ webInfo.postcode }}</div>
           </div>
           <div
             class="item"
@@ -90,9 +78,7 @@
               backgroundImage: `url(${require('~/static/img/about/contact_address.png')})`
             }"
           >
-            <div class="title-address">
-              企业通讯地址
-            </div>
+            <div class="title-address">企业通讯地址</div>
             <div>{{ webInfo.companyAddress }}</div>
           </div>
         </div>
@@ -109,48 +95,36 @@
             class="item"
             target="_blank"
           >
-            <img :src="item.img" :alt="item.name">
+            <img :src="item.img" :alt="item.name" />
           </a>
         </div>
         <div class="info-con">
-          <div class="public-box">
-            交换链接说明
-          </div>
+          <div class="public-box">交换链接说明</div>
           <p class="info1">
             符合PR>=5，Alexa排名20,000以内的网站，可以和浙江云盾相互添加网站链接，具体操作方式如下：
           </p>
           <div class="step-box">
-            <div class="share-link-left-title">
-              在贵站添加浙江云盾链接
-            </div>
+            <div class="share-link-left-title">在贵站添加浙江云盾链接</div>
             <p class="share-link-left-title-introduce">
               您可以根据下方提示，在您的网站中插入浙江云盾的文字链接、图片链接代码。
             </p>
-            <div class="share-code-title">
-              文字链接代码：
-            </div>
+            <div class="share-code-title">文字链接代码：</div>
             <div class="code-wrap">
               <div class="left">
                 <div class="code-box" v-text="txtCode" />
                 <div class="btn-box">
-                  <div class="btn" @click="handleCopy('txt')">
-                    复制代码
-                  </div>
+                  <div class="btn" @click="handleCopy('txt')">复制代码</div>
                   <div class="success" :style="`opacity:${txtMessage ? 1 : 0}`">
                     您已复制成功
                   </div>
                 </div>
               </div>
               <div class="right">
-                <div class="share-code-title">
-                  文字预览效果：
-                </div>
+                <div class="share-code-title">文字预览效果：</div>
                 <a target="_blank" href="#">浙江云盾</a>
               </div>
             </div>
-            <div class="share-code-title">
-              图片链接代码：
-            </div>
+            <div class="share-code-title">图片链接代码：</div>
             <div class="code-wrap">
               <div class="left">
                 <div class="code-box">
@@ -159,20 +133,16 @@
                   <div v-text="imgCode3" />
                 </div>
                 <div class="btn-box">
-                  <div class="btn" @click="handleCopy('img')">
-                    复制代码
-                  </div>
+                  <div class="btn" @click="handleCopy('img')">复制代码</div>
                   <div class="success" :style="`opacity:${imgMessage ? 1 : 0}`">
                     您已复制成功
                   </div>
                 </div>
               </div>
               <div class="right">
-                <div class="share-code-title">
-                  图片预览效果：
-                </div>
+                <div class="share-code-title">图片预览效果：</div>
                 <div class="img-box">
-                  <img src="https://ydidc.com/logo_small.gif" alt="">
+                  <img src="https://ydidc.com/logo_small.gif" alt="" />
                 </div>
               </div>
             </div>
@@ -204,7 +174,7 @@ import { mapState } from 'vuex'
 import Statement from '@/components/About/statement'
 export default {
   components: { Statement },
-  data () {
+  data() {
     return {
       tabList: ['公司简介', '新闻公告', '联系我们', '法律声明', '友情链接'],
       tabSelectIndex: 0,
@@ -243,18 +213,21 @@ export default {
   watch: {
     $route: {
       immediate: true,
-      handler (route) {
+      handler(route) {
         this.tabSelectIndex = route.query.tab * 1
       }
     }
   },
+  created() {
+    this.getNewsInfo()
+  },
   methods: {
     // tab选择
-    onChangeTab (index) {
+    onChangeTab(index) {
       this.tabSelectIndex = index
     },
     // 点击复制
-    handleCopy (type) {
+    handleCopy(type) {
       if (this.loading) {
         return
       }
@@ -263,7 +236,7 @@ export default {
         type === 'txt'
           ? this.txtCode
           : this.imgCode1 + this.imgCode2 + this.imgCode3
-      this.$copyText(txt).then((e) => {
+      this.$copyText(txt).then(e => {
         if (type === 'txt') {
           this.txtMessage = true
         } else {
@@ -278,6 +251,11 @@ export default {
           this.loading = false
         }, 1000)
       })
+    },
+    // 获取新闻信息
+    async getNewsInfo() {
+      const newsData = await this.$api.news.getAllNewsList()
+      console.log('newsData',newsData);
     }
   }
 }
