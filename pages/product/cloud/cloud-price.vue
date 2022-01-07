@@ -662,6 +662,9 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      token: state => state.user.token
+    }),
     // 返回选择的那个地域名称
     addressName () {
       if (this.addressData.length > 0) {
@@ -901,7 +904,7 @@ export default {
       this.$api.cloud.createCloudOrder(newForm).then((res) => {
         if (res.code === '000000') {
           this.$message.success('生成订单成功')
-          jumpCloudAdminDetail(res.data.orderNo)
+          jumpCloudAdminDetail(res.data.orderNo, this.token)
         } else {
           this.$message.warning(res.msg)
         }

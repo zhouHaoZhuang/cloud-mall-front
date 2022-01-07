@@ -47,9 +47,12 @@ export const jumpCloudAdmin = (token, type) => {
   )
 }
 // 跳转控制台-详情页
-export const jumpCloudAdminDetail = (id) => {
+export const jumpCloudAdminDetail = (id, token) => {
   window.open(
-    env.ADMIN_URL + '/#/user/finance/orderdetails' + `?id=${id}`,
+    env.ADMIN_URL +
+      '/#/user/finance/orderdetails' +
+      `?id=${id}` +
+      `&token=${token}`,
     '_self'
   )
 }
