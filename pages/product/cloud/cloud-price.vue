@@ -329,7 +329,7 @@
                 v-model="form.period"
                 :list="buyTimes"
                 width="80"
-                :on-change="handleChangeGetPrice"
+                @change="handleChangeGetPrice"
               />
             </div>
           </div>

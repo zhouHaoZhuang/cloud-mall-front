@@ -15,7 +15,7 @@
           @mouseenter="mouseEnter(index)"
           @mouseleave="mouseLeave"
         >
-          <a v-if="item.path" :href="item.path">
+          <nuxt-link v-if="item.path" class="jump" :to="item.path">
             <div class="title-wrap">
               {{ item.title }}
               <img
@@ -38,8 +38,8 @@
                 />
               </div>
             </div>
-          </a>
-          <a v-else href="javascript:void(0)">
+          </nuxt-link>
+          <a v-else class="jump" href="javascript:void(0)">
             <div class="title-wrap">
               {{ item.title }}
               <img
@@ -537,10 +537,12 @@ export default {
         overflow: hidden;
         cursor: pointer;
         box-sizing: border-box;
-        a {
+        .jump {
           color: #fff;
           transition: 0s;
-          display: inline-block;
+          height: 100%;
+          display: flex;
+          align-items: center;
           .title-wrap {
             position: relative;
           }
