@@ -1,5 +1,5 @@
 <template>
-  <div class="right-fixed">
+  <div v-show="show" class="right-fixed">
     <div class="item">
       <span>QQ咨询</span>
       <div class="detail">
@@ -55,13 +55,26 @@ export default {
   data () {
     return {
       scrollTop: 0,
-      btnFlag: false
+      btnFlag: false,
+      show: true
     }
   },
   computed: {
     ...mapState({
       webInfo: state => state.home.webInfo
     })
+  },
+  watch: {
+    $route: {
+      handler (newVal) {
+        if (newVal.path === '/login-pc' || newVal.path === '/pc/register') {
+          this.show = false
+        } else {
+          this.show = true
+        }
+      },
+      immediate: true
+    }
   },
   mounted () {
     window.addEventListener('scroll', this.scrollToTop)

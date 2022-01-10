@@ -2,7 +2,7 @@
   <div class="login-container">
     <!-- <div>登录-pc端</div> -->
     <div class="titleTop">
-      <div class="titleInfo">
+      <div class="titleInfo container">
         <div>
           <h2>数十万用户的信赖之选</h2>
           <ul>
@@ -12,31 +12,47 @@
             <li>技术服务7×24全天响应</li>
           </ul>
         </div>
-        <div>
-          <h4>用户登录</h4>
-          <div>
+        <div class="login-box">
+          <h4 class="title">
+            登录
+          </h4>
+          <div class="content">
             <div class="borderbule">
-              <input v-model="form.phone" type="text" placeholder="手机号">
+              <input
+                v-model="form.phone"
+                type="text"
+                placeholder="请输入手机号"
+              >
             </div>
             <div class="borderbule">
               <input
                 v-model="form.password"
                 type="password"
-                placeholder="登录密码"
+                placeholder="请输入登录密码"
               >
             </div>
-            <div>
-              <input v-model="form.autoLogin" type="checkbox"><a>下次自动登录</a>
-              <a>忘记密码？</a>
+            <div class="auto-login">
+              <div class="left">
+                <input v-model="form.autoLogin" type="checkbox">
+                <span>下次自动登录</span>
+              </div>
+              <a-button type="link">
+                忘记密码？
+              </a-button>
             </div>
-            <div>
-              <p class="login-btn" @click="handleLoginBefore">
-                登录
-              </p>
+            <a-button
+              class="login-btn"
+              type="primary"
+              size="large"
+              @click="handleLoginBefore"
+            >
+              登录
+            </a-button>
+            <div class="register">
+              <nuxt-link to="/pc/register">
+                免费注册
+              </nuxt-link>
             </div>
-            <p>
-              <span>还没有账号？立即</span> <a href="/pc/register">免费注册</a>
-            </p>
           </div>
         </div>
       </div>
@@ -113,27 +129,25 @@ export default {
 </script>
 <style lang="scss" scoped>
 .login-container {
+  width: 100%;
+  height: 100vh;
+  background: #f5f6fb url('../../static/img/login/bg.png') no-repeat center;
+  background-size: cover;
   .login-btn {
-    cursor: pointer;
+    width: 100%;
   }
 }
 .titleTop {
-  background-image: url(https://www.ydidc.com/template/Home/Zkeys/PC/Static/statics/images/login/login-bg.jpg);
-  width: 100%;
-  height: 700px;
-  padding-top: 184px;
-  padding-left: 20px;
-  color: rgb(255 255 255);
+  padding-top: 160px;
+  color: #fff;
   font-size: 16px;
   .titleInfo {
-    width: 1220px;
-    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     > div:nth-child(1) {
       > h2 {
-        font-weight: 400;
-        color: #fff;
+        font-weight: bold;
+        color: #1d7aec;
         font-size: 28px;
         margin-bottom: 40px;
       }
@@ -142,102 +156,71 @@ export default {
           height: 22px;
           line-height: 22px;
           margin-bottom: 24px;
-          text-indent: 38px;
-          background: url(https://www.ydidc.com/template/Home/Zkeys/PC/Static/statics/images/login/login_desc_icon.png)
-            no-repeat left center;
+          color: #8d9eb3;
           font-size: 16px;
         }
       }
     }
-    > div:nth-child(2) {
-      width: 380px;
+    .login-box {
+      width: 360px;
       height: 370px;
       background-color: #fff;
-      padding: 40px 40px 38px;
+      padding: 40px 30px 38px;
       margin-right: 50px;
-      > h4 {
-        text-align: center;
+      color: #97aacc;
+      .title {
         font-size: 22px;
         font-weight: 700;
-        color: rgb(102, 102, 102);
+        color: #1d7aec;
         margin-bottom: 20px;
       }
-      > div > div {
-        width: 300px;
-        height: 40px;
-        line-height: 40px;
-        border: 1px solid rgb(221 221 221);
-        margin-top: 8px;
-        padding-left: 41px;
-      }
-      > div > div:nth-child(1) {
-        background-image: url(https://www.ydidc.com/template/Home/Zkeys/PC/Static/statics/images/login/login_icons.png);
-        background-repeat: no-repeat;
-        background-position: 9px -278px;
-      }
-      > div > div:nth-child(2) {
-        background-image: url(https://www.ydidc.com/template/Home/Zkeys/PC/Static/statics/images/login/login_icons.png);
-        background-repeat: no-repeat;
-        background-position: 10px -196px;
-      }
-      a {
-        color: rgb(0 170 255);
-      }
-      > div > div {
-        > input {
-          width: 150px;
-          outline: none;
-          border: 0;
-          color: rgb(0, 0, 0);
-          line-height: 0;
+      .content {
+        .borderbule {
+          width: 100%;
+          height: 40px;
+          line-height: 40px;
+          border: 1px solid rgb(221 221 221);
+          margin-top: 8px;
+          padding-left: 10px;
+          input {
+            width: 100%;
+            outline: none;
+            border: 0;
+            line-height: 0;
+            font-size: 14px;
+            color: #000;
+          }
+          input:focus {
+            outline: none;
+            font-size: 14px;
+          }
+        }
+        .auto-login {
           font-size: 14px;
+          margin: 10px 0;
+          display: flex;
+          justify-content: space-between;
+          .left {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            span {
+              margin-left: 6px;
+            }
+          }
+          button {
+            color: #97aacc;
+          }
         }
-        input:focus {
-          outline: none;
-          color: #000;
+        .register {
           font-size: 14px;
-        }
-      }
-      > div > div:nth-child(3) {
-        border: 0;
-        padding: 0;
-        font-size: 12px;
-        color: rgb(0 170 255);
-        margin-bottom: 10px;
-        input {
-          width: 15px;
-          position: relative;
-          top: 3px;
-        }
-        > a:nth-child(3) {
-          margin-left: 149px;
-        }
-      }
-      > div > div:nth-child(4) {
-        border: 0;
-        padding: 0;
-        background-color: rgb(0, 170, 255);
-        color: rgb(255, 255, 255);
-        text-align: center;
-        margin-bottom: 20px;
-        > p {
-          margin: 0;
-        }
-      }
-      > div > p:nth-child(5) {
-        color: #000;
-        font-size: 12px;
-        > span {
-          color: rgb(153 153 153);
+          margin-top: 10px;
+          a {
+            color: #97aacc;
+          }
         }
       }
     }
   }
-}
-</style>
-<style>
-html,
-body {
-  background: #2c2c2c !important;
 }
 </style>

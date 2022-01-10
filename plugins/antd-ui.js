@@ -1,8 +1,11 @@
 import Vue from 'vue'
-import Antd from 'ant-design-vue/lib'
+import Antd, { Icon } from 'ant-design-vue/lib'
 import VueClipboard from 'vue-clipboard2'
 import VueScrollTo from 'vue-scrollto'
-
+// 自定义字体图标
+const iconfont = Icon.createFromIconfontCN({
+  scriptUrl: '//at.alicdn.com/t/font_3120193_7ifn4ra3umx.js' // 在 iconfont.cn 上生成
+})
 const options = {
   container: 'body', // 滚动的容器
   duration: 500, // 滚动时间
@@ -18,5 +21,6 @@ const options = {
 }
 
 Vue.use(Antd)
+Vue.component('Iconfont', iconfont) // 注册组件
 Vue.use(VueClipboard)
 Vue.use(VueScrollTo, options)

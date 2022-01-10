@@ -1,171 +1,152 @@
 <template>
   <div class="register-container">
-    <!-- 黑色头部 -->
-    <div class="black" />
-    <!-- 白色背景部分 -->
-    <div class="White">
-      <div class="register">
-        <div>
-          <img
-            src="https://www.ydidc.com/template/Home/Zkeys/PC/Static/css/module/register/img/icon-reg-phone.png"
-            alt=""
-          >
-          <span>账号密码注册</span>
-          <span>已经拥有账号？</span>
-          <a href="/login-pc">账号登录</a>
-        </div>
-        <div>
-          <div>
-            <label>
-              <span>手机号码</span>
-              <span>*</span>
-              <input
-                v-model="form.phone"
-                placeholder="请输入手机号码"
-                @focus="
-                  phoneEnter = true
-                  phoneStatus = 0
-                "
-                @blur="phoneblurfns"
-              ></label>
-            <div>
-              <p
-                v-if="phoneStatus === 0"
-                :class="{
-                  start: !phoneEnter,
-                  enter: phoneEnter
-                }"
-              >
-                手机号码可用于登陆、激活账号、密码找回
-              </p>
-              <p v-else-if="phoneStatus === 1" class="stop">
-                你输入的手机号码不正确
-              </p>
-              <p v-else-if="phoneStatus === 2" class="ok">
-                填写正确
-              </p>
-            </div>
-          </div>
-          <div class="short">
-            <label>
-              <span>短信验证码</span>
-              <span>*</span>
-              <input
-                v-model="form.code"
-                placeholder="请输入短信验证码"
-                maxlength="4"
-                @focus="
-                  codeEnter = true
-                  codeStatus = 0
-                "
-                @blur="shortblurfns"
-              >
-            </label>
-            <div>
-              <p
-                v-if="codeStatus === 0"
-                :class="{
-                  start: !codeEnter,
-                  enter: codeEnter
-                }"
-              >
-                请输入收到的6位验证码
-              </p>
-              <p v-else-if="codeStatus === 1" class="stop">
-                验证码格式错误
-              </p>
-              <p v-else-if="codeStatus === 2" class="ok">
-                验证码格式正确
-              </p>
-            </div>
-            <a-button
-              class="section"
-              :style="`background:${codeLoading ? '#ccc' : ''}`"
-              type="primary"
-              :disabled="codeLoading"
-              @click="sendCode"
+    <div class="top-title">
+      账号密码注册
+    </div>
+    <div class="register">
+      <div class="content">
+        <div class="item">
+          <div class="input-box">
+            <Iconfont class="left-icon" type="icon-phone" />
+            <input
+              v-model="form.phone"
+              maxlength="11"
+              placeholder="请输入手机号码"
+              @focus="
+                phoneEnter = true
+                phoneStatus = 0
+              "
+              @blur="phoneblurfns"
             >
-              {{ codeTxt }}
-            </a-button>
           </div>
-          <div>
-            <label>
-              <span>设置密码</span>
-              <span>*</span>
-              <input
-                v-model="form.password"
-                placeholder="请输入密码"
-                type="password"
-                maxlength="20"
-                @focus="
-                  pwdEnter = true
-                  pwdStatus = 0
-                "
-                @blur="setpswdblurfns"
-              >
-            </label>
-            <div>
-              <p
-                v-if="pwdStatus === 0"
-                :class="{
-                  start: !pwdEnter,
-                  enter: pwdEnter
-                }"
-              >
-                密码由8-20个英文字母、数字和特殊符号组成
-              </p>
-              <p v-else-if="pwdStatus === 1" class="stop">
-                密码格式填写错误
-              </p>
-              <p v-else-if="pwdStatus === 2" class="ok">
-                密码格式填写正确
-              </p>
+          <div class="info">
+            <div v-if="phoneStatus === 0" class="info-item">
+              <Iconfont class="info-icon" type="icon-info" />
+              <span>手机号码可用于登陆、激活账号、密码找回</span>
+            </div>
+            <div v-else-if="phoneStatus === 1" class="info-item">
+              <Iconfont class="info-icon" type="icon-err" />
+              <span>你输入的手机号码不正确</span>
+            </div>
+            <div v-else-if="phoneStatus === 2" class="info-item">
+              <Iconfont class="info-icon" type="icon-ok" />
+              <span>填写正确</span>
             </div>
           </div>
-          <div>
-            <label>
-              <span>确认密码</span>
-              <span>*</span>
-              <input
-                v-model="form.confrimPassword"
-                placeholder="请再次填写密码"
-                type="password"
-                maxlength="20"
-                @focus="
-                  confirmPwdEnter = true
-                  confirmPwdStatus = 0
-                "
-                @blur="confirmpswdblurfns"
-              >
-            </label>
-            <div>
-              <p
-                v-if="confirmPwdStatus === 0"
-                :class="{
-                  start: !confirmPwdEnter,
-                  enter: confirmPwdEnter
-                }"
-              >
-                请再次输入密码
-              </p>
-              <p v-else-if="confirmPwdStatus === 1" class="stop">
-                两次输入的密码不一致
-              </p>
-              <p v-else-if="confirmPwdStatus === 2" class="ok">
-                填写正确
-              </p>
+        </div>
+        <div class="item short">
+          <div class="input-box">
+            <Iconfont class="left-icon" type="icon-code" />
+            <input
+              v-model="form.code"
+              placeholder="请输入短信验证码"
+              maxlength="4"
+              @focus="
+                codeEnter = true
+                codeStatus = 0
+              "
+              @blur="shortblurfns"
+            >
+          </div>
+          <div class="info">
+            <div v-if="codeStatus === 0" class="info-item">
+              <Iconfont class="info-icon" type="icon-info" />
+              <span>请输入收到的验证码</span>
+            </div>
+            <div v-else-if="codeStatus === 1" class="info-item">
+              <Iconfont class="info-icon" type="icon-err" />
+              <span>验证码格式错误</span>
+            </div>
+            <div v-else-if="codeStatus === 2" class="info-item">
+              <Iconfont class="info-icon" type="icon-ok" />
+              <span>验证码格式正确</span>
             </div>
           </div>
-          <div>
-            <input v-model="isRead" type="checkbox" value="blue">
-            <span>
-              我已阅读并同意<a
-                href="/pc/passport/agreement"
-              >《浙江云盾网站服务协议》</a></span>
+          <a-button
+            class="section"
+            :style="`background:${codeLoading ? '#ccc' : ''}`"
+            type="primary"
+            :disabled="codeLoading"
+            @click="sendCode"
+          >
+            {{ codeTxt }}
+          </a-button>
+        </div>
+        <div class="item">
+          <div class="input-box">
+            <Iconfont class="left-icon" type="icon-lock" />
+            <input
+              v-model="form.password"
+              placeholder="请输入密码"
+              type="password"
+              maxlength="20"
+              @focus="
+                pwdEnter = true
+                pwdStatus = 0
+              "
+              @blur="setpswdblurfns"
+            >
           </div>
-          <div :class="{ isRead: isRead.length > 0 }" @click="handleRegister">
-            注册账号
+          <div class="info">
+            <div v-if="pwdStatus === 0" class="info-item">
+              <Iconfont class="info-icon" type="icon-info" />
+              <span>密码由8-20个英文字母、数字和特殊符号组成</span>
+            </div>
+            <div v-else-if="pwdStatus === 1" class="info-item">
+              <Iconfont class="info-icon" type="icon-err" />
+              <span>密码格式填写错误</span>
+            </div>
+            <div v-else-if="pwdStatus === 2" class="info-item">
+              <Iconfont class="info-icon" type="icon-ok" />
+              <span>密码格式填写正确</span>
+            </div>
           </div>
+        </div>
+        <div class="item">
+          <div class="input-box">
+            <Iconfont class="left-icon" type="icon-lock" />
+            <input
+              v-model="form.confrimPassword"
+              placeholder="请再次填写密码"
+              type="password"
+              maxlength="20"
+              @focus="
+                confirmPwdEnter = true
+                confirmPwdStatus = 0
+              "
+              @blur="confirmpswdblurfns"
+            >
+          </div>
+          <div class="info">
+            <div v-if="confirmPwdStatus === 0" class="info-item">
+              <Iconfont class="info-icon" type="icon-info" />
+              <span>请再次输入密码</span>
+            </div>
+            <div v-else-if="confirmPwdStatus === 1" class="info-item">
+              <Iconfont class="info-icon" type="icon-err" />
+              <span>两次输入的密码不一致</span>
+            </div>
+            <div v-else-if="confirmPwdStatus === 2" class="info-item">
+              <Iconfont class="info-icon" type="icon-ok" />
+              <span>填写正确</span>
+            </div>
+          </div>
+        </div>
+        <div class="check-box">
+          <a-checkbox v-model="isRead" />
+          <span>
+            我已阅读并同意<a
+              href="/pc/passport/agreement"
+            >《浙江云盾网站服务协议》</a></span>
+        </div>
+        <a-button class="btn" type="primary" @click="handleRegister">
+          注册账号
+        </a-button>
+        <div class="go-login">
+          <span>已经拥有账号？</span>
+          <nuxt-link to="/login-pc">
+            账号登录
+          </nuxt-link>
         </div>
       </div>
     </div>
@@ -206,7 +187,7 @@ export default {
       timeCount: 60,
       codeTxt: '发送短信验证',
       //   是否同意协议
-      isRead: []
+      isRead: false
     }
   },
   methods: {
@@ -240,6 +221,10 @@ export default {
     },
     // 确认密码失去焦点
     confirmpswdblurfns () {
+      if (!this.form.confrimPassword) {
+        this.confirmPwdStatus = 0
+        return
+      }
       if (this.form.password === this.form.confrimPassword) {
         this.confirmPwdStatus = 2
       } else {
@@ -293,14 +278,15 @@ export default {
         this.$message.warning('请输入密码')
         return
       }
-      if (
-        this.confirmPwdStatus !== 2 &&
-        this.form.password === this.form.confrimPassword
-      ) {
+      if (!this.form.confrimPassword) {
         this.$message.warning('请输入二次确认密码')
         return
       }
-      if (this.isRead.length.length === 0) {
+      if (this.form.password !== this.form.confrimPassword) {
+        this.$message.warning('两次输入的密码不一致')
+        return
+      }
+      if (!this.isRead) {
         this.$message.warning('请勾选服务协议')
         return
       }
@@ -319,215 +305,112 @@ export default {
 
 <style lang="scss" scoped>
 .register-container {
-  background: #fff;
-}
-/* 可以设置不同的进入和离开动画 */
-/* 设置持续时间和动画函数 */
-.slide-fade-enter-active {
-  transition: all 0.3s ease;
-}
-.slide-fade-leave-active {
-  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
-}
-.slide-fade-enter,
-.slide-fade-leave-to {
-  transform: translateX(10px);
-  opacity: 0;
-}
-div {
+  width: 100%;
+  height: 100vh;
+  background: #f5f6fb url('../../static/img/register/bg.png') no-repeat center;
+  background-size: cover;
   position: relative;
-  .black {
-    background: #000;
-    height: 80px;
+  padding-top: 80px;
+  font-size: 14px;
+  .top-title {
+    color: #333;
+    font-size: 30px;
+    margin: 26px 0;
+    text-align: center;
+    font-weight: 500;
   }
-  .White {
-    height: 790px;
-    background: #fff;
-    > .register {
-      width: 760px;
-      height: 668px;
-      margin: 60px auto 0;
-      padding: 35px 60px 10px;
-      background-color: #fff;
-      box-shadow: 0 2px 16px rgb(0 0 0 / 12%);
-      > div:nth-child(1) {
-        border-bottom: 2px solid #eee;
-        padding-bottom: 20px;
-        margin-bottom: 20px;
-        display: flex;
-        align-items: center;
-        > img {
-          width: 32px;
-          margin-right: 5px;
-        }
-        > span:nth-child(2) {
-          font-size: 24px;
-          font-weight: 400;
-          color: #059fff;
-        }
-        > span:nth-child(3) {
-          margin-left: 275px;
-          font-size: 14px;
-          color: #666;
-          margin-right: 10px;
-        }
-        > a {
-          color: #059fff;
-          display: inline-block;
-          width: 76px;
-          height: 24px;
-          line-height: 24px;
-          text-align: center;
-          border: #059fff 1px solid;
-        }
-      }
-      > div:nth-child(2) {
-        > div {
-          width: 400px;
-          margin: 0 auto;
-
-          > label {
-            display: block;
-            width: 400px;
-            height: 40px;
-            line-height: 40px;
-            text-align: right;
-            border: rgb(204, 204, 204) 1px solid;
-            padding: 0;
-
-            > span:nth-child(1) {
-              display: inline-block;
-              width: 80px;
-              text-align: left;
-            }
-            > input {
-              border: 0;
-              width: 278px;
-              height: 33px;
-              padding-left: 20px;
-            }
-            > input:focus {
-              outline: 0;
-              color: #000;
-            }
-            > span:nth-child(2) {
-              display: inline-block;
-              border-right: #72828d 1px solid;
-              padding-right: 5px;
-              height: 30px;
-              line-height: 30px;
-              color: red;
-            }
-          }
-          > div {
-            margin: 10px 0;
-            > p {
-              margin: 0;
-              font-size: 10px;
-            }
-            .start::before {
-              content: '';
-              background: url(https://www.ydidc.com/template/Home/Zkeys/PC/Static/lib/plugin/jQuery/formValidator/themes/default/images/onShow.gif)
-                no-repeat;
-              padding-left: 25px;
-              line-height: 22px;
-              height: 22px;
-              width: 22px;
-              color: rgb(153 153 153);
-              background-position: 0 -3px;
-            }
-            .enter::before {
-              content: '';
-              background: url(../../static/img/register/enter.png) no-repeat;
-              padding-left: 25px;
-              line-height: 22px;
-              height: 22px;
-              width: 22px;
-              color: rgb(0, 0, 0);
-              background-position: 0 -2px;
-              background-size: 20px;
-            }
-            .enter {
-              color: #000000;
-            }
-            .stop::before {
-              content: '';
-              background: url(https://www.ydidc.com/template/Home/Zkeys/PC/Static/lib/plugin/jQuery/formValidator/themes/default/images/onError.gif)
-                no-repeat;
-              padding-left: 25px;
-              line-height: 22px;
-              height: 22px;
-              width: 22px;
-              color: rgb(0, 0, 0);
-              background-position: 0 -2px;
-              background-size: 20px;
-            }
-            .ok::before {
-              content: '';
-              background: url(https://www.ydidc.com/template/Home/Zkeys/PC/Static/lib/plugin/jQuery/formValidator/themes/default/images/onCorrect.gif)
-                no-repeat;
-              padding-left: 25px;
-              line-height: 22px;
-              height: 22px;
-              width: 22px;
-              color: rgb(0, 0, 0);
-              background-position: 0 -2px;
-              background-size: 20px;
-            }
-          }
-          > input {
-            position: relative;
-            top: 3.5px;
-          }
-          > span {
-            font-size: 10px;
-            display: inline-block;
-            margin-bottom: 30px;
-          }
-        }
-        .short {
-          position: relative;
-          .section {
-            cursor: pointer;
-            position: absolute;
-            top: 3px;
-            right: 3px;
-            min-width: 108px;
-            height: 35px;
-            text-align: center;
-            line-height: 35px;
-            color: #fff;
-            border-radius: 4px;
-          }
-        }
-        > div:nth-child(5) {
-          cursor: pointer;
-          > input[type='checkbox'] {
-            cursor: pointer;
-            -webkit-appearance: none;
-            width: 16px;
-            height: 16px;
-            border: 1px solid #ccc;
-          }
-          > input[type='checkbox']:checked {
-            background: url(https://www.ydidc.com/template/Home/Zkeys/PC/Static/css/module/register/images/sign-sprite.png)
-              no-repeat;
-            background-position: -61px -1px;
-          }
-        }
-        > div:nth-child(6) {
-          background-color: rgb(204 204 204);
-          color: rgb(255, 255, 255);
+  .register {
+    width: 900px;
+    height: 650px;
+    margin: 0 auto;
+    padding: 35px 60px 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 16px rgb(0 0 0 / 12%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .content {
+      .item {
+        .input-box {
+          display: flex;
+          align-items: center;
           width: 400px;
           height: 40px;
-          text-align: center;
-          line-height: 40px;
-          font-size: 18px;
-          font-weight: 400;
-          cursor: pointer;
+          border: rgb(204, 204, 204) 1px solid;
+          .left-icon {
+            font-size: 22px;
+            margin-left: 15px;
+          }
+          input {
+            border: 0;
+            width: 278px;
+            height: 33px;
+            padding-left: 20px;
+            color: #000;
+          }
+          input:focus {
+            outline: 0;
+          }
         }
-        .isRead {
-          background-color: #059fff !important;
+        .info {
+          margin: 10px 0;
+          font-size: 14px;
+          .info-item {
+            display: flex;
+            align-items: center;
+            .info-icon {
+              font-size: 16px;
+              margin-right: 5px;
+            }
+          }
+        }
+        > input {
+          position: relative;
+          top: 3.5px;
+        }
+        > span {
+          font-size: 10px;
+          display: inline-block;
+          margin-bottom: 30px;
+        }
+      }
+      .short {
+        position: relative;
+        .section {
+          cursor: pointer;
+          position: absolute;
+          top: 3px;
+          right: 3px;
+          min-width: 108px;
+          height: 35px;
+          text-align: center;
+          line-height: 35px;
+          color: #fff;
+          border-radius: 4px;
+        }
+      }
+      .check-box {
+        display: flex;
+        align-items: center;
+        span {
+          font-size: 14px;
+          margin-left: 6px;
+        }
+      }
+      .btn {
+        color: #fff;
+        width: 400px;
+        height: 40px;
+        text-align: center;
+        line-height: 40px;
+        font-size: 18px;
+        margin: 30px 0 20px;
+      }
+      .go-login {
+        margin-top: 30px;
+        text-align: center;
+        span {
+          font-size: 14px;
         }
       }
     }

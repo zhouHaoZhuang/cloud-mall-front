@@ -40,7 +40,7 @@ export default {
         easing: 'ease-in',
         force: true,
         offset: -80,
-        cancelable: true, 
+        cancelable: true,
         x: false,
         y: true
       })

@@ -10,9 +10,9 @@
       </div>
     </div>
     <!-- 底部 -->
-    <div class="footer-wrap">
+    <div v-show="show" class="footer-wrap">
       <!-- 优势 -->
-      <div v-show="show" class="advantage-wrap">
+      <div class="advantage-wrap">
         <div class="container advantage">
           <div v-for="(item, index) in advantageList" :key="index" class="item">
             <img :src="item.img" alt="" class="img">
@@ -21,7 +21,7 @@
         </div>
       </div>
       <!-- 快捷入口 -->
-      <div v-show="show" class="quick-wrap">
+      <div class="quick-wrap">
         <div class="container quick">
           <div v-for="(item, index) in linkList" :key="index" class="item">
             <div class="title">
@@ -84,7 +84,7 @@
         </div>
       </div>
       <!-- 友情链接 -->
-      <div v-show="show" class="links-wrap">
+      <div class="links-wrap">
         <div class="links">
           <div class="img" />
           <div
@@ -251,7 +251,7 @@ export default {
   watch: {
     $route: {
       handler (newVal) {
-        if (newVal.path === '/login-pc') {
+        if (newVal.path === '/login-pc' || newVal.path === '/pc/register') {
           this.show = false
         } else {
           this.show = true
