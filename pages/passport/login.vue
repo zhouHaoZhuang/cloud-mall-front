@@ -49,7 +49,9 @@
               登录
             </a-button>
             <div class="register">
-              <a href="/pc/register">免费注册</a>
+              <nuxt-link to="/pc/register">
+                免费注册
+              </nuxt-link>
             </div>
           </div>
         </div>

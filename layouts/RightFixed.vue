@@ -67,7 +67,7 @@ export default {
   watch: {
     $route: {
       handler (newVal) {
-        if (newVal.path === '/login-pc') {
+        if (newVal.path === '/login-pc' || newVal.path === '/pc/register') {
           this.show = false
         } else {
           this.show = true
