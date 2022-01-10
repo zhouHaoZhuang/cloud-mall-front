@@ -174,7 +174,7 @@ export default {
     position: absolute;
     top: 0;
     overflow: hidden;
-    background-color: #059fff;
+    background-color: #1d7aec;
     margin-top: -1px;
     border-radius: 2px 0 0 2px;
     transition: width 0.2s;

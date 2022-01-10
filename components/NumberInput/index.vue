@@ -1,6 +1,9 @@
 <template>
   <div class="number-input-wrap">
-    <div class="left-box">
+    <div class="left" @click="handleReduce">
+      <a-icon class="icon" type="minus" />
+    </div>
+    <div class="center">
       <a-input
         v-number-evolution="{ value: 0, min, max }"
         :value="inputValue"
@@ -11,13 +14,8 @@
         {{ company }}
       </div>
     </div>
-    <div class="right-step">
-      <div class="up" @click="handleAdd">
-        <a-icon class="icon" type="caret-up" />
-      </div>
-      <div class="down" @click="handleReduce">
-        <a-icon class="icon" type="caret-down" />
-      </div>
+    <div class="right" @click="handleAdd">
+      <a-icon class="icon" type="plus" />
     </div>
   </div>
 </template>
@@ -114,13 +112,34 @@ export default {
 <style lang="scss" scoped>
 .number-input-wrap {
   display: flex;
-  .left-box {
+  margin-left: 20px;
+  .left,
+  .right {
+    width: 36px;
+    height: 36px;
+    background: #edf2fa;
     display: flex;
-    border: 1px solid #ddd;
-    height: 35px;
-    margin-left: 10px;
-    border-radius: 2px;
+    align-items: center;
+    justify-content: center;
+    .icon {
+      font-size: 20px;
+      color: #bbc2ce;
+    }
+    &:hover {
+      background: #1d7aec;
+      .icon {
+        color: #fff;
+      }
+    }
+  }
+  .center {
+    display: flex;
+    align-items: center;
+    height: 36px;
     overflow: hidden;
+    color: #000;
+    position: relative;
+    padding-right: 5px;
     .input {
       width: 50px;
       border: none;
@@ -131,31 +150,10 @@ export default {
       }
     }
     .company {
-      width: 30px;
-      height: 35px;
-      border-left: 1px solid #ddd;
-      background-color: #f5f5f5;
-      line-height: 35px;
-      text-align: center;
-    }
-  }
-  .right-step {
-    margin-left: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    .up,
-    .down {
-      width: 32px;
-      height: 15px;
-      line-height: 15px;
-      text-align: center;
-      background-color: #f5f5f5;
-      cursor: pointer;
-      &:hover {
-        background-color: #029fd9;
-        color: #fff;
-      }
+      position: absolute;
+      top: 50%;
+      right: 5px;
+      transform: translateY(-50%);
     }
   }
 }

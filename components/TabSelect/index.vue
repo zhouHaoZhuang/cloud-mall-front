@@ -4,7 +4,11 @@
       v-for="item in list"
       :key="item.value"
       :class="selectValue === item.value ? 'tab-item active' : 'tab-item'"
-      :style="{ width: width + 'px' }"
+      :style="{
+        width: width + 'px',
+        background: bgColor,
+        borderColor: bgColor
+      }"
       @click="handleChange(item.value)"
     >
       {{ item.title }}
@@ -34,6 +38,11 @@ export default {
     width: {
       type: String,
       default: '129'
+    },
+    // 自定义背景颜色
+    bgColor: {
+      type: String,
+      default: ''
     }
   },
   data () {
@@ -81,7 +90,7 @@ export default {
     }
     &.active {
       border-color: #1a92dd;
-      background-color: #059fff;
+      background-color: #1d7aec;
       color: #fff;
     }
   }

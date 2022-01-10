@@ -55,10 +55,12 @@
               <TabSelect
                 v-model="form.ioOptimized"
                 :list="[{ title: '免费开启', value: 'optimized' }]"
+                bg-color="#FCAC33"
               />
               <div class="info-txt">
                 免费赠送
                 <span class="strong"> I/O优化 </span>
+                <Iconfont class="info-icon" type="icon-a-youxi1" />
               </div>
             </div>
           </div>
@@ -100,10 +102,12 @@
               <TabSelect
                 v-model="form.ssdSystem"
                 :list="[{ title: '免费开启', value: true }]"
+                bg-color="#FCAC33"
               />
               <div class="info-txt">
                 系统盘免费赠送
                 <span class="strong"> 40G </span>
+                <Iconfont class="info-icon" type="icon-a-youxi1" />
               </div>
             </div>
           </div>
@@ -137,16 +141,9 @@
                   @click="delDisk(index)"
                 />
               </div>
-              <div class="ssd-item-add">
-                <div class="add-box" @click="addDisk">
-                  <div class="add-icon">
-                    <a-icon type="plus" />
-                  </div>
-                  <div class="txt">
-                    增加一块
-                  </div>
-                </div>
-                <div v-if="form.dataDisk" class="info-txt">
+              <div class="ssd-item-add" @click="addDisk">
+                <a-icon class="icon" type="plus" />
+                <div v-if="form.dataDisk" class="txt">
                   还可以添加
                   <span class="strong"> {{ 4 - form.dataDisk.length }}块 </span>
                   磁盘
@@ -387,6 +384,9 @@
             <div class="price">
               <div class="left-box">
                 <div v-if="isShowCloudSelect" class="cloud-select-info">
+                  <div class="label">
+                    已选择的规格：
+                  </div>
                   <span>{{ addressName }}</span>
                   <span>{{ form.cpu }}核(CPU)</span>
                   <span>{{ form.memory }}G(内存)</span>
@@ -396,7 +396,8 @@
                   <span>{{ form.period }}个月</span>
                   <span>x {{ form.amount }}台(购买量)</span>
                 </div>
-                <div
+                <!-- 收起/展开配置 -->
+                <!-- <div
                   v-if="isShowCloudSelect"
                   class="off"
                   @click="changeIsShowCloudSelect"
@@ -407,7 +408,7 @@
                   class="open"
                   @click="changeIsShowCloudSelect"
                   v-text="'>>展开配置<<'"
-                />
+                /> -->
               </div>
               <div v-if="!isLogin" class="right-txt">
                 请先登录，此地域购买需要实名认证
@@ -919,14 +920,15 @@ export default {
   // 轮播图
   .banner-wrap {
     width: 100%;
-    height: 360px;
+    height: 480px;
     margin-top: 0;
-    background-image: url(https://www.ydidc.com/template/Home/Zkeys/PC/Static/css/module/database/img/buy_banner.jpg);
+    background: url('../../../static/img/cloud/bg.png') no-repeat center;
+    background-size: cover;
     color: rgb(255, 255, 255);
     padding-top: 150px;
     margin-bottom: 50px;
     h1 {
-      color: rgb(255, 255, 255);
+      color: #fff;
       font-size: 36px;
       text-align: center;
       margin-bottom: 35px;
@@ -982,14 +984,13 @@ export default {
             flex-wrap: wrap;
             .address-item {
               width: 129px;
-              height: 65px;
-              margin-left: -1 px;
-              border: 1px solid #ddd;
+              height: 70px;
               border-right: none;
-              background-color: #f6f6f6;
+              background: #fff;
               text-align: center;
               color: #4c4c4c;
-              margin-bottom: 10px;
+              margin-bottom: 20px;
+              margin-right: 20px;
               cursor: pointer;
               .top-tit,
               .bot-info {
@@ -1001,27 +1002,21 @@ export default {
               .top-tit {
                 height: 35px;
                 line-height: 35px;
+                background: #f5f7fa;
               }
               .bot-info {
-                height: 30px;
-                line-height: 28px;
-                font-size: 12px;
-                background-color: #fff;
+                margin-top: 5px;
+                height: 35px;
+                line-height: 35px;
+                background: #f5f7fa;
                 color: #999;
-                border-top: 1px solid #ddd;
-                border-bottom: 1px solid #ddd;
-              }
-              &:nth-child(8n),
-              &:last-child {
-                border-right: 1px solid #ddd;
               }
               &.active {
-                background-color: #059fff;
-                border: 1px solid #1a92dd;
                 color: #fff;
+                .top-tit,
                 .bot-info {
-                  color: #059fff;
-                  border-bottom: 1px solid #1a92dd;
+                  background: #1d7aec;
+                  color: #fff;
                 }
               }
             }
@@ -1031,12 +1026,17 @@ export default {
             display: flex;
           }
           .info-txt {
-            color: #999;
+            color: #ff9900;
             line-height: 34px;
             margin-left: 10px;
+            display: flex;
+            align-items: center;
             .strong {
               font-weight: 700;
-              color: #f60;
+            }
+            .info-icon {
+              font-size: 20px;
+              margin-left: 5px;
             }
           }
           .selection-ssd {
@@ -1050,26 +1050,21 @@ export default {
               }
             }
             .ssd-item-add {
+              width: 609px;
+              height: 40px;
+              border: 1px dashed #1d7aec;
               display: flex;
-              .add-box {
-                display: flex;
-                align-items: center;
-                cursor: pointer;
-                .add-icon {
-                  width: 30px;
-                  height: 30px;
-                  line-height: 30px;
-                  text-align: center;
-                  background: #059fff;
-                  color: #fff;
-                  font-size: 18px;
-                  font-weight: 700;
-                }
-                .txt {
-                  margin-right: 25px;
-                  margin-left: 20px;
-                  color: #f60;
-                }
+              align-items: center;
+              justify-content: center;
+              color: #1d7aec;
+              background: rgba(29, 122, 236, 0.1);
+              cursor: pointer;
+              .icon {
+                font-size: 20px;
+              }
+              .txt {
+                margin-right: 25px;
+                margin-left: 10px;
               }
             }
           }
@@ -1117,14 +1112,18 @@ export default {
               line-height: 35px;
               font-size: 24px;
               font-weight: 700;
-              color: #f60;
+              color: #f43131;
             }
             .left-box {
               display: flex;
               align-items: center;
               .cloud-select-info {
-                font-size: 12px;
+                font-size: 14px;
                 color: #999;
+                display: flex;
+                .label {
+                  color: #000;
+                }
               }
               .off,
               .open {
@@ -1143,9 +1142,9 @@ export default {
       }
     }
     &:hover {
-      border-color: rgb(5, 159, 255);
+      border-color: #1d7aec;
       .choose-left {
-        background-color: rgb(5, 159, 255);
+        background-color: #1d7aec;
         color: #fff;
       }
     }
@@ -1166,7 +1165,7 @@ export default {
       line-height: 40px;
       border: none;
       border-radius: 2px;
-      background-color: #ff6600;
+      background-color: #1d7aec;
       font-size: 16px;
       color: #fff;
       text-align: center;
