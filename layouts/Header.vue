@@ -496,8 +496,8 @@ export default {
 .layout-header {
   width: 100%;
   height: 80px;
-  background: transparent;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  background-color: #2b3033;
+  border-bottom-color: transparent;
   position: absolute;
   top: 0;
   left: 0;
