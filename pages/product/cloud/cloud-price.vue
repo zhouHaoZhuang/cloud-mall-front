@@ -443,12 +443,12 @@ export default {
     console.log('进入请求')
     // 获取地域列表
     const data = await app.$api.cloud.addressList()
-    // console.log('地域列表', data)
+    console.log('地域列表', data)
     const selectAddressId =
       Array.isArray(data.data) && data.data.length > 1
         ? data.data[1].regionId
         : ''
-    // console.log('地域id', selectAddressId)
+    console.log('地域id', selectAddressId)
     if (selectAddressId) {
       // 获取cpu数据
       const cpu = await app.$api.cloud.getAddressCpu({
@@ -536,6 +536,8 @@ export default {
         // 单个实例
         regionDetail
       }
+    } else {
+      return {}
     }
   },
   data () {
