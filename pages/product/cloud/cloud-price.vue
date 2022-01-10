@@ -441,6 +441,12 @@ export default {
   // nuxt推荐请求方式
   async asyncData ({ app }) {
     console.log('进入请求')
+    // 获取轮播图
+    const bannerData = await app.$api.home.getBannerList({
+      'qp-bannerType-eq': 0,
+      sorter: 'desc'
+    })
+    console.log('轮播图数据', bannerData)
     // 获取地域列表
     const data = await app.$api.cloud.addressList()
     console.log('地域列表', data)
