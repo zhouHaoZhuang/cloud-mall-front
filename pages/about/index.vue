@@ -8,7 +8,6 @@
         <div class="product">
           了解产品
         </div>
-        
         <div class="tabs">
           <div
             v-for="(item, index) in tabList"
@@ -30,18 +29,19 @@
           <div class="introduce-img">
             <img src="~/static/img/about/company.png" alt="">
           </div>
-          <div class="introduce-info">
+          <div v-if="companypages[1]" class="introduce-info">
             <div class="public-title">
-              公司简介
+              {{ companypages[1].pageName }}
             </div>
             <div class="bottom-line" />
-            <p>
+            <p>{{ companypages[1].context }}</p>
+            <!-- <p>
               公司成立于2007年，是国内领先的互联网业务平台服务提供商。公司专注为用户提供低价高性能云计算产品，致力于云计算应用的易用性开发，并引导云计算在国内普及。目前公司研发以及运营云服务基础设施服务平台（IaaS），面向全球客户提供基于云计算的IT解决方案与客户服务，拥有丰富的国内BGP、双线高防、香港等优质的IDC资源。
             </p>
             <p>
               公司一直秉承"以人为本、客户为尊、永续创新"的价值观，坚持"以微笑收获友善，
               以尊重收获理解，以责任收获支持，以谦卑收获成长"的行为观向客户提供全面优质的互联网应用服务。
-            </p>
+            </p> -->
           </div>
         </div>
         <div class="contact-all">
@@ -105,29 +105,110 @@
       </div>
       <!-- 新闻公告 -->
       <div v-if="tabSelectIndex === 1" class="news">
-        <div />
-        <div class="public-box">
-          新闻公告
+        <!-- 新闻公告tab栏切换 -->
+        <div v-if="!newsDetail" class="newtabs">
+          <div
+            v-for="(item, ind) in newtabsList"
+            :key="ind"
+            :class="
+              newsTabSelectIndex === ind
+                ? 'newtabs-item newtabs-active'
+                : 'newtabs-item'
+            "
+            @click="onChangeNewTabs(ind, item.newTypeCode)"
+          >
+            {{ item.newTypeName }}
+          </div>
+        </div>
+        <!-- 新闻公告主体部分 -->
+        <div v-if="!newsDetail" class="newstabs-content">
+          <div v-for="item in newsList" :key="item.id" class="newstabs-items">
+            <div class="img" />
+            <div class="newstab-title">
+              <div class="newstab-header">
+                <h1 @click="getDetail(item.id)">
+                  {{ item.newTypeName }}
+                </h1>
+                <div class="news-time">
+                  最新
+                </div>
+                <div class="news-trends">
+                  公司动态
+                </div>
+              </div>
+              <div class="newstab-about">
+                {{
+                  item.seoDescribe ||
+                    '为深入推进“互联网+农业”模式，着力培养高水平电商人才，大力推进乡村振兴战略，河源市人社局结合河源市农村电商发展现状，在深河指挥部和社会资源的大力支持下，主导建设了“E网兴农”农村电商产业园。这是河源市深入学习贯彻习近平总书记关于乡村振兴工作的重要论述精..'
+                }}
+              </div>
+              <div class="newstab-footer">
+                <div class="time">
+                  <a-icon type="clock-circle" class="icon" />
+                  {{ item.newsPublishTime }}
+                </div>
+                <div class="attilude">
+                  <a-icon type="like" class="icon" />
+                  256
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 分页功能 -->
+        <div class="pagination">
+          <a-pagination
+            v-model="current"
+            :hide-on-single-page="true"
+            :total="50"
+            :default-page-size="pageSize"
+            show-less-items
+            @change="pageChange()"
+          />
+        </div>
+        <!-- 新闻公告详情部分 -->
+        <div v-if="newsDetail" class="news-content">
+          <div class="news-title">
+            <a-icon type="left" @click="backContent()" />
+            9月23日 - 24日 | 邀请函：第八届食品接触材料安全风险交流与创新大会
+          </div>
+          <div class="news-name">
+            <span class="left">最新</span>
+            <span
+              class="right"
+            >发布时间：2020-10-20 | 技术文章 | 作者：EHS | 访问次数：177</span>
+          </div>
+          <div class="news-cont">
+            <p>
+              穿越千年时光，开封的宋都古城韵味犹存。作为开封古城区传统风貌保存最完整、面积规模最大的历史文化街区，双龙巷历史文化街区是保护与延续开封古都文化最理想的空间载体，如何合理保护利用？双龙巷文化旅游发展有限公司负责人刘涛涛告诉记者，“我们采用‘保护+微更新’管理模式，详细指导古城每一寸土地的保护、开发和利用2018年，开封市编制施行《开封宋都古城保护与修缮规划》。在总体保护框架要求下，面积共计64.7公顷的3个历史文化街区采用“保护+文旅”模式，坚持保护为主、修旧如旧原则，对各级文保单位、历史建筑等全方位保护；并大力发展文化产业，打造宋文化品牌IP，为宋都古城产业转型升级提供优质场所。
+            </p>
+            <p>
+              双龙巷文化旅游发展有限公司负责人刘涛涛告诉记者，“我们采用‘保护+微更新’管理模式，详细指导古城每一寸土地的保护、开发和利用2018年，开封市编制施行《开封宋都古城保护与修缮规划》。在总体保护框架要求下，面积共计64.7公顷的3个历史文化街区采用“保护+文旅”模式，坚持保护为主、修旧如旧原则，对各级文保单位、历史建筑等全方位保护；并大力发展文化产业，打造宋文化品牌IP为宋都古城产业转型升级提供优质场所。
+            </p>
+            <img class="news-img" src="" alt="">
+            <p>
+              穿越千年时光，开封的宋都古城韵味犹存。作为开封古城区传统风貌保存最完整、面积规模最大的历史文化街区，双龙巷历史文化街区是保护与延续开封古都文化最理想的空间载体，如何合理保护利用？双龙巷文化旅游发展有限公司负责人刘涛涛告诉记者，“我们采用‘保护+微更新’管理模式，详细指导古城每一寸土地的保护、开发和利用2018年，开封市编制施行《开封宋都古城保护与修缮规划》。在总体保护框架要求下，面积共计64.7公顷的3个历史文化街区采用“保护+文旅”模式，坚持保护为主、修旧如旧原则，对各级文保单位、历史建筑等全方位保护；并大力发展文化产业，打造宋文化品牌IP，为宋都古城产业转型升级提供优质场所。
+            </p>
+            <p>
+              双龙巷文化旅游发展有限公司负责人刘涛涛告诉记者，“我们采用‘保护+微更新’管理模式，详细指导古城每一寸土地的保护、开发和利用2018年，开封市编制施行《开封宋都古城保护与修缮规划》。在总体保护框架要求下，面积共计64.7公顷的3个历史文化街区采用“保护+文旅”模式，坚持保护为主、修旧如旧原则。
+            </p>
+            <p>
+              双龙巷文化旅游发展有限公司负责人刘涛涛告诉记者，“我们采用‘保护+微更新’管理模式，详细指导古城每一寸土地的保护、开发和利用2018年，开封市编制施行《开封宋都古城保护与修缮规划》。在总体保护框架要求下，面积共计64.7公顷的3个历史文化街区采用“保护+文旅”模式，坚持保护为主、修旧如旧原则，对各级文保单位、历史建筑等全方位保护；并大力发展文化产业，打造宋文化品牌IP为宋都古城产业转型升级提供优质场所。
+            </p>
+            <p>
+              穿越千年时光，开封的宋都古城韵味犹存。作为开封古城区传统风貌保存最完整、面积规模最大的历史文化街区，双龙巷历史文化街区是保护与延续开封古都文化最理想的空间载体，如何合理保护利用？双龙巷文化旅游发展有限公司负责人刘涛涛告诉记者，“我们采用‘保护+微更新’管理模式，详细指导古城每一寸土地的保护、开发和利用2018年，开封市编制施行《开封宋都古城保护与修缮规划》。在总体保护框架要求下，面积共计64.7公顷的3个历史文化街区采用“保护+文旅”模式，坚持保护为主、修旧如旧原则，对各级文保单位、历史建筑等全方位保护；并大力发展文化产业，打造宋文化品牌IP，为宋都古城产业转型升级提供优质场所。
+            </p>
+          </div>
         </div>
       </div>
       <!-- 法律声明 -->
       <Statement v-if="tabSelectIndex === 2" />
       <!-- 友情链接 -->
       <div v-if="tabSelectIndex === 3" class="friendship">
-        <div class="links">
-          <a
-            v-for="(item, index) in linkList"
-            :key="index"
-            :href="item.path"
-            class="item"
-            target="_blank"
-          >
-            <img :src="item.img" :alt="item.name">
-          </a>
-        </div>
         <div class="info-con">
           <div class="public-box">
             交换链接说明
+            <div class="bottom-line" />
           </div>
           <p class="info1">
             符合PR>=5，Alexa排名20,000以内的网站，可以和浙江云盾相互添加网站链接，具体操作方式如下：
@@ -158,7 +239,9 @@
                 <div class="share-code-title">
                   文字预览效果：
                 </div>
-                <a target="_blank" href="#">浙江云盾</a>
+                <div class="code-box">
+                  <a target="_blank" href="#">浙江云盾</a>
+                </div>
               </div>
             </div>
             <div class="share-code-title">
@@ -184,8 +267,10 @@
                 <div class="share-code-title">
                   图片预览效果：
                 </div>
-                <div class="img-box">
-                  <img src="https://ydidc.com/logo_small.gif" alt="">
+                <div class="code-box">
+                  <div class="img-box">
+                    <img src="https://ydidc.com/logo_small.gif" alt="">
+                  </div>
                 </div>
               </div>
             </div>
@@ -207,6 +292,21 @@
             </p>
           </div>
         </div>
+        <div class="links">
+          <div class="public-box">
+            友情链接
+            <div class="bottom-line" />
+          </div>
+          <a
+            v-for="(item, index) in linkList"
+            :key="index"
+            :href="item.path"
+            class="item"
+            target="_blank"
+          >
+            <img :src="item.img" :alt="item.name">
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -220,7 +320,11 @@ export default {
   data () {
     return {
       tabList: ['公司简介', '新闻公告', '法律声明', '友情链接'],
+      newtabsList: ['最新'],
+      newsList: [],
       tabSelectIndex: 0,
+      newsDetail: false,
+      newsTabSelectIndex: 0,
       linkList: [
         {
           name: '阿里云',
@@ -244,7 +348,10 @@ export default {
       imgCode3: '</a>',
       txtMessage: false,
       imgMessage: false,
-      loading: false
+      loading: false,
+      companypages: [],
+      current: 1,
+      pageSize: 8
     }
   },
   computed: {
@@ -261,13 +368,37 @@ export default {
       }
     }
   },
-  created () {
-    this.getNewsInfo()
+  async asyncData ({ app }) {
+    // this.getNewsInfo()
+    // this.doGetCompanypage()
+    // 获取公司简介
+    const newsData = await app.$api.pages.getCompanyPage()
+    // 获取新闻类别
+    const data = await app.$api.news.getAllNewsList({
+      currentPage: 1,
+      pageSize: 999
+    })
+    // 获取新闻信息
+    const datas = await app.$api.news.getNews({
+      currentPage: 1,
+      pageSize: 999,
+      newTypeCode: data.data.list[0].newTypeCode
+    })
+    return {
+      companypages: newsData.data.list,
+      newtabsList: data.data.list,
+      newsList: datas.data.list
+    }
   },
   methods: {
     // tab选择
     onChangeTab (index) {
       this.tabSelectIndex = index
+    },
+    // 新闻公告tab选择
+    onChangeNewTabs (ind, item) {
+      this.newsTabSelectIndex = ind
+      this.getNewsListInfo(item)
     },
     // 点击复制
     handleCopy (type) {
@@ -295,10 +426,39 @@ export default {
         }, 1000)
       })
     },
-    // 获取新闻信息
+    // 获取新闻类别
     async getNewsInfo () {
-      const newsData = await this.$api.news.getAllNewsList()
-      console.log('newsData', newsData)
+      const newsData = await this.$api.news.getAllNewsList({
+        currentPage: 1,
+        pageSize: 999
+      })
+      this.newtabsList = newsData.data.list
+      this.getNewsListInfo(this.newtabsList[0].newTypeCode)
+      console.log('newtabsList', this.newtabsList)
+    },
+    // 获取新闻类别信息
+    async getNewsListInfo (id) {
+      const newsData = await this.$api.news.getNews({
+        currentPage: 1,
+        pageSize: 999,
+        newTypeCode: id
+      })
+      this.newsList = newsData.data.list
+      console.log('getAllNewsList', this.newsList)
+    },
+    // 进入详情页面
+    async getDetail (id) {
+      this.newsDetail = true
+      const newData = await this.$api.news.getOneNews(id)
+      console.log('getOneNews', newData)
+    },
+    // 回退新闻内容页面
+    backContent () {
+      this.newsDetail = false
+    },
+    // 页码功能
+    pageChange (current, pagesize) {
+      console.log(current, pagesize)
     }
   }
 }
@@ -382,14 +542,19 @@ export default {
   .about-content {
     min-height: 500px;
     .public-box {
-      margin: 34px 0;
-      padding-left: 20px;
-      height: 24px;
-      border-left: 6px solid #059fff;
-      line-height: 24px;
-      font-size: 18px;
-      text-align: left;
-      color: #059fff;
+      width: 100%;
+      height: 54px;
+      font-size: 20px;
+      font-weight: 500;
+      color: #1d7aec;
+      line-height: 52px;
+      border-bottom: 1px solid #f1f1f1;
+      margin-bottom: 38px;
+      .bottom-line {
+        width: 30px;
+        height: 2px;
+        background: #1d7aec;
+      }
     }
     .public-title {
       font-size: 36px;
@@ -474,36 +639,168 @@ export default {
         }
       }
     }
+    .news {
+      .newtabs {
+        display: flex;
+        justify-content: start;
+        border-bottom: 1px solid #f1f1f1;
+        margin-bottom: 20px;
+        .newtabs-item {
+          margin-right: 60px;
+          margin-top: 30px;
+          padding-bottom: 17px;
+          cursor: pointer;
+        }
+        .newtabs-active {
+          border-bottom: 2px solid #1d7aec;
+        }
+      }
+      .pagination {
+        display: flex;
+        justify-content: center;
+        margin: 20px 0;
+      }
+      .newstabs-content {
+        margin-top: 30px;
+        padding-bottom: 20px;
+        .newstabs-items {
+          display: flex;
+          justify-content: start;
+          margin-top: 20px;
+          .img {
+            width: 350px;
+            height: 150px;
+            margin-right: 30px;
+            background: red;
+            border-radius: 8px;
+          }
+          .newstab-title {
+            padding-bottom: 30px;
+            border-bottom: 1px solid #f1f1f1;
+            .newstab-header {
+              display: flex;
+              justify-content: start;
+              height: 30px;
+              line-height: 30px;
+              h1 {
+                font-size: 16px;
+                font-weight: bold;
+                color: #333333;
+                line-height: 30px;
+                cursor: pointer;
+              }
+              .news-time {
+                margin: auto 10px;
+                text-align: center;
+                width: 40px;
+                height: 18px;
+                line-height: 18px;
+                background: #ffffff;
+                border: 1px solid #1d7aec;
+                border-radius: 8px;
+              }
+              .news-trends {
+                margin: auto 0px;
+                text-align: center;
+                width: 76px;
+                height: 20px;
+                line-height: 20px;
+                background: #f5f5f5;
+                border: 1px solid #dddddd;
+                border-radius: 8px;
+              }
+            }
+            .newstab-about {
+              margin: 16px 0 26px 0;
+              font-size: 14px;
+              font-weight: normal;
+              line-height: 26px;
+            }
+            .newstab-footer {
+              display: flex;
+              justify-content: start;
+              font-size: 14px;
+              color: #999;
+              .icon {
+                margin-right: 8px;
+              }
+              .time {
+                margin-right: 40px;
+              }
+            }
+          }
+        }
+      }
+      .news-content {
+        height: 900px;
+        padding: 60px 0 103px 0;
+        .news-title {
+          font-size: 24px;
+          font-weight: 500;
+          color: #333333;
+          margin-bottom: 20px;
+        }
+        .news-name {
+          width: 100%;
+          height: 16px;
+          margin-bottom: 50px;
+          .left {
+            display: inline-block;
+            width: 40px;
+            height: 18px;
+            line-height: 16px;
+            text-align: center;
+            border: 1px solid #005dad;
+            border-radius: 8px;
+            margin-right: 20px;
+          }
+          .right {
+            display: inline-block;
+            width: 424px;
+            height: 16px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #999999;
+            line-height: 60px;
+          }
+        }
+        .news-cont {
+          .news-img {
+            float: left;
+            width: 424px;
+            height: 230px;
+            margin-right: 30px;
+            margin-bottom: 10px;
+            background-color: red;
+          }
+          p {
+            margin-bottom: 2em;
+          }
+        }
+      }
+    }
+
     .friendship {
       overflow: hidden;
-      padding: 58px 0;
+      padding-top: 58px;
       .links {
         display: flex;
         flex-wrap: wrap;
         margin-top: 36px;
         padding-bottom: 60px;
-        border-bottom: 1px solid #e6e6e6;
         .item {
           display: inline-block;
-          width: 25%;
-          height: 120px;
-          border: 1px solid #e6e6e6;
-          border-right: none;
-          border-top: none;
+          width: 200px;
+          height: 76px;
+          margin-right: 30px;
+          background: #ffffff;
+          box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.06);
           img {
             width: 100%;
             height: 100%;
           }
         }
-        .item:last-child {
-          border-right: 1px solid #e6e6e6;
-        }
-        .item:nth-child(1),
-        .item:nth-child(2),
-        .item:nth-child(3),
-        .item:nth-child(4) {
-          border-top: 1px solid #e6e6e6;
-        }
+
         .item:hover {
           box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
         }
@@ -512,6 +809,8 @@ export default {
         font-size: 14px;
         line-height: 14px;
         color: #666;
+        height: 775px;
+        border-bottom: 10px solid #f1f1f1;
         .info1 {
           margin-bottom: 35px;
         }
@@ -524,9 +823,10 @@ export default {
             no-repeat 0 0;
           .share-link-left-title {
             margin-bottom: 10px;
-            font-size: 18px;
             line-height: 30px;
-            color: #059fff;
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
           }
           .share-link-left-title2 {
             margin-top: 55px;
@@ -539,24 +839,22 @@ export default {
           .code-wrap {
             margin: 15px 0 0 20px;
             display: flex;
-            .left {
-              .code-box {
-                width: 498px;
-                background-color: #fff;
-                color: #666;
-                padding: 6px 20px;
-                font-size: 14px;
-                border: 1px solid #e5e5e5;
-                div {
-                  margin: 2px 0;
-                }
-                div:nth-child(2) {
-                  margin-left: 15px;
-                }
+            .code-box {
+              width: 498px;
+              background-color: #fafafa;
+              padding: 6px 20px;
+              font-size: 14px;
+              div {
+                margin: 2px 0;
               }
+              div:nth-child(2) {
+                margin-left: 15px;
+              }
+            }
+            .left {
               .btn-box {
                 display: flex;
-                margin: 10px 0 20px 0;
+                margin: 20px 0 30px 0;
                 .btn {
                   width: 100px;
                   height: 30px;
