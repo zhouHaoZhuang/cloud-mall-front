@@ -337,7 +337,7 @@
           </div>
           <div class="choose-value">
             <div class="count">
-              <TabSelect v-model="form.isAutoRenew" :list="renewData" />
+              <TabSelect v-model="form.autoRenew" :list="renewData" />
             </div>
           </div>
         </div>
@@ -514,7 +514,7 @@ export default {
         okPassword: '',
         period: 1, // 购买时长
         priceUnit: 'Month', // 购买时长单位
-        isAutoRenew: 0, // 自动续费
+        autoRenew: 0, // 自动续费
         amount: 1, // 购买数量
         tradePrice: '0.00' // 服务器金额
       }
