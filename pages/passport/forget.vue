@@ -1,7 +1,7 @@
 <template>
   <div class="register-container">
     <div class="top-title">
-      账号密码注册
+      找回密码
     </div>
     <div class="register">
       <div class="content">
@@ -77,7 +77,7 @@
             <Iconfont class="left-icon" type="icon-lock" />
             <input
               v-model="form.password"
-              placeholder="请输入密码"
+              placeholder="请输入重置密码"
               type="password"
               maxlength="20"
               @focus="
@@ -132,22 +132,9 @@
             </div>
           </div>
         </div>
-        <div class="check-box">
-          <a-checkbox v-model="isRead" />
-          <span>
-            我已阅读并同意<a
-              href="/pc/passport/agreement"
-            >《浙江云盾网站服务协议》</a></span>
-        </div>
         <a-button class="btn" type="primary" @click="handleRegister">
-          注册账号
+          确认修改
         </a-button>
-        <div class="go-login">
-          <span>已经拥有账号？</span>
-          <nuxt-link to="/login-pc">
-            账号登录
-          </nuxt-link>
-        </div>
       </div>
     </div>
   </div>
