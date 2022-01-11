@@ -36,9 +36,9 @@
                 <input v-model="form.autoLogin" type="checkbox">
                 <span>下次自动登录</span>
               </div>
-              <a-button type="link">
+              <nuxt-link to="/pc/forget">
                 忘记密码？
-              </a-button>
+              </nuxt-link>
             </div>
             <a-button
               class="login-btn"

@@ -2,43 +2,48 @@
   <div class="clas">
     <div class="claList">
       <div>
-        <p @mouseenter="isShow = true"
-           @mouseleave="isShow = false">
+        <p @mouseenter="isShow = true" @mouseleave="isShow = false">
           <span>{{ typeList.typeName }}</span>
-          <img ref="imgs"
-               src="https://www.ydidc.com/template/Home/Zkeys/PC/Static/css/module/help/img/nav-list.svg"
-               alt="">
+          <img
+            ref="imgs"
+            src="https://www.ydidc.com/template/Home/Zkeys/PC/Static/css/module/help/img/nav-list.svg"
+            alt=""
+          >
         </p>
         <ul>
-          <li v-for="v in typeList.ccHelpTypeList"
-              :key="v.typeCode"
-              :class="atvNum == v.typeCode ? 'atvBlue' : ''"
-              @click="checlass(v.typeCode)">
+          <li
+            v-for="v in typeList.ccHelpTypeList"
+            :key="v.typeCode"
+            :class="atvNum == v.typeCode ? 'atvBlue' : ''"
+            @click="checlass(v.typeCode)"
+          >
             {{ v.typeName }}
           </li>
         </ul>
       </div>
       <div>
-        <img src="https://www.ydidc.com/template/Home/Zkeys/PC/Static/css/module/help/img/help_home.png"
-             alt="">
+        <img
+          src="https://www.ydidc.com/template/Home/Zkeys/PC/Static/css/module/help/img/help_home.png"
+          alt=""
+        >
         <span>{{ title }}</span>
         <div>
-          <div class="context"
-               v-for="v in contextList"
-               :key="v.id">
+          <div v-for="v in contextList" :key="v.id" class="context">
             <h1>
               {{ v.title }}
             </h1>
-            <p>{{v.context}}</p>
+            <p>{{ v.context }}</p>
           </div>
         </div>
       </div>
     </div>
-    <div v-show="isShow"
-         class="havList"
-         @mouseenter="isShow = true"
-         @mouseleave="isShow = false">
-      <HelpInfo :HelpTypeList='listAll'></HelpInfo>
+    <div
+      v-show="isShow"
+      class="havList"
+      @mouseenter="isShow = true"
+      @mouseleave="isShow = false"
+    >
+      <HelpInfo :help-type-list="listAll" />
     </div>
   </div>
 </template>
@@ -46,17 +51,29 @@
 <script>
 import HelpInfo from './helpInfo'
 export default {
+  components: {
+    HelpInfo
+  },
   // nuxt推荐请求方式
   async asyncData ({ app, params }) {
     // 获取全部帮助中心的列表数据
     const listAtv = await app.$api.help.getRegionDetail({ id: params.tid })
-    const typeCentext = await app.$api.help.addressList({ helpTypeCode: params.cid })
+    const typeList =
+      Array.isArray(listAtv.data.ccHelpTypeList) &&
+      listAtv.data.ccHelpTypeList.length > 0
+        ? listAtv.data.ccHelpTypeList[0]
+        : {}
+    const typeCentext = await app.$api.help.addressList({
+      helpTypeCode: params.cid
+    })
     const listAll = await app.$api.help.getRegionDetail()
-    console.log(params.tid, params.cid, '帮助中心的列表数据');
+    const newListAll = Array.isArray(listAll.data.ccHelpTypeList)
+      ? listAtv.data.ccHelpTypeList
+      : []
     return {
-      typeList: listAtv.data.ccHelpTypeList[0],
+      typeList,
       contextList: typeCentext.data.list,
-      listAll: listAll.data.ccHelpTypeList,
+      listAll: newListAll,
       tid: params.tid
     }
   },
@@ -70,16 +87,6 @@ export default {
       contextList: null,
       tid: ''
     }
-  },
-  mounted () {
-    this.atvNum = this.$route.params.cid
-    const title = this.typeList.ccHelpTypeList.find((v) => {
-      return this.atvNum === v.typeCode
-    })
-    this.title = title.typeName
-  },
-  components: {
-    HelpInfo
   },
   watch: {
     isShow (val) {
@@ -99,13 +106,20 @@ export default {
       }
     }
   },
+  mounted () {
+    this.atvNum = this.$route.params.cid
+    const title = this.typeList.ccHelpTypeList.find((v) => {
+      return this.atvNum === v.typeCode
+    })
+    this.title = title.typeName
+  },
   methods: {
     checlass (cid) {
-      console.log(cid, 'cid');
+      console.log(cid, 'cid')
       this.$router.push({
-        path: `/pc/help/class/${cid}/${this.tid}`,
+        path: `/pc/help/class/${cid}/${this.tid}`
       })
-    },
+    }
   }
 }
 </script>
