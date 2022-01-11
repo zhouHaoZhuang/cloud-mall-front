@@ -3,6 +3,7 @@
     <div class="info-box">
       <div class="public-box">
         法律声明
+        <div class="bottom-line" />
       </div>
       <p>
         浙江云盾提醒您：在使用ydidc.com各项服务前，请您务必仔细阅读并透彻理解本声明。
@@ -15,6 +16,7 @@
     <div class="info-box">
       <div class="public-box">
         知识产权申明
+        <div class="bottom-line" />
       </div>
       <p>
         浙江云盾拥有ydidc.com网站内所有信息内容（除ydidc.com会员发布的商品信息外，包括但不限于文字、图片、软件、音频、视频）的版权。被授权的浏览、复制、打印和传播属于ydidc.com网站内信息内容都不得用于商业目的且所有信息内容及其任何部分的使用都必须包括此版权声明；ydidc.com所有的产品、技术与所有程序均属于浙江云盾的知识产权。“浙江云盾”、浙江云盾其他产品服务名称及相关图形、标识等为浙江云盾的注册商标。未经浙江云盾许可，任何人不得擅自（包括但不限于：以非法的方式复制、传播、展示、镜像、上载、下载）使用。否则，浙江云盾将依法追究法律责任。
@@ -23,6 +25,7 @@
     <div class="info-box">
       <div class="public-box">
         隐私权政策
+        <div class="bottom-line" />
       </div>
       <p>
         浙江云盾尊重并保护所有使用ydidc.com服务用户的个人隐私权。为了给您提供更准确、更有个性化的服务，浙江云盾会按照本隐私权政策的规定使用和披露您的个人信息。但浙江云盾将以高度的勤勉、审慎义务对待这些信息。除本隐私权政策另有规定外，在未征得您事先许可的情况下，浙江云盾不会将这些信息对外披露或向第三方提供。
@@ -138,20 +141,26 @@ export default {
 
 <style lang="scss" scoped>
 .statement-container {
-  padding: 58px 0;
+  padding: 60px 0;
   .public-box {
-    margin: 34px 0;
-    padding-left: 20px;
-    height: 24px;
-    border-left: 6px solid #059fff;
-    line-height: 24px;
-    font-size: 18px;
-    text-align: left;
-    color: #059fff;
+    width: 100%;
+    height: 54px;
+    font-size: 20px;
+    font-weight: 500;
+    color: #1d7aec;
+    line-height: 52px;
+    border-bottom: 1px solid #f1f1f1;
+    margin-bottom: 38px;
+    .bottom-line {
+      width: 30px;
+      height: 2px;
+      background: #1d7aec;
+    }
   }
   .info-box {
-    border-bottom: 1px solid #e6e6e6;
-    padding-bottom: 20px;
+    border-bottom: 10px solid #f1f1f1;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
     p {
       text-indent: 2em;
       line-height: 28px;
@@ -161,7 +170,10 @@ export default {
       margin: 0;
     }
     .title {
-      color: #059fff;
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+      margin: 24px 0 11px 0;
     }
   }
   .info-box:last-child {

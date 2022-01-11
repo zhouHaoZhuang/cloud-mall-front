@@ -2,14 +2,14 @@
   <div>
     <div class="titletop">
       <div>
+        <h1 class="help-center">帮助中心</h1>
         <div>
-          <div>
+          <div class="search-input">
             <input v-model="keyWords"
                    type="text"
                    placeholder="请输入您要搜索的关键词...">
           </div>
-          <div class="search"
-               @click="search" />
+          <img class="search" src="~/static/img/help/search.png" alt="">
         </div>
         <ul>
           <li v-for="(item) in hotAll"
@@ -61,12 +61,21 @@ export default {
 </script>
 <style lang="scss" scoped>
 .titletop {
-  background-image: url(https://www.ydidc.com/template/Home/Zkeys/PC/Static/statics/images/help/banner.jpg);
-  height: 362px;
+  background: url('../../../static/img/help/helptitle.png') no-repeat;
+  background-size: 110% 100%;
+  height: 580px;
   padding-top: 175px;
   position: relative;
   min-width: 1220px;
   background-position: -155px 0;
+  .help-center{
+    font-size: 36px;
+    color: #fff;
+    font-weight: bold;
+    margin-left: 50px;
+    text-align: center;
+    margin-bottom: 30px;
+  }
   > div {
     width: 1000px;
     height: 87px;
@@ -74,18 +83,25 @@ export default {
     // border: 1px solid #ffffff;
     // text-align: center;
     > div {
-      display: flex;
+      // display: flex;
       width: 800px;
       margin: 0 auto;
+      position: relative;
       justify-content: space-between;
+      .search-input{
+        height: 60px;
+        // border: 1px solid #e5e5e5;
+        text-align: center;
+        line-height: 60px;
+        border-radius: 30px;
+      }
       .search {
-        background: url(https://www.ydidc.com/template/Home/Zkeys/PC/Static/statics/images/help/search.png)
-          no-repeat;
         border: 0;
-        height: 46px;
-        width: 120px;
-        background-color: rgb(5 159 255);
-        background-position: 48px 10px;
+        height: 24px;
+        width: 24px;
+        position: absolute;
+        right: 25px;
+        top: 18px;
       }
     }
     > ul {
@@ -104,14 +120,15 @@ export default {
       color: rgb(153 153 153);
     }
     input {
-      width: 636px;
-      height: 46px;
+      width: 100%;
+      height: 100%;
       padding: 0 20px;
-      border: 2px solid rgb(5 159 255);
+      border-radius: 30px;
       background-color: #fff;
     }
     input:focus {
       outline: none;
+      border: 2px solid rgb(5 159 255);
     }
   }
 }
@@ -119,7 +136,7 @@ export default {
   width: 1290px;
   // height: 432px;
   margin: 0 auto 85px;
-  padding-top: 110px;
+  padding-top: 30px;
   // padding-left: -20px;
 }
 </style>

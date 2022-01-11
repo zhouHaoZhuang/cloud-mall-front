@@ -1,8 +1,11 @@
 export default axios => ({
   // 查询新闻类别列表
-  getAllNewsList () {
+  getAllNewsList (params) {
     return axios({
-      url: '/ccNews/AllList'
+      url: '/ccNewsType',
+      params: {
+        ...params
+      }
     })
   },
   // 查询一系列资源对象，也就是列表
@@ -12,6 +15,12 @@ export default axios => ({
       params: {
         ...params
       }
+    })
+  },
+  // 查询一个资源对象
+  getOneNews (id) {
+    return axios({
+      url: `/ccNews/${id}`
     })
   }
 })

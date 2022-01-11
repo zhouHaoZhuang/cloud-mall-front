@@ -3,6 +3,7 @@
     <div class="container">
       <div class="title">
         {{ issueData.title }}
+        <div class="bootom-line" />
       </div>
       <div class="list">
         <div
@@ -12,14 +13,16 @@
         >
           <div
             class="top-img"
-            :style="`background:url(${issueData.bg}) no-repeat`"
+            :style="`background:url(${item.bg}) no-repeat`"
           />
-          <div class="item-title">
-            {{ item.title }}
+          <div class="right">
+            <div class="item-title">
+              {{ item.title }}
+            </div>
+            <p class="info">
+              {{ item.info }}
+            </p>
           </div>
-          <p class="info">
-            {{ item.info }}
-          </p>
         </div>
       </div>
     </div>
@@ -40,85 +43,80 @@ export default {
 
 <style lang="scss" scoped>
 .issue-container {
-  background: #fff;
+  height: 894px;
+  margin-top: 180px;
+  background: #f9f9f9;
   .container {
     padding-left: 10px;
     .title {
-      padding-top: 80px;
-      padding-bottom: 60px;
+      padding-top: 100px;
+      padding-bottom: 96px;
       font-size: 36px;
-      color: #555;
+      color: #333;
       text-align: center;
+      .bootom-line {
+        margin: 20px auto;
+        width: 60px;
+        height: 4px;
+        background: #1d7aec;
+      }
     }
     .list {
       display: flex;
+      flex-wrap: wrap;
       padding-bottom: 60px;
       .item {
-        width: 23%;
-        height: 380px;
-        padding-top: 35px;
-        margin: 0px 1%;
+        display: flex;
+        justify-content: space-between;
+        width: 580px;
+        height: 220px;
+        background: #ffffff;
+        box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.06);
         .top-img {
-          width: 100px;
-          height: 100px;
-          margin: 0 auto;
+          width: 220px;
+          height: 220px;
+          background-size: cover !important;
         }
-        .item-title {
-          font-size: 18px;
-          color: #333;
-          text-align: center;
-          margin: 20px 0 15px 0;
-        }
-        .info {
-          margin: 0 20px;
-          font-size: 12px;
-          color: #999;
-          line-height: 24px;
+        .right {
+          width: 350px;
+          height: 220px;
+          padding: 0 23px;
+          .item-title {
+            font-size: 24px;
+            color: #333;
+            margin: 20px 0;
+            font-weight: bold;
+          }
+          .info {
+            font-size: 14px;
+            color: #333;
+            line-height: 22px;
+          }
         }
       }
       .item-width {
-        width: 31%;
-      }
-      .item:nth-child(2) {
+        display: block;
+        width: 30%;
+        height: 469px;
         .top-img {
-          background-position: 0 -100px !important;
+          width: 100%;
+          height: 220px;
+          background-size: cover !important;
         }
+      }
+      .item:nth-child(1) {
+        margin: 0 40px 40px 0px;
       }
       .item:nth-child(3) {
-        .top-img {
-          background-position: 0 -200px !important;
-        }
+        margin-right: 40px;
       }
-      .item:nth-child(4) {
-        .top-img {
-          background-position: 0 -300px !important;
-        }
+      .item-width:nth-child(2) {
+        margin-right: 40px;
       }
       .item:hover {
-        background-color: #fff;
         box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
         .item-title {
           color: #059fff;
-        }
-      }
-      .item:nth-child(1):hover {
-        .top-img {
-          background-position: -100px 0 !important;
-        }
-      }
-      .item:nth-child(2):hover {
-        .top-img {
-          background-position: -100px -100px !important;
-        }
-      }
-      .item:nth-child(3):hover {
-        .top-img {
-          background-position: -100px -200px !important;
-        }
-      }
-      .item:nth-child(4):hover {
-        .top-img {
-          background-position: -100px -300px !important;
         }
       }
     }

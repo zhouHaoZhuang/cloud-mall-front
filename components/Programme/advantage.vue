@@ -3,6 +3,7 @@
     <div class="container">
       <div class="title">
         {{ advantageData.title }}
+        <div class="bootom-line" />
       </div>
       <div class="list">
         <div
@@ -11,14 +12,7 @@
           class="item"
         >
           <div class="top">
-            <div
-              class="bg"
-              :style="`background:url(${item.bg}) no-repeat;width:${
-                item.title === '万兆网络' || item.title === '别让等待成为习惯'
-                  ? 190
-                  : 180
-              }px`"
-            />
+            <div class="bg" :style="`background:url(${item.bg}) no-repeat;`" />
           </div>
           <div class="bot">
             <div class="bot-title">
@@ -48,7 +42,10 @@ export default {
 
 <style lang="scss" scoped>
 .advantage-container {
-  background: #fff;
+  background: url('~/static/img/programme/advantagebg.png') no-repeat center;
+  background-size: cover;
+  height: 810px;
+  margin-bottom: 140px;
   .container {
     padding-left: 10px;
     .title {
@@ -57,45 +54,56 @@ export default {
       font-size: 36px;
       color: #555;
       text-align: center;
+      .bootom-line {
+        margin: 20px auto;
+        width: 60px;
+        height: 4px;
+        background: #1d7aec;
+      }
     }
     .list {
       display: flex;
+      flex-wrap: wrap;
+      padding-bottom: 60px;
       .item {
-        width: 23.5%;
-        min-height: 400px;
-        margin-left: 2%;
-        margin-bottom: 60px;
-        border: 1px solid #e6e6e6;
-        background-color: #fff;
+        display: flex;
+        justify-content: space-between;
+        width: 580px;
+        height: 220px;
+        padding: 30px 25px;
+        background: #ffffff;
         .top {
-          height: 160px;
-          padding-top: 25px;
-          background-color: #e9f0f7;
+          width: 140px;
+          height: 140px;
           .bg {
-            width: 180px;
-            height: 111px;
-            margin: 0 auto;
+            width: 140px;
+            height: 140px;
+            background-size: cover !important;
           }
         }
         .bot {
-          padding: 30px 20px;
-          font-size: 12px;
-          color: #999;
+          font-size: 14px;
+          color: #333;
+          padding-left: 25px;
           .bot-title {
             margin-bottom: 18px;
-            font-size: 18px;
+            font-size: 22px;
+            font-weight: bold;
             color: #333;
-            text-align: center;
           }
           .info {
-            line-height: 2;
+            line-height: 24px;
           }
         }
       }
-      .item:nth-child(1) {
-        margin-left: 0;
+      .item:nth-child(2) {
+        margin: 0 0 40px 40px;
+      }
+      .item:nth-child(3) {
+        margin-right: 40px;
       }
       .item:hover {
+        box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.1);
         .bot-title {
           color: #059fff;
         }
