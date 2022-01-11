@@ -1,7 +1,7 @@
 <template>
   <div class="help-search-container">
     <h1 class="help-search-top">
-      <img src="https://www.ydidc.com/template/Home/Zkeys/PC/Static/css/module/help/img/help_home.png"
+      <img src='https://www.ydidc.com/template/Home/Zkeys/PC/Static/css/module/help/img/help_home.png'
            alt=""><span>搜索</span><span>"{{keyWords}}"</span>
     </h1>
     <div class="help-search-info"
