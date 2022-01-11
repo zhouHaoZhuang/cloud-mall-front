@@ -442,11 +442,17 @@ export default {
   async asyncData ({ app }) {
     console.log('进入请求')
     // 获取轮播图
-    const bannerData = await app.$api.home.getBannerList({
-      'qp-bannerType-eq': 0,
-      sorter: 'desc'
-    })
-    console.log('轮播图数据', bannerData)
+    app.$api.home
+      .getBannerList({
+        'qp-bannerType-eq': 0,
+        sorter: 'desc'
+      })
+      .then((res) => {
+        console.log('轮播图数据', res)
+      })
+      .catch((err) => {
+        console.log('请求失败', err)
+      })
     // 获取地域列表
     const data = await app.$api.cloud.addressList()
     console.log('地域列表', data)
