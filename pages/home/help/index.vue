@@ -16,10 +16,7 @@
           <img class="search" src="~/static/img/help/search.png" alt="">
         </div>
         <ul>
-          <li
-            v-for="(item) in hotAll"
-            :key="item.id"
-          >
+          <li v-for="item in hotAll" :key="item.id">
             {{ item.keyWords }}
           </li>
         </ul>
@@ -51,9 +48,7 @@ export default {
       keyWords: ''
     }
   },
-  mounted () {
-
-  },
+  mounted () {},
   methods: {
     search () {
       this.$router.push({
@@ -75,7 +70,7 @@ export default {
   position: relative;
   min-width: 1220px;
   background-position: -155px 0;
-  .help-center{
+  .help-center {
     font-size: 36px;
     color: #fff;
     font-weight: bold;
@@ -95,7 +90,7 @@ export default {
       margin: 0 auto;
       position: relative;
       justify-content: space-between;
-      .search-input{
+      .search-input {
         height: 60px;
         // border: 1px solid #e5e5e5;
         text-align: center;

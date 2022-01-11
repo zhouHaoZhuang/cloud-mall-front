@@ -65,13 +65,24 @@ export default {
   async asyncData ({ app, params }) {
     // 获取全部帮助中心的列表数据
     const listAtv = await app.$api.help.getRegionDetail({ id: params.tid })
-    const typeCentext = await app.$api.help.addressList({ helpTypeCode: params.cid })
+    const typeList =
+      Array.isArray(listAtv.data.ccHelpTypeList) &&
+      listAtv.data.ccHelpTypeList.length > 0
+        ? listAtv.data.ccHelpTypeList[0]
+        : {}
+    const typeCentext = await app.$api.help.addressList({
+      helpTypeCode: params.cid
+    })
     const listAll = await app.$api.help.getRegionDetail()
     console.log(params.tid, params.cid, '帮助中心的列表数据')
+
+    const newListAll = Array.isArray(listAll.data.ccHelpTypeList)
+      ? listAtv.data.ccHelpTypeList
+      : []
     return {
-      typeList: listAtv.data.ccHelpTypeList[0],
+      typeList,
       contextList: typeCentext.data.list,
-      listAll: listAll.data.ccHelpTypeList,
+      listAll: newListAll,
       tid: params.tid
     }
   },

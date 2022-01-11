@@ -2,15 +2,8 @@
   <div>
     <div class="helpInfo">
       <h3><span>首页></span><a href="">帮助中心</a></h3>
-      <div
-        v-if="listAll"
-        class="helpInfo-listall"
-        @click="changeList"
-      >
-        <div
-          v-for="item in listAll"
-          :key="item.typeCode"
-        >
+      <div v-if="listAll" class="helpInfo-listall" @click="changeList">
+        <div v-for="item in listAll" :key="item.typeCode">
           <div
             :style="`background: url(${item.typeIcon}) no-repeat;`"
             class="img-typeIcon"
@@ -45,7 +38,7 @@
 <script>
 export default {
   props: {
-    HelpTypeList: {
+    helpTypeList: {
       type: Array,
       default: () => []
     }

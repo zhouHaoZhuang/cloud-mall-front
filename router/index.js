@@ -22,6 +22,15 @@ const whiteList = [
     }
   },
   {
+    path: '/pc/forget',
+    name: 'forget',
+    component: resolve('pages/passport/forget.vue'),
+    meta: {
+      title: '忘记密码',
+      icon: 'icon'
+    }
+  },
+  {
     path: '/login-mb',
     name: 'Login-mb',
     component: resolve('pages/passport/login-m.vue'),
