@@ -44,16 +44,24 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    '~/plugins/router',
+    // '~/plugins/router',
+    {
+      src: '~/plugins/router',
+      ssr: true // 开启服务端渲染
+    },
     '~/plugins/mixins',
-    '~/plugins/api-plugin',
     {
       src: '~/plugins/axios',
-      ssr: true // 开启服务端渲染
+      ssr: true
+    },
+    // '~/plugins/api-plugin',
+    {
+      src: '~/plugins/api-plugin',
+      ssr: true
     },
     {
       src: '@/plugins/antd-ui',
-      ssr: true // 开启服务端渲染
+      ssr: true
     },
     { src: '~/plugins/vue-persistedstate', ssr: false }
   ],
