@@ -439,8 +439,12 @@ export default {
     NumberInput
   },
   // nuxt推荐请求方式
-  async asyncData ({ app }) {
+  async asyncData ({ app, $axios }) {
     console.log('进入请求')
+    const abcData = await $axios({
+      url: '/index/query/region'
+    })
+    console.log('地域全地址数据', abcData)
     // 获取轮播图
     app.$api.home
       .getBannerList({
