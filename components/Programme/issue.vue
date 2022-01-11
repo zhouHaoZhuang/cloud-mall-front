@@ -95,12 +95,22 @@ export default {
         }
       }
       .item-width {
-        width: 31%;
+        display: block;
+        width: 30%;
+        height: 469px;
+        .top-img {
+          width: 100%;
+          height: 220px;
+          background-size: cover !important;
+        }
       }
-      .item:nth-child(2) {
-        margin: 0 0 40px 40px;
+      .item:nth-child(1) {
+        margin: 0 40px 40px 0px;
       }
       .item:nth-child(3) {
+        margin-right: 40px;
+      }
+      .item-width:nth-child(2) {
         margin-right: 40px;
       }
       .item:hover {

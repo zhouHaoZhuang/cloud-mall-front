@@ -17,7 +17,15 @@
           <p v-for="(item, index) in solutionData.infoList" :key="index">
             {{ item }}
           </p>
-          <div class="info-img" />
+          <div
+          v-if="solutionData.foundbg"
+            class="info-found"
+            :style="`${solutionData.foundbg}`"
+          />
+          <div
+            class="info-img"
+            :style="`${solutionData.bottombg};${solutionData.bottomwidth}`"
+          />
         </div>
       </div>
     </div>
@@ -64,7 +72,8 @@ export default {
         background-size: cover !important;
       }
       .info-box {
-        width: 610px;
+        position: relative;
+        width: 610px !important;
         float: right;
         padding: 25px;
         font-size: 14px;
@@ -76,19 +85,24 @@ export default {
           font-size: 16px;
           color: #333;
         }
+        .info-found {
+          width: 120px;
+          height: 38px;
+          background-size: cover !important;
+        }
         .info-img {
-          width: 408px;
+          position: absolute;
+          right: 3px;
+          bottom: 20px;
           height: 58px;
-          background: url('~/static/img/programme/infoimg.png') no-repeat center;
-          background-size: cover;
-          margin: 70px 0 0 140px;
+          background-size: cover !important;
         }
         .infoTitle {
-          margin-bottom: 25px;
-          font-size: 24px;
+          margin-bottom: 20px;
+          font-size: 26px;
           color: #333;
+          font-weight: bold;
           text-indent: 0;
-          text-align: center;
         }
       }
     }

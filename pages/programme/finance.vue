@@ -52,6 +52,8 @@ export default {
         title: '解决方案构架部署',
         height: 'height: 380px',
         bg: `background:url(${require('~/static/img/programme/financial-dep.png')}) no-repeat left top`,
+        bottombg: `background:url(${require('~/static/img/programme/infoimg.png')}) no-repeat center`,
+        bottomwidth: 'width: 408px',
         infoWidth: 'width: 610px',
         infoList: [
           '金融云微金融解决方案为P2P、小贷、典当、担保、众筹等小微金融企业提供定制个性化的云计算服务。互联网微金融用户也能享有金融级的安全保障;海量计算、弹性部署能解决互联网业务的海量并发问题，同时大幅降低初创企业IT成本。此外，浙江云盾联手合作伙伴共同打造微金融生态链，提供-站式解决方案平台。在整个产品选择和设计上，浙江云盾努力为金融用户创造一个安全可 靠的运行环境，并为用户提供一-支可信赖的技术运维支持团队，可以帮助客户完成从前期规划、实施、应用迁移,到后期运维每一阶段的工作，为金融行业持续发展做出贡献。'

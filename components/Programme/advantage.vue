@@ -69,10 +69,9 @@ export default {
         display: flex;
         justify-content: space-between;
         width: 580px;
-        height: 200px;
+        height: 220px;
         padding: 30px 25px;
         background: #ffffff;
-        box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.1);
         .top {
           width: 140px;
           height: 140px;
@@ -104,6 +103,7 @@ export default {
         margin-right: 40px;
       }
       .item:hover {
+        box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.1);
         .bot-title {
           color: #059fff;
         }
