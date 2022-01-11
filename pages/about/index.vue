@@ -316,6 +316,27 @@ import { mapState } from 'vuex'
 import Statement from '@/components/About/statement'
 export default {
   components: { Statement },
+  async asyncData ({ app }) {
+    // 获取公司简介
+    const newsData = await app.$api.pages.getCompanyPage()
+    // 获取新闻类别
+    const typeData = await app.$api.news.getAllNewsList({
+      currentPage: 1,
+      pageSize: 999
+    })
+    console.log('data', typeData)
+    // 获取新闻信息
+    const detailData = await app.$api.news.getNews({
+      currentPage: 1,
+      pageSize: 999,
+      newTypeCode: typeData.data.list[0].newTypeCode
+    })
+    return {
+      companypages: newsData.data.list,
+      newtabsList: typeData.data.list,
+      newsList: detailData.data.list
+    }
+  },
   data () {
     return {
       tabList: ['公司简介', '新闻公告', '法律声明', '友情链接'],
@@ -365,27 +386,6 @@ export default {
       handler (route) {
         this.tabSelectIndex = route.query.tab * 1
       }
-    }
-  },
-  async asyncData ({ app }) {
-    // 获取公司简介
-    const newsData = await app.$api.pages.getCompanyPage()
-    // 获取新闻类别
-    const typeData = await app.$api.news.getAllNewsList({
-      currentPage: 1,
-      pageSize: 999
-    })
-    console.log('data',typeData);
-    // 获取新闻信息
-    const detailData = await app.$api.news.getNews({
-      currentPage: 1,
-      pageSize: 999,
-      newTypeCode: typeData.data.list[0].newTypeCode
-    })
-    return {
-      companypages: newsData.data.list,
-      newtabsList: typeData.data.list,
-      newsList: detailData.data.list
     }
   },
   methods: {
@@ -456,7 +456,7 @@ export default {
     },
     // 页码功能
     pageChange (current, pageSize) {
-      getNewsListInfo(current, pageSize)
+      this.getNewsListInfo(current, pageSize)
       console.log('current', current, pageSize)
     }
   }
@@ -641,7 +641,7 @@ export default {
     .news {
       .newtabs {
         display: flex;
-        justify-content: start;
+        justify-content: flex-start;
         border-bottom: 1px solid #f1f1f1;
         margin-bottom: 20px;
         .newtabs-item {
@@ -664,7 +664,7 @@ export default {
         padding-bottom: 20px;
         .newstabs-items {
           display: flex;
-          justify-content: start;
+          justify-content: flex-start;
           margin-top: 20px;
           .img {
             width: 350px;
@@ -678,7 +678,7 @@ export default {
             border-bottom: 1px solid #f1f1f1;
             .newstab-header {
               display: flex;
-              justify-content: start;
+              justify-content: flex-start;
               height: 30px;
               line-height: 30px;
               h1 {
@@ -717,7 +717,7 @@ export default {
             }
             .newstab-footer {
               display: flex;
-              justify-content: start;
+              justify-content: flex-start;
               font-size: 14px;
               color: #999;
               .icon {

@@ -2,11 +2,13 @@
   <div>
     <div class="helpInfo">
       <h3><span>首页></span><a href="">帮助中心</a></h3>
-      <div @click="changeList" v-if="listAll" class="helpInfo-listall">
+      <div v-if="listAll" class="helpInfo-listall" @click="changeList">
         <div v-for="item in listAll" :key="item.typeCode">
-          <div @mousemove="item.isShow = true" @mouseout="item.isShow = false" 
+          <div
             :style="`background: url(${item.typeIcon}) no-repeat;`"
             class="img-typeIcon"
+            @mousemove="item.isShow = true"
+            @mouseout="item.isShow = false"
           >
             <h4 :data-tid="item.typeCode" class="img-typeIcon">
               {{ item.typeName }}
@@ -29,49 +31,49 @@
 
 <script>
 export default {
-  // nuxt推荐请求方式
-  async asyncData({ app }) {
-    // 获取全部帮助中心的列表数据
-    let listAll = await app.$api.help.getRegionDetail();
-    listAll = listAll.data.ccHelpTypeList;
-    for (let index = 0; index < listAll.length; index++) {
-      const element = listAll[index];
-      element.isShow = false;
-    }
-    console.log(listAll, "帮助中心的列表数据");
-    return {
-      listAll,
-    };
-  },
-  data() {
-    return {
-      listAll: [],
-    };
-  },
   props: {
-    HelpTypeList: {
+    helpTypeList: {
       type: Array,
-      default: () => [],
-    },
+      default: () => []
+    }
   },
-  mounted() {
-    console.log(this.listAll, "asjaksjaksjaksjkak");
+  // nuxt推荐请求方式
+  async asyncData ({ app }) {
+    // 获取全部帮助中心的列表数据
+    let listAll = await app.$api.help.getRegionDetail()
+    listAll = listAll.data.ccHelpTypeList
+    for (let index = 0; index < listAll.length; index++) {
+      const element = listAll[index]
+      element.isShow = false
+    }
+    console.log(listAll, '帮助中心的列表数据')
+    return {
+      listAll
+    }
+  },
+  data () {
+    return {
+      listAll: []
+    }
+  },
+  mounted () {
+    console.log(this.listAll, 'asjaksjaksjaksjkak')
     if (this.HelpTypeList.length > 0) {
-      this.listAll = this.HelpTypeList;
+      this.listAll = this.HelpTypeList
     }
   },
   methods: {
-    changeList(e) {
-      if (e.path[0].localName !== "p") {
-        return;
+    changeList (e) {
+      if (e.path[0].localName !== 'p') {
+        return
       }
       // console.log(e.path[0].dataset.cid, e.path[1].childNodes[2].dataset.tid);
       this.$router.push({
-        path: `/pc/help/class/${e.path[0].dataset.cid}/${e.path[1].childNodes[2].dataset.tid}`,
-      });
-    },
-  },
-};
+        path: `/pc/help/class/${e.path[0].dataset.cid}/${e.path[1].childNodes[2].dataset.tid}`
+      })
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

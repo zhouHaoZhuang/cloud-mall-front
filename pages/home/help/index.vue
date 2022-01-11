@@ -2,24 +2,28 @@
   <div>
     <div class="titletop">
       <div>
-        <h1 class="help-center">帮助中心</h1>
+        <h1 class="help-center">
+          帮助中心
+        </h1>
         <div>
           <div class="search-input">
-            <input v-model="keyWords"
-                   type="text"
-                   placeholder="请输入您要搜索的关键词...">
+            <input
+              v-model="keyWords"
+              type="text"
+              placeholder="请输入您要搜索的关键词..."
+            >
           </div>
           <img class="search" src="~/static/img/help/search.png" alt="">
         </div>
         <ul>
-          <li v-for="(item) in hotAll"
-              :key="item.id">{{item.keyWords}}</li>
+          <li v-for="item in hotAll" :key="item.id">
+            {{ item.keyWords }}
+          </li>
         </ul>
       </div>
     </div>
     <div class="helpInfo">
-      <router-view :key="$route.params.cid">
-      </router-view>
+      <router-view :key="$route.params.cid" />
     </div>
   </div>
 </template>
@@ -44,9 +48,7 @@ export default {
       keyWords: ''
     }
   },
-  mounted () {
-
-  },
+  mounted () {},
   methods: {
     search () {
       this.$router.push({
@@ -68,7 +70,7 @@ export default {
   position: relative;
   min-width: 1220px;
   background-position: -155px 0;
-  .help-center{
+  .help-center {
     font-size: 36px;
     color: #fff;
     font-weight: bold;
@@ -88,7 +90,7 @@ export default {
       margin: 0 auto;
       position: relative;
       justify-content: space-between;
-      .search-input{
+      .search-input {
         height: 60px;
         // border: 1px solid #e5e5e5;
         text-align: center;
