@@ -161,9 +161,8 @@
             v-model="current"
             :hide-on-single-page="true"
             :total="50"
-            :default-page-size="pageSize"
-            show-less-items
-            @change="pageChange()"
+            :page-size="pageSize"
+            @change="pageChange(current, pageSize)"
           />
         </div>
         <!-- 新闻公告详情部分 -->
@@ -369,25 +368,24 @@ export default {
     }
   },
   async asyncData ({ app }) {
-    // this.getNewsInfo()
-    // this.doGetCompanypage()
     // 获取公司简介
     const newsData = await app.$api.pages.getCompanyPage()
     // 获取新闻类别
-    const data = await app.$api.news.getAllNewsList({
+    const typeData = await app.$api.news.getAllNewsList({
       currentPage: 1,
       pageSize: 999
     })
+    console.log('data',typeData);
     // 获取新闻信息
-    const datas = await app.$api.news.getNews({
+    const detailData = await app.$api.news.getNews({
       currentPage: 1,
       pageSize: 999,
-      newTypeCode: data.data.list[0].newTypeCode
+      newTypeCode: typeData.data.list[0].newTypeCode
     })
     return {
       companypages: newsData.data.list,
-      newtabsList: data.data.list,
-      newsList: datas.data.list
+      newtabsList: typeData.data.list,
+      newsList: detailData.data.list
     }
   },
   methods: {
@@ -437,10 +435,10 @@ export default {
       console.log('newtabsList', this.newtabsList)
     },
     // 获取新闻类别信息
-    async getNewsListInfo (id) {
+    async getNewsListInfo (current, pageSize, id) {
       const newsData = await this.$api.news.getNews({
-        currentPage: 1,
-        pageSize: 999,
+        currentPage: current || 1,
+        pageSize: pageSize || 8,
         newTypeCode: id
       })
       this.newsList = newsData.data.list
@@ -457,8 +455,9 @@ export default {
       this.newsDetail = false
     },
     // 页码功能
-    pageChange (current, pagesize) {
-      console.log(current, pagesize)
+    pageChange (current, pageSize) {
+      getNewsListInfo(current, pageSize)
+      console.log('current', current, pageSize)
     }
   }
 }

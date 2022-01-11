@@ -3,11 +3,13 @@
     <div class="container">
       <div class="title">
         {{ solutionData.title }}
+        <div class="bootom-line" />
       </div>
-      <div
-        class="solution-box"
-        :style="`${solutionData.bg};${solutionData.height}`"
-      >
+      <div class="solution-box">
+        <div
+          class="img-box"
+          :style="`${solutionData.bg};${solutionData.height}`"
+        />
         <div class="info-box" :style="solutionData.infoWidth">
           <div v-if="solutionData.infoTitle" class="infoTitle">
             {{ solutionData.infoTitle }}
@@ -15,9 +17,15 @@
           <p v-for="(item, index) in solutionData.infoList" :key="index">
             {{ item }}
           </p>
-          <div class="btn">
-            在线咨询
-          </div>
+          <div
+          v-if="solutionData.foundbg"
+            class="info-found"
+            :style="`${solutionData.foundbg}`"
+          />
+          <div
+            class="info-img"
+            :style="`${solutionData.bottombg};${solutionData.bottomwidth}`"
+          />
         </div>
       </div>
     </div>
@@ -38,17 +46,34 @@ export default {
 
 <style lang="scss" scoped>
 .solution-container {
+  height: 910px;
+  background-color: #fff;
   .container {
     padding-left: 10px;
     .title {
-      padding-top: 80px;
-      padding-bottom: 60px;
+      padding-top: 140px;
+      padding-bottom: 80px;
       font-size: 36px;
-      color: #555;
+      color: #333;
+      font-weight: bold;
       text-align: center;
+      .bootom-line {
+        margin: 20px auto;
+        width: 60px;
+        height: 4px;
+        background: #1d7aec;
+      }
     }
     .solution-box {
+      display: flex;
+      justify-content: space-between;
+      .img-box {
+        width: 570px;
+        background-size: cover !important;
+      }
       .info-box {
+        position: relative;
+        width: 610px !important;
         float: right;
         padding: 25px;
         font-size: 14px;
@@ -56,27 +81,28 @@ export default {
         text-indent: 2em;
         background-color: #fff;
         p {
-          line-height: 32px;
-          margin: 0;
-        }
-        .btn {
-          width: 120px;
-          height: 35px;
-          line-height: 35px;
-          margin-top: 35px;
-          text-align: center;
+          line-height: 26px;
           font-size: 16px;
-          color: #fff;
-          text-indent: 0;
-          border-radius: 4px;
-          background-color: #059fff;
+          color: #333;
+        }
+        .info-found {
+          width: 120px;
+          height: 38px;
+          background-size: cover !important;
+        }
+        .info-img {
+          position: absolute;
+          right: 3px;
+          bottom: 20px;
+          height: 58px;
+          background-size: cover !important;
         }
         .infoTitle {
-          margin-bottom: 25px;
-          font-size: 24px;
+          margin-bottom: 20px;
+          font-size: 26px;
           color: #333;
+          font-weight: bold;
           text-indent: 0;
-          text-align: center;
         }
       }
     }

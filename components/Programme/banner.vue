@@ -11,7 +11,7 @@
         <p>{{ bannerData[type].title }}</p>
         <p>{{ bannerData[type].info }}</p>
         <div class="btn">
-          立即咨询
+          方案应讯
         </div>
       </div>
     </div>
@@ -33,27 +33,27 @@ export default {
         finance: {
           title: '金融云解决方案',
           info: '随时扩容以应对互联网流量变化',
-          bg: require('~/static/img/programme/finance.jpg')
+          bg: require('~/static/img/programme/financebanner.png')
         },
         online: {
           title: '电商云解决方案',
           info: '适应庞大业务规模、满足业务快速增长',
-          bg: require('~/static/img/programme/online.jpg')
+          bg: require('~/static/img/programme/onlinebanner.png')
         },
         move: {
           title: '移动云解决方案',
           info: '灵活应用虚拟化 保证用户安全访问',
-          bg: require('~/static/img/programme/move.jpg')
+          bg: require('~/static/img/programme/movebanner.png')
         },
         game: {
           title: '游戏云解决方案',
           info: '打造虚拟化、高可用的游戏集群',
-          bg: require('~/static/img/programme/game.jpg')
+          bg: require('~/static/img/programme/gamebanner.png')
         },
         website: {
           title: '网站解决方案',
           info: '专业构架 轻松快捷解决互联网建站问题',
-          bg: require('~/static/img/programme/website.jpg')
+          bg: require('~/static/img/programme/websitebanner.png')
         }
       }
     }
@@ -77,28 +77,35 @@ export default {
     background: #192933;
   }
   .banner {
-    height: 468px;
+    height: 657px;
+    background-size: cover !important;
     .container {
-      padding-top: 170px;
       padding-left: 10px;
+      padding-top: 115px;
       color: #fff;
       p:nth-child(1) {
-        font-size: 44px;
-        margin: 0;
+        font-size: 70px;
+        font-weight: 800;
+        text-align: center;
+        color: #fff;
       }
       p:nth-child(2) {
-        margin-top: 30px;
-        margin-bottom: 60px;
-        font-size: 18px;
+        margin-top: 37px;
+        margin-bottom: 115px;
+        text-align: center;
+        font-size: 20px;
+        color: #fff;
       }
       .btn {
-        width: 160px;
-        height: 40px;
+        width: 220px;
+        height: 60px;
+        background: url('~/static/img/programme/btnbanner.png') center no-repeat;
+        background-size: cover;
         display: flex;
         justify-content: center;
         align-items: center;
+        margin: 0 auto;
         font-size: 20px;
-        border: 1px solid #fff;
         background-color: transparent;
       }
     }
