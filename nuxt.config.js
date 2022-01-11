@@ -81,24 +81,23 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   // 跨域
-  axios: {
-    proxy: true, // 开启跨域行为
-    prefix: '/api' // 所有请求前缀加上/api,无需配置axios请求地址(BASE_URL)
-  },
-  proxy: {
-    // 代理
-    '/api': {
-      target: process.env.BASE_URL, // 代理转发地址
-      changeOrigin: true,
-      pathRewrite: {
-        '^/api': ''
-      }
-    }
-  },
+  // axios: {
+  //   proxy: true, // 开启跨域行为
+  //   prefix: '/api' // 所有请求前缀加上/api,无需配置axios请求地址(BASE_URL)
+  // },
+  // proxy: {
+  //   // 代理
+  //   '/api': {
+  //     target: process.env.BASE_URL, // 代理转发地址
+  //     changeOrigin: true,
+  //     pathRewrite: {
+  //       '^/api': ''
+  //     }
+  //   }
+  // },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    assetsPublicPath: '/'
     // transpile: [/^antd-ui/]
   }
 }
