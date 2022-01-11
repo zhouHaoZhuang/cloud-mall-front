@@ -19,7 +19,11 @@ export const getWindowUrl = (url) => {
   const newUrl = url.includes('http://')
     ? url.replace('http://', '')
     : url.replace('https://', '')
-  return newUrl.substring(0, newUrl.indexOf('/'))
+  const str = newUrl.substring(0, newUrl.indexOf('/'))
+  const index1 = str.lastIndexOf('.')
+  const index2 = str.lastIndexOf('.', index1 - 1)
+  const result = str.substring(index2 + 1)
+  return result
 }
 // 处理cpu+内存数据  data:默认数组  company:单位
 export const setCpuOrDiskData = (data, company) => {
@@ -27,7 +31,7 @@ export const setCpuOrDiskData = (data, company) => {
     const newData = data.sort((a, b) => a - b)
     return newData.map((item) => {
       return {
-        title: item.replace('.0', '') + company,
+        title: String(item).replace('.0', '') + company,
         value: item
       }
     })
@@ -43,9 +47,12 @@ export const jumpCloudAdmin = (token, type) => {
   )
 }
 // 跳转控制台-详情页
-export const jumpCloudAdminDetail = (id) => {
+export const jumpCloudAdminDetail = (id, token) => {
   window.open(
-    env.ADMIN_URL + '/#/user/finance/orderdetails' + `?id=${id}`,
+    env.ADMIN_URL +
+      '/#/user/finance/orderDetail' +
+      `?id=${id}` +
+      `&token=${token}`,
     '_self'
   )
 }
@@ -57,8 +64,8 @@ export const getRequestParams = (config) => {
     params: config.params,
     data: config.data,
     timeout: config.timeout,
-    domain: config.domain,
-    token: config.token
+    domain: config.headers.domain,
+    token: config.headers.token
   }
   console.log('请求时参数', selectParams)
 }

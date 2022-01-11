@@ -12,10 +12,17 @@ export default axios => ({
       params
     })
   },
-  // 获取单个地域对应的内存和cpu信息
-  getAddressCpuAndDisk (params) {
+  // 获取单个地域对应的cpu信息
+  getAddressCpu (params) {
     return axios({
       url: `/index/query/property/value/${params.regionId}`
+    })
+  },
+  // 获取单个地域对应的内存信息
+  getAddressDisk (params) {
+    return axios({
+      url: '/index/query/property/memory',
+      params
     })
   },
   // 查询云服务器ECS支持的镜像

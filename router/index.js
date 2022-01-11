@@ -163,7 +163,6 @@ export const $routes = [
       title: '帮助中心',
       icon: 'icon-help'
     },
-    redirect: { name: 'helpInfo-pc' },
     children: [
       {
         path: 'helpInfo',
@@ -191,7 +190,7 @@ export const $routes = [
           title: '帮助中心搜索',
           icon: 'icon-cloud'
         }
-      },
+      }
     ]
   },
   {
