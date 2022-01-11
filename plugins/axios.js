@@ -48,13 +48,16 @@ function getDomainUrl (cookie, store) {
 // 拦截器
 export default ({ $axios, redirect, route, store }) => {
   // 基本配置
-  $axios.defaults.baseURL = env.BASE_URL
+  // $axios.defaults.baseURL = env.BASE_URL
+  $axios.defaults.baseURL = process.env.BASE_URL
+  // $axios.defaults.baseURL = '/api'
   $axios.defaults.timeout = 10000
   // 请求时拦截
   $axios.onRequest((config) => {
     const cookieToken = config.headers.common.cookie
     config.headers.token = getToken(cookieToken, store)
     config.headers.domain = getDomainUrl(cookieToken, store)
+    // config.headers.domain = 'ydidc.com'
     console.log('查看domain', config.headers.domain)
     // 查看请求参数
     getRequestParams(config)

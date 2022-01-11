@@ -5,7 +5,8 @@ export default {
     host: '0.0.0.0'
   },
   env: {
-    NODE_ENV: process.env.NODE_ENV
+    NODE_ENV: process.env.NODE_ENV,
+    BASE_URL: process.env.BASE_URL
   },
   head: {
     title: 'ydidc-mall',
@@ -45,15 +46,15 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '~/plugins/router',
-    '~/plugins/mixins',
     '~/plugins/api-plugin',
+    '~/plugins/mixins',
     {
       src: '~/plugins/axios',
-      ssr: true // 开启服务端渲染
+      ssr: true
     },
     {
       src: '@/plugins/antd-ui',
-      ssr: true // 开启服务端渲染
+      ssr: true
     },
     { src: '~/plugins/vue-persistedstate', ssr: false }
   ],
@@ -80,14 +81,14 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   // 跨域
-  axios: {
-    // proxy: true // 开启跨域行为
-    // prefix: '/api', //baseUrl
-  },
+  // axios: {
+  //   proxy: true, // 开启跨域行为
+  //   prefix: '/api' // 所有请求前缀加上/api,无需配置axios请求地址(BASE_URL)
+  // },
   // proxy: {
   //   // 代理
   //   '/api': {
-  //     target: '', // 代理转发地址
+  //     target: process.env.BASE_URL, // 代理转发地址
   //     changeOrigin: true,
   //     pathRewrite: {
   //       '^/api': ''
