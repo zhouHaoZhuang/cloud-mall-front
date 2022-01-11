@@ -2,7 +2,7 @@ import router from './router/index'
 export default {
   server: {
     prot: 3000,
-    host: '0.0.0.0'
+    host: '127.0.0.1'
   },
   env: {
     NODE_ENV: process.env.NODE_ENV,
@@ -83,7 +83,7 @@ export default {
   // 跨域
   axios: {
     proxy: true, // 开启跨域行为
-    prefix: '/api'
+    prefix: '/api' // 所有请求前缀加上/api,无需配置axios请求地址(BASE_URL)
   },
   proxy: {
     // 代理

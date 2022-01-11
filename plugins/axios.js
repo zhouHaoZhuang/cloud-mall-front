@@ -50,7 +50,7 @@ export default ({ $axios, redirect, route, store }) => {
   // 基本配置
   // $axios.defaults.baseURL = env.BASE_URL
   // $axios.defaults.baseURL = process.env.BASE_URL
-  $axios.defaults.baseURL = '/api'
+  // $axios.defaults.baseURL = '/api'
   $axios.defaults.timeout = 10000
   // 请求时拦截
   $axios.onRequest((config) => {
