@@ -57,7 +57,7 @@ export default {
       typeList: listAtv.data.ccHelpTypeList[0],
       contextList: typeCentext.data.list,
       listAll: listAll.data.ccHelpTypeList,
-      tid: params.tid,
+      tid: params.tid
     }
   },
   data () {
@@ -68,13 +68,13 @@ export default {
       title: '',
       typeList: null,
       contextList: null,
-      tid: '',
+      tid: ''
     }
   },
   mounted () {
     this.atvNum = this.$route.params.cid
     const title = this.typeList.ccHelpTypeList.find((v) => {
-      return this.atvNum == v.typeCode
+      return this.atvNum === v.typeCode
     })
     this.title = title.typeName
   },

@@ -1,18 +1,26 @@
 <template>
   <div>
     <div class="helpInfo">
-      <div @click="changeList"
-           v-if="listAll">
-        <div v-for="(item) in listAll"
-             :key="item.typeCode">
-          <img :src="item.typeIcon"
-               alt="">
-          <h4 :data-tid="item.typeCode">{{item.typeName}}</h4>
-          <p v-for="(title) in item.ccHelpTypeList"
-             :key="title.typeCode"
-             :data-cid="title.typeCode">
-            {{title.typeName}}
-          </p>
+      <h3><span>首页></span><a href="">帮助中心</a></h3>
+      <div @click="changeList" v-if="listAll" class="helpInfo-listall">
+        <div v-for="item in listAll" :key="item.typeCode">
+          <div @mousemove="item.isShow = true" @mouseout="item.isShow = false" 
+            :style="`background: url(${item.typeIcon}) no-repeat;`"
+            class="img-typeIcon"
+          >
+            <h4 :data-tid="item.typeCode" class="img-typeIcon">
+              {{ item.typeName }}
+            </h4>
+          </div>
+          <div v-show="item.isShow">
+            <p
+              v-for="title in item.ccHelpTypeList"
+              :key="title.typeCode"
+              :data-cid="title.typeCode"
+            >
+              {{ title.typeName }}
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -22,48 +30,60 @@
 <script>
 export default {
   // nuxt推荐请求方式
-  async asyncData ({ app }) {
+  async asyncData({ app }) {
     // 获取全部帮助中心的列表数据
-    const listAll = await app.$api.help.getRegionDetail()
-    return {
-      listAll: listAll.data.ccHelpTypeList
+    let listAll = await app.$api.help.getRegionDetail();
+    listAll = listAll.data.ccHelpTypeList;
+    for (let index = 0; index < listAll.length; index++) {
+      const element = listAll[index];
+      element.isShow = false;
     }
+    console.log(listAll, "帮助中心的列表数据");
+    return {
+      listAll,
+    };
   },
-  data () {
+  data() {
     return {
-      listAll: []
-    }
+      listAll: [],
+    };
   },
   props: {
     HelpTypeList: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
-  mounted () {
-    console.log(this.listAll);
+  mounted() {
+    console.log(this.listAll, "asjaksjaksjaksjkak");
     if (this.HelpTypeList.length > 0) {
-      this.listAll = this.HelpTypeList
+      this.listAll = this.HelpTypeList;
     }
   },
   methods: {
-    changeList (e) {
-      if (e.path[0].localName !== 'p') {
-        return
+    changeList(e) {
+      if (e.path[0].localName !== "p") {
+        return;
       }
       // console.log(e.path[0].dataset.cid, e.path[1].childNodes[2].dataset.tid);
       this.$router.push({
         path: `/pc/help/class/${e.path[0].dataset.cid}/${e.path[1].childNodes[2].dataset.tid}`,
-      })
+      });
     },
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss" scoped>
 .helpInfo {
   width: 100%;
   margin: 0;
+  h3 {
+    height: 40px;
+  }
+  .helpInfo-listall {
+    padding-top: 80px;
+  }
   > div {
     width: 100%;
     display: flex;
@@ -71,50 +91,22 @@ export default {
     > div {
       flex: 1;
     }
-    > div:nth-child(1) {
-      > h4 {
-        background: url(https://www.ydidc.com/Uploads/2016-10-27/help_icon_7.png)
-          no-repeat;
-        background-size: 30px 30px;
-        background-position: 0 5px;
+    > div {
+      .img-typeIcon {
+        height: 200px;
+        background-color: #0006;
+        h4 {
+          height: 200px;
+          line-height: 200px;
+          font-size: 24px;
+          font-weight: bold;
+          color: #fff;
+          text-align: center;
+        }
       }
     }
-    > div:nth-child(2) {
-      > h4 {
-        background: url(https://www.ydidc.com/Uploads/2016-10-27/help_icon_4.png)
-          no-repeat;
-        background-size: 30px 30px;
-        background-position: 0 5px;
-      }
-    }
-    > div:nth-child(3) {
-      > h4 {
-        background: url(https://www.ydidc.com/Uploads/2016-10-27/help_icon_1.png)
-          no-repeat;
-        background-size: 30px 30px;
-        background-position: 0 5px;
-      }
-    }
-    > div:nth-child(4) {
-      > h4 {
-        background: url(https://www.ydidc.com/Uploads/2016-10-27/help_icon_5.png)
-          no-repeat;
-        background-size: 30px 30px;
-        background-position: 0 5px;
-      }
-    }
-
     > div {
       margin: 0 38px 0 20px;
-      h4 {
-        height: 42px;
-        line-height: 42px;
-        font-size: 18px;
-        font-weight: 500;
-        padding-left: 40px;
-        margin-bottom: 0;
-        // border-bottom: 1px solid #000;
-      }
       p {
         border-bottom: 1px solid rgb(221 221 221);
         margin-left: 40px;

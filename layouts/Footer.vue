@@ -1,25 +1,25 @@
 <template>
   <div class="layout-footer">
     <!-- 加入我们 -->
-    <div v-show="show" class="join-wrap">
+    <!-- <div v-show="show" class="join-wrap">
       <div class="container join">
         <span>加入我们，立即开启您的云服务之旅！</span>
         <div class="btn">
           免费注册
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- 底部 -->
     <div v-show="show" class="footer-wrap">
       <!-- 优势 -->
-      <div class="advantage-wrap">
+      <!-- <div class="advantage-wrap">
         <div class="container advantage">
           <div v-for="(item, index) in advantageList" :key="index" class="item">
             <img :src="item.img" alt="" class="img">
             <span>{{ item.title }}</span>
           </div>
         </div>
-      </div>
+      </div> -->
       <!-- 快捷入口 -->
       <div class="quick-wrap">
         <div class="container quick">
@@ -86,7 +86,7 @@
       <!-- 友情链接 -->
       <div class="links-wrap">
         <div class="links">
-          <div class="img" />
+          <!-- <div class="img" /> -->
           <div
             v-for="(item, index) in friendLinks"
             :key="index"
@@ -104,10 +104,12 @@
             {{ webInfo.copyRightInfo }}
             &nbsp;&nbsp;&nbsp;
             {{ webInfo.companyName }}
-            &nbsp;&nbsp;
+            &nbsp;&nbsp;<img width="13px" src="~/static/img/home/filing.png" alt="">
             <span @click="handleClickJump('')"> {{ webInfo.recordNo }}</span>
+            &nbsp;&nbsp;
+            {{ webInfo.bottomInfo }}
           </p>
-          <p>{{ webInfo.bottomInfo }}</p>
+          <!-- <p></p> -->
         </div>
       </div>
     </div>
@@ -304,7 +306,9 @@ export default {
   }
   .footer-wrap {
     // height: 634px;
-    background: #2c2c2c;
+    background: url('../static/img/home/footerbj.png') no-repeat center;
+    background-size: 100% 100%;
+    background-color: #202835;
     padding-top: 52px;
     .advantage-wrap {
       font-size: 16px;
@@ -324,7 +328,7 @@ export default {
       }
     }
     .quick-wrap {
-      margin-bottom: 80px;
+      margin-bottom: 50px;
       .quick {
         font-size: 14px;
         color: #525c66;
@@ -334,7 +338,7 @@ export default {
           margin-right: 50px;
           .title {
             color: #fff;
-            font-weight: bold;
+            font-weight: Medium;
             margin-bottom: 20px;
             font-size: 18px;
           }
@@ -430,7 +434,7 @@ export default {
       .links {
         width: 1190px;
         margin: 0 auto;
-        padding: 28px 0 22px 28px;
+        // padding: 28px 0 22px 28px;
         border-top: 1px solid #414447;
         position: relative;
         .img {
@@ -453,7 +457,7 @@ export default {
       }
     }
     .copyright-wrap {
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      // border-top: 1px solid rgba(255, 255, 255, 0.1);
       padding: 20px 0;
       text-align: center;
       color: #7a7d80;
