@@ -375,17 +375,17 @@ export default {
       currentPage: 1,
       pageSize: 999
     })
-    console.log('data',typeData);
+    console.log('data1234124',typeData);
     // 获取新闻信息
     const detailData = await app.$api.news.getNews({
       currentPage: 1,
       pageSize: 999,
-      newTypeCode: typeData.data.list[0].newTypeCode
+      // newTypeCode: typeData.data.list[0].newTypeCode
     })
     return {
-      companypages: newsData.data.list,
-      newtabsList: typeData.data.list,
-      newsList: detailData.data.list
+      // companypages: newsData.data.list,
+      // newtabsList: typeData.data.list,
+      // newsList: detailData.data.list
     }
   },
   methods: {
