@@ -135,9 +135,12 @@
         <div class="check-box">
           <a-checkbox v-model="isRead" />
           <span>
-            我已阅读并同意<a
+            我已阅读并同意
+            <a
               href="/pc/passport/agreement"
-            >《浙江云盾网站服务协议》</a></span>
+              target="_blank"
+            >《浙江云盾网站服务协议》</a>
+          </span>
         </div>
         <a-button class="btn" type="primary" @click="handleRegister">
           注册账号
