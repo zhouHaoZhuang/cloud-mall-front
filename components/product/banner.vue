@@ -24,7 +24,7 @@ export default {
   props: {
     type: {
       type: String,
-      default: 'finance'
+      default: 'choose'
     }
   },
   data () {
@@ -45,7 +45,7 @@ export default {
         return
       }
       this.$router.push(path)
-    }
+    },
   }
 }
 </script>
