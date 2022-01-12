@@ -183,11 +183,11 @@ export const $routes = [
         }
       },
       {
-        path: 'class/:cid/:tid',
+        path: 'classInfo',
         name: 'class-pc',
-        component: resolve('pages/home/help/class.vue'),
+        component: resolve('pages/home/help/classInfo.vue'),
         meta: {
-          title: '帮助跳转',
+          title: '帮助中心文档',
           icon: 'icon-cloud'
         }
       },

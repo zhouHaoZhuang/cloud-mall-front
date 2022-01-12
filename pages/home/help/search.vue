@@ -1,21 +1,31 @@
 <template>
   <div class="help-search-container">
     <h1 class="help-search-top">
-      <img src='https://www.ydidc.com/template/Home/Zkeys/PC/Static/css/module/help/img/help_home.png'
-           alt=""><span>搜索</span><span>"{{keyWords}}"</span>
+      <img
+        src="https://www.ydidc.com/template/Home/Zkeys/PC/Static/css/module/help/img/help_home.png"
+        alt=""
+      ><span>搜索</span><span>"{{ keyWords }}"</span>
     </h1>
-    <div class="help-search-info"
-         v-if="listAll">
+    <div
+      v-if="listAll"
+      class="help-search-info"
+    >
       <ul>
-        <li class="liatv">全部({{listAll.length}})</li>
+        <li class="liatv">
+          全部({{ listAll.length }})
+        </li>
         <li>帮助文档(0)</li>
         <li>新闻中心(0)</li>
       </ul>
       <div>
-        <div v-for="(item) in listAll"
-             :key='item.id'>
-          <h1>{{item.title}}</h1>
-          <p class="help-search-centext">{{item.context}}</p>
+        <div
+          v-for="(item) in listAll"
+          :key="item.id"
+        >
+          <h1>{{ item.title }}</h1>
+          <p class="help-search-centext">
+            {{ item.context }}
+          </p>
         </div>
       </div>
     </div>
@@ -31,17 +41,14 @@ export default {
     // console.log(listAll, '搜索获取的数据');
     return {
       listAll: listAll.data,
-      keyWords,
+      keyWords
     }
   },
   data () {
     return {
       listAll: null,
-      keyWords: '',
+      keyWords: ''
     }
-  },
-  mounted () {
-    // console.log(this.listAll, '搜索');
   },
   watch: {
     // 监视搜索词变化
@@ -53,6 +60,9 @@ export default {
         })
       }
     }
+  },
+  mounted () {
+    // console.log(this.listAll, '搜索');
   }
 
 }
