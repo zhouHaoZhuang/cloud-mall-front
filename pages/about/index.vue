@@ -324,12 +324,16 @@ export default {
       currentPage: 1,
       pageSize: 999
     })
-    console.log('data', typeData)
+    console.log('data12345', typeData)
+    let code = ''
+    if (typeData.data.list.length > 0) {
+      code = typeData.data.list[0].newTypeCode
+    }
     // 获取新闻信息
     const detailData = await app.$api.news.getNews({
       currentPage: 1,
       pageSize: 999,
-      newTypeCode: typeData.data.list[0].newTypeCode
+      newTypeCode: code
     })
     return {
       companypages: newsData.data.list,
@@ -439,7 +443,7 @@ export default {
       const newsData = await this.$api.news.getNews({
         currentPage: current || 1,
         pageSize: pageSize || 8,
-        newTypeCode: id
+        newTypeCode: id || '123'
       })
       this.newsList = newsData.data.list
       console.log('getAllNewsList', this.newsList)
