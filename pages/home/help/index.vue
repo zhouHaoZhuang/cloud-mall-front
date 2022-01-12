@@ -13,17 +13,17 @@
               placeholder="请输入您要搜索的关键词..."
             >
           </div>
-          <img class="search" src="~/static/img/help/search.png" alt="">
+          <img class="search" src="~/static/img/help/search.png" alt="" @click="search">
         </div>
         <ul>
-          <li v-for="item in hotAll" :key="item.id">
+          <li v-for="item in hotAll" :key="item.id" @click="searchLi(item.keyWords)">
             {{ item.keyWords }}
           </li>
         </ul>
       </div>
     </div>
-    <div class="helpInfo">
-      <router-view :key="$route.params.cid" />
+    <div>
+      <router-view :key="$route.query.keyWords" />
     </div>
   </div>
 </template>
@@ -48,22 +48,29 @@ export default {
       keyWords: ''
     }
   },
-  mounted () {},
+  mounted () {
+    this.hotAll = this.hotAll.splice(0, 5)
+  },
   methods: {
     search () {
+      console.log(this.keyWords, '搜索')
       this.$router.push({
-        path: '/pc/help/search',
+        path: '/pc/help/classInfo',
         query: {
           keyWords: this.keyWords
         }
       })
+    },
+    searchLi (keyWords) {
+      this.keyWords = keyWords
+      this.search()
     }
   }
 }
 </script>
 <style lang="scss" scoped>
 .titletop {
-  background: url('../../../static/img/help/helptitle.png') no-repeat;
+  background: url("../../../static/img/help/helptitle.png") no-repeat;
   background-size: 110% 100%;
   height: 580px;
   padding-top: 175px;
@@ -82,17 +89,13 @@ export default {
     width: 1000px;
     height: 87px;
     margin: 0 auto;
-    // border: 1px solid #ffffff;
-    // text-align: center;
     > div {
-      // display: flex;
       width: 800px;
       margin: 0 auto;
       position: relative;
       justify-content: space-between;
       .search-input {
         height: 60px;
-        // border: 1px solid #e5e5e5;
         text-align: center;
         line-height: 60px;
         border-radius: 30px;
@@ -113,10 +116,14 @@ export default {
       li {
         color: rgb(5 159 255);
         margin-right: 20px;
+        width: 100px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow:ellipsis;
       }
     }
     > ul:before {
-      content: '搜索热词：';
+      content: "搜索热词：";
       float: left;
       height: 25px;
       color: rgb(153 153 153);
@@ -133,12 +140,5 @@ export default {
       border: 2px solid rgb(5 159 255);
     }
   }
-}
-.helpInfo {
-  width: 1290px;
-  // height: 432px;
-  margin: 0 auto 85px;
-  padding-top: 30px;
-  // padding-left: -20px;
 }
 </style>
