@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>
-      首页>{{ LeveltwoTitle }}><a href="">{{ LevelthreeTitle }}</a>
+      <img width="15px" src="~/static/img/help/frontpagelogo.png" alt="">首页>{{ LeveltwoTitle }}><a href="">{{ LevelthreeTitle }}</a>
     </h2>
     <client-only>
       <div v-if="!typeCentexthtml">
@@ -115,6 +115,10 @@ export default {
 <style lang="scss" scoped>
 h2 {
   padding: 20px 305px;
+  img{
+    margin-top: -5px;
+    margin-right: 5px;
+  }
 }
 .typeCentext-list {
   padding: 20px 305px;
