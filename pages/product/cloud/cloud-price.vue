@@ -60,7 +60,10 @@
               <div class="info-txt">
                 免费赠送
                 <span class="strong"> I/O优化 </span>
-                <Iconfont class="info-icon" type="icon-a-youxi1" />
+                <img
+                  class="info-icon"
+                  src="../../../static/img/cloud/gift.png"
+                >
               </div>
             </div>
           </div>
@@ -107,7 +110,10 @@
               <div class="info-txt">
                 系统盘免费赠送
                 <span class="strong"> 40G </span>
-                <Iconfont class="info-icon" type="icon-a-youxi1" />
+                <img
+                  class="info-icon"
+                  src="../../../static/img/cloud/gift.png"
+                >
               </div>
             </div>
           </div>
@@ -1053,8 +1059,8 @@ export default {
               font-weight: 700;
             }
             .info-icon {
-              font-size: 20px;
-              margin-left: 5px;
+              margin-left: 6px;
+              margin-top: -3px;
             }
           }
           .selection-ssd {
