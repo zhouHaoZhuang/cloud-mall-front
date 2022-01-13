@@ -8,16 +8,17 @@
         <div class="item">
           <div class="input-box">
             <Iconfont class="left-icon" type="icon-phone" />
-            <input
+            <a-input
               v-model="form.phone"
-              maxlength="11"
+              v-number-evolution
+              :max-length="11"
               placeholder="请输入手机号码"
               @focus="
                 phoneEnter = true
                 phoneStatus = 0
               "
               @blur="phoneblurfns"
-            >
+            />
           </div>
           <div class="info">
             <div v-if="phoneStatus === 0" class="info-item">
@@ -37,16 +38,17 @@
         <div class="item short">
           <div class="input-box">
             <Iconfont class="left-icon" type="icon-code" />
-            <input
+            <a-input
               v-model="form.code"
+              v-number-evolution
               placeholder="请输入短信验证码"
-              maxlength="4"
+              :max-length="4"
               @focus="
                 codeEnter = true
                 codeStatus = 0
               "
               @blur="shortblurfns"
-            >
+            />
           </div>
           <div class="info">
             <div v-if="codeStatus === 0" class="info-item">
@@ -75,17 +77,29 @@
         <div class="item">
           <div class="input-box">
             <Iconfont class="left-icon" type="icon-lock" />
-            <input
+            <a-input
               v-model="form.password"
+              :type="!passwordType ? 'text' : 'password'"
               placeholder="请输入密码"
-              type="password"
-              maxlength="20"
+              :max-length="20"
               @focus="
                 pwdEnter = true
                 pwdStatus = 0
               "
               @blur="setpswdblurfns"
-            >
+            />
+            <a-icon
+              v-if="passwordType"
+              class="eye-icon"
+              type="eye-invisible"
+              @click="changePwdShow('pwd', false)"
+            />
+            <a-icon
+              v-else
+              class="eye-icon"
+              type="eye"
+              @click="changePwdShow('pwd', true)"
+            />
           </div>
           <div class="info">
             <div v-if="pwdStatus === 0" class="info-item">
@@ -105,17 +119,29 @@
         <div class="item">
           <div class="input-box">
             <Iconfont class="left-icon" type="icon-lock" />
-            <input
+            <a-input
               v-model="form.confrimPassword"
+              :type="!confirmPwdType ? 'text' : 'password'"
               placeholder="请再次填写密码"
-              type="password"
-              maxlength="20"
+              :max-length="20"
               @focus="
                 confirmPwdEnter = true
                 confirmPwdStatus = 0
               "
               @blur="confirmpswdblurfns"
-            >
+            />
+            <a-icon
+              v-if="confirmPwdType"
+              class="eye-icon"
+              type="eye-invisible"
+              @click="changePwdShow('confirm', false)"
+            />
+            <a-icon
+              v-else
+              class="eye-icon"
+              type="eye"
+              @click="changePwdShow('confirm', false)"
+            />
           </div>
           <div class="info">
             <div v-if="confirmPwdStatus === 0" class="info-item">
@@ -135,9 +161,12 @@
         <div class="check-box">
           <a-checkbox v-model="isRead" />
           <span>
-            我已阅读并同意<a
+            我已阅读并同意
+            <a
               href="/pc/passport/agreement"
-            >《浙江云盾网站服务协议》</a></span>
+              target="_blank"
+            >《浙江云盾网站服务协议》</a>
+          </span>
         </div>
         <a-button class="btn" type="primary" @click="handleRegister">
           注册账号
@@ -187,7 +216,9 @@ export default {
       timeCount: 60,
       codeTxt: '发送短信验证',
       //   是否同意协议
-      isRead: false
+      isRead: false,
+      passwordType: true,
+      confirmPwdType: true
     }
   },
   methods: {
@@ -264,6 +295,14 @@ export default {
         this.codeTxt = this.timeCount + '秒后重新发送'
       }, 1000)
     },
+    // 切换是否展示明文密码
+    changePwdShow (type, flag) {
+      if (type === 'pwd') {
+        this.passwordType = flag
+      } else {
+        this.confirmPwdType = flag
+      }
+    },
     // 注册
     handleRegister () {
       if (this.phoneStatus !== 2) {
@@ -319,6 +358,21 @@ export default {
     text-align: center;
     font-weight: 500;
   }
+  .ant-input {
+    border: none !important;
+    height: 33px;
+    padding-left: 20px;
+    color: #000;
+  }
+  .ant-input:focus {
+    border: none !important;
+    box-shadow: none;
+  }
+  .eye-icon {
+    font-size: 16px;
+    margin-right: 20px;
+    cursor: pointer;
+  }
   .register {
     width: 900px;
     height: 650px;
@@ -340,16 +394,6 @@ export default {
           .left-icon {
             font-size: 22px;
             margin-left: 15px;
-          }
-          input {
-            border: 0;
-            width: 278px;
-            height: 33px;
-            padding-left: 20px;
-            color: #000;
-          }
-          input:focus {
-            outline: 0;
           }
         }
         .info {

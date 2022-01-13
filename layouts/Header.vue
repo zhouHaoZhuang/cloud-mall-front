@@ -103,9 +103,13 @@
             <span>{{ userInfo.username }}</span>
           </div>
           <!-- 控制台 -->
-          <div class="control" @click="jumpCloudAdmin(token)">控制台</div>
+          <div class="control" @click="jumpCloudAdmin(token)">
+            控制台
+          </div>
           <!-- 登出 -->
-          <div class="logout" @click="handleLoginOut">退出</div>
+          <div class="logout" @click="handleLoginOut">
+            退出
+          </div>
         </div>
       </div>
     </div>
@@ -133,327 +137,327 @@ export default {
       jumpCloudAdmin,
       navList: [
         {
-          title: "首页",
-          path: "/activity",
+          title: '首页',
+          path: '/activity'
         },
         {
-          title: "产品",
-          path: "",
+          title: '产品',
+          path: '',
           children: [
             {
-              title: "云计算",
+              title: '云计算',
               list: [
                 {
-                  title: "云服务器",
-                  info: "高速稳定高弹性的计算服务",
-                  path: "/pc/cloud-choose",
+                  title: '云服务器',
+                  info: '高速稳定高弹性的计算服务',
+                  path: '/pc/cloud-choose',
                   hot: true,
-                  new: false,
+                  new: false
                 },
                 {
-                  title: "负载均衡",
-                  info: "高性能流量分发的负载均衡服务",
-                  path: "/pc/balancing-ba",
+                  title: '负载均衡',
+                  info: '高性能流量分发的负载均衡服务',
+                  path: '/pc/balancing-ba',
                   hot: false,
-                  new: false,
+                  new: false
                 },
                 {
-                  title: "对象存储",
-                  info: "高可用、易扩展、低成本、一站式",
-                  path: "/pc/object-based-use",
+                  title: '对象存储',
+                  info: '高可用、易扩展、低成本、一站式',
+                  path: '/pc/object-based-use',
                   hot: false,
-                  new: false,
+                  new: false
                 },
                 {
-                  title: "云数据库 MySQL",
-                  info: "稳定可靠、可弹性伸缩的数据方案",
-                  path: "/pc/mysql",
+                  title: '云数据库 MySQL',
+                  info: '稳定可靠、可弹性伸缩的数据方案',
+                  path: '/pc/mysql',
                   hot: false,
-                  new: false,
+                  new: false
                 },
                 {
-                  title: "云数据库 SQL Server",
-                  info: "安全运行、轻松管理的数据方案",
-                  path: "/pc/sqlserver",
+                  title: '云数据库 SQL Server',
+                  info: '安全运行、轻松管理的数据方案',
+                  path: '/pc/sqlserver',
                   hot: false,
-                  new: false,
-                },
-              ],
+                  new: false
+                }
+              ]
             },
             {
-              title: "网站服务",
+              title: '网站服务',
               list: [
                 {
-                  title: "云虚拟主机",
-                  info: "基于云计算的虚拟主机服务",
-                  path: "",
+                  title: '云虚拟主机',
+                  info: '基于云计算的虚拟主机服务',
+                  path: '',
                   hot: true,
-                  new: false,
+                  new: false
                 },
                 {
-                  title: "域名注册",
-                  info: "提供五星级的域名注册服务",
-                  path: "/pc/Domain-name",
+                  title: '域名注册',
+                  info: '提供五星级的域名注册服务',
+                  path: '/pc/Domain-name',
                   hot: true,
-                  new: false,
+                  new: false
                 },
                 {
-                  title: "CDN加速",
-                  info: "智能调度的内容分发服务",
-                  path: "",
+                  title: 'CDN加速',
+                  info: '智能调度的内容分发服务',
+                  path: '',
                   hot: false,
-                  new: false,
+                  new: false
                 },
                 {
-                  title: "百度智能建站",
-                  info: "智能化构建网站和小程序",
-                  path: "",
+                  title: '百度智能建站',
+                  info: '智能化构建网站和小程序',
+                  path: '',
                   hot: false,
-                  new: true,
-                },
-              ],
+                  new: true
+                }
+              ]
             },
             {
-              title: "IDC服务",
+              title: 'IDC服务',
               list: [
                 {
-                  title: "服务器托管",
-                  info: "安全贴心高品质的托管服务",
-                  path: "",
+                  title: '服务器托管',
+                  info: '安全贴心高品质的托管服务',
+                  path: '',
                   hot: false,
-                  new: false,
+                  new: false
                 },
                 {
-                  title: "裸金属服务器",
-                  info: "高性能安全隔离物理集群服务",
-                  path: "",
+                  title: '裸金属服务器',
+                  info: '高性能安全隔离物理集群服务',
+                  path: '',
                   hot: false,
-                  new: true,
+                  new: true
                 },
                 {
-                  title: "浙江云盾分销系统",
-                  info: "一键部署、低成本、快速运营",
-                  path: "",
+                  title: '浙江云盾分销系统',
+                  info: '一键部署、低成本、快速运营',
+                  path: '',
                   hot: false,
-                  new: true,
+                  new: true
                 },
                 {
-                  title: "商标注册",
-                  info: "品牌保护，从商标注册开始",
-                  path: "",
+                  title: '商标注册',
+                  info: '品牌保护，从商标注册开始',
+                  path: '',
                   hot: false,
-                  new: true,
-                },
-              ],
+                  new: true
+                }
+              ]
             },
             {
-              title: "安全与管理",
+              title: '安全与管理',
               list: [
                 {
-                  title: "SSL证书",
-                  info: "提供一站式的证书部署服务",
-                  path: "",
+                  title: 'SSL证书',
+                  info: '提供一站式的证书部署服务',
+                  path: '',
                   hot: false,
-                  new: false,
+                  new: false
                 },
                 {
-                  title: "云监控",
-                  info: "精准灵活超便捷的资源预警服务",
-                  path: "",
+                  title: '云监控',
+                  info: '精准灵活超便捷的资源预警服务',
+                  path: '',
                   hot: false,
-                  new: false,
+                  new: false
                 },
                 {
-                  title: "网站备案",
-                  info: "免费、快速、便捷的备案服务",
-                  path: "",
+                  title: '网站备案',
+                  info: '免费、快速、便捷的备案服务',
+                  path: '',
                   hot: false,
-                  new: false,
-                },
-              ],
-            },
-          ],
+                  new: false
+                }
+              ]
+            }
+          ]
         },
         {
-          title: "服务保障",
-          path: "/pc/assurance",
+          title: '服务保障',
+          path: '/pc/assurance',
           children: [
             {
-              title: "",
+              title: '',
               list: [
                 {
-                  title: "0元免费备案",
-                  info: "",
-                  path: "",
+                  title: '0元免费备案',
+                  info: '',
+                  path: '',
                   hot: false,
-                  new: false,
+                  new: false
                 },
                 {
-                  title: "VIP多对1服务",
-                  info: "",
-                  path: "",
+                  title: 'VIP多对1服务',
+                  info: '',
+                  path: '',
                   hot: false,
-                  new: false,
-                },
-              ],
+                  new: false
+                }
+              ]
             },
             {
-              title: "",
+              title: '',
               list: [
                 {
-                  title: "100倍故障赔偿",
-                  info: "",
-                  path: "",
+                  title: '100倍故障赔偿',
+                  info: '',
+                  path: '',
                   hot: false,
-                  new: false,
-                },
-              ],
+                  new: false
+                }
+              ]
             },
             {
-              title: "",
+              title: '',
               list: [
                 {
-                  title: "5天无理由退款",
-                  info: "",
-                  path: "",
+                  title: '5天无理由退款',
+                  info: '',
+                  path: '',
                   hot: false,
-                  new: false,
-                },
-              ],
+                  new: false
+                }
+              ]
             },
             {
-              title: "",
+              title: '',
               list: [
                 {
-                  title: "7X24小时多渠道服务支持",
-                  info: "",
-                  path: "",
+                  title: '7X24小时多渠道服务支持',
+                  info: '',
+                  path: '',
                   hot: false,
-                  new: false,
-                },
-              ],
-            },
-          ],
+                  new: false
+                }
+              ]
+            }
+          ]
         },
         {
-          title: "帮助中心",
-          path: "/pc/help/helpInfo",
+          title: '帮助中心',
+          path: '/pc/help/helpInfo'
         },
         {
-          title: "解决方案",
-          path: "",
+          title: '解决方案',
+          path: '',
           children: [
             {
-              title: "行业解决方案",
+              title: '行业解决方案',
               list: [
                 {
-                  title: "金融解决方案",
-                  info: "",
-                  path: "/pc/programme/finance",
+                  title: '金融解决方案',
+                  info: '',
+                  path: '/pc/programme/finance',
                   hot: false,
-                  new: false,
+                  new: false
                 },
                 {
-                  title: "网站解决方案",
-                  info: "",
-                  path: "/pc/programme/website",
+                  title: '网站解决方案',
+                  info: '',
+                  path: '/pc/programme/website',
                   hot: false,
-                  new: false,
-                },
-              ],
+                  new: false
+                }
+              ]
             },
             {
-              title: "",
+              title: '',
               list: [
                 {
-                  title: "电商解决方案",
-                  info: "",
-                  path: "/pc/programme/online",
+                  title: '电商解决方案',
+                  info: '',
+                  path: '/pc/programme/online',
                   hot: false,
-                  new: false,
-                },
-              ],
+                  new: false
+                }
+              ]
             },
             {
-              title: "",
+              title: '',
               list: [
                 {
-                  title: "移动解决方案",
-                  info: "",
-                  path: "/pc/programme/move",
+                  title: '移动解决方案',
+                  info: '',
+                  path: '/pc/programme/move',
                   hot: false,
-                  new: false,
-                },
-              ],
+                  new: false
+                }
+              ]
             },
             {
-              title: "",
+              title: '',
               list: [
                 {
-                  title: "游戏解决方案",
-                  info: "",
-                  path: "/pc/programme/game",
+                  title: '游戏解决方案',
+                  info: '',
+                  path: '/pc/programme/game',
                   hot: false,
-                  new: false,
-                },
-              ],
-            },
-          ],
+                  new: false
+                }
+              ]
+            }
+          ]
         },
         {
-          title: "关于我们",
-          path: "",
+          title: '关于我们',
+          path: '',
           children: [
             {
-              title: "关于我们",
+              title: '关于我们',
               list: [
                 {
-                  title: "公司简介",
-                  info: "",
-                  path: "/pc/about/index?tab=0",
+                  title: '公司简介',
+                  info: '',
+                  path: '/pc/about/index?tab=0',
                   hot: false,
-                  new: false,
-                },
-              ],
+                  new: false
+                }
+              ]
             },
             {
-              title: "",
+              title: '',
               list: [
                 {
-                  title: "新闻公告",
-                  info: "",
-                  path: "/pc/about/index?tab=1",
+                  title: '新闻公告',
+                  info: '',
+                  path: '/pc/about/index?tab=1',
                   hot: false,
-                  new: false,
-                },
-              ],
+                  new: false
+                }
+              ]
             },
             {
-              title: "",
+              title: '',
               list: [
                 {
-                  title: "联系我们",
-                  info: "",
-                  path: "/pc/about/index?tab=2",
+                  title: '联系我们',
+                  info: '',
+                  path: '/pc/about/index?tab=2',
                   hot: false,
-                  new: false,
-                },
-              ],
+                  new: false
+                }
+              ]
             },
             {
-              title: "",
+              title: '',
               list: [
                 {
-                  title: "代理招募",
-                  info: "",
-                  path: "/pc/about/recruit",
+                  title: '代理招募',
+                  info: '',
+                  path: '/pc/about/recruit',
                   hot: false,
-                  new: false,
-                },
-              ],
-            },
-          ],
-        },
+                  new: false
+                }
+              ]
+            }
+          ]
+        }
       ],
       hoverIndex: -1,
       headerItemData: {},
