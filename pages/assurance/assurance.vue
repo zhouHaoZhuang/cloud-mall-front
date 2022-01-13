@@ -198,10 +198,9 @@
         </div>
         <div class="container">
           <div v-for="(item, index) in supportList" :key="index" class="list">
-            <div
-              class="support-icon"
-              :style="`background:url(${item.bg}) no-repeat center`"
-            />
+            <div class="support-icon">
+              <Iconfont :type="item.bg" />
+            </div>
             <div class="support-title">
               {{ item.title }}
             </div>
@@ -332,18 +331,18 @@ export default {
       ],
       supportList: [
         {
-          bg: require('~/static/img/assurance/assurancesupport1.png'),
+          bg: 'icon-shouqianfuwu',
           title: '售前服务',
           content: '售前咨询团队将竭诚为您提供云产品咨询、解决方案及其它服务'
         },
         {
-          bg: require('~/static/img/assurance/assurancesupport2.png'),
+          bg: 'icon-shouzhongfuwu',
           title: '售中服务',
           content:
             '为您配备专业的架构师团队，一对一提供全程架构指导，保障业务快速上云'
         },
         {
-          bg: require('~/static/img/assurance/assurancesupport3.png'),
+          bg: 'icon-shouhoufuwu',
           title: '售后服务',
           content:
             '专业的技术支持7*24小时待命，充分保障您产品的无忧使用和业务的稳定运行'
@@ -697,7 +696,10 @@ export default {
         .support-icon {
           width: 70px;
           height: 60px;
-          background-size: contain !important;
+          .anticon {
+            text-align: center;
+            font-size: 66px;
+          }
         }
         .support-title {
           font-size: 24px;

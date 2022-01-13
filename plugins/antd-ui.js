@@ -4,7 +4,7 @@ import VueClipboard from 'vue-clipboard2'
 import VueScrollTo from 'vue-scrollto'
 // 自定义字体图标
 const iconfont = Icon.createFromIconfontCN({
-  scriptUrl: '//at.alicdn.com/t/font_3120193_7ifn4ra3umx.js' // 在 iconfont.cn 上生成
+  scriptUrl: '//at.alicdn.com/t/font_3120193_ucd4sa1lth.js' // 在 iconfont.cn 上生成
 })
 const options = {
   container: 'body', // 滚动的容器
