@@ -156,13 +156,13 @@
           </div>
         </div>
         <!-- 分页功能 -->
-        <div class="pagination">
+        <div class="pagination" v-show="!newsDetail">
           <a-pagination
             v-model="current"
             :hide-on-single-page="true"
             :total="50"
             :page-size="pageSize"
-            @change="pageChange(current, pageSize)"
+            @change="pageChange(current, pageSize, firstCode)"
           />
         </div>
         <!-- 新闻公告详情部分 -->
@@ -324,27 +324,26 @@ export default {
       currentPage: 1,
       pageSize: 999
     })
-    console.log('data12345', typeData)
-    let code = ''
-    if (typeData.data.list.length > 0) {
-      code = typeData.data.list[0].newTypeCode
-    }
+    console.log('data12345', typeData.data.list)
+    const typeCode = typeData.data.list[0].newTypeCode
     // 获取新闻信息
     const detailData = await app.$api.news.getNews({
       currentPage: 1,
       pageSize: 999,
-      newTypeCode: code
+      newTypeCode: typeCode
     })
     return {
       companypages: newsData.data.list,
       newtabsList: typeData.data.list,
-      newsList: detailData.data.list
+      newsList: detailData.data.list,
+      firstCode: typeData.data.list[0].newTypeCode
     }
   },
   data () {
     return {
       tabList: ['公司简介', '新闻公告', '法律声明', '友情链接'],
-      newtabsList: ['最新'],
+      newtabsList: [],
+      firstCode: '',
       newsList: [],
       tabSelectIndex: 0,
       newsDetail: false,
@@ -400,7 +399,8 @@ export default {
     // 新闻公告tab选择
     onChangeNewTabs (ind, item) {
       this.newsTabSelectIndex = ind
-      this.getNewsListInfo(item)
+      this.getNewsListInfo(1, 999, item)
+      this.firstCode = item
     },
     // 点击复制
     handleCopy (type) {
@@ -439,14 +439,15 @@ export default {
       console.log('newtabsList', this.newtabsList)
     },
     // 获取新闻类别信息
-    async getNewsListInfo (current, pageSize, id) {
+    async getNewsListInfo (current, pageSize, code) {
+      console.log(current, pageSize, code)
       const newsData = await this.$api.news.getNews({
         currentPage: current || 1,
         pageSize: pageSize || 8,
-        newTypeCode: id || '123'
+        newTypeCode: code
       })
-      this.newsList = newsData.data.list
-      console.log('getAllNewsList', this.newsList)
+      console.log('getAllNewsList', newsData)
+      this.newsList = newsData.data.list || []
     },
     // 进入详情页面
     async getDetail (id) {
@@ -459,9 +460,9 @@ export default {
       this.newsDetail = false
     },
     // 页码功能
-    pageChange (current, pageSize) {
-      this.getNewsListInfo(current, pageSize)
-      console.log('current', current, pageSize)
+    pageChange (current, pageSize, code) {
+      this.getNewsListInfo(current, pageSize, code)
+      console.log('current', current, pageSize, code)
     }
   }
 }
