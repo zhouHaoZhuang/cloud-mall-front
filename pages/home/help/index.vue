@@ -33,23 +33,23 @@ export default {
   // nuxt推荐请求方式
   async asyncData ({ app }) {
     // 获取全部帮助中心的列表数据
-    const listAll = await app.$api.help.getRegionDetail()
-    const hotAll = await app.$api.help.getHot()
-    // console.log(hotAll, 'hotAll');
+    // const listAll = await app.$api.help.getRegionDetail()
+    let hotAll = await app.$api.help.getHot()
+    // listAll = listAll.data ? listAll.data.ccHelpTypeList : []
+    hotAll = hotAll.data ? hotAll.data.list : []
     return {
-      listAll: listAll.data.ccHelpTypeList,
-      hotAll: hotAll.data.list
+      hotAll
     }
   },
   data () {
     return {
-      listAll: null,
       hotAll: null,
       keyWords: ''
     }
   },
   mounted () {
     this.hotAll = this.hotAll.splice(0, 5)
+    // console.log(this.listAll, 'listAll')
   },
   methods: {
     search () {

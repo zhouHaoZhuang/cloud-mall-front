@@ -1,7 +1,13 @@
 <template>
   <div>
     <div class="helpInfo">
-      <h3><span>首页></span><a href="">帮助中心</a></h3>
+      <h3>
+        <img
+          width="15px"
+          src="~/static/img/help/frontpagelogo.png"
+          alt=""
+        ><span>首页></span><a href="">帮助中心</a>
+      </h3>
       <div v-if="listAll" class="helpInfo-listall">
         <div
           v-for="item in listAll"
@@ -54,8 +60,8 @@ export default {
   // nuxt推荐请求方式
   async asyncData ({ app }) {
     // 获取全部帮助中心的列表数据
-    let listAll = await app.$api.help.getRegionDetail()
-    listAll = listAll.data.ccHelpTypeList
+    let listAll = await app.$api.help.getRegionDetail({ code: 'help_type_01' })
+    listAll = listAll.data ? listAll.data.ccHelpTypeList : []
     for (let index = 0; index < listAll.length; index++) {
       const element = listAll[index]
       element.isShow = false
@@ -120,6 +126,10 @@ export default {
   background-color: #fff;
   h3 {
     height: 40px;
+    img {
+      margin-top: -5px;
+      margin-right: 5px;
+    }
   }
   .helpInfo-listall {
     padding-top: 80px;
