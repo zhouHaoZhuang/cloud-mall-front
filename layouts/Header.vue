@@ -505,7 +505,7 @@ export default {
 .layout-header {
   width: 100%;
   height: 80px;
-  background-color: #2b3033;
+  background-color: transparent;
   border-bottom-color: transparent;
   position: absolute;
   top: 0;
