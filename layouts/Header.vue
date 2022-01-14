@@ -12,9 +12,9 @@
           v-for="(item, index) in navList"
           :key="index"
           class="item"
-          @mouseenter="mouseEnter(index)"
-          @mouseleave="mouseLeave"
         >
+          <!-- @mouseenter="mouseEnter(index)"
+          @mouseleave="mouseLeave" -->
           <nuxt-link v-if="item.path" class="jump" :to="item.path">
             <div class="title-wrap">
               {{ item.title }}
@@ -124,21 +124,13 @@ export default {
   components: {
     HeaderItem
   },
-  async asyncData ({ app }) {
-    // 获取全部帮助中心的列表数据
-    const listAll = await app.$api.home.getWebInfo()
-    // console.log(listAll, '99999999999999999999999999999999')
-    return {
-      listAll: listAll.data.list
-    }
-  },
   data () {
     return {
       jumpCloudAdmin,
       navList: [
         {
           title: '首页',
-          path: '/activity'
+          path: '/pc'
         },
         {
           title: '产品',
@@ -464,21 +456,19 @@ export default {
       hoverStyle: '',
       logoUrl: null,
       whiteList: ['/login-pc', '/pc/register', '/pc/forget']
+
     }
   },
   computed: {
     ...mapState({
       isLogin: state => state.user.isLogin,
       userInfo: state => state.user.userInfo,
-      token: state => state.user.token
+      token: state => state.user.token,
+      webInfo: state => state.home.webInfo
     })
   },
   mounted () {
-    this.$api.home.getWebInfo().then((val) => {
-      console.log('val', val.data.list[0].websiteLogo)
-      this.logoUrl = val.data.list[0].websiteLogo
-    })
-    console.log('mounted************', this.listAll)
+    this.logoUrl = this.webInfo.websiteLogo
   },
   methods: {
     // 鼠标进入
@@ -515,7 +505,7 @@ export default {
 .layout-header {
   width: 100%;
   height: 80px;
-  background-color: #2b3033;
+  background-color: transparent;
   border-bottom-color: transparent;
   position: absolute;
   top: 0;
