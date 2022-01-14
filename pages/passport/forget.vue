@@ -158,7 +158,7 @@
             </div>
           </div>
         </div>
-        <a-button class="btn" type="primary" @click="handleRegister">
+        <a-button class="btn" type="primary" @click="handleUpdatePwd">
           确认修改
         </a-button>
       </div>

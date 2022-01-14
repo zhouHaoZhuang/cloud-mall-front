@@ -8,7 +8,8 @@ export const state = () => ({
     phone: '',
     password: '',
     autoLogin: false
-  }
+  },
+  redirectPath: ''
 })
 
 // getters
@@ -39,6 +40,10 @@ export const mutations = {
   // 保存自动登录用户信息
   saveAutoLogin (state, payload) {
     state.loginForm = { ...payload }
+  },
+  // 保存重定向跳转地址
+  saveRedirectPath (state, redirectPath) {
+    state.redirectPath = redirectPath
   }
 }
 
