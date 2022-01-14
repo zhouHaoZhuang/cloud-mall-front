@@ -1,1471 +1,840 @@
 <template>
-  <div class="home-container">
-    <!-- {{ process.env.NODE_ENV }} -->
+  <div class="home">
     <!-- 轮播图 -->
-    <div class="banner-wrap">
-      <div class="banner">
-        <a-carousel
-          ref="banner"
-          effect="fade"
-          dots-class="dot"
-          :autoplay="true"
-        >
-          <div
-            v-for="item in bannerData"
-            :key="item.id"
-            class="banner-item"
-            :style="`background: url(${item.pcPicture}) no-repeat center`"
-            @click="bannerJump(item, 'img')"
-          >
-            <!-- info -->
-            <div class="container banner-info-box">
-              <div class="banner-info" :style="bottomStyle">
-                <h2 v-if="item.display">
-                  {{ item.title }}
-                </h2>
-                <div v-if="item.display" class="info">
-                  {{ item.describe }}
-                </div>
-                <div class="btn" @click="bannerJump(item, 'btn')">
-                  {{ item.pcButtonName }}
-                </div>
+    <Banner type="home" />
+    <!-- 服务提供 -->
+    <div class="service">
+      <div class="about-container">
+        <div class="title">
+          <p class="title-top">
+            浙江云盾为您提供高速、稳定、安全、弹性的云计算服务
+          </p>
+          <p class="title-bottom">
+            根据不同应用场景推荐适合您的最优质服务器，满足您一切需求
+          </p>
+        </div>
+        <div class="container">
+          <div v-for="(item, index) in serviceList" :key="index" class="lit">
+            <div class="service-title">
+              <div class="service-bg">
+                入门型
+              </div>
+              <p>2核2G云服务器</p>
+              <p>适用小型企业官网或者个人站长</p>
+            </div>
+            <div class="service-content">
+              <div
+                v-for="(ele, ind) in item.content"
+                :key="ind"
+                class="service-found"
+              >
+                <span>{{ ele.question }}</span>
+                <input type="text" :value="ele.answer">
               </div>
             </div>
+            <div class="service-footer">
+              立即购买
+            </div>
           </div>
-        </a-carousel>
+        </div>
       </div>
-      <!-- 阻止点击指示点切换轮播图 -->
-      <!-- <div class="mask-none" /> -->
-      <div class="more">
+    </div>
+    <!-- 选择云盾 -->
+    <div class="choice">
+      <div class="about-container">
+        <div class="title">
+          <p class="title-top">
+            为什么选择浙江云盾
+          </p>
+          <p class="title-bottom">
+            完善的云产品，为用户提供多种服务支持和保障，让云端部署更轻松、更高效
+          </p>
+        </div>
         <div class="container">
-          更多>
-        </div>
-      </div>
-    </div>
-    <!-- 快捷入口 -->
-    <div class="entrance-wrap">
-      <div class="entrance container">
-        <div
-          v-for="(item, index) in entranceList"
-          :key="index"
-          class="item"
-          :style="item.padding"
-        >
-          <div class="left-img" :style="item.bgPosition" />
-          <div class="right">
-            <div class="title">
-              {{ item.title }}
-            </div>
-            <div class="info">
-              {{ item.info }}
-            </div>
-            <div v-if="item.more" class="more">
-              查看详情 >
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- 产品 -->
-    <div class="product-wrap">
-      <div class="public-box" style="margin-bottom: 80px">
-        <div class="content">
-          <div class="public-title">
-            浙江云盾为您提供
-            <span>高速、稳定、安全、弹性</span>
-            的云计算服务
-          </div>
-          <div class="public-info">
-            计算、存储、监控、安全，完善的云产品满足您的一切所需
-          </div>
-        </div>
-      </div>
-      <div class="container product">
-        <div class="left">
-          <div class="product-top">
-            <img
-              src="~/static/img/home/product-icon1.png"
-              alt=""
-              class="left-img"
+          <div v-for="(item, index) in choiceList" :key="index" class="lit">
+            <div
+              class="lit-down"
+              :style="`background:url(${item.bg}) no-repeat center`"
             >
-            <span class="title">云计算服务</span>
-          </div>
-          <div class="product-con">
-            <ProductItem
-              v-for="(ele, index) in productList.one"
-              :key="index"
-              :item-data="ele"
-            />
+              <div class="left">
+                <p>{{ item.title }}</p>
+                <div class="btn">
+                  查看详情
+                </div>
+              </div>
+              <div class="right">
+                {{ item.content }}
+              </div>
+            </div>
+            <div
+              class="lit-top"
+              :style="`background:url(${item.bg}) no-repeat center`"
+            >
+              {{ item.mark }}
+            </div>
           </div>
         </div>
-        <div class="right">
-          <div class="top">
-            <div class="product-top">
-              <img
-                src="~/static/img/home/product-icon2.png"
-                alt=""
-                class="left-img"
-              >
-              <span class="title">域名与网站</span>
+        <div class="container-bottom">
+          <div v-for="(item, index) in choiceTwoList" :key="index" class="lit">
+            <div
+              class="lit-down"
+              :style="`background:url(${item.bg}) no-repeat center`"
+            >
+              <div class="left">
+                <p>{{ item.title }}</p>
+                <div class="btn">
+                  查看详情
+                </div>
+              </div>
+              <div class="right">
+                {{ item.content }}
+              </div>
             </div>
-            <div class="product-con">
-              <ProductItem
-                v-for="(ele, index) in productList.two"
-                :key="index"
-                :item-data="ele"
+            <div
+              class="lit-top"
+              :style="`background:url(${item.bg}) no-repeat center`"
+            >
+              {{ item.mark }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 安全 -->
+    <div class="safe">
+      <div class="about-container">
+        <div class="title">
+          <p class="title-top">
+            提供安全合规的云计算服务
+          </p>
+          <p class="title-bottom">
+            权威认证的云计算服务，充分保障您的业务实践与业务安全
+          </p>
+        </div>
+        <div class="container">
+          <div v-for="(item, index) in safeList" :key="index" class="lit">
+            <div class="safe-bg">
+              <div
+                class="bg"
+                :style="`background:url(${item.bg}) no-repeat center`"
               />
             </div>
-          </div>
-          <div class="bot">
-            <div class="bot1">
-              <div class="product-top">
-                <img
-                  src="~/static/img/home/product-icon3.png"
-                  alt=""
-                  class="left-img"
-                >
-                <span class="title">安全服务</span>
-              </div>
-              <div class="product-con">
-                <ProductItem
-                  v-for="(ele, index) in productList.three"
-                  :key="index"
-                  :item-data="ele"
-                />
-              </div>
+            <div class="safe-content">
+              {{ item.content }}
             </div>
-            <div class="bot2">
-              <div class="product-top">
-                <img
-                  src="~/static/img/home/product-icon4.png"
-                  alt=""
-                  class="left-img"
-                >
-                <span class="title">IDC服务</span>
-              </div>
-              <div class="product-con">
-                <ProductItem
-                  v-for="(ele, index) in productList.four"
-                  :key="index"
-                  :item-data="ele"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- 资质 -->
-    <div class="honor-wrap">
-      <div class="public-box" style="margin-bottom: 55px">
-        <div class="content">
-          <div class="public-title">
-            提供
-            <span>安全合规</span>
-            的云计算服务
-          </div>
-          <div class="public-info">
-            权威认证的云计算服务，充分保障您的业务实践与业务安全
-          </div>
-        </div>
-      </div>
-      <div class="container honor">
-        <div v-for="(item, index) in honorList" :key="index" class="item">
-          <img :src="item.img" alt="" class="img">
-          <span>{{ item.name }}</span>
-        </div>
-      </div>
-    </div>
-    <!-- 优势 -->
-    <div class="wsymain-wrap">
-      <div class="public-box" style="margin-bottom: 80px">
-        <div class="content">
-          <div class="public-title">
-            为什么
-            <span>选择</span>
-            浙江云盾
-          </div>
-          <div class="public-info">
-            完善的云产品，为用户提供多种服务支持和保障，让云端部署更轻松、更高效
-          </div>
-        </div>
-      </div>
-      <div class="container wsymain">
-        <div class="left">
-          <div
-            v-for="(item, index) in wsymainList"
-            :key="index"
-            :class="index === wsymainSelectIndex ? 'item active' : 'item'"
-            :style="item.width"
-            @click="wsymainSelect(index)"
-          >
-            <div
-              v-if="index !== wsymainSelectIndex"
-              class="img"
-              :style="item.bgPosition"
-            />
-            <div v-else class="img" :style="item.activePosition" />
-            <span>{{ item.title }}</span>
-          </div>
-        </div>
-        <div
-          class="right"
-          :style="`background: url(${wsymainDetail.bg}) no-repeat center`"
-        >
-          <h3 class="title">
-            {{ wsymainDetail.title }}
-          </h3>
-          <div class="info">
-            {{ wsymainDetail.info }}
-          </div>
-          <div class="btns">
-            <div class="btn" @click="handleClickJump('')">
-              查看详情
-            </div>
-            <div class="btn" @click="handleClickJump('')">
-              联系我们
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- 地图 -->
-    <div class="map-wrap">
-      <div class="public-box" style="margin-bottom: 85px">
-        <div class="content">
-          <div class="public-title">
-            您的业务可以
-            <span>遍布</span>
-            世界各地
-          </div>
-          <div class="public-info">
-            网络拉近了人类的距离，云计算推动了文明的新高度
-          </div>
-        </div>
-      </div>
-      <div class="container map">
-        <div class="content">
-          <div class="region-dot position1">
-            <div class="dot" />
-            <div class="pulse" />
-          </div>
-          <div class="region-dot position2">
-            <div class="dot" />
-            <div class="pulse" />
-          </div>
-          <div class="region-dot position3">
-            <div class="dot" />
-            <div class="pulse" />
-          </div>
-          <div class="region-dot position4">
-            <div class="dot" />
-            <div class="pulse" />
-          </div>
-          <div class="region-dot position5">
-            <div class="dot" />
-            <div class="pulse" />
-          </div>
-          <div class="region-dot position6">
-            <div class="dot" />
-            <div class="pulse" />
-          </div>
-          <div class="region-txt position7">
-            华北
-          </div>
-          <div class="region-dot position8">
-            <div class="dot" />
-            <div class="pulse" />
-          </div>
-          <div class="region-txt position9">
-            华东
-          </div>
-          <div class="region-dot position10">
-            <div class="dot" />
-            <div class="pulse" />
-          </div>
-          <div class="region-txt position11">
-            香港
-          </div>
-          <div class="region-dot position12">
-            <div class="dot" />
-            <div class="pulse" />
-          </div>
-          <div class="region-txt position13">
-            华南
           </div>
         </div>
       </div>
     </div>
     <!-- 解决方案 -->
-    <div class="programme-wrap">
-      <div class="public-box" style="margin-bottom: 80px">
-        <div class="content">
-          <div class="public-title">
-            浙江云盾
-            <span>解决</span>
-            方案
-          </div>
-          <div class="public-info">
+    <div class="solve">
+      <div class="about-container">
+        <div class="title">
+          <p class="title-top">
+            解决方案
+          </p>
+          <p class="title-bottom">
             根据行业特性，为您提供高可用、安全的解决方案
-          </div>
+          </p>
         </div>
       </div>
-      <div class="programme">
-        <div class="container programme-content">
-          <div class="banner-list-wrap">
-            <ul
-              :style="`left:${programmeIndex * 300}px`"
-              :class="
-                hasAni
-                  ? programmeDirection === 'left'
-                    ? 'transtion-left'
-                    : 'transtion-right'
-                  : ''
-              "
-            >
-              <li
-                v-for="(item, index) in programmeList"
-                :key="index + item.title"
-                :style="`background: url(${item.bg}) no-repeat center`"
-              >
-                <div class="bg-mask" />
-                <div class="icon" :style="item.iconPosition" />
-                <div class="title">
-                  {{ item.title }}
-                </div>
-                <div class="info">
-                  {{ item.info }}
-                </div>
-                <div class="btn" @click="handleClickJump(item.path)">
-                  查看详情
-                </div>
-              </li>
-            </ul>
-            <div class="arr-l" @click="handleProgrammePrev">
-              <div class="bg" />
-            </div>
-            <div class="arr-r" @click="handleProgrammeNext">
-              <div class="bg" />
+    </div>
+    <!-- 关于我们 -->
+    <div class="about">
+      <div class="about-container">
+        <div class="container">
+          <div class="content">
+            <p class="about-title">
+              关于我们
+            </p>
+            <p class="about-content">
+              公司成立于2007年，是国内领先的互联网业务平台服务致力于云计算应用的易用性开发，并引导云计算在国内普及。目前公司研发以及运营云服务基础设施服务平台(laaS)
+              ,面向全球客户提供基于云计算的IT解决方案与客户服务，拥有丰富的国内BGP、双线高防、香港等优质的IDC资源。
+            </p>
+            <div class="about-btn">
+              了解更多 →
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- 新闻动态 -->
-    <div class="news-wrap">
-      <div class="public-box" style="margin-bottom: 80px">
-        <div class="content">
-          <div class="public-title">
-            浙江云盾
-            <span>新闻</span>
-            动态
-          </div>
-          <div class="public-info">
-            为您提供最新行业资讯、活动公告、产品发布，汇聚最前沿最流行的云计算技术
+    <!-- 新闻公告 -->
+    <div class="news">
+      <div class="about-container">
+        <div class="n-title">
+          <p class="title-top">
+            新闻公告
+          </p>
+        </div>
+        <div class="container">
+          <div v-for="(item, index) in newsList" :key="index" class="lit">
+            <div
+              class="news-bg"
+              :style="`background:url(${item.bg}) no-repeat center`"
+            >
+              <div class="news-title">
+                {{ item.title }}
+              </div>
+              <div class="news-mark">
+                {{ item.mark }}
+              </div>
+            </div>
+            <div class="news-con">
+              <ul>
+                <li v-for="(it, ind) in item.content" :key="ind">
+                  <p>
+                    {{ it.con }} <span class="news-time">{{ it.time }}</span>
+                  </p>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
+        <div class="news-footer">
+          查看更多 →
+        </div>
       </div>
-      <div class="container news" />
     </div>
   </div>
 </template>
 
 <script>
-import ProductItem from '../../components/Home/productItem/index.vue'
+import Banner from '~/components/product/banner.vue'
 export default {
-  components: { ProductItem },
-  // async asyncData ({ app }) {
-  //   // 获取轮播图
-  //   const bannerData = await app.$api.home.getBannerList({
-  //     'qp-bannerType-eq': 0,
-  //     sorter: 'desc'
-  //   })
-  //   return {
-  //     bannerData: bannerData.data?.list
-  //   }
-  // },
+  components: { Banner },
   data () {
     return {
-      time: null,
-      bannerIndex: 1,
-      bannerData: [
+      serviceList: [
         {
-          id: 1,
-          pcPicture: require('~/static/img/cloud/cloudbg.png'),
-          title: '1',
-          describe: '111',
-          pcButtonName: '1234',
-          display: true
+          content: [
+            {
+              question: '地域',
+              answer: '中国大连'
+            },
+            {
+              question: '宽带',
+              answer: '5M'
+            },
+            {
+              question: '默认防护',
+              answer: '5/20G'
+            },
+            {
+              question: '时长',
+              answer: '一个月'
+            },
+            {
+              question: '价格',
+              answer: '￥81.7'
+            }
+          ]
         },
         {
-          id: 2,
-          pcPicture: require('~/static/img/assurance/assurancebanner.png'),
-          title: '2',
-          describe: '222',
-          pcButtonName: '2222',
-          display: true
+          content: [
+            {
+              question: '地域',
+              answer: '中国大连'
+            },
+            {
+              question: '宽带',
+              answer: '5M'
+            },
+            {
+              question: '默认防护',
+              answer: '5/20G'
+            },
+            {
+              question: '时长',
+              answer: '一个月'
+            },
+            {
+              question: '价格',
+              answer: '￥81.7'
+            }
+          ]
+        },
+        {
+          content: [
+            {
+              question: '地域',
+              answer: '中国大连'
+            },
+            {
+              question: '宽带',
+              answer: '5M'
+            },
+            {
+              question: '默认防护',
+              answer: '5/20G'
+            },
+            {
+              question: '时长',
+              answer: '一个月'
+            },
+            {
+              question: '价格',
+              answer: '￥81.7'
+            }
+          ]
+        },
+        {
+          content: [
+            {
+              question: '地域',
+              answer: '中国大连'
+            },
+            {
+              question: '宽带',
+              answer: '5M'
+            },
+            {
+              question: '默认防护',
+              answer: '5/20G'
+            },
+            {
+              question: '时长',
+              answer: '一个月'
+            },
+            {
+              question: '价格',
+              answer: '￥81.7'
+            }
+          ]
         }
       ],
-      bottomStyle: 'bottom:235px',
-      entranceList: [
+      safeList: [
         {
-          title: '云服务器',
-          info: '浙江云盾-安全、稳定、低成本、满意付款',
-          more: false,
-          path: '',
-          morePath: '',
-          bgPosition: 'width:74px;background-position:-227px 0',
-          padding: 'padding:0 45px 0 102px'
+          bg: require('~/static/img/home/home_safe1.png'),
+          content: 'IDC/云计算资质'
         },
         {
-          title: 'SSL证书',
-          info: '数字证书一站式管理，快速接入HTTPS安全',
-          more: false,
-          path: '',
-          morePath: '',
-          bgPosition: 'width:92px;background-position:-114px 0',
-          padding: 'padding:0 45px 0 113px'
+          bg: require('~/static/img/home/home_safe2.png'),
+          content: '阿里云'
         },
         {
-          title: '虚拟主机',
-          info: '基于云计算的虚拟主机快速建站服务',
-          more: false,
-          path: '',
-          morePath: '',
-          bgPosition: 'width:106px;background-position: 0 0',
-          padding: 'padding:0 35px 0 130px'
+          bg: require('~/static/img/home/home_safe3.png'),
+          content: '软件著作权'
         },
         {
-          title: '了解浙江云盾',
-          info: '专业的云计算服务提供商',
-          more: true,
-          path: '',
-          morePath: '',
-          bgPosition: 'width:78px;background-position:-324px 0',
-          padding: 'padding:0 35px 0 110px'
+          bg: require('~/static/img/home/home_safe4.png'),
+          content: '中国移动'
+        },
+        {
+          bg: require('~/static/img/home/home_safe5.png'),
+          content: '中国电信'
+        },
+        {
+          bg: require('~/static/img/home/home_safe6.png'),
+          content: '中国联通'
         }
       ],
-      productList: {
-        one: [
-          {
-            title: '云服务器',
-            info: '极速稳定高弹性的计算服务',
-            icon: 'iconyunfuwuqi',
-            path: '',
-            hot: true,
-            disable: false
-          },
-          {
-            title: '负载均衡',
-            info: '高性能流量分发的负载均衡服务',
-            icon: 'iconfuzhaijunheng',
-            path: '',
-            hot: false,
-            disable: false
-          },
-          {
-            title: '云数据库MySQL',
-            info: '稳定可靠、可弹性伸缩的数据方案',
-            icon: 'iconyunshujuku',
-            path: '/pc/mysql',
-            hot: false,
-            disable: false
-          },
-          {
-            title: '云数据库 SQL Server',
-            info: '安全运行、轻松管理的数据方案',
-            icon: 'iconyunshujunkuSQLServer',
-            path: '/pc/sqlserver',
-            hot: false,
-            disable: false
-          },
-          {
-            title: '对象存储',
-            info: '高可用、易用、低成本、一站式',
-            icon: 'iconduixiangcunchu',
-            path: '',
-            hot: false,
-            disable: false
-          }
-        ],
-        two: [
-          {
-            title: '云虚拟主机',
-            info: '基于云计算的虚拟主机服务',
-            icon: 'iconyunxunizhuji',
-            path: '',
-            hot: true,
-            disable: false
-          },
-          {
-            title: '域名注册',
-            info: '提供五星级的域名注册服务',
-            icon: 'iconyumingzhuche',
-            path: '',
-            hot: false,
-            disable: false
-          },
-          {
-            title: '网站备案',
-            info: '免费、快速、便捷的备案服务',
-            icon: 'iconwangzhanbeian',
-            path: '',
-            hot: false,
-            disable: false
-          },
-          {
-            title: 'CDN加速',
-            info: '智能调度的内容分发服务',
-            icon: 'iconCDNjiasu',
-            path: '',
-            hot: false,
-            disable: false
-          }
-        ],
-        three: [
-          {
-            title: '云帮手',
-            info: '提供跨云一站式云服务器管理',
-            icon: 'iconyunbangshou',
-            path: '',
-            hot: false,
-            disable: true
-          },
-          {
-            title: 'SSL证书',
-            info: '提供一站式的证书部署系统',
-            icon: 'iconSSLzhengshu',
-            path: '',
-            hot: false,
-            disable: false
-          }
-        ],
-        four: [
-          {
-            title: '服务器托管',
-            info: '安全贴心高品质的托管服务',
-            icon: 'iconfuwuqituoguan',
-            path: '',
-            hot: false,
-            disable: false
-          },
-          {
-            title: '裸金属服务器',
-            info: '高性能安全隔离物理集群服务',
-            icon: 'iconwulijifuwuqi',
-            path: '',
-            hot: false,
-            disable: false
-          }
-        ]
-      },
-      honorList: [
+      newsList: [
         {
-          name: 'IDC/云计算资质',
-          img: require('~/static/img/home/honor1.png')
+          bg: require('~/static/img/home/home_news1.png'),
+          title: '官方公告',
+          mark: '了解官方最新动态',
+          content: [
+            { con: '了解最新资讯了解最新资讯...', time: '2021-10-10' },
+            { con: '了解最新资讯了解最新资讯...', time: '2021-10-10' },
+            { con: '了解最新资讯了解最新资讯...', time: '2021-10-10' },
+            { con: '了解最新资讯了解最新资讯...', time: '2021-10-10' },
+            { con: '了解最新资讯了解最新资讯...', time: '2021-10-10' },
+            { con: '了解最新资讯了解最新资讯...', time: '2021-10-10' }
+          ]
         },
         {
-          name: 'CNNIC',
-          img: require('~/static/img/home/honor2.png')
+          bg: require('~/static/img/home/home_news2.png'),
+          title: '最新活动',
+          mark: '最新活动等你来抢',
+          content: [
+            { con: '了解最新资讯了解最新资讯...', time: '2021-10-10' },
+            { con: '了解最新资讯了解最新资讯...', time: '2021-10-10' },
+            { con: '了解最新资讯了解最新资讯...', time: '2021-10-10' },
+            { con: '了解最新资讯了解最新资讯...', time: '2021-10-10' },
+            { con: '了解最新资讯了解最新资讯...', time: '2021-10-10' },
+            { con: '了解最新资讯了解最新资讯...', time: '2021-10-10' }
+          ]
         },
         {
-          name: '中国移动',
-          img: require('~/static/img/home/honor3.png')
-        },
-        {
-          name: '中国电信',
-          img: require('~/static/img/home/honor4.png')
-        },
-        {
-          name: '中国联通',
-          img: require('~/static/img/home/honor5.png')
-        },
-        {
-          name: '软件著作权',
-          img: require('~/static/img/home/honor6.png')
+          bg: require('~/static/img/home/home_news3.png'),
+          title: '业内新闻',
+          mark: '了解最新业内资讯',
+          content: [
+            { con: '了解最新资讯了解最新资讯...', time: '2021-10-10' },
+            { con: '了解最新资讯了解最新资讯...', time: '2021-10-10' },
+            { con: '了解最新资讯了解最新资讯...', time: '2021-10-10' },
+            { con: '了解最新资讯了解最新资讯...', time: '2021-10-10' },
+            { con: '了解最新资讯了解最新资讯...', time: '2021-10-10' },
+            { con: '了解最新资讯了解最新资讯...', time: '2021-10-10' }
+          ]
         }
       ],
-      wsymainList: [
+      choiceList: [
         {
-          title: '备案',
-          width: 'width:141px',
-          bgPosition: 'background-position:0px 0px',
-          activePosition: 'background-position:0px -85px',
-          detail: {
-            title: '0元免费备案',
-            info: '为用户提供免费备案服务，备案过程0担忧——1V1备案处理机制，最快1个工作日取得备案号。',
-            bg: require('~/static/img/home/av-bg5.jpg')
-          }
+          mark: '稳定',
+          title: '稳定放心用',
+          bg: require('~/static/img/home/home-choic1.png'),
+          content:
+            '单实例可用性达99.975%,多可用区多实例可用性达9995%，云盘可靠性达99999999%，可实现自动宕机迁移、快照备份'
         },
         {
-          title: '赔偿',
-          width: 'width:141px',
-          bgPosition: 'background-position:-72px 0px',
-          activePosition: 'background-position:-72px -85px',
-          detail: {
-            title: '100倍故障赔偿',
-            info: '由于浙江云盾故障导致产品无法正常使用，我们将提供100倍的故障时间赔偿让您使用舒心。',
-            bg: require('~/static/img/home/av-bg4.jpg')
-          }
+          mark: '安全',
+          title: '稳定放心用',
+          bg: require('~/static/img/home/home-choic2.png'),
+          content:
+            '单实例可用性达99.975%,多可用区多实例可用性达9995%，云盘可靠性达99999999%，可实现自动宕机迁移、快照备份'
         },
         {
-          title: '退款',
-          width: 'width:141px',
-          bgPosition: 'background-position:-144px 0px',
-          activePosition: 'background-position:-144px -85px',
-          detail: {
-            title: '5天无理由退款',
-            info: '浙江云盾承诺用户购买云服务器5天内无条件退款， 致力为您打造更优良的服务器体验环境。',
-            bg: require('~/static/img/home/av-bg3.jpg')
-          }
-        },
-        {
-          title: '客户支持',
-          width: 'width:222px',
-          bgPosition: 'background-position:-216px 0px',
-          activePosition: 'background-position:-216px -85px',
-          detail: {
-            title: '7X24小时多渠道服务支持',
-            info: '专业的售后工程师团队为您提供7*24*365技术服务，保障产品的无忧使用和业务的稳定运行。',
-            bg: require('~/static/img/home/av-bg2.jpg')
-          }
-        },
-        {
-          title: 'VIP服务',
-          width: 'width:222px',
-          bgPosition: 'background-position:-288px 0px',
-          activePosition: 'background-position:-288px -85px',
-          detail: {
-            title: 'VIP多对1服务',
-            info: '浙江云盾针对VIP客户，将通过建立微信群/QQ讨论组/电话等形式为您安排多人的技术团队提供服务。',
-            bg: require('~/static/img/home/av-bg1.jpg')
-          }
+          mark: '赔偿',
+          title: '稳定放心用',
+          bg: require('~/static/img/home/home-choic3.png'),
+          content:
+            '单实例可用性达99.975%,多可用区多实例可用性达9995%，云盘可靠性达99999999%，可实现自动宕机迁移、快照备份'
         }
       ],
-      wsymainDetail: {
-        title: '0元免费备案',
-        info: '为用户提供免费备案服务，备案过程0担忧——1V1备案处理机制，最快1个工作日取得备案号。',
-        bg: require('~/static/img/home/av-bg5.jpg')
-      },
-      wsymainSelectIndex: 0,
-      programmeList: [
+      choiceTwoList: [
         {
-          title: '网站云解决方案',
-          info: '网站云为企业及开发者提供灵活弹性自动化的基础IT设施建设、按需付费的服务模式及成本的运维服务体系，帮助客户转型，推动企业核心业务创新发展。',
-          path: '',
-          bg: require('~/static/img/home/cloud-photo.jpg'),
-          iconPosition: 'background-position:0 0'
+          mark: '退款',
+          title: '5天无理由退款',
+          bg: require('~/static/img/home/home-choic4.png'),
+          content:
+            '浙江云盾承诺用户购买云服务器5天内无条件退款，致力为您打造更优良的服务器体验环境'
         },
         {
-          title: '金融云解决方案',
-          info: '金融云为客户提供量身定制的云计算服务，IT硬件零投入，云设施运维零维护，高品质保障的售后服务机制，帮助金融用户高效应用云计算服务，是您互联网转型的首选。',
-          path: '',
-          bg: require('~/static/img/home/finance-photo.jpg'),
-          iconPosition: 'background-position:0 -60px'
-        },
-        {
-          title: '移动云解决方案',
-          info: '移动云应用虚拟化系统为客户提供最佳的应用性能及灵活的应用虚拟化服务，帮助客户实现手机、平板电脑等移动设备安全顺畅地访问服务器上各种应用软件。',
-          path: '',
-          bg: require('~/static/img/home/mobile-photo.jpg'),
-          iconPosition: 'background-position:0 -120px'
-        },
-        {
-          title: '电商云解决方案',
-          info: '电商云帮助电商客户快速实现平台搭建、节约成本、应对业务高并发、强化安全防护能力，助力电商客户快速实现金融创新及业务增收的目标。',
-          path: '',
-          bg: require('~/static/img/home/busin-photo.jpg'),
-          iconPosition: 'background-position:0 -180px'
-        },
-        {
-          title: '游戏云解决方案',
-          info: '游戏云为客户游戏开发、游戏运营提供专属服务集群；多场景多类型的游戏部署解决方案，同时提供尊贵VIP售后服务，为客户游戏稳定运行提供基石。',
-          path: '',
-          bg: require('~/static/img/home/game-photo.jpg'),
-          iconPosition: 'background-position:0 -240px'
+          mark: '客户支持',
+          title: '7×24小时多渠道服务支持',
+          bg: require('~/static/img/home/home-choic5.png'),
+          content:
+            '专业的售后工程师团队未您提供7*24*365技术服务，保障产品的无忧使用和业务的稳定运行'
         }
-      ],
-      programmeIndex: -4,
-      programmeDirection: 'left',
-      programmeLoading: false,
-      hasAni: true
-    }
-  },
-  // 读数据 返回vuex
-  // async fetch ({ app, store }) {
-  //   // 异步业务逻辑 读取服务端的数据提交给vuex
-  //   // 获取友情链接
-  //   const linksData = await app.$api.home.getFriendLink()
-  //   store.dispatch('home/setFriendLinks', linksData.data?.list || [])
-  //   // 获取网站信息+公司信息
-  //   const webInfoData = await app.$api.home.getWebInfo()
-  //   const companyInfoData = await app.$api.home.getCompanyInfo()
-  //   let resultData = {}
-  //   const newArr = [
-  //     ...(webInfoData.data?.list || []),
-  //     ...(companyInfoData.data?.list || [])
-  //   ]
-  //   newArr.forEach((item) => {
-  //     resultData = { ...resultData, ...item }
-  //   })
-  //   store.dispatch('home/setWebCompanyInfo', resultData)
-  // },
-  // watch: {
-  //   bannerIndex: {
-  //     handler (newVal, oldVal) {
-  //       // console.log('轮播图切换回调', newVal, oldVal)
-  //       this.bottomStyle =
-  //         newVal === 1 ? 'bottom:235px;opacity:1' : 'bottom:-150px;opacity:0'
-  //     },
-  //     immediate: true
-  //   }
-  // },
-  mounted () {
-    // this.bannerTime()
-    this.setProgrammeList()
-    // 获取数据
-    this.getBanner()
-    // 获取网站信息
-    this.getWebInfo()
-  },
-  beforeDestroy () {
-    clearInterval(this.time)
-  },
-  methods: {
-    // 获取轮播图
-    getBanner () {
-      this.$api.home
-        .getBannerList({
-          'qp-bannerType-eq': 0,
-          sorter: 'desc'
-        })
-        .then((res) => {
-          this.bannerData = [res.data.list]
-        })
-    },
-    // 获取网站信息
-    async getWebInfo () {
-      // 获取友情链接
-      const linksData = await this.$api.home.getFriendLink()
-      this.$store.dispatch('home/setFriendLinks', linksData.data?.list || [])
-      //   // 获取网站信息+公司信息
-      const webInfoData = await this.$api.home.getWebInfo()
-      const companyInfoData = await this.$api.home.getCompanyInfo()
-      let resultData = {}
-      const newArr = [
-        ...(webInfoData.data?.list || []),
-        ...(companyInfoData.data?.list || [])
       ]
-      newArr.forEach((item) => {
-        resultData = { ...resultData, ...item }
-      })
-      this.$store.dispatch('home/setWebCompanyInfo', resultData)
-    },
-    // 轮播图+按钮点击跳转
-    bannerJump (item, type) {
-      const path = type === 'btn' ? item.pcButtonLink : item.pictureLink
-      const newPath = path.includes('http') ? path : 'https://' + path
-      window.open(
-        newPath,
-        item.openLinkType === '' || item.openLinkType === '0'
-          ? '_blank'
-          : '_self'
-      )
-    },
-    // 点击跳转
-    handleClickJump (path) {
-      if (!path) {
-        return
-      }
-      this.$router.push(path)
-    },
-    // 定时器自动轮播
-    bannerTime () {
-      this.time = setInterval(() => {
-        this.nextBanner()
-      }, 3000)
-    },
-    // 轮播图切换
-    nextBanner () {
-      this.bannerIndex = this.bannerIndex === 1 ? 2 : 1
-      this.$refs.banner.next()
-    },
-    // 优势选择
-    wsymainSelect (index) {
-      this.wsymainSelectIndex = index
-      this.wsymainDetail = { ...this.wsymainList[index].detail }
-    },
-    // 解决方案轮播数据处理
-    setProgrammeList () {
-      const tempArr = [...this.programmeList]
-      this.programmeList = [
-        ...tempArr.slice(1, tempArr.length),
-        ...this.programmeList,
-        ...tempArr.slice(0, tempArr.length - 1)
-      ]
-    },
-    // 解决方案下一张
-    handleProgrammeNext () {
-      if (this.programmeLoading) {
-        return
-      }
-      this.programmeLoading = true
-      this.programmeDirection = 'left'
-      if (this.programmeIndex === -8) {
-        this.hasAni = false
-        this.programmeIndex = -3
-        setTimeout(() => {
-          this.hasAni = true
-          this.programmeIndex--
-        }, 0)
-      } else {
-        this.programmeIndex--
-      }
-      setTimeout(() => {
-        this.hasAni = true
-        this.programmeLoading = false
-      }, 800)
-    },
-    // 解决方案上一张
-    handleProgrammePrev () {
-      if (this.programmeLoading) {
-        return
-      }
-      this.programmeLoading = true
-      this.programmeDirection = 'right'
-      if (this.programmeIndex === 0) {
-        this.hasAni = false
-        this.programmeIndex = -5
-        setTimeout(() => {
-          this.hasAni = true
-          this.programmeIndex++
-        }, 0)
-      } else {
-        this.programmeIndex++
-      }
-      setTimeout(() => {
-        this.hasAni = true
-        this.programmeLoading = false
-      }, 800)
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.home-container {
-  background: #fafafa;
-  .banner-wrap {
-    height: 660px;
-    position: relative;
-    .banner {
-      min-width: 1220px;
-      height: 100%;
-      position: relative;
-      .banner-item {
-        width: 100%;
-        height: 660px;
-        .banner-info-box {
+.about-container {
+  width: 1220px;
+  height: 100%;
+  padding: 0;
+  margin: 0 auto;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+// 标题
+.title {
+  width: 100%;
+  height: 150px;
+  margin-top: 80px;
+  p {
+    text-align: center;
+  }
+  .title-top {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 29px !important;
+    color: #333;
+  }
+  .title-bottom {
+    font-size: 16px;
+    font-weight: bold;
+    color: #778699;
+    margin-bottom: 60px;
+  }
+}
+.home {
+  background-color: #fff;
+  // 服务提供
+  .service {
+    width: 100%;
+    height: 759px;
+    overflow: hidden;
+    .container {
+      display: flex;
+      justify-content: space-between;
+      .lit {
+        width: 292px;
+        height: 429px;
+        background: #fff;
+        box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.06);
+        .service-title {
           position: relative;
-          height: 100%;
-          .banner-info {
+          width: 292px;
+          height: 120px;
+          padding-top: 32px;
+          padding-left: 20px;
+          background: url(~/static/img/home/home_service.png) no-repeat;
+          background-size: cover;
+          .service-bg {
             position: absolute;
-            left: 0;
+            top: 0px;
+            right: 0px;
+            width: 74px;
+            height: 25px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
             color: #fff;
-            transition: all 0.8s;
-            h2 {
-              font-size: 46px;
-              color: #fff;
+            text-shadow: 0px 3px 21px rgba(82, 106, 113, 0.78);
+            background: url(~/static/img/home/home_service1.png) no-repeat;
+            background-size: cover;
+          }
+          p:nth-child(2) {
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
+          }
+          p:nth-child(3) {
+            font-size: 14px;
+            font-weight: 500;
+            color: #fff;
+          }
+        }
+        .service-content {
+          width: 292px;
+          height: 259px;
+          padding-top: 10px;
+          padding-left: 24px;
+          .service-found {
+            font-size: 14px;
+            font-weight: 500;
+            margin-top: 10px;
+            color: #778699;
+            span {
+              display: inline-block;
+              width: 80px;
             }
-            .info {
-              font-size: 20px;
-              margin: 15px 0 0;
+            input {
+              width: 175px;
+              height: 34px;
+              outline: none;
+              border: 1px solid #eeeeee;
+              border-radius: 4px;
+            }
+          }
+        }
+        .service-footer {
+          width: 292px;
+          height: 50px;
+          line-height: 50px;
+          text-align: center;
+          font-size: 18px;
+          font-weight: bold;
+          color: #fff;
+          background: #e8506e;
+          box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.06);
+        }
+      }
+    }
+  }
+  // 选择云盾
+  .choice {
+    width: 100%;
+    height: 698px;
+    background: #f9f9f9;
+    .container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+      .lit {
+        position: relative;
+        .lit-top {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 380px;
+          height: 180px;
+          font-size: 24px;
+          font-weight: bold;
+          color: #fff;
+          line-height: 180px;
+          text-align: center;
+          transition: opacity 1s;
+          background-size: cover;
+        }
+        .lit-top:hover {
+          opacity: 0;
+        }
+        .lit-down {
+          display: flex;
+          width: 380px;
+          height: 180px;
+          .left {
+            width: 170px;
+            height: 180px;
+            padding-left: 23px;
+            padding-top: 30px;
+            background-size: cover;
+            p {
+              width: 130px;
+              height: 55px;
+              font-size: 24px;
+              font-weight: 500;
+              color: #fff;
               line-height: 32px;
             }
             .btn {
-              margin: 75px 0 0;
-              font-size: 16px;
-              width: 198px;
+              width: 98px;
               height: 38px;
-              border: 1px solid #fff;
+              font-size: 14px;
+              font-weight: 500;
+              color: #fff;
               line-height: 38px;
               text-align: center;
-              cursor: pointer;
+              border: 1px solid #fff;
             }
+          }
+          .right {
+            width: 210px;
+            height: 180px;
+            padding-left: 25px;
+            padding-top: 20px;
+            padding-right: 23px;
+            background-color: #fff;
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            line-height: 28px;
           }
         }
       }
     }
-    .mask-none {
-      width: 100%;
-      height: 10px;
-      position: absolute;
-      left: 0;
-      bottom: 75px;
-      background: transparent;
-      cursor: pointer;
-    }
-    .more {
-      height: 50px;
-      line-height: 50px;
-      text-align: right;
-      color: #fff;
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(255, 255, 255, 0.16);
-      overflow: hidden;
-    }
-  }
-  .entrance-wrap {
-    padding: 55px 0;
-    background: #fff;
-    .entrance {
+    .container-bottom {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      .item {
-        width: 25%;
-        display: flex;
+      margin-top: 30px;
+      .lit {
         position: relative;
-        .left-img {
-          height: 70px;
-          background: url('~/static/img/home/icons.png') no-repeat;
+        .lit-top {
           position: absolute;
-          left: 0;
           top: 0;
+          left: 0;
+          width: 585px;
+          height: 180px;
+          font-size: 24px;
+          font-weight: bold;
+          color: #fff;
+          line-height: 180px;
+          text-align: center;
+          transition: opacity 1s;
+          background-size: cover;
         }
-        .right {
-          font-size: 12px;
-          .title {
-            font-size: 18px;
-            color: #000;
-            margin-bottom: 5px;
-          }
-          .info {
-            color: #666;
-            line-height: 20px;
-          }
-          .more {
-            color: #ff8a00;
-          }
+        .lit-top:hover {
+          opacity: 0;
         }
-      }
-    }
-  }
-  // 首页公共标题盒子
-  .public-box {
-    font-size: 30px;
-    color: #000;
-    text-align: center;
-    .content {
-      .public-title {
-        span {
-          color: #059fff;
-        }
-      }
-      .public-info {
-        font-size: 14px;
-        margin: 13px 0 0;
-        color: #666;
-      }
-    }
-  }
-  .product-wrap {
-    padding: 90px 0 100px;
-    background: #fafafa;
-    overflow: hidden;
-    min-width: 1220px;
-    .product {
-      height: 631px;
-      display: flex;
-      color: #fff;
-      .left {
-        width: 459px;
-        height: 631px;
-        margin-right: 20px;
-        background: url('~/static/img/home/product1.png') no-repeat center;
-        .product-con {
-          padding: 32px 0 20px 76px;
-          overflow: hidden;
-        }
-      }
-      .right {
-        .top {
-          width: 700px;
-          height: 303px;
-          margin-bottom: 20px;
-          background: url('~/static/img/home/product2.png') no-repeat center;
-          .product-con {
-            display: flex;
-            flex-wrap: wrap;
-            padding: 32px 0 20px 76px;
-            overflow: hidden;
-            .product-item {
-              width: 260px;
-              &:hover {
-                background: #47556c;
-              }
-            }
-          }
-        }
-        .bot {
+        .lit-down {
           display: flex;
-          .bot1 {
-            width: 340px;
-            height: 308px;
-            margin-right: 20px;
-            background: url('~/static/img/home/product3.png') no-repeat center;
-            .product-item {
-              &:hover {
-                background: #27addc;
-              }
+          width: 585px;
+          height: 180px;
+          .left {
+            width: 280px;
+            height: 180px;
+            padding-left: 23px;
+            padding-top: 30px;
+            background-size: cover;
+            p {
+              width: 224px;
+              height: 55px;
+              font-size: 24px;
+              font-weight: 500;
+              color: #fff;
+              line-height: 32px;
+            }
+            .btn {
+              width: 98px;
+              height: 38px;
+              font-size: 14px;
+              font-weight: 500;
+              color: #fff;
+              line-height: 38px;
+              text-align: center;
+              border: 1px solid #fff;
             }
           }
-          .bot2 {
-            width: 340px;
-            height: 308px;
-            background: url('~/static/img/home/product4.png') no-repeat center;
+          .right {
+            width: 305px;
+            height: 180px;
+            padding-left: 25px;
+            padding-top: 20px;
+            padding-right: 23px;
+            background-color: #fff;
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            line-height: 28px;
           }
-        }
-      }
-      .product-top {
-        display: flex;
-        align-items: center;
-        font-size: 16px;
-        height: 64px;
-        padding-left: 33px;
-        position: relative;
-        .left-img {
-          width: 24px;
-          height: 25px;
-          margin-right: 10px;
-        }
-        &::after {
-          content: '';
-          position: absolute;
-          right: 0;
-          bottom: 0;
-          width: 100%;
-          height: 1px;
-          background: rgba(255, 255, 255, 1);
-          opacity: 0.18;
-        }
-      }
-      .product-con {
-        padding-left: 49px;
-        padding-top: 21px;
-        .product-item {
-          width: 250px;
         }
       }
     }
   }
-  .honor-wrap {
-    padding: 80px 0 60px;
-    overflow: hidden;
-    background: #fff;
-    .honor {
+  // 安全
+  .safe {
+    width: 100%;
+    height: 422px;
+    .container {
       display: flex;
-      justify-content: space-between;
-      .item {
+      justify-content: space-around;
+      .lit {
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        text-align: center;
-        width: 200px;
-        padding-top: 10px;
-        height: 160px;
-        margin: 25px 0 20px 4px;
-        .img {
-          margin: 0 auto;
-          margin-bottom: 15px;
-        }
-        span {
-          font-size: 14px;
-          color: #000;
-        }
-      }
-      .item:nth-child(1) {
-        margin-left: 0;
-      }
-      .item:hover {
-        box-shadow: 0px 10px 20px rgba(2, 48, 76, 0.1);
-      }
-    }
-  }
-  .wsymain-wrap {
-    background: #f5f6f7;
-    padding: 80px 0;
-    overflow: hidden;
-    .wsymain {
-      display: flex;
-      .left {
-        display: flex;
-        flex-wrap: wrap;
         justify-content: space-between;
-        text-align: center;
-        width: 500px;
-        font-size: 18px;
-        height: 315px;
-        overflow: hidden;
-        .item {
-          height: 142px;
+        align-items: center;
+        width: 140px;
+        height: 175px;
+        .safe-bg {
+          width: 140px;
+          height: 140px;
+          .bg {
+            width: 70px;
+            height: 70px;
+            margin-left: 35px;
+            margin-top: 35px;
+            background-size: contain !important;
+          }
+        }
+        .safe-bg:hover {
           background: #fff;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          margin-right: 25px;
-          margin-bottom: 30px;
-          padding-top: 20px;
-          color: #000;
-          cursor: pointer;
-          .img {
-            width: 65px;
-            height: 74px;
-            margin: 0 auto 9px;
-            background: url('~/static/img/home/wsymain-icons.png') no-repeat;
-          }
+          box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.06);
         }
-        .item.active {
-          color: #fff;
-          background: url('~/static/img/home/av-active.jpg') no-repeat center;
-        }
-      }
-      .right {
-        width: 720px;
-        height: 315px;
-        padding: 40px 0 0 40px;
-        background: #fff;
-        .title {
-          font-size: 30px;
-          color: #000;
-        }
-        .info {
+        .safe-content {
           font-size: 16px;
-          margin: 16px 0 35px;
-          color: #666;
-          line-height: 30px;
-          width: 380px;
-        }
-        .btns {
-          display: flex;
-          .btn {
-            width: 178px;
-            height: 48px;
-            font-size: 18px;
-            color: #666;
-            margin-right: 20px;
-            border: 1px solid #ddd;
-            line-height: 48px;
-            text-align: center;
-            margin-right: 20px;
-          }
-          .btn:nth-child(1) {
-            border: 1px solid #059fff;
-            background: #059fff;
-            color: #fff;
-          }
+          font-weight: 500;
+          color: #333;
         }
       }
     }
   }
-  .map-wrap {
-    padding: 80px 0 40px;
-    background: #fff;
-    .map {
-      width: 100%;
+  // 解决方案
+  .solve {
+    width: 100%;
+    height: 670px;
+  }
+  // 关于我们
+  .about {
+    width: 100%;
+    height: 721px;
+    background: url(~/static/img/home/home_about.png) no-repeat;
+    background-size: cover;
+    .container {
       position: relative;
-      height: 601px;
-      background: url('~/static/img/home/world-map-bg.png') no-repeat center;
       .content {
-        position: relative;
-        width: 1000px;
-        margin: 0 auto;
-      }
-      .region-dot,
-      .region-txt {
         position: absolute;
-        top: 0;
-        left: 0;
-      }
-      .region-dot {
-        .dot {
-          width: 16px;
-          height: 16px;
-          border-radius: 16px;
-          background: #14cc45;
+        top: 120px;
+        right: 0px;
+        width: 480px;
+        height: 300px;
+        .about-title {
+          height: 34px;
+          margin-bottom: 40px;
+          font-size: 36px;
+          font-weight: bold;
+          color: #333;
         }
-        .pulse {
-          position: absolute;
-          top: -36px;
-          left: -36px;
-          height: 88px;
-          width: 88px;
-          border-radius: 48px;
-          background: #14cc45;
-          opacity: 0.12;
-          animation: warn 2s ease-out;
-          animation-iteration-count: infinite;
+        .about-content {
+          width: 479px;
+          height: 135px;
+          font-size: 16px;
+          font-family: PingFang SC;
+          font-weight: 500;
+          color: #333;
+          margin-bottom: 50px;
+          line-height: 30px;
         }
-      }
-      .region-txt {
-        font-size: 16px;
-        color: #808080;
-      }
-      .position1 {
-        left: 50px;
-        top: 126px;
-      }
-      .position2 {
-        left: 179px;
-        top: 230px;
-      }
-      .position3 {
-        left: 258px;
-        top: 443px;
-      }
-      .position4 {
-        left: 545px;
-        top: 206px;
-      }
-      .position5 {
-        left: 829px;
-        top: 230px;
-      }
-      .position6 {
-        left: 884px;
-        top: 222px;
-        .dot,
-        .pulse {
-          background: #059fff;
+        .about-btn {
+          width: 120px;
+          height: 38px;
+          font-size: 14px;
+          font-weight: 500;
+          color: #1d7aec;
+          line-height: 38px;
+          text-align: center;
+          border: 1px solid #1d7aec;
         }
-      }
-      .position7 {
-        left: 906px;
-        top: 202px;
-      }
-      .position8 {
-        left: 871px;
-        top: 272px;
-        .dot,
-        .pulse {
-          background: #059fff;
-        }
-      }
-      .position9 {
-        left: 896px;
-        top: 272px;
-      }
-      .position10 {
-        left: 855px;
-        top: 311px;
-        .dot,
-        .pulse {
-          background: #059fff;
-        }
-      }
-      .position11 {
-        left: 872px;
-        top: 321px;
-      }
-      .position12 {
-        left: 832px;
-        top: 302px;
-        .dot,
-        .pulse {
-          background: #059fff;
-        }
-      }
-      .position13 {
-        left: 796px;
-        top: 316px;
       }
     }
   }
-  .programme-wrap {
-    padding-top: 80px;
-    .programme {
-      height: 500px;
-      background: #292e33;
-      .container {
-        width: 1200px;
+  // 新闻公告
+  .news {
+    width: 100%;
+    height: 734px;
+    background-color: #f9f9f9;
+    .n-title {
+      width: 100%;
+      height: 100px;
+      margin-top: 80px;
+      p {
+        text-align: center;
       }
-      .programme-content {
-        height: 100%;
-        .banner-list-wrap {
-          position: relative;
-          height: 100%;
+      .title-top {
+        font-size: 36px;
+        font-weight: bold;
+        margin-bottom: 29px !important;
+        color: #333;
+      }
+    }
+    .container {
+      display: flex;
+      justify-content: space-around;
+      .lit {
+        width: 380px;
+        height: 363px;
+        box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.06);
+        .news-bg {
+          width: 380px;
+          height: 100px;
+          background-size: cover !important;
           overflow: hidden;
-          ul {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 999999px;
-            height: 500px;
-            margin: 0;
-            display: flex;
-            li {
-              position: relative;
-              height: 500px;
-              width: 300px;
-              transition: all 0.5s;
-              color: #fff;
-              font-size: 20px;
-              div {
-                position: absolute;
-                left: 50%;
-                transform: translateX(-50%);
-                transition: top 0.5s;
-              }
-              .bg-mask {
-                height: 100%;
-                position: absolute;
-                width: 100%;
-                background-color: #059fff;
-                display: none;
-              }
-              .icon {
-                top: 170px;
-                width: 60px;
-                height: 60px;
-                background: url('~/static/img/home/solution-items-icon.png')
-                  no-repeat;
-              }
-              .title {
-                top: 280px;
-              }
-              .info {
-                text-indent: 26px;
-                font-size: 12px;
-                width: 100%;
-                height: 150px;
-                padding: 0 30px;
-                overflow: hidden;
-                top: 282px;
-                line-height: 2;
-                opacity: 0;
-                transition: all 0.6s;
-              }
-              .btn {
-                top: 452px;
-                width: 118px;
-                height: 34px;
-                line-height: 32px;
-                text-align: center;
-                border: 1px solid #fff;
-                font-size: 14px;
-                opacity: 0;
-                transition: all 0.6s;
-              }
-            }
-            li:nth-child(odd) .bg-mask {
-              opacity: 0.5;
-            }
-            li:nth-child(even) .bg-mask {
-              opacity: 0.8;
-            }
-            li:hover {
-              .icon {
-                top: 76px;
-              }
-              .title {
-                top: 168px;
-              }
-              .info {
-                top: 230px;
-                opacity: 1;
-              }
-              .btn {
-                top: 380px;
-                opacity: 1;
-              }
-              .bg-mask {
-                display: block;
-              }
-            }
-          }
-          .transtion-left {
-            transition: left 0.6s cubic-bezier(0.17, 0.67, 0.95, 0.79);
-          }
-          .transtion-right {
-            transition: left 0.6s;
-          }
-          .arr-l,
-          .arr-r {
-            position: absolute;
-            top: 0;
-            width: 40px;
-            height: 500px;
-            opacity: 0;
-            transition: all 0.5s;
-            background-color: rgba(255, 255, 255, 0.08);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            .bg {
-              width: 20px;
-              height: 36px;
-              background: url('~/static/img/home/index-sprite.png') no-repeat;
-              background-position: 0 -1538px;
-            }
-          }
-          .arr-l {
-            left: 0;
-          }
-          .arr-r {
-            right: 0;
-            .bg {
-              background-position: 0 -1500px;
-            }
-          }
         }
-        .banner-list-wrap:hover {
-          .arr-l,
-          .arr-r {
-            opacity: 1;
+        .news-title {
+          height: 23px;
+          font-size: 24px;
+          font-weight: 500;
+          color: #fff;
+          line-height: 32px;
+          text-align: center;
+          margin-top: 26px;
+          margin-bottom: 16px;
+        }
+        .news-mark {
+          height: 14px;
+          text-align: center;
+          font-size: 14px;
+          font-weight: 500;
+          color: #fff;
+          line-height: 32px;
+        }
+        .news-con li {
+          list-style-type: disc !important;
+          margin-top: 18px;
+          margin-left: 38px;
+          font-size: 14px;
+          font-weight: 500;
+          color: #dae2f2;
+          p {
+            position: relative;
+            color: #333;
+          }
+          .news-time {
+            position: absolute;
+            right: 20px;
+            color: #999999;
           }
         }
       }
     }
+    .news-footer {
+      margin: 50px auto;
+      width: 120px;
+      height: 38px;
+      background: #f9f9f9;
+      border: 1px solid #1d7aec;
+      font-size: 14px;
+      font-weight: 500;
+      color: #1d7aec;
+      line-height: 38px;
+      text-align: center;
+    }
   }
-  .news-wrap {
-    padding: 75px 0 55px;
-    overflow: hidden;
-  }
-}
-@keyframes warn {
-  0% {
-    transform: scale(0);
-    opacity: 1;
-  }
-  30% {
-    transform: scale(0);
-    opacity: 0.1;
-  }
-  60% {
-    transform: scale(0.5);
-    opacity: 0.5;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 0;
-  }
-}
-</style>
-<style>
-/* antdv 走马灯指示点样式重写 */
-.ant-carousel .slick-dots li button {
-  width: 30px;
-  height: 4px;
-  border-radius: 0;
-}
-.ant-carousel .slick-dots li.slick-active button {
-  width: 30px;
-}
-.ant-carousel .slick-dots-bottom {
-  bottom: 85px;
 }
 </style>

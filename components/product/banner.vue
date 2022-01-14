@@ -3,29 +3,39 @@
     <!-- 占位div -->
     <div class="seize" />
     <!-- 轮播图 -->
-    <div
-      class="banner"
-      :style="`background:url(${bannerData[type].bg}) no-repeat center`"
-    >
-      <div class="container">
-        <p>{{ bannerData[type].title }}</p>
-        <p class="info">
-          {{ bannerData[type].info }}
-        </p>
-        <div v-if="bannerData[type].path" class="btn">
-          <nuxt-link :to="bannerData[type].path">
-            立即选购
-          </nuxt-link>
-        </div>
+    <div class="banner-wrap">
+      <div class="banner">
+        <a-carousel
+          ref="banner"
+          effect="fade"
+          dots-class="dot"
+          :autoplay="true"
+        >
+          <div
+            v-for="item in bannerData[type]"
+            :key="item.id"
+            class="banner-item"
+            :style="`background: url(${item.bg}) no-repeat center`"
+          >
+            <!-- info -->
+            <div class="container banner-info-box">
+              <div class="banner-info" :style="bottomStyle">
+                <h2>
+                  {{ item.title }}
+                </h2>
+                <div class="info">
+                  {{ item.info }}
+                </div>
+                <div v-if="item.btn" class="btn">
+                  <nuxt-link :to="item.path">
+                    {{ item.btn }}
+                  </nuxt-link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a-carousel>
       </div>
-    </div>
-    <div class="list">
-      <div
-        v-for="item in curList"
-        :key="item.id"
-        :class="curId === item.id ? 'lit white' : 'lit'"
-        @click="change(item.id)"
-      />
     </div>
   </div>
 </template>
@@ -42,23 +52,88 @@ export default {
   data () {
     return {
       bannerData: {
-        choose: {
-          title: '弹性云服务器',
-          path: '/pc/cloud-price',
-          info: '浙江云盾服务器配备纯SSD架构打造的高性能存储，旨在为用户提供优质、高效、弹性伸缠的云计算服务。云服务器采用由数据切片技术构建的三层存储功能，切实保护客户数据的安全。同时可弹性扩展的资源用量，为客户业务在高峰期的赎畅保驾护航;灵活多样的计费方式，为客户最大程度的节省IT运营成本，提高资源的有效利用率。',
-          bg: require('~/static/img/cloud/cloudbg.png')
-        },
-        assurance: {
-          title: '百分服务，助您上云无忧 ',
-          info: '百分服务,助您上云无忧匠心打造完整的VIP会员服务体系，为国内国际用户提供多种服务支持和服务保障让用户尊享售后服务，让云端部署更轻松、更高效',
-          bg: require('~/static/img/assurance/assurancebanner.png')
-        }
+        choose: [
+          {
+            id: 1,
+            title: '弹性云服务器',
+            path: '/pc/cloud-price',
+            btn: '立即选购',
+            info: '浙江云盾服务器配备纯SSD架构打造的高性能存储，旨在为用户提供优质、高效、弹性伸缠的云计算服务。云服务器采用由数据切片技术构建的三层存储功能，切实保护客户数据的安全。同时可弹性扩展的资源用量，为客户业务在高峰期的赎畅保驾护航;灵活多样的计费方式，为客户最大程度的节省IT运营成本，提高资源的有效利用率。',
+            bg: require('~/static/img/cloud/cloudbg.png')
+          }
+        ],
+        assurance: [
+          {
+            id: 1,
+            title: '百分服务，助您上云无忧 ',
+            path: '/pc/cloud-price',
+            info: '百分服务,助您上云无忧匠心打造完整的VIP会员服务体系，为国内国际用户提供多种服务支持和服务保障让用户尊享售后服务，让云端部署更轻松、更高效',
+            bg: require('~/static/img/assurance/assurancebanner.png')
+          }
+        ],
+        home: [
+          {
+            id: 1,
+            title: '浙江云盾助力企业快速上云',
+            path: '/pc',
+            btn: '了解产品',
+            info: 'Zhejiang yundun helps enterprises go to the cloud quickly',
+            bg: require('~/static/img/home/home_banner1.png')
+          },
+          {
+            id: 2,
+            title: '企业上云·智造未来',
+            path: '/pc',
+            btn: '参与活动',
+            info: '以品质为核心，打造高性价比产品与服务',
+            bg: require('~/static/img/home/home_banner2.png')
+          }
+        ],
+        time: null
       },
-      curList: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }],
+      bottomStyle: 'bottom:235px',
       curId: 1
     }
   },
+  mounted () {
+    // 获取数据
+    this.getBanner()
+    // 获取网站信息
+    this.getWebInfo()
+  },
+  beforeDestroy () {
+    clearInterval(this.time)
+  },
   methods: {
+    // 获取轮播图
+    getBanner () {
+      this.$api.home
+        .getBannerList({
+          'qp-bannerType-eq': 0,
+          sorter: 'desc'
+        })
+        .then((res) => {
+          // this.bannerData = [res.data.list]
+        })
+    },
+    // 获取网站信息
+    async getWebInfo () {
+      // 获取友情链接
+      const linksData = await this.$api.home.getFriendLink()
+      this.$store.dispatch('home/setFriendLinks', linksData.data?.list || [])
+      //   // 获取网站信息+公司信息
+      const webInfoData = await this.$api.home.getWebInfo()
+      const companyInfoData = await this.$api.home.getCompanyInfo()
+      let resultData = {}
+      const newArr = [
+        ...(webInfoData.data?.list || []),
+        ...(companyInfoData.data?.list || [])
+      ]
+      newArr.forEach((item) => {
+        resultData = { ...resultData, ...item }
+      })
+      this.$store.dispatch('home/setWebCompanyInfo', resultData)
+    },
     // 点击跳转
     handleClickJump (path) {
       if (!path) {
@@ -66,10 +141,16 @@ export default {
       }
       this.$router.push(path)
     },
-    // 轮播图跳转
-    change (id) {
-      this.curId = id
-      console.log(id)
+    // 定时器自动轮播
+    bannerTime () {
+      this.time = setInterval(() => {
+        this.nextBanner()
+      }, 3000)
+    },
+    // 轮播图切换
+    nextBanner () {
+      this.bannerIndex = this.bannerIndex === 1 ? 2 : 1
+      this.$refs.banner.next()
     }
   }
 }
@@ -82,60 +163,72 @@ export default {
     height: 80px;
     background: #192933;
   }
-  .banner {
-    width: 100%;
-    height: 657px;
-    background-size: cover !important;
-    .container {
-      padding-left: 10px;
-      padding-top: 115px;
-      color: #fff;
-      p:nth-child(1) {
-        font-size: 70px;
-        font-weight: 800;
-        text-align: center;
-        color: #fff;
-      }
-      p:nth-child(2) {
-        margin: 37px auto 115px;
-        text-align: center;
-        font-size: 20px;
-        color: #fff;
-        width: 1000px;
-      }
-      .btn {
-        width: 220px;
-        height: 60px;
-        background: url('~/static/img/programme/btnbanner.png') center no-repeat;
-        background-size: cover;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 0 auto;
-        font-size: 20px;
-        background-color: transparent;
-        a {
-          color: #fff;
+  .banner-wrap {
+    height: 576px;
+    position: relative;
+    .banner {
+      min-width: 1220px;
+      height: 100%;
+      position: relative;
+      .banner-item {
+        width: 100%;
+        height: 576px;
+        background-size: cover !important;
+        .banner-info-box {
+          position: relative;
+          height: 100%;
+          .banner-info {
+            position: absolute;
+            top: 116px;
+            left: 50%;
+            width: 100%;
+            transform: translateX(-50%);
+            color: #fff;
+            transition: all 0.8s;
+            h2 {
+              font-size: 70px;
+              font-weight: 800;
+              margin-bottom: 39px;
+              text-align: center;
+              color: #fff;
+            }
+            .info {
+              position: absolute;
+              left: 50%;
+              transform: translateX(-50%);
+              width: 1100px;
+              font-size: 20px;
+              text-align: center;
+              line-height: 32px;
+            }
+            .btn {
+              position: absolute;
+              left: 50%;
+              bottom: -100px;
+              transform: translateX(-50%);
+              font-size: 20px;
+              width: 220px;
+              height: 60px;
+              background: linear-gradient(169deg, #0b73f0, #2fb4ff);
+              border-radius: 30px;
+              line-height: 60px;
+              text-align: center;
+              cursor: pointer;
+              a {
+                width: 100%;
+                height: 100%;
+                color: #fff;
+              }
+            }
+          }
         }
       }
     }
   }
-  .list {
-    position: absolute;
-    display: flex;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    .lit {
-      cursor: pointer;
-      width: 24px;
-      height: 4px;
-      margin: 0 5px;
-      background: rgba(255, 255, 255, 0.5);
-    }
-    .white {
-      background-color: #fff;
-    }
-  }
+}
+</style>
+<style>
+.ant-carousel .slick-dots-bottom {
+  bottom: 30px;
 }
 </style>
