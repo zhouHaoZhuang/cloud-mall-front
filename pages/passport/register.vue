@@ -140,7 +140,7 @@
               v-else
               class="eye-icon"
               type="eye"
-              @click="changePwdShow('confirm', false)"
+              @click="changePwdShow('confirm', true)"
             />
           </div>
           <div class="info">
