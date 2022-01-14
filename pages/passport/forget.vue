@@ -10,6 +10,7 @@
             <Iconfont class="left-icon" type="icon-phone" />
             <input
               v-model="form.phone"
+              v-number-evolution
               maxlength="11"
               placeholder="请输入手机号码"
               @focus="
