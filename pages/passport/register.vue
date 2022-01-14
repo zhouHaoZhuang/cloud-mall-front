@@ -42,7 +42,7 @@
               v-model="form.code"
               v-number-evolution
               placeholder="请输入短信验证码"
-              :max-length="4"
+              :max-length="6"
               @focus="
                 codeEnter = true
                 codeStatus = 0
@@ -140,7 +140,7 @@
               v-else
               class="eye-icon"
               type="eye"
-              @click="changePwdShow('confirm', false)"
+              @click="changePwdShow('confirm', true)"
             />
           </div>
           <div class="info">
@@ -236,7 +236,7 @@ export default {
     },
     // 短信验证码失去焦点
     shortblurfns () {
-      if (this.form.code.length === 4) {
+      if (this.form.code.length === 6) {
         this.codeStatus = 2
       } else {
         this.codeStatus = 1
