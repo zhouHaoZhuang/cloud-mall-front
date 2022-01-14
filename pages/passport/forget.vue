@@ -40,7 +40,7 @@
             <input
               v-model="form.code"
               placeholder="请输入短信验证码"
-              maxlength="4"
+              maxlength="6"
               @focus="
                 codeEnter = true
                 codeStatus = 0
@@ -132,7 +132,7 @@
             </div>
           </div>
         </div>
-        <a-button class="btn" type="primary" @click="handleRegister">
+        <a-button class="btn" type="primary" @click="handleUpdatePwd">
           确认修改
         </a-button>
       </div>
@@ -172,9 +172,7 @@ export default {
       // 定时器id
       time: null,
       timeCount: 60,
-      codeTxt: '发送短信验证',
-      //   是否同意协议
-      isRead: false
+      codeTxt: '发送短信验证'
     }
   },
   methods: {
@@ -192,7 +190,7 @@ export default {
     },
     // 短信验证码失去焦点
     shortblurfns () {
-      if (this.form.code.length === 4) {
+      if (this.form.code.length === 6) {
         this.codeStatus = 2
       } else {
         this.codeStatus = 1
@@ -233,7 +231,6 @@ export default {
       }
       this.codeLoading = true
       this.$api.user.getCode({ receiver: this.form.phone }).then((res) => {
-        console.log(res)
         this.sendCodeTime()
       })
     },
@@ -252,7 +249,7 @@ export default {
       }, 1000)
     },
     // 修改密码
-    handleRegister () {
+    handleUpdatePwd () {
       if (this.phoneStatus !== 2) {
         this.$message.warning('请输入手机号')
         return
@@ -273,13 +270,9 @@ export default {
         this.$message.warning('两次输入的密码不一致')
         return
       }
-      if (!this.isRead) {
-        this.$message.warning('请勾选服务协议')
-        return
-      }
-      this.$api.user.register(this.form).then((res) => {
+      this.$api.user.forgetPwd(this.form).then((res) => {
         if (res.code === '000000') {
-          this.$message.success('注册成功，请重新登录')
+          this.$message.success('修改成功，请重新登录')
           this.$router.replace('/login-pc')
         } else {
           this.$message.warning(res.msg)
