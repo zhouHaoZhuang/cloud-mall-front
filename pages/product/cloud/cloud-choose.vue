@@ -524,7 +524,7 @@ export default {
   height: 310px;
   float: left;
   padding: 50px;
-  background: #ffffff;
+  background: #fff;
   border: 2px solid #edf2fa;
   margin-top: 30px;
   .adv-title {
@@ -533,7 +533,7 @@ export default {
     font-stretch: normal;
     line-height: 16px;
     letter-spacing: 0px;
-    color: #333333;
+    color: #fff;
     text-align: center;
     margin: 30px 0 20px;
   }
@@ -592,7 +592,7 @@ export default {
     justify-content: flex-start;
     width: 100%;
     height: 530px;
-    color: #ffffff;
+    color: #fff;
     .function-left {
       width: 380px;
       height: 530px;
@@ -630,7 +630,7 @@ export default {
           margin: 40px 0 20px 0;
           font-size: 24px;
           font-weight: 800;
-          color: #333333;
+          color: #fff;
         }
         .right-content {
           width: 100%;
@@ -694,7 +694,7 @@ export default {
         text-align: center;
         font-size: 24px;
         font-weight: 800;
-        color: #ffffff;
+        color: #fff;
         background: url(~/static/img/cloud/contrast-right-titlebg1.png)
           no-repeat center;
         background-size: cover;
@@ -764,8 +764,9 @@ export default {
       }
       .check {
         width: 210px;
-        color: #ffffff;
-        background: url(~/static/img/cloud/applicationcheck.png) no-repeat center;
+        color: #fff;
+        background: url(~/static/img/cloud/applicationcheck.png) no-repeat
+          center;
         background-size: cover;
       }
     }
@@ -809,7 +810,7 @@ export default {
         width: 180px;
         height: 60px;
         font-size: 24px;
-        color: #ffffff;
+        color: #fff;
         line-height: 60px;
         text-align: center;
         background-color: #fcac33;
@@ -843,7 +844,7 @@ export default {
         line-height: 80px;
         text-align-last: left;
         font-size: 24px;
-        color: #333333;
+        color: #fff;
       }
     }
     .question-list:nth-child(2) {

@@ -70,7 +70,7 @@ export default {
         justify-content: space-between;
         width: 580px;
         height: 220px;
-        background: #ffffff;
+        background: #fff;
         box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.06);
         .top-img {
           width: 220px;

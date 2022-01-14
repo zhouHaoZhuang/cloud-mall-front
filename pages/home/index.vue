@@ -4,7 +4,7 @@
     <Banner type="home" />
     <!-- 服务提供 -->
     <div class="service">
-      <div class="w">
+      <div class="about-container">
         <div class="title">
           <p class="title-top">
             浙江云盾为您提供高速、稳定、安全、弹性的云计算服务
@@ -24,12 +24,12 @@
             </div>
             <div class="service-content">
               <div
-                v-for="(it, ind) in item.content"
+                v-for="(ele, ind) in item.content"
                 :key="ind"
                 class="service-found"
               >
-                <span>{{ it.question }}</span>
-                <input type="text" :value="it.answer">
+                <span>{{ ele.question }}</span>
+                <input type="text" :value="ele.answer">
               </div>
             </div>
             <div class="service-footer">
@@ -41,7 +41,7 @@
     </div>
     <!-- 选择云盾 -->
     <div class="choice">
-      <div class="w">
+      <div class="about-container">
         <div class="title">
           <p class="title-top">
             为什么选择浙江云盾
@@ -102,7 +102,7 @@
     </div>
     <!-- 安全 -->
     <div class="safe">
-      <div class="w">
+      <div class="about-container">
         <div class="title">
           <p class="title-top">
             提供安全合规的云计算服务
@@ -128,7 +128,7 @@
     </div>
     <!-- 解决方案 -->
     <div class="solve">
-      <div class="w">
+      <div class="about-container">
         <div class="title">
           <p class="title-top">
             解决方案
@@ -141,7 +141,7 @@
     </div>
     <!-- 关于我们 -->
     <div class="about">
-      <div class="w">
+      <div class="about-container">
         <div class="container">
           <div class="content">
             <p class="about-title">
@@ -160,7 +160,7 @@
     </div>
     <!-- 新闻公告 -->
     <div class="news">
-      <div class="w">
+      <div class="about-container">
         <div class="n-title">
           <p class="title-top">
             新闻公告
@@ -414,8 +414,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// 版心
-.w {
+.about-container {
   width: 1220px;
   height: 100%;
   padding: 0;
@@ -435,7 +434,7 @@ export default {
     font-size: 36px;
     font-weight: bold;
     margin-bottom: 29px !important;
-    color: #333333;
+    color: #333;
   }
   .title-bottom {
     font-size: 16px;
@@ -457,7 +456,7 @@ export default {
       .lit {
         width: 292px;
         height: 429px;
-        background: #ffffff;
+        background: #fff;
         box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.06);
         .service-title {
           position: relative;
@@ -476,7 +475,7 @@ export default {
             text-align: center;
             font-size: 14px;
             font-weight: bold;
-            color: #ffffff;
+            color: #fff;
             text-shadow: 0px 3px 21px rgba(82, 106, 113, 0.78);
             background: url(~/static/img/home/home_service1.png) no-repeat;
             background-size: cover;
@@ -484,12 +483,12 @@ export default {
           p:nth-child(2) {
             font-size: 20px;
             font-weight: bold;
-            color: #ffffff;
+            color: #fff;
           }
           p:nth-child(3) {
             font-size: 14px;
             font-weight: 500;
-            color: #ffffff;
+            color: #fff;
           }
         }
         .service-content {
@@ -522,7 +521,7 @@ export default {
           text-align: center;
           font-size: 18px;
           font-weight: bold;
-          color: #ffffff;
+          color: #fff;
           background: #e8506e;
           box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.06);
         }
@@ -548,7 +547,7 @@ export default {
           height: 180px;
           font-size: 24px;
           font-weight: bold;
-          color: #ffffff;
+          color: #fff;
           line-height: 180px;
           text-align: center;
           transition: opacity 1s;
@@ -572,7 +571,7 @@ export default {
               height: 55px;
               font-size: 24px;
               font-weight: 500;
-              color: #ffffff;
+              color: #fff;
               line-height: 32px;
             }
             .btn {
@@ -580,10 +579,10 @@ export default {
               height: 38px;
               font-size: 14px;
               font-weight: 500;
-              color: #ffffff;
+              color: #fff;
               line-height: 38px;
               text-align: center;
-              border: 1px solid #ffffff;
+              border: 1px solid #fff;
             }
           }
           .right {
@@ -595,7 +594,7 @@ export default {
             background-color: #fff;
             font-size: 14px;
             font-weight: 500;
-            color: #333333;
+            color: #333;
             line-height: 28px;
           }
         }
@@ -615,7 +614,7 @@ export default {
           height: 180px;
           font-size: 24px;
           font-weight: bold;
-          color: #ffffff;
+          color: #fff;
           line-height: 180px;
           text-align: center;
           transition: opacity 1s;
@@ -639,7 +638,7 @@ export default {
               height: 55px;
               font-size: 24px;
               font-weight: 500;
-              color: #ffffff;
+              color: #fff;
               line-height: 32px;
             }
             .btn {
@@ -647,10 +646,10 @@ export default {
               height: 38px;
               font-size: 14px;
               font-weight: 500;
-              color: #ffffff;
+              color: #fff;
               line-height: 38px;
               text-align: center;
-              border: 1px solid #ffffff;
+              border: 1px solid #fff;
             }
           }
           .right {
@@ -662,7 +661,7 @@ export default {
             background-color: #fff;
             font-size: 14px;
             font-weight: 500;
-            color: #333333;
+            color: #333;
             line-height: 28px;
           }
         }
@@ -695,13 +694,13 @@ export default {
           }
         }
         .safe-bg:hover {
-          background: #ffffff;
+          background: #fff;
           box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.06);
         }
         .safe-content {
           font-size: 16px;
           font-weight: 500;
-          color: #333333;
+          color: #333;
         }
       }
     }
@@ -730,7 +729,7 @@ export default {
           margin-bottom: 40px;
           font-size: 36px;
           font-weight: bold;
-          color: #333333;
+          color: #333;
         }
         .about-content {
           width: 479px;
@@ -738,7 +737,7 @@ export default {
           font-size: 16px;
           font-family: PingFang SC;
           font-weight: 500;
-          color: #333333;
+          color: #333;
           margin-bottom: 50px;
           line-height: 30px;
         }
@@ -771,7 +770,7 @@ export default {
         font-size: 36px;
         font-weight: bold;
         margin-bottom: 29px !important;
-        color: #333333;
+        color: #333;
       }
     }
     .container {
@@ -791,7 +790,7 @@ export default {
           height: 23px;
           font-size: 24px;
           font-weight: 500;
-          color: #ffffff;
+          color: #fff;
           line-height: 32px;
           text-align: center;
           margin-top: 26px;
@@ -802,7 +801,7 @@ export default {
           text-align: center;
           font-size: 14px;
           font-weight: 500;
-          color: #ffffff;
+          color: #fff;
           line-height: 32px;
         }
         .news-con li {
@@ -814,7 +813,7 @@ export default {
           color: #dae2f2;
           p {
             position: relative;
-            color: #333333;
+            color: #333;
           }
           .news-time {
             position: absolute;

@@ -17,7 +17,6 @@
             class="banner-item"
             :style="`background: url(${item.bg}) no-repeat center`"
           >
-            <!-- @click="bannerJump(item, 'img')" -->
             <!-- info -->
             <div class="container banner-info-box">
               <div class="banner-info" :style="bottomStyle">
@@ -27,7 +26,6 @@
                 <div class="info">
                   {{ item.info }}
                 </div>
-                <!-- @click="bannerJump(item, 'btn')" -->
                 <div v-if="item.btn" class="btn">
                   <nuxt-link :to="item.path">
                     {{ item.btn }}
@@ -90,24 +88,52 @@ export default {
             info: '以品质为核心，打造高性价比产品与服务',
             bg: require('~/static/img/home/home_banner2.png')
           }
-        ]
+        ],
+        time: null
       },
       bottomStyle: 'bottom:235px',
       curId: 1
     }
   },
+  mounted () {
+    // 获取数据
+    this.getBanner()
+    // 获取网站信息
+    this.getWebInfo()
+  },
+  beforeDestroy () {
+    clearInterval(this.time)
+  },
   methods: {
-    // 轮播图+按钮点击跳转
-    // bannerJump (item, type) {
-    //   const path = type === 'btn' ? item.pcButtonLink : item.pictureLink
-    //   const newPath = path.includes('http') ? path : 'https://' + path
-    //   window.open(
-    //     newPath,
-    //     item.openLinkType === '' || item.openLinkType === '0'
-    //       ? '_blank'
-    //       : '_self'
-    //   )
-    // },
+    // 获取轮播图
+    getBanner () {
+      this.$api.home
+        .getBannerList({
+          'qp-bannerType-eq': 0,
+          sorter: 'desc'
+        })
+        .then((res) => {
+          // this.bannerData = [res.data.list]
+        })
+    },
+    // 获取网站信息
+    async getWebInfo () {
+      // 获取友情链接
+      const linksData = await this.$api.home.getFriendLink()
+      this.$store.dispatch('home/setFriendLinks', linksData.data?.list || [])
+      //   // 获取网站信息+公司信息
+      const webInfoData = await this.$api.home.getWebInfo()
+      const companyInfoData = await this.$api.home.getCompanyInfo()
+      let resultData = {}
+      const newArr = [
+        ...(webInfoData.data?.list || []),
+        ...(companyInfoData.data?.list || [])
+      ]
+      newArr.forEach((item) => {
+        resultData = { ...resultData, ...item }
+      })
+      this.$store.dispatch('home/setWebCompanyInfo', resultData)
+    },
     // 点击跳转
     handleClickJump (path) {
       if (!path) {

@@ -4,7 +4,7 @@
     <Banner type="assurance" />
     <!-- 优势 -->
     <div class="goodness">
-      <div class="w">
+      <div class="assurance-container">
         <div class="container">
           <div class="left">
             <p class="goodness-title">
@@ -31,7 +31,7 @@
     </div>
     <!-- 服务器安全护航 -->
     <div class="safe">
-      <div class="w">
+      <div class="assurance-container">
         <div class="title">
           <p class="title-top">
             服务器安全护航
@@ -55,7 +55,7 @@
     </div>
     <!-- 故障赔偿 -->
     <div class="error">
-      <div class="w">
+      <div class="assurance-container">
         <div class="title">
           <p class="title-top">
             100倍故障赔偿
@@ -80,7 +80,7 @@
     </div>
     <!-- 赔偿类型 -->
     <div class="type">
-      <div class="w">
+      <div class="assurance-container">
         <div class="title">
           <p class="title-top">
             赔偿类型
@@ -112,7 +112,7 @@
     </div>
     <!-- 无理由退款 -->
     <div class="refund">
-      <div class="w">
+      <div class="assurance-container">
         <div class="title">
           <p class="title-top">
             5天无理由退款
@@ -137,7 +137,7 @@
     </div>
     <!-- 退款常见问题 -->
     <div class="question">
-      <div class="w">
+      <div class="assurance-container">
         <div class="title">
           <p class="title-top">
             赔偿类型
@@ -187,7 +187,7 @@
     </div>
     <!-- 服务支持 -->
     <div class="support">
-      <div class="w">
+      <div class="assurance-container">
         <div class="title">
           <p class="title-top">
             7X24小时多渠道服务支持
@@ -354,8 +354,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// 版心
-.w {
+.assurance-container {
   width: 1220px;
   height: 100%;
   padding: 0;
@@ -373,7 +372,7 @@ export default {
     font-size: 36px;
     font-weight: bold;
     margin-bottom: 29px !important;
-    color: #333333;
+    color: #333;
   }
   .title-bottom {
     font-size: 16px;
@@ -402,7 +401,7 @@ export default {
           font-size: 36px;
           margin-top: 189px;
           font-weight: bold;
-          color: #333333;
+          color: #333;
         }
         .content {
           font-size: 16px;
@@ -535,7 +534,7 @@ export default {
           height: 64px;
           font-size: 24px;
           font-weight: bold;
-          color: #ffffff;
+          color: #fff;
           text-align: center;
           line-height: 64px;
         }
@@ -545,7 +544,7 @@ export default {
           margin: 35px auto;
           font-size: 14px;
           font-weight: 500;
-          color: #333333;
+          color: #333;
           line-height: 28px;
         }
       }
@@ -554,7 +553,7 @@ export default {
         height: 180px;
         font-size: 24px;
         font-weight: bold;
-        color: #ffffff;
+        color: #fff;
         line-height: 180px;
         text-align: center;
       }
@@ -658,7 +657,7 @@ export default {
         height: 48px;
         font-size: 24px;
         font-weight: bold;
-        color: #333333;
+        color: #333;
         margin-top: 40px;
         margin-left: 48px;
         margin-bottom: 30px;
@@ -667,7 +666,7 @@ export default {
           height: 48px;
           margin-right: 15px;
           display: inline-block;
-          background: #ffffff;
+          background: #fff;
           vertical-align: middle;
           box-shadow: 0px 0px 30px 0px rgba(15, 47, 87, 0.06);
           background: url(~/static/img/assurance/assrancequestion.png) no-repeat;
@@ -691,7 +690,7 @@ export default {
         align-items: center;
         width: 380px;
         height: 260px;
-        background: #ffffff;
+        background: #fff;
         border: 2px solid #edf2fa;
         .support-icon {
           width: 70px;
@@ -704,7 +703,7 @@ export default {
         .support-title {
           font-size: 24px;
           font-weight: 800;
-          color: #333333;
+          color: #333;
         }
         .support-line {
           width: 30px;
