@@ -3,15 +3,29 @@
     <!-- 占位div -->
     <div class="seize" />
     <!-- 轮播图 -->
-    <div class="img">
-      <a-carousel :after-change="onChange">
-        <div>
-          <h3>1</h3>
+    <div
+      class="banner"
+      :style="`background:url(${bannerData[type].bg}) no-repeat center`"
+    >
+      <div class="container">
+        <p>{{ bannerData[type].title }}</p>
+        <p class="info">
+          {{ bannerData[type].info }}
+        </p>
+        <div v-if="bannerData[type].path" class="btn">
+          <nuxt-link :to="bannerData[type].path">
+            立即选购
+          </nuxt-link>
         </div>
-        <div><h3>2</h3></div>
-        <div><h3>3</h3></div>
-        <div><h3>4</h3></div>
-      </a-carousel>
+      </div>
+    </div>
+    <div class="list">
+      <div
+        v-for="item in curList"
+        :key="item.id"
+        :class="curId === item.id ? 'lit white' : 'lit'"
+        @click="change(item.id)"
+      />
     </div>
   </div>
 </template>
@@ -45,8 +59,17 @@ export default {
     }
   },
   methods: {
-    onChange (a, b, c) {
-      console.log(a, b, c)
+    // 点击跳转
+    handleClickJump (path) {
+      if (!path) {
+        return
+      }
+      this.$router.push(path)
+    },
+    // 轮播图跳转
+    change (id) {
+      this.curId = id
+      console.log(id)
     }
   }
 }
@@ -54,26 +77,66 @@ export default {
 
 <style lang="scss" scoped>
 .banner-container {
+  position: relative;
   .seize {
     height: 80px;
     background: #192933;
   }
-  .img {
+  .banner {
     width: 100%;
     height: 657px;
-    background: red;
     background-size: cover !important;
-    .ant-carousel >>> .slick-slide {
-      text-align: center;
-      height: 160px;
-      line-height: 160px;
-      background: #364d79;
-      overflow: hidden;
-    }
-
-    .ant-carousel >>> .slick-slide h3 {
+    .container {
+      padding-left: 10px;
+      padding-top: 115px;
       color: #fff;
+      p:nth-child(1) {
+        font-size: 70px;
+        font-weight: 800;
+        text-align: center;
+        color: #fff;
+      }
+      p:nth-child(2) {
+        margin: 37px auto 115px;
+        text-align: center;
+        font-size: 20px;
+        color: #fff;
+        width: 1000px;
+      }
+      .btn {
+        width: 220px;
+        height: 60px;
+        background: url('~/static/img/programme/btnbanner.png') center no-repeat;
+        background-size: cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        font-size: 20px;
+        background-color: transparent;
+        a {
+          color: #fff;
+        }
+      }
+    }
+  }
+  .list {
+    position: absolute;
+    display: flex;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    .lit {
+      cursor: pointer;
+      width: 24px;
+      height: 4px;
+      margin: 0 5px;
+      background: rgba(255, 255, 255, 0.5);
+    }
+    .white {
+      background-color: #fff;
     }
   }
 }
 </style>
+
