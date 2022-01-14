@@ -42,7 +42,7 @@
               v-model="form.code"
               v-number-evolution
               placeholder="请输入短信验证码"
-              :max-length="4"
+              :max-length="6"
               @focus="
                 codeEnter = true
                 codeStatus = 0
