@@ -60,7 +60,10 @@
               <div class="info-txt">
                 免费赠送
                 <span class="strong"> I/O优化 </span>
-                <Iconfont class="info-icon" type="icon-a-youxi1" />
+                <img
+                  class="info-icon"
+                  src="../../../static/img/cloud/gift.png"
+                >
               </div>
             </div>
           </div>
@@ -107,7 +110,10 @@
               <div class="info-txt">
                 系统盘免费赠送
                 <span class="strong"> 40G </span>
-                <Iconfont class="info-icon" type="icon-a-youxi1" />
+                <img
+                  class="info-icon"
+                  src="../../../static/img/cloud/gift.png"
+                >
               </div>
             </div>
           </div>
@@ -532,7 +538,9 @@ export default {
         priceUnit: 'Month', // 购买时长单位
         autoRenew: 0, // 自动续费
         amount: 1, // 购买数量
-        tradePrice: '0.00' // 服务器金额
+        tradePrice: '0.00', // 服务器金额
+        // 产品编码-从导航云服务点击进来，每个产品都有自己的编码-暂时写死
+        productCode: 'P211214000003'
       }
       // 查询服务器价格
       const priceData = await app.$api.cloud.getCloudPrice(form)
@@ -732,6 +740,8 @@ export default {
       this.$api.cloud
         .getCloudPrice({
           ...this.form,
+          // 产品编码-从导航云服务点击进来，每个产品都有自己的编码-暂时写死
+          productCode: 'P211214000003',
           // 处理时间，判断是年还是月
           ...this.setBuyTimeData(this.form.period)
         })
@@ -776,6 +786,8 @@ export default {
             this.form.cpu = this.cpuData[0]?.value
             this.getDisk()
           } else {
+            this.$message.warning('该地域/内存/CPU下没有实例')
+            this.form.tradePrice = '---'
             this.memoryData = []
           }
         })
@@ -870,7 +882,7 @@ export default {
       this.systemEditionList = this.systemList[val].map((item) => {
         return { ...item }
       })
-      this.form.osName = val
+      this.form.osName = this.systemEditionList[0].OSName
       this.form.imageId = this.systemEditionList[0].imageId
       this.handleChangeGetPrice()
     },
@@ -898,6 +910,10 @@ export default {
       }
       // 处理时间，判断是年还是月
       const time = this.setBuyTimeData(this.form.period)
+      // 获取镜像名称
+      const osName = this.systemEditionList.find(
+        ele => ele.imageId === this.form.imageId
+      ).OSName
       // 处理购买时后端所需要数据
       const newForm = {
         // 兼容后期可能一次性购买多个
@@ -914,6 +930,7 @@ export default {
         // 询价时所用参数
         productConfig: {
           ...this.form,
+          osName,
           // 处理时间，判断是年还是月
           ...time
         },
@@ -1053,8 +1070,8 @@ export default {
               font-weight: 700;
             }
             .info-icon {
-              font-size: 20px;
-              margin-left: 5px;
+              margin-left: 6px;
+              margin-top: -3px;
             }
           }
           .selection-ssd {

@@ -8,16 +8,17 @@
         <div class="item">
           <div class="input-box">
             <Iconfont class="left-icon" type="icon-phone" />
-            <input
+            <a-input
               v-model="form.phone"
-              maxlength="11"
+              v-number-evolution
+              :max-length="11"
               placeholder="请输入手机号码"
               @focus="
                 phoneEnter = true
                 phoneStatus = 0
               "
               @blur="phoneblurfns"
-            >
+            />
           </div>
           <div class="info">
             <div v-if="phoneStatus === 0" class="info-item">
@@ -37,16 +38,17 @@
         <div class="item short">
           <div class="input-box">
             <Iconfont class="left-icon" type="icon-code" />
-            <input
+            <a-input
               v-model="form.code"
+              v-number-evolution
               placeholder="请输入短信验证码"
-              maxlength="4"
+              :max-length="6"
               @focus="
                 codeEnter = true
                 codeStatus = 0
               "
               @blur="shortblurfns"
-            >
+            />
           </div>
           <div class="info">
             <div v-if="codeStatus === 0" class="info-item">
@@ -75,17 +77,29 @@
         <div class="item">
           <div class="input-box">
             <Iconfont class="left-icon" type="icon-lock" />
-            <input
+            <a-input
               v-model="form.password"
+              :type="!passwordType ? 'text' : 'password'"
               placeholder="请输入重置密码"
-              type="password"
-              maxlength="20"
+              :max-length="20"
               @focus="
                 pwdEnter = true
                 pwdStatus = 0
               "
               @blur="setpswdblurfns"
-            >
+            />
+            <a-icon
+              v-if="passwordType"
+              class="eye-icon"
+              type="eye-invisible"
+              @click="changePwdShow('pwd', false)"
+            />
+            <a-icon
+              v-else
+              class="eye-icon"
+              type="eye"
+              @click="changePwdShow('pwd', true)"
+            />
           </div>
           <div class="info">
             <div v-if="pwdStatus === 0" class="info-item">
@@ -105,17 +119,29 @@
         <div class="item">
           <div class="input-box">
             <Iconfont class="left-icon" type="icon-lock" />
-            <input
+            <a-input
               v-model="form.confrimPassword"
+              :type="!confirmPwdType ? 'text' : 'password'"
               placeholder="请再次填写密码"
-              type="password"
-              maxlength="20"
+              :max-length="20"
               @focus="
                 confirmPwdEnter = true
                 confirmPwdStatus = 0
               "
               @blur="confirmpswdblurfns"
-            >
+            />
+            <a-icon
+              v-if="confirmPwdType"
+              class="eye-icon"
+              type="eye-invisible"
+              @click="changePwdShow('confirm', false)"
+            />
+            <a-icon
+              v-else
+              class="eye-icon"
+              type="eye"
+              @click="changePwdShow('confirm', true)"
+            />
           </div>
           <div class="info">
             <div v-if="confirmPwdStatus === 0" class="info-item">
@@ -132,7 +158,7 @@
             </div>
           </div>
         </div>
-        <a-button class="btn" type="primary" @click="handleRegister">
+        <a-button class="btn" type="primary" @click="handleUpdatePwd">
           确认修改
         </a-button>
       </div>
@@ -173,8 +199,8 @@ export default {
       time: null,
       timeCount: 60,
       codeTxt: '发送短信验证',
-      //   是否同意协议
-      isRead: false
+      passwordType: true,
+      confirmPwdType: true
     }
   },
   methods: {
@@ -192,7 +218,7 @@ export default {
     },
     // 短信验证码失去焦点
     shortblurfns () {
-      if (this.form.code.length === 4) {
+      if (this.form.code.length === 6) {
         this.codeStatus = 2
       } else {
         this.codeStatus = 1
@@ -233,7 +259,6 @@ export default {
       }
       this.codeLoading = true
       this.$api.user.getCode({ receiver: this.form.phone }).then((res) => {
-        console.log(res)
         this.sendCodeTime()
       })
     },
@@ -251,8 +276,16 @@ export default {
         this.codeTxt = this.timeCount + '秒后重新发送'
       }, 1000)
     },
-    // 注册
-    handleRegister () {
+    // 切换是否展示明文密码
+    changePwdShow (type, flag) {
+      if (type === 'pwd') {
+        this.passwordType = flag
+      } else {
+        this.confirmPwdType = flag
+      }
+    },
+    // 修改密码
+    handleUpdatePwd () {
       if (this.phoneStatus !== 2) {
         this.$message.warning('请输入手机号')
         return
@@ -273,13 +306,9 @@ export default {
         this.$message.warning('两次输入的密码不一致')
         return
       }
-      if (!this.isRead) {
-        this.$message.warning('请勾选服务协议')
-        return
-      }
-      this.$api.user.register(this.form).then((res) => {
+      this.$api.user.forgetPwd(this.form).then((res) => {
         if (res.code === '000000') {
-          this.$message.success('注册成功，请重新登录')
+          this.$message.success('修改成功，请重新登录')
           this.$router.replace('/login-pc')
         } else {
           this.$message.warning(res.msg)
@@ -306,6 +335,21 @@ export default {
     text-align: center;
     font-weight: 500;
   }
+  .ant-input {
+    border: none !important;
+    height: 33px;
+    padding-left: 20px;
+    color: #000;
+  }
+  .ant-input:focus {
+    border: none !important;
+    box-shadow: none;
+  }
+  .eye-icon {
+    font-size: 16px;
+    margin-right: 20px;
+    cursor: pointer;
+  }
   .register {
     width: 900px;
     height: 650px;
@@ -327,16 +371,6 @@ export default {
           .left-icon {
             font-size: 22px;
             margin-left: 15px;
-          }
-          input {
-            border: 0;
-            width: 278px;
-            height: 33px;
-            padding-left: 20px;
-            color: #000;
-          }
-          input:focus {
-            outline: 0;
           }
         }
         .info {

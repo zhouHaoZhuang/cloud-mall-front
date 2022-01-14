@@ -129,12 +129,12 @@
                 <h1 @click="getDetail(item.id)">
                   {{ item.newTypeName }}
                 </h1>
-                <div class="news-time">
+                <!-- <div class="news-time">
                   最新
                 </div>
                 <div class="news-trends">
                   公司动态
-                </div>
+                </div> -->
               </div>
               <div class="newstab-about">
                 {{
@@ -147,38 +147,43 @@
                   <a-icon type="clock-circle" class="icon" />
                   {{ item.newsPublishTime }}
                 </div>
-                <div class="attilude">
+                <!-- <div class="attilude">
                   <a-icon type="like" class="icon" />
                   256
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
         </div>
         <!-- 分页功能 -->
-        <div class="pagination">
+        <div v-show="!newsDetail" class="pagination">
           <a-pagination
             v-model="current"
             :hide-on-single-page="true"
             :total="50"
             :page-size="pageSize"
-            @change="pageChange(current, pageSize)"
+            @change="pageChange(current, pageSize, firstCode)"
           />
         </div>
         <!-- 新闻公告详情部分 -->
         <div v-if="newsDetail" class="news-content">
           <div class="news-title">
             <a-icon type="left" @click="backContent()" />
-            9月23日 - 24日 | 邀请函：第八届食品接触材料安全风险交流与创新大会
+            {{ newsDetail.newsTitle }}
           </div>
           <div class="news-name">
-            <span class="left">最新</span>
+            <!-- <span class="left">最新</span> -->
             <span
               class="right"
-            >发布时间：2020-10-20 | 技术文章 | 作者：EHS | 访问次数：177</span>
+            >发布时间：{{ newsDetail.newsPublishTime }} | 作者：{{
+              newsDetail.createUserName
+            }}</span>
           </div>
           <div class="news-cont">
-            <p>
+            <div v-html="newsDetail.context">
+              {{ newsDetail.context }}
+            </div>
+            <!-- <p>
               穿越千年时光，开封的宋都古城韵味犹存。作为开封古城区传统风貌保存最完整、面积规模最大的历史文化街区，双龙巷历史文化街区是保护与延续开封古都文化最理想的空间载体，如何合理保护利用？双龙巷文化旅游发展有限公司负责人刘涛涛告诉记者，“我们采用‘保护+微更新’管理模式，详细指导古城每一寸土地的保护、开发和利用2018年，开封市编制施行《开封宋都古城保护与修缮规划》。在总体保护框架要求下，面积共计64.7公顷的3个历史文化街区采用“保护+文旅”模式，坚持保护为主、修旧如旧原则，对各级文保单位、历史建筑等全方位保护；并大力发展文化产业，打造宋文化品牌IP，为宋都古城产业转型升级提供优质场所。
             </p>
             <p>
@@ -196,7 +201,7 @@
             </p>
             <p>
               穿越千年时光，开封的宋都古城韵味犹存。作为开封古城区传统风貌保存最完整、面积规模最大的历史文化街区，双龙巷历史文化街区是保护与延续开封古都文化最理想的空间载体，如何合理保护利用？双龙巷文化旅游发展有限公司负责人刘涛涛告诉记者，“我们采用‘保护+微更新’管理模式，详细指导古城每一寸土地的保护、开发和利用2018年，开封市编制施行《开封宋都古城保护与修缮规划》。在总体保护框架要求下，面积共计64.7公顷的3个历史文化街区采用“保护+文旅”模式，坚持保护为主、修旧如旧原则，对各级文保单位、历史建筑等全方位保护；并大力发展文化产业，打造宋文化品牌IP，为宋都古城产业转型升级提供优质场所。
-            </p>
+            </p> -->
           </div>
         </div>
       </div>
@@ -324,28 +329,28 @@ export default {
       currentPage: 1,
       pageSize: 999
     })
-    console.log('data12345', typeData)
-    let code = ''
-    if (typeData.data.list.length > 0) {
-      code = typeData.data.list[0].newTypeCode
-    }
+    console.log('data12345', typeData.data.list)
+    const typeCode = typeData.data.list[0].newTypeCode
     // 获取新闻信息
     const detailData = await app.$api.news.getNews({
       currentPage: 1,
       pageSize: 999,
-      newTypeCode: code
+      newTypeCode: typeCode
     })
     return {
       companypages: newsData.data.list,
       newtabsList: typeData.data.list,
-      newsList: detailData.data.list
+      newsList: detailData.data.list,
+      firstCode: typeData.data.list[0].newTypeCode
     }
   },
   data () {
     return {
       tabList: ['公司简介', '新闻公告', '法律声明', '友情链接'],
-      newtabsList: ['最新'],
+      newtabsList: [],
+      firstCode: '',
       newsList: [],
+      newsDetail: [],
       tabSelectIndex: 0,
       newsDetail: false,
       newsTabSelectIndex: 0,
@@ -400,7 +405,8 @@ export default {
     // 新闻公告tab选择
     onChangeNewTabs (ind, item) {
       this.newsTabSelectIndex = ind
-      this.getNewsListInfo(item)
+      this.getNewsListInfo(1, 999, item)
+      this.firstCode = item
     },
     // 点击复制
     handleCopy (type) {
@@ -439,29 +445,31 @@ export default {
       console.log('newtabsList', this.newtabsList)
     },
     // 获取新闻类别信息
-    async getNewsListInfo (current, pageSize, id) {
+    async getNewsListInfo (current, pageSize, code) {
+      console.log(current, pageSize, code)
       const newsData = await this.$api.news.getNews({
         currentPage: current || 1,
         pageSize: pageSize || 8,
-        newTypeCode: id || '123'
+        newTypeCode: code
       })
-      this.newsList = newsData.data.list
-      console.log('getAllNewsList', this.newsList)
+      console.log('getAllNewsList', newsData)
+      this.newsList = newsData.data.list || []
     },
     // 进入详情页面
     async getDetail (id) {
       this.newsDetail = true
       const newData = await this.$api.news.getOneNews(id)
-      console.log('getOneNews', newData)
+      this.newsDetail = newData.data
+      console.log('getOneNews', this.newsDetail)
     },
     // 回退新闻内容页面
     backContent () {
       this.newsDetail = false
     },
     // 页码功能
-    pageChange (current, pageSize) {
-      this.getNewsListInfo(current, pageSize)
-      console.log('current', current, pageSize)
+    pageChange (current, pageSize, code) {
+      this.getNewsListInfo(current, pageSize, code)
+      console.log('current', current, pageSize, code)
     }
   }
 }
@@ -496,7 +504,7 @@ export default {
         border-radius: 30px;
         font-size: 20px;
         font-weight: 500;
-        color: #ffffff;
+        color: #fff;
       }
       p:nth-child(1) {
         font-size: 36px;
@@ -563,7 +571,7 @@ export default {
       font-size: 36px;
       font-family: PingFang SC;
       font-weight: bold;
-      color: #333333;
+      color: #333;
     }
     .introduce {
       height: 1200px;
@@ -629,7 +637,7 @@ export default {
                 .title {
                   font-size: 16px;
                   font-weight: 500;
-                  color: #333333;
+                  color: #333;
                 }
               }
             }
@@ -688,7 +696,7 @@ export default {
               h1 {
                 font-size: 16px;
                 font-weight: bold;
-                color: #333333;
+                color: #333;
                 line-height: 30px;
                 cursor: pointer;
               }
@@ -698,7 +706,7 @@ export default {
                 width: 40px;
                 height: 18px;
                 line-height: 18px;
-                background: #ffffff;
+                background: #fff;
                 border: 1px solid #1d7aec;
                 border-radius: 8px;
               }
@@ -740,7 +748,7 @@ export default {
         .news-title {
           font-size: 24px;
           font-weight: 500;
-          color: #333333;
+          color: #333;
           margin-bottom: 20px;
         }
         .news-name {
@@ -796,7 +804,7 @@ export default {
           width: 200px;
           height: 76px;
           margin-right: 30px;
-          background: #ffffff;
+          background: #fff;
           box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.06);
           img {
             width: 100%;

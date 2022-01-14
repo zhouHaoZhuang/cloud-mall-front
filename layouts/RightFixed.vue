@@ -232,11 +232,13 @@ export default {
     }
   }
   .item:nth-child(4) {
+    display: none;
     .img {
       background-position: -85px 0;
     }
   }
   .item:nth-child(5) {
+    display: none;
     .img {
       background-position: -116px 0;
     }

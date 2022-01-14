@@ -78,7 +78,8 @@ export default {
     ...mapState({
       autoLogin: state => state.user.loginForm.autoLogin,
       isLogin: state => state.user.isLogin,
-      loginForm: state => state.user.loginForm
+      loginForm: state => state.user.loginForm,
+      redirectPath: state => state.user.redirectPath
     })
   },
   watch: {
@@ -118,7 +119,13 @@ export default {
           this.$cookies.set('token', res.data.token)
           // 设置是否自动登录
           this.$store.dispatch('user/setAutoLogin', form)
-          this.$router.replace('/')
+          // 判断是否有需要重定向的地址
+          if (this.redirectPath) {
+            this.$router.replace(this.redirectPath)
+            this.$store.commit('user/saveRedirectPath', '')
+          } else {
+            this.$router.replace('/')
+          }
         } else {
           this.$message.warning(res.msg)
         }

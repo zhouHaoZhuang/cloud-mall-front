@@ -454,8 +454,9 @@ export default {
       hoverIndex: -1,
       headerItemData: {},
       hoverStyle: '',
-      logoUrl: null
-      // listAll: null
+      logoUrl: null,
+      whiteList: ['/login-pc', '/pc/register', '/pc/forget']
+
     }
   },
   computed: {
@@ -481,9 +482,11 @@ export default {
     },
     // 点击跳转
     handleClickJump (path) {
-      console.log(path)
       if (!path) {
         return
+      }
+      if (!this.whiteList.includes(this.$route.path)) {
+        this.$store.commit('user/saveRedirectPath', this.$route.path)
       }
       this.$router.push(path)
     },
