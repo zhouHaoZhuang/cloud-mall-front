@@ -388,7 +388,24 @@ export default {
     return {
       time: null,
       bannerIndex: 1,
-      bannerData: [],
+      bannerData: [
+        {
+          id: 1,
+          pcPicture: require('~/static/img/cloud/cloudbg.png'),
+          title: '1',
+          describe: '111',
+          pcButtonName: '1234',
+          display: true
+        },
+        {
+          id: 2,
+          pcPicture: require('~/static/img/assurance/assurancebanner.png'),
+          title: '2',
+          describe: '222',
+          pcButtonName: '2222',
+          display: true
+        }
+      ],
       bottomStyle: 'bottom:235px',
       entranceList: [
         {
