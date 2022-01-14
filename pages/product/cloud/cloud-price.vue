@@ -786,6 +786,8 @@ export default {
             this.form.cpu = this.cpuData[0]?.value
             this.getDisk()
           } else {
+            this.$message.warning('该地域/内存/CPU下没有实例')
+            this.form.tradePrice = '---'
             this.memoryData = []
           }
         })
