@@ -251,7 +251,7 @@ export default {
         this.codeTxt = this.timeCount + '秒后重新发送'
       }, 1000)
     },
-    // 注册
+    // 修改密码
     handleRegister () {
       if (this.phoneStatus !== 2) {
         this.$message.warning('请输入手机号')
