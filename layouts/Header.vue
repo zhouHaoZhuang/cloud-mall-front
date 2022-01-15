@@ -563,7 +563,7 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 0 24px;
+        padding: 0 20px;
         overflow: hidden;
         cursor: pointer;
         box-sizing: border-box;
