@@ -12,10 +12,10 @@
           :autoplay="true"
         >
           <div
-            v-for="item in bannerData[type]"
+            v-for="item in bannerData[type.typeName]"
             :key="item.id"
             class="banner-item"
-            :style="`background: url(${item.bg}) no-repeat center`"
+            :style="`background: url(${item.pcPicture}) no-repeat center`"
           >
             <!-- info -->
             <div class="container banner-info-box">
@@ -24,11 +24,11 @@
                   {{ item.title }}
                 </h2>
                 <div class="info">
-                  {{ item.info }}
+                  {{ item.describe }}
                 </div>
-                <div v-if="item.btn" class="btn">
-                  <nuxt-link :to="item.path">
-                    {{ item.btn }}
+                <div v-if="item.pcButtonName" class="btn">
+                  <nuxt-link :to="item.pcButtonLink">
+                    {{ item.pcButtonName }}
                   </nuxt-link>
                 </div>
               </div>
@@ -45,7 +45,7 @@ export default {
   components: {},
   props: {
     type: {
-      type: String,
+      type: Object,
       default: 'choose'
     }
   },
@@ -56,37 +56,40 @@ export default {
           {
             id: 1,
             title: '弹性云服务器',
-            path: '/pc/cloud-price',
-            btn: '立即选购',
-            info: '浙江云盾服务器配备纯SSD架构打造的高性能存储，旨在为用户提供优质、高效、弹性伸缠的云计算服务。云服务器采用由数据切片技术构建的三层存储功能，切实保护客户数据的安全。同时可弹性扩展的资源用量，为客户业务在高峰期的赎畅保驾护航;灵活多样的计费方式，为客户最大程度的节省IT运营成本，提高资源的有效利用率。',
-            bg: require('~/static/img/cloud/cloudbg.png')
+            pcButtonLink: '/pc/cloud-price',
+            pcButtonName: '立即选购',
+            describe:
+              '浙江云盾服务器配备纯SSD架构打造的高性能存储，旨在为用户提供优质、高效、弹性伸缠的云计算服务。云服务器采用由数据切片技术构建的三层存储功能，切实保护客户数据的安全。同时可弹性扩展的资源用量，为客户业务在高峰期的赎畅保驾护航;灵活多样的计费方式，为客户最大程度的节省IT运营成本，提高资源的有效利用率。',
+            pcPicture: require('~/static/img/cloud/cloudbg.png')
           }
         ],
         assurance: [
           {
             id: 1,
             title: '百分服务，助您上云无忧 ',
-            path: '/pc/cloud-price',
-            info: '百分服务,助您上云无忧匠心打造完整的VIP会员服务体系，为国内国际用户提供多种服务支持和服务保障让用户尊享售后服务，让云端部署更轻松、更高效',
-            bg: require('~/static/img/assurance/assurancebanner.png')
+            pcButtonLink: '/pc/cloud-price',
+            describe:
+              '百分服务,助您上云无忧匠心打造完整的VIP会员服务体系，为国内国际用户提供多种服务支持和服务保障让用户尊享售后服务，让云端部署更轻松、更高效',
+            pcPicture: require('~/static/img/assurance/assurancebanner.png')
           }
         ],
         home: [
           {
             id: 1,
             title: '浙江云盾助力企业快速上云',
-            path: '/pc',
-            btn: '了解产品',
-            info: 'Zhejiang yundun helps enterprises go to the cloud quickly',
-            bg: require('~/static/img/home/home_banner1.png')
+            pcButtonLink: '/pc',
+            pcButtonName: '了解产品',
+            describe:
+              'Zhejiang yundun helps enterprises go to the cloud quickly',
+            pcPicture: require('~/static/img/home/home_banner1.png')
           },
           {
             id: 2,
             title: '企业上云·智造未来',
-            path: '/pc',
-            btn: '参与活动',
-            info: '以品质为核心，打造高性价比产品与服务',
-            bg: require('~/static/img/home/home_banner2.png')
+            pcButtonLink: '/pc',
+            pcButtonName: '参与活动',
+            describe: '以品质为核心，打造高性价比产品与服务',
+            pcPicture: require('~/static/img/home/home_banner2.png')
           }
         ],
         time: null
@@ -109,11 +112,12 @@ export default {
     getBanner () {
       this.$api.home
         .getBannerList({
-          'qp-bannerType-eq': 0,
+          'qp-bannerType-eq': this.type.typeId,
           sorter: 'desc'
         })
         .then((res) => {
-          // this.bannerData = [res.data.list]
+          console.log('lunbotu', res)
+          // this.bannerData[this.type.typeName] = res.data.list
         })
     },
     // 获取网站信息
@@ -121,7 +125,7 @@ export default {
       // 获取友情链接
       const linksData = await this.$api.home.getFriendLink()
       this.$store.dispatch('home/setFriendLinks', linksData.data?.list || [])
-      //   // 获取网站信息+公司信息
+      // 获取网站信息+公司信息
       const webInfoData = await this.$api.home.getWebInfo()
       const companyInfoData = await this.$api.home.getCompanyInfo()
       let resultData = {}

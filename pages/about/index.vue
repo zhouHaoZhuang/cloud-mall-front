@@ -123,11 +123,11 @@
         <!-- 新闻公告主体部分 -->
         <div v-if="!newsDetail" class="newstabs-content">
           <div v-for="item in newsList" :key="item.id" class="newstabs-items">
-            <div class="img" />
+            <!-- <div class="img" /> -->
             <div class="newstab-title">
               <div class="newstab-header">
                 <h1 @click="getDetail(item.id)">
-                  {{ item.newTypeName }}
+                  {{ item.newsTitle }}
                 </h1>
                 <!-- <div class="news-time">
                   最新
@@ -145,7 +145,7 @@
               <div class="newstab-footer">
                 <div class="time">
                   <a-icon type="clock-circle" class="icon" />
-                  {{ item.newsPublishTime }}
+                  {{ item.newsPublishTime.replace('T', ' ') }}
                 </div>
                 <!-- <div class="attilude">
                   <a-icon type="like" class="icon" />
@@ -160,7 +160,7 @@
           <a-pagination
             v-model="current"
             :hide-on-single-page="true"
-            :total="50"
+            :total="total"
             :page-size="pageSize"
             @change="pageChange(current, pageSize, firstCode)"
           />
@@ -331,7 +331,7 @@ export default {
     })
     console.log('data12345', typeData.data.list)
     const typeCode = typeData.data.list[0].newTypeCode
-    // 获取新闻信息
+    // 获取新闻类别信息
     const detailData = await app.$api.news.getNews({
       currentPage: 1,
       pageSize: 999,
@@ -341,7 +341,8 @@ export default {
       companypages: newsData.data.list,
       newtabsList: typeData.data.list,
       newsList: detailData.data.list,
-      firstCode: typeData.data.list[0].newTypeCode
+      firstCode: typeData.data.list[0].newTypeCode,
+      total: Number(detailData.data.totalCount)
     }
   },
   data () {
@@ -380,7 +381,8 @@ export default {
       loading: false,
       companypages: [],
       current: 1,
-      pageSize: 8
+      pageSize: 8,
+      total: 0
     }
   },
   computed: {
@@ -397,6 +399,10 @@ export default {
       }
     }
   },
+  mounted () {
+    this.getWebInfo()
+    console.log('1273941278916598', this.friendLinks)
+  },
   methods: {
     // tab选择
     onChangeTab (index) {
@@ -407,6 +413,7 @@ export default {
       this.newsTabSelectIndex = ind
       this.getNewsListInfo(1, 999, item)
       this.firstCode = item
+      this.current = 1
     },
     // 点击复制
     handleCopy (type) {
@@ -454,13 +461,18 @@ export default {
       })
       console.log('getAllNewsList', newsData)
       this.newsList = newsData.data.list || []
+      this.total = Number(newsData.data.totalCount) || 0
     },
     // 进入详情页面
     async getDetail (id) {
       this.newsDetail = true
       const newData = await this.$api.news.getOneNews(id)
       this.newsDetail = newData.data
-      console.log('getOneNews', this.newsDetail)
+      this.newsDetail.newsPublishTime = this.newsDetail.newsPublishTime.replace(
+        'T',
+        ' '
+      )
+      console.log('newsDetail', this.newsDetail)
     },
     // 回退新闻内容页面
     backContent () {
@@ -470,6 +482,11 @@ export default {
     pageChange (current, pageSize, code) {
       this.getNewsListInfo(current, pageSize, code)
       console.log('current', current, pageSize, code)
+    },
+    // 获取友情链接
+    async getWebInfo () {
+      const linksData = await this.$api.home.getFriendLink()
+      this.$store.dispatch('home/setFriendLinks', linksData.data?.list || [])
     }
   }
 }

@@ -2,7 +2,7 @@
   <!-- 弹性云服务器 -->
   <div class="cloud">
     <!-- 轮播图 -->
-    <Banner type="choose" />
+    <Banner :type="{ typeName: 'choose', typeId: 1 }" />
     <!-- 产品优势 -->
     <div class="goodness-module auto">
       <p class="title">
@@ -403,7 +403,10 @@
           </div>
         </div>
         <div class="question-btn">
-          <a href=":;javaScript">更多</a>
+          <nuxt-link to="/pc/help/helpInfo">
+            更多
+          </nuxt-link>
+          <!-- <a href=":;javaScript">更多</a> -->
         </div>
       </div>
     </div>
@@ -844,7 +847,7 @@ export default {
         line-height: 80px;
         text-align-last: left;
         font-size: 24px;
-        color: #fff;
+        color: #333;
       }
     }
     .question-list:nth-child(2) {
@@ -861,6 +864,11 @@ export default {
     margin: 0 auto;
     color: #1d7aec;
     background-color: #e8f1fd;
+    a {
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+    }
   }
 }
 </style>

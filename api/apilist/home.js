@@ -34,5 +34,14 @@ export default axios => ({
         ...params
       }
     })
+  },
+  // 获取新闻公告信息
+  getNewsTypeInfo (params) {
+    return axios({
+      url: '/ccNewsType/partNews',
+      params: {
+        ...params
+      }
+    })
   }
 })

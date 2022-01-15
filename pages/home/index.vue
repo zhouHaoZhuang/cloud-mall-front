@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <!-- 轮播图 -->
-    <Banner type="home" />
+    <Banner :type="{ typeName: 'home', typeId: 0 }" />
     <!-- 服务提供 -->
     <div class="service">
       <div class="about-container">
@@ -137,6 +137,29 @@
             根据行业特性，为您提供高可用、安全的解决方案
           </p>
         </div>
+        <div class="swiper-container">
+          <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+              <div
+                v-for="(item, index) in solveList"
+                :key="index"
+                :class="`swiper-slide slide-${item.id}`"
+              >
+                <div class="slide-cover">
+                  <div class="slide-icon">
+                    <Iconfont :type="item.type" />
+                  </div>
+                  <div class="slide-line" />
+                  <div class="slide-title">
+                    {{ item.title }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-button-next" />
+            <div class="swiper-button-prev" />
+          </div>
+        </div>
       </div>
     </div>
     <!-- 关于我们 -->
@@ -152,7 +175,9 @@
               ,面向全球客户提供基于云计算的IT解决方案与客户服务，拥有丰富的国内BGP、双线高防、香港等优质的IDC资源。
             </p>
             <div class="about-btn">
-              了解更多 →
+              <nuxt-link to="/pc/about/index?tab=0">
+                了解更多 →
+              </nuxt-link>
             </div>
           </div>
         </div>
@@ -173,7 +198,7 @@
               :style="`background:url(${item.bg}) no-repeat center`"
             >
               <div class="news-title">
-                {{ item.title }}
+                {{ item.newTypeName }}
               </div>
               <div class="news-mark">
                 {{ item.mark }}
@@ -181,9 +206,10 @@
             </div>
             <div class="news-con">
               <ul>
-                <li v-for="(it, ind) in item.content" :key="ind">
+                <li v-for="(ele, ind) in item.ccNewsResDtos" :key="ind">
                   <p>
-                    {{ it.con }} <span class="news-time">{{ it.time }}</span>
+                    {{ ele.newsTitle }}
+                    <span class="news-time">{{ ele.modifyTime }}</span>
                   </p>
                 </li>
               </ul>
@@ -191,7 +217,9 @@
           </div>
         </div>
         <div class="news-footer">
-          查看更多 →
+          <nuxt-link to="/pc/about/index?tab=1">
+            查看更多 →
+          </nuxt-link>
         </div>
       </div>
     </div>
@@ -199,6 +227,10 @@
 </template>
 
 <script>
+import Swiper from '../../node_modules/swiper/swiper-bundle'
+
+// Import Swiper styles
+import '../../node_modules/swiper/swiper-bundle.min.css'
 import Banner from '~/components/product/banner.vue'
 export default {
   components: { Banner },
@@ -331,41 +363,41 @@ export default {
       newsList: [
         {
           bg: require('~/static/img/home/home_news1.png'),
-          title: '官方公告',
+          newTypeName: '官方公告',
           mark: '了解官方最新动态',
-          content: [
-            { con: '了解最新资讯了解最新资讯...', time: '2021-10-10' },
-            { con: '了解最新资讯了解最新资讯...', time: '2021-10-10' },
-            { con: '了解最新资讯了解最新资讯...', time: '2021-10-10' },
-            { con: '了解最新资讯了解最新资讯...', time: '2021-10-10' },
-            { con: '了解最新资讯了解最新资讯...', time: '2021-10-10' },
-            { con: '了解最新资讯了解最新资讯...', time: '2021-10-10' }
+          ccNewsResDtos: [
+            { newsTitle: '了解最新资讯了解最新资讯...', modifyTime: '2021-10-10' },
+            { newsTitle: '了解最新资讯了解最新资讯...', modifyTime: '2021-10-10' },
+            { newsTitle: '了解最新资讯了解最新资讯...', modifyTime: '2021-10-10' },
+            { newsTitle: '了解最新资讯了解最新资讯...', modifyTime: '2021-10-10' },
+            { newsTitle: '了解最新资讯了解最新资讯...', modifyTime: '2021-10-10' },
+            { newsTitle: '了解最新资讯了解最新资讯...', modifyTime: '2021-10-10' }
           ]
         },
         {
           bg: require('~/static/img/home/home_news2.png'),
-          title: '最新活动',
+          newTypeName: '最新活动',
           mark: '最新活动等你来抢',
-          content: [
-            { con: '了解最新资讯了解最新资讯...', time: '2021-10-10' },
-            { con: '了解最新资讯了解最新资讯...', time: '2021-10-10' },
-            { con: '了解最新资讯了解最新资讯...', time: '2021-10-10' },
-            { con: '了解最新资讯了解最新资讯...', time: '2021-10-10' },
-            { con: '了解最新资讯了解最新资讯...', time: '2021-10-10' },
-            { con: '了解最新资讯了解最新资讯...', time: '2021-10-10' }
+          ccNewsResDtos: [
+            { newsTitle: '了解最新资讯了解最新资讯...', modifyTime: '2021-10-10' },
+            { newsTitle: '了解最新资讯了解最新资讯...', modifyTime: '2021-10-10' },
+            { newsTitle: '了解最新资讯了解最新资讯...', modifyTime: '2021-10-10' },
+            { newsTitle: '了解最新资讯了解最新资讯...', modifyTime: '2021-10-10' },
+            { newsTitle: '了解最新资讯了解最新资讯...', modifyTime: '2021-10-10' },
+            { newsTitle: '了解最新资讯了解最新资讯...', modifyTime: '2021-10-10' }
           ]
         },
         {
           bg: require('~/static/img/home/home_news3.png'),
-          title: '业内新闻',
+          newTypeName: '业内新闻',
           mark: '了解最新业内资讯',
-          content: [
-            { con: '了解最新资讯了解最新资讯...', time: '2021-10-10' },
-            { con: '了解最新资讯了解最新资讯...', time: '2021-10-10' },
-            { con: '了解最新资讯了解最新资讯...', time: '2021-10-10' },
-            { con: '了解最新资讯了解最新资讯...', time: '2021-10-10' },
-            { con: '了解最新资讯了解最新资讯...', time: '2021-10-10' },
-            { con: '了解最新资讯了解最新资讯...', time: '2021-10-10' }
+          ccNewsResDtos: [
+            { newsTitle: '了解最新资讯了解最新资讯...', modifyTime: '2021-10-10' },
+            { newsTitle: '了解最新资讯了解最新资讯...', modifyTime: '2021-10-10' },
+            { newsTitle: '了解最新资讯了解最新资讯...', modifyTime: '2021-10-10' },
+            { newsTitle: '了解最新资讯了解最新资讯...', modifyTime: '2021-10-10' },
+            { newsTitle: '了解最新资讯了解最新资讯...', modifyTime: '2021-10-10' },
+            { newsTitle: '了解最新资讯了解最新资讯...', modifyTime: '2021-10-10' }
           ]
         }
       ],
@@ -407,7 +439,69 @@ export default {
           content:
             '专业的售后工程师团队未您提供7*24*365技术服务，保障产品的无忧使用和业务的稳定运行'
         }
+      ],
+      solveList: [
+        {
+          id: 'one',
+          title: '网站云解决方案',
+          type: 'icon-wangzhan',
+          path: '/pc/programme/website'
+        },
+        {
+          id: 'two',
+          title: '电商云解决方案',
+          type: 'icon-a-gouwuche1',
+          path: '/pc/programme/online'
+        },
+        {
+          id: 'three',
+          title: '游戏云解决方案',
+          type: 'icon-a-youxi1',
+          path: '/pc/programme/game'
+        },
+        {
+          id: 'four',
+          title: '移动云解决方案',
+          type: 'icon-a-shouji13',
+          path: '/pc/programme/move'
+        },
+        {
+          id: 'five',
+          title: '金融云解决方案',
+          type: 'icon-xianxingduosejinrong',
+          path: '/pc/programme/finance'
+        }
       ]
+    }
+  },
+  mounted () {
+    this.getNewsListInfo()
+    this.initSwiper()
+  },
+  methods: {
+    // 获取新闻公告信息
+    async getNewsListInfo () {
+      const newsData = await this.$api.home.getNewsTypeInfo({
+        pageSize: '3'
+      })
+      console.log('新闻公告信息', newsData)
+      // this.newsList = newsData.data.list
+      console.log(this.newsList,'wdiohfuahkjfhbskjhf');
+    },
+    // 解决方案轮播
+    initSwiper () {
+      this.swiper = new Swiper('.mySwiper', {
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
+        },
+        observer: true,
+        observeParents: true,
+        loop: true, // 循环模式选项
+        slidesPerView: 3.8, // 设置slider容器能够同时显示的slides数量(carousel模式)。
+        spaceBetween: -160, // 在slide之间设置距离（单位px）。
+        centeredSlides: true // 设置活动块居中
+      })
     }
   }
 }
@@ -709,6 +803,110 @@ export default {
   .solve {
     width: 100%;
     height: 670px;
+    .swiper-container {
+      .mySwiper {
+        .swiper-wrapper {
+          .swiper-slide {
+            position: relative;
+            text-align: center;
+            width: 360px;
+            height: 460px;
+            transition: 300ms;
+            transform: scale(0.6);
+            background-size: cover !important;
+            .slide-cover {
+              position: absolute;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              top: 0px;
+              left: 0px;
+              width: 440px;
+              height: 460px;
+              background: #292e33;
+              opacity: 0.7;
+              .slide-icon {
+                font-size: 80px;
+                color: #fff;
+                margin-bottom: 20px;
+              }
+              .slide-line {
+                width: 30px;
+                height: 4px;
+                background: #fff;
+                border-radius: 2px;
+                margin-bottom: 50px;
+              }
+              .slide-title {
+                font-size: 24px;
+                font-weight: bold;
+                color: #fff;
+              }
+            }
+          }
+          .slide-one {
+            background: url(~/static/img/home/home_solve3.png) no-repeat center;
+          }
+          .slide-two {
+            background: url(~/static/img/home/home_solve4.png) no-repeat center;
+          }
+          .slide-three {
+            background: url(~/static/img/home/home_solve5.png) no-repeat center;
+          }
+          .slide-four {
+            background: url(~/static/img/home/home_solve1.png) no-repeat center;
+          }
+          .slide-five {
+            background: url(~/static/img/home/home_solve2.png) no-repeat center;
+          }
+          .swiper-slide-active,
+          .swiper-slide-duplicate-active {
+            transform: scale(1);
+            .slide-cover {
+              position: absolute;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              top: 0px;
+              left: 0px;
+              width: 440px;
+              height: 460px;
+              background: #0f6de9;
+              opacity: 0.7;
+              .slide-icon {
+                font-size: 80px;
+                color: #fff;
+                margin-bottom: 20px;
+              }
+              .slide-line {
+                width: 30px;
+                height: 4px;
+                background: #fff;
+                border-radius: 2px;
+                margin-bottom: 50px;
+              }
+              .slide-title {
+                font-size: 24px;
+                font-weight: bold;
+                color: #fff;
+              }
+            }
+          }
+          .swiper-slide-next {
+            transform: scale(0.8);
+            z-index: 998 !important;
+          }
+          .swiper-slide-prev {
+            transform: scale(0.8);
+          }
+          .swiper-slide-active {
+            z-index: 999 !important;
+          }
+        }
+      }
+    }
   }
   // 关于我们
   .about {
@@ -836,5 +1034,17 @@ export default {
       text-align: center;
     }
   }
+}
+</style>
+<style>
+.swiper-button-prev {
+  color: #ccc;
+  width: 10px;
+  height: 20px;
+}
+.swiper-button-next {
+  color: #ccc;
+  width: 10px;
+  height: 20px;
 }
 </style>

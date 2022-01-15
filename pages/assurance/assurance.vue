@@ -1,7 +1,7 @@
 <template>
   <div class="assurance">
     <!-- 轮播图 -->
-    <Banner type="assurance" />
+    <Banner :type="{ typeName: 'assurance', typeId: 0 }" />
     <!-- 优势 -->
     <div class="goodness">
       <div class="assurance-container">
