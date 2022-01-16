@@ -11,7 +11,7 @@
             <div v-if="item.hot" class="hot-img" />
             <div v-if="item.new" class="new-img" />
           </div>
-          <span class="info">{{ item.info }}</span>
+          <!-- <span class="info">{{ item.info }}</span> -->
         </a>
       </div>
     </div>
@@ -35,8 +35,9 @@ export default {
 
 <style lang="scss" scoped="scoped">
 .header-item {
-  width: 23.5%;
+  // width: 15%;
   margin-left: 2%;
+  // border: 1px solid #59ff2f;
   color: #fff;
   .top-title {
     height: 16px;
@@ -47,9 +48,9 @@ export default {
     .item {
       width: 100%;
       margin-bottom: 16px;
-      background: #2b3033;
-      padding: 16px;
-      border: 1px solid #2b3033;
+      // background: #2b3033;
+      // padding: 16px;
+      // border: 1px solid #2b3033;
       a {
         display: block;
         width: 100%;
@@ -85,9 +86,9 @@ export default {
     }
     .item:hover {
       a {
-        color: #059fff;
+        color: #ffffff;
       }
-      border: 1px solid #059fff;
+      border-bottom: 1px solid #fafafa;
       .info {
         color: #059fff;
       }
