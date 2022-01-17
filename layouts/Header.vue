@@ -412,7 +412,7 @@ export default {
         },
         {
           title: '关于我们',
-          path: '',
+          path: '/pc/about/index',
           children: [
             {
               title: '关于我们',
