@@ -135,7 +135,7 @@ export default {
         },
         {
           title: '产品',
-          path: '',
+          path: '/pc/cloud-choose',
           children: [
             {
               title: '云计算',
@@ -412,7 +412,7 @@ export default {
         },
         {
           title: '关于我们',
-          path: '',
+          path: '/pc/about/index?tab=0',
           children: [
             {
               title: '关于我们',
@@ -767,7 +767,7 @@ export default {
   }
 }
 .layout-header:hover {
-  background-color: #2b3033;
+  // background-color: #2b3033;
   border-bottom-color: transparent;
 }
 </style>
