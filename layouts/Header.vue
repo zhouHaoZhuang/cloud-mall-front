@@ -741,7 +741,7 @@ export default {
   }
 }
 .layout-header:hover {
-  background-color: #2b3033;
+  // background-color: #2b3033;
   border-bottom-color: transparent;
 }
 </style>

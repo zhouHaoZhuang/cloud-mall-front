@@ -17,10 +17,10 @@
           <div v-for="(item, index) in serviceList" :key="index" class="lit">
             <div class="service-title">
               <div class="service-bg">
-                入门型
+                {{ item.tip }}
               </div>
-              <p>2核2G云服务器</p>
-              <p>适用小型企业官网或者个人站长</p>
+              <p>{{ item.title }}</p>
+              <p>{{ item.describe }}</p>
             </div>
             <div class="service-content">
               <div
@@ -28,8 +28,13 @@
                 :key="ind"
                 class="service-found"
               >
-                <span>{{ ele.question }}</span>
-                <input type="text" :value="ele.answer">
+                <div class="service-que">
+                  {{ ele.question }}
+                </div>
+                <div class="service-text">
+                  {{ ele.answer }}
+                </div>
+                <!-- <input type="text" :value="ele.answer"> -->
               </div>
             </div>
             <div class="service-footer">
@@ -153,6 +158,14 @@
                   <div class="slide-title">
                     {{ item.title }}
                   </div>
+                  <div class="slide-content">
+                    {{ item.content }}
+                  </div>
+                  <div class="slide-btn">
+                    <nuxt-link :to="item.path">
+                      <a-icon type="right-circle" />
+                    </nuxt-link>
+                  </div>
                 </div>
               </div>
             </div>
@@ -195,7 +208,7 @@
           <div v-for="(item, index) in newsList" :key="index" class="lit">
             <div
               class="news-bg"
-              :style="`background:url(${item.bg}) no-repeat center`"
+              :style="`background:url(${require(`~/static/img/home/home_news${index}.png`)}) no-repeat center`"
             >
               <div class="news-title">
                 {{ item.newTypeName }}
@@ -209,7 +222,9 @@
                 <li v-for="(ele, ind) in item.ccNewsResDtos" :key="ind">
                   <p>
                     {{ ele.newsTitle }}
-                    <span class="news-time">{{ ele.modifyTime }}</span>
+                    <span class="news-time">{{
+                      ele.modifyTime.substring(0, 10)
+                    }}</span>
                   </p>
                 </li>
               </ul>
@@ -232,104 +247,93 @@ import Swiper from '../../node_modules/swiper/swiper-bundle'
 // Import Swiper styles
 import '../../node_modules/swiper/swiper-bundle.min.css'
 import Banner from '~/components/product/banner.vue'
+
 export default {
   components: { Banner },
   data () {
     return {
       serviceList: [
         {
+          tip: '入门型',
+          title: '1核1G云服务器',
+          describe: '适用小型企业官网或者个人站长',
           content: [
             {
               question: '地域',
-              answer: '中国大连'
+              answer: '中国北京'
             },
             {
               question: '宽带',
-              answer: '5M'
+              answer: '1M'
+            },
+            // {
+            //   question: '默认防护',
+            //   answer: '5/20G'
+            // },
+            {
+              question: '时长',
+              answer: '1个月'
+            }
+            // {
+            //   question: '价格',
+            //   answer: '￥81.7'
+            // }
+          ]
+        },
+        {
+          tip: '进阶型',
+          title: '2核4G云服务器',
+          describe: '适用地方与行业门户网站',
+          content: [
+            {
+              question: '地域',
+              answer: '中国北京'
             },
             {
-              question: '默认防护',
-              answer: '5/20G'
+              question: '宽带',
+              answer: '1M'
             },
             {
               question: '时长',
-              answer: '一个月'
-            },
-            {
-              question: '价格',
-              answer: '￥81.7'
+              answer: '1个月'
             }
           ]
         },
         {
+          tip: '专业型',
+          title: '4核8G云服务器',
+          describe: '适用网上商城、团购网',
           content: [
             {
               question: '地域',
-              answer: '中国大连'
+              answer: '中国北京'
             },
             {
               question: '宽带',
-              answer: '5M'
-            },
-            {
-              question: '默认防护',
-              answer: '5/20G'
+              answer: '1M'
             },
             {
               question: '时长',
-              answer: '一个月'
-            },
-            {
-              question: '价格',
-              answer: '￥81.7'
+              answer: '1个月'
             }
           ]
         },
         {
+          tip: '理想型',
+          title: '8核16G云服务器',
+          describe: '适用社区、网络游戏等其他高端服务',
           content: [
             {
               question: '地域',
-              answer: '中国大连'
+              answer: '中国北京'
             },
             {
               question: '宽带',
-              answer: '5M'
-            },
-            {
-              question: '默认防护',
-              answer: '5/20G'
+              answer: '1M'
             },
             {
               question: '时长',
-              answer: '一个月'
-            },
-            {
-              question: '价格',
-              answer: '￥81.7'
-            }
-          ]
-        },
-        {
-          content: [
-            {
-              question: '地域',
-              answer: '中国大连'
-            },
-            {
-              question: '宽带',
-              answer: '5M'
-            },
-            {
-              question: '默认防护',
-              answer: '5/20G'
-            },
-            {
-              question: '时长',
-              answer: '一个月'
-            },
-            {
-              question: '价格',
-              answer: '￥81.7'
+              answer: '1个月'
             }
           ]
         }
@@ -362,42 +366,93 @@ export default {
       ],
       newsList: [
         {
-          bg: require('~/static/img/home/home_news1.png'),
           newTypeName: '官方公告',
           mark: '了解官方最新动态',
           ccNewsResDtos: [
-            { newsTitle: '了解最新资讯了解最新资讯...', modifyTime: '2021-10-10' },
-            { newsTitle: '了解最新资讯了解最新资讯...', modifyTime: '2021-10-10' },
-            { newsTitle: '了解最新资讯了解最新资讯...', modifyTime: '2021-10-10' },
-            { newsTitle: '了解最新资讯了解最新资讯...', modifyTime: '2021-10-10' },
-            { newsTitle: '了解最新资讯了解最新资讯...', modifyTime: '2021-10-10' },
-            { newsTitle: '了解最新资讯了解最新资讯...', modifyTime: '2021-10-10' }
+            {
+              newsTitle: '了解最新资讯了解最新资讯...',
+              modifyTime: '2021-10-10'
+            },
+            {
+              newsTitle: '了解最新资讯了解最新资讯...',
+              modifyTime: '2021-10-10'
+            },
+            {
+              newsTitle: '了解最新资讯了解最新资讯...',
+              modifyTime: '2021-10-10'
+            },
+            {
+              newsTitle: '了解最新资讯了解最新资讯...',
+              modifyTime: '2021-10-10'
+            },
+            {
+              newsTitle: '了解最新资讯了解最新资讯...',
+              modifyTime: '2021-10-10'
+            },
+            {
+              newsTitle: '了解最新资讯了解最新资讯...',
+              modifyTime: '2021-10-10'
+            }
           ]
         },
         {
-          bg: require('~/static/img/home/home_news2.png'),
           newTypeName: '最新活动',
           mark: '最新活动等你来抢',
           ccNewsResDtos: [
-            { newsTitle: '了解最新资讯了解最新资讯...', modifyTime: '2021-10-10' },
-            { newsTitle: '了解最新资讯了解最新资讯...', modifyTime: '2021-10-10' },
-            { newsTitle: '了解最新资讯了解最新资讯...', modifyTime: '2021-10-10' },
-            { newsTitle: '了解最新资讯了解最新资讯...', modifyTime: '2021-10-10' },
-            { newsTitle: '了解最新资讯了解最新资讯...', modifyTime: '2021-10-10' },
-            { newsTitle: '了解最新资讯了解最新资讯...', modifyTime: '2021-10-10' }
+            {
+              newsTitle: '了解最新资讯了解最新资讯...',
+              modifyTime: '2021-10-10'
+            },
+            {
+              newsTitle: '了解最新资讯了解最新资讯...',
+              modifyTime: '2021-10-10'
+            },
+            {
+              newsTitle: '了解最新资讯了解最新资讯...',
+              modifyTime: '2021-10-10'
+            },
+            {
+              newsTitle: '了解最新资讯了解最新资讯...',
+              modifyTime: '2021-10-10'
+            },
+            {
+              newsTitle: '了解最新资讯了解最新资讯...',
+              modifyTime: '2021-10-10'
+            },
+            {
+              newsTitle: '了解最新资讯了解最新资讯...',
+              modifyTime: '2021-10-10'
+            }
           ]
         },
         {
-          bg: require('~/static/img/home/home_news3.png'),
           newTypeName: '业内新闻',
           mark: '了解最新业内资讯',
           ccNewsResDtos: [
-            { newsTitle: '了解最新资讯了解最新资讯...', modifyTime: '2021-10-10' },
-            { newsTitle: '了解最新资讯了解最新资讯...', modifyTime: '2021-10-10' },
-            { newsTitle: '了解最新资讯了解最新资讯...', modifyTime: '2021-10-10' },
-            { newsTitle: '了解最新资讯了解最新资讯...', modifyTime: '2021-10-10' },
-            { newsTitle: '了解最新资讯了解最新资讯...', modifyTime: '2021-10-10' },
-            { newsTitle: '了解最新资讯了解最新资讯...', modifyTime: '2021-10-10' }
+            {
+              newsTitle: '了解最新资讯了解最新资讯...',
+              modifyTime: '2021-10-10'
+            },
+            {
+              newsTitle: '了解最新资讯了解最新资讯...',
+              modifyTime: '2021-10-10'
+            },
+            {
+              newsTitle: '了解最新资讯了解最新资讯...',
+              modifyTime: '2021-10-10'
+            },
+            {
+              newsTitle: '了解最新资讯了解最新资讯...',
+              modifyTime: '2021-10-10'
+            },
+            {
+              newsTitle: '了解最新资讯了解最新资讯...',
+              modifyTime: '2021-10-10'
+            },
+            {
+              newsTitle: '了解最新资讯了解最新资讯...',
+              modifyTime: '2021-10-10'
+            }
           ]
         }
       ],
@@ -445,31 +500,41 @@ export default {
           id: 'one',
           title: '网站云解决方案',
           type: 'icon-wangzhan',
-          path: '/pc/programme/website'
+          path: '/pc/programme/website',
+          content:
+            '网站云为企业及开发者提供灵活弹性自动化的基础IT设施建设、按需付费的服务模式及成本的运维服务体系，帮助客户转型，推动企业核心业务创新发展。'
         },
         {
           id: 'two',
           title: '电商云解决方案',
           type: 'icon-a-gouwuche1',
-          path: '/pc/programme/online'
+          path: '/pc/programme/online',
+          content:
+            '电商云帮助电商客户快速实现平台搭建、节约成本、应对业务高并发、强化安全防护能力，助力电商客户快速实现金融创新及业务增收的目标。'
         },
         {
           id: 'three',
           title: '游戏云解决方案',
           type: 'icon-a-youxi1',
-          path: '/pc/programme/game'
+          path: '/pc/programme/game',
+          content:
+            '游戏云为客户游戏开发、游戏运营提供专属服务集群；多场景多类型的游戏部署解决方案，同时提供尊贵VIP售后服务，为客户游戏稳定运行提供基石。'
         },
         {
           id: 'four',
           title: '移动云解决方案',
           type: 'icon-a-shouji13',
-          path: '/pc/programme/move'
+          path: '/pc/programme/move',
+          content:
+            '移动云应用虚拟化系统为客户提供最佳的应用性能及灵活的应用虚拟化服务，帮助客户实现手机、平板电脑等移动设备安全顺畅地访问服务器上各种应用软件。'
         },
         {
           id: 'five',
           title: '金融云解决方案',
           type: 'icon-xianxingduosejinrong',
-          path: '/pc/programme/finance'
+          path: '/pc/programme/finance',
+          content:
+            '金融云为客户提供量身定制的云计算服务，IT硬件零投入，云设施运维零维护，高品质保障的售后服务机制，帮助金融用户高效应用云计算服务，是您互联网转型的首选。'
         }
       ]
     }
@@ -485,8 +550,8 @@ export default {
         pageSize: '3'
       })
       console.log('新闻公告信息', newsData)
-      // this.newsList = newsData.data.list
-      console.log(this.newsList,'wdiohfuahkjfhbskjhf');
+      this.newsList = newsData.data.list
+      console.log(this.newsList, 'wdiohfuahkjfhbskjhf')
     },
     // 解决方案轮播
     initSwiper () {
@@ -542,14 +607,14 @@ export default {
   // 服务提供
   .service {
     width: 100%;
-    height: 759px;
+    height: 659px;
     overflow: hidden;
     .container {
       display: flex;
       justify-content: space-between;
       .lit {
         width: 292px;
-        height: 429px;
+        height: 329px;
         background: #fff;
         box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.06);
         .service-title {
@@ -587,21 +652,24 @@ export default {
         }
         .service-content {
           width: 292px;
-          height: 259px;
+          height: 159px;
           padding-top: 10px;
           padding-left: 24px;
           .service-found {
+            display: flex;
             font-size: 14px;
             font-weight: 500;
             margin-top: 10px;
             color: #778699;
-            span {
+            .service-que {
               display: inline-block;
               width: 80px;
             }
-            input {
+            .service-text {
               width: 175px;
               height: 34px;
+              line-height: 34px;
+              text-align: center;
               outline: none;
               border: 1px solid #eeeeee;
               border-radius: 4px;
@@ -843,6 +911,21 @@ export default {
                 font-weight: bold;
                 color: #fff;
               }
+              .slide-content {
+                display: none;
+                width: 268px;
+                font-size: 14px;
+                text-align: left;
+                font-weight: 500;
+                color: #fff;
+                line-height: 28px;
+              }
+              .slide-btn {
+                display: none;
+                width: 40px;
+                height: 40px;
+                margin-top: 37px;
+              }
             }
           }
           .slide-one {
@@ -867,7 +950,7 @@ export default {
               position: absolute;
               display: flex;
               flex-direction: column;
-              justify-content: center;
+              justify-content: left;
               align-items: center;
               top: 0px;
               left: 0px;
@@ -881,6 +964,7 @@ export default {
                 margin-bottom: 20px;
               }
               .slide-line {
+                display: none;
                 width: 30px;
                 height: 4px;
                 background: #fff;
@@ -891,6 +975,26 @@ export default {
                 font-size: 24px;
                 font-weight: bold;
                 color: #fff;
+                margin-bottom: 38px;
+              }
+              .slide-content {
+                display: block;
+                width: 268px;
+                font-size: 14px;
+                text-align: left;
+                font-weight: 500;
+                color: #fff;
+                line-height: 28px;
+              }
+              .slide-btn {
+                display: block;
+                width: 40px;
+                height: 40px;
+                margin-top: 18px;
+                font-size: 40px;
+                a {
+                  color: #fff;
+                }
               }
             }
           }
