@@ -1,7 +1,5 @@
 <template>
   <div class="banner-container">
-    <!-- 占位div -->
-    <div class="seize" />
     <!-- 轮播图 -->
     <div class="banner-wrap">
       <div class="banner">
@@ -77,7 +75,7 @@ export default {
           {
             id: 1,
             title: '浙江云盾助力企业快速上云',
-            pcButtonLink: '/pc',
+            pcButtonLink: '/pc/cloud-choose',
             pcButtonName: '了解产品',
             describe:
               'Zhejiang yundun helps enterprises go to the cloud quickly',
@@ -163,10 +161,6 @@ export default {
 <style lang="scss" scoped>
 .banner-container {
   position: relative;
-  .seize {
-    height: 80px;
-    background: #192933;
-  }
   .banner-wrap {
     height: 576px;
     position: relative;

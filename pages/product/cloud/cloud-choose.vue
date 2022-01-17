@@ -369,10 +369,17 @@
           <div class="application-right">
             <div
               v-for="(item, index) in contents"
+              v-show="curId === item.id"
               :key="index"
               class="application-list"
             >
-              {{ item.title }}:{{ item.content }}
+              <div
+                v-for="(ele, ind) in item.text"
+                :key="ind"
+                class="application-items"
+              >
+                {{ ele.title }}:{{ ele.content }}
+              </div>
             </div>
             <div class="application-btn">
               立即购买
@@ -461,12 +468,42 @@ export default {
         }
       ],
       contents: [
-        { title: 'CPU', content: '2核' },
-        { title: '内存', content: '8G' },
-        { title: '宽带', content: '5M' },
-        { title: '默认防护', content: '5/20G' },
-        { title: '时长', content: '5/20G' },
-        { title: '价格', content: '￥81.70' }
+        {
+          id: 1,
+          text: [
+            { title: 'CPU', content: '1核' },
+            { title: '内存', content: '2G' },
+            { title: '宽带', content: '1M' },
+            { title: '时长', content: '1个月' }
+          ]
+        },
+        {
+          id: 2,
+          text: [
+            { title: 'CPU', content: '2核' },
+            { title: '内存', content: '4G' },
+            { title: '宽带', content: '1M' },
+            { title: '时长', content: '1个月' }
+          ]
+        },
+        {
+          id: 3,
+          text: [
+            { title: 'CPU', content: '4核' },
+            { title: '内存', content: '8G' },
+            { title: '宽带', content: '1M' },
+            { title: '时长', content: '1个月' }
+          ]
+        },
+        {
+          id: 4,
+          text: [
+            { title: 'CPU', content: '8核' },
+            { title: '内存', content: '16G' },
+            { title: '宽带', content: '1M' },
+            { title: '时长', content: '1个月' }
+          ]
+        }
       ],
       question: [
         {
@@ -791,20 +828,22 @@ export default {
       }
     }
     .application-right {
-      display: flex;
-      flex-wrap: wrap;
-      align-content: flex-start;
       position: relative;
       width: 346px;
       height: 100%;
-      padding: 30px 20px 0px 20px;
+      padding: 30px 30px 0px 30px;
       background: url(~/static/img/cloud/applicationlist.png) no-repeat center;
       background-size: cover;
       .application-list {
-        width: 150px;
-        height: 40px;
-        font-size: 20px;
-        color: #fff;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        .application-items {
+          width: 140px;
+          height: 40px;
+          font-size: 20px;
+          color: #fff;
+        }
       }
       .application-btn {
         position: absolute;
