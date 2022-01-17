@@ -5,8 +5,7 @@ export default {
     host: '0.0.0.0'
   },
   env: {
-    NODE_ENV: process.env.NODE_ENV,
-    BASE_URL: process.env.BASE_URL
+    NODE_ENV: process.env.NODE_ENV
   },
   head: {
     title: 'ydidc-mall',

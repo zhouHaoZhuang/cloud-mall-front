@@ -3,7 +3,7 @@
     <div class="container header-box">
       <!-- logo -->
       <div class="logo" @click="handleClickJump('/pc')">
-        <img width="104px" :src="logoUrl" alt="">
+        <img width="104px" style="margin-right: 100px" :src="logoUrl" alt="">
         <!-- <h1>浙江云盾</h1> -->
       </div>
       <!-- nav -->
@@ -12,9 +12,9 @@
           v-for="(item, index) in navList"
           :key="index"
           class="item"
+          @mouseenter="mouseEnter(index, item.show)"
+          @mouseleave="mouseLeave"
         >
-          <!-- @mouseenter="mouseEnter(index)"
-          @mouseleave="mouseLeave" -->
           <nuxt-link v-if="item.path" class="jump" :to="item.path">
             <div class="title-wrap">
               {{ item.title }}
@@ -48,6 +48,7 @@
                 alt=""
                 class="hot"
               >
+              <a-icon v-if="index === 4" style="margin-left: 5px;" type="caret-down" />
             </div>
             <!-- mask 鼠标进入nav展示列表 -->
             <div
@@ -134,7 +135,7 @@ export default {
         },
         {
           title: '产品',
-          path: '',
+          path: '/pc/cloud-choose',
           children: [
             {
               title: '云计算',
@@ -338,9 +339,10 @@ export default {
         {
           title: '解决方案',
           path: '',
+          show: true,
           children: [
             {
-              title: '行业解决方案',
+              // title: '行业解决方案',
               list: [
                 {
                   title: '金融解决方案',
@@ -348,14 +350,14 @@ export default {
                   path: '/pc/programme/finance',
                   hot: false,
                   new: false
-                },
-                {
-                  title: '网站解决方案',
-                  info: '',
-                  path: '/pc/programme/website',
-                  hot: false,
-                  new: false
                 }
+                // {
+                //   title: '网站解决方案',
+                //   info: '',
+                //   path: '/pc/programme/website',
+                //   hot: false,
+                //   new: false
+                // }
               ]
             },
             {
@@ -393,12 +395,24 @@ export default {
                   new: false
                 }
               ]
+            },
+            {
+              title: '',
+              list: [
+                {
+                  title: '网站解决方案',
+                  info: '',
+                  path: '/pc/programme/website',
+                  hot: false,
+                  new: false
+                }
+              ]
             }
           ]
         },
         {
           title: '关于我们',
-          path: '',
+          path: '/pc/about/index?tab=0',
           children: [
             {
               title: '关于我们',
@@ -456,7 +470,6 @@ export default {
       hoverStyle: '',
       logoUrl: null,
       whiteList: ['/login-pc', '/pc/register', '/pc/forget']
-
     }
   },
   computed: {
@@ -469,16 +482,23 @@ export default {
   },
   mounted () {
     this.logoUrl = this.webInfo.websiteLogo
+    this.hoverIndex = 4
+    this.headerItemData = { ...this.navList[4].children }
   },
   methods: {
     // 鼠标进入
-    mouseEnter (index) {
-      this.hoverIndex = index
-      this.headerItemData = { ...this.navList[index].children }
+    mouseEnter (index, show) {
+      if (show) {
+        this.hoverIndex = index
+        this.headerItemData = { ...this.navList[index].children }
+      } else {
+        // this.hoverIndex = -1
+        this.headerItemData = {}
+      }
     },
     // 鼠标离开
     mouseLeave () {
-      this.hoverIndex = -1
+      // this.hoverIndex = -1
     },
     // 点击跳转
     handleClickJump (path) {
@@ -542,7 +562,7 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 0 24px;
+        padding: 0 20px;
         overflow: hidden;
         cursor: pointer;
         box-sizing: border-box;
@@ -570,13 +590,18 @@ export default {
           z-index: 1000;
           margin: 0 auto;
           min-width: 1200px;
-          max-width: 100%;
-          height: 660px;
-          padding-top: 40px;
-          background-color: #212629;
+          max-width: 60%;
+          height: 150px;
+          // padding-top: 40px;
+          // background-color: #212629;
+          background: url("../static/img/home/indexHover.png") no-repeat;
+          background-size: 150% 100%;
+          background-position: -480px -15px;
           font-size: 14px;
           .popup-wrap {
+            margin-top: 15px;
             display: flex;
+            width: 100%;
           }
         }
       }
