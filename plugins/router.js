@@ -32,14 +32,14 @@ export default ({ app, redirect, params, query, store, req }) => {
   // app == vue实例
   // redirect 跳转函数
   app.router.beforeEach((to, from, next) => {
-    console.log('路由跳转时', to, isMobile, process.env.NODE_ENV)
+    // console.log('路由跳转时', to, isMobile, process.env.NODE_ENV)
     // 全局前置守卫 -- 插件
     if (to.path === '/') {
       redirect(`/${isMobile === '/pc' ? 'pc' : 'mb'}`)
     } else if (blackList.findIndex(ele => ele === to.path) !== -1) {
       // 本地是否有token
       if (token) {
-        console.log('本地有token嘛', token, to)
+        // console.log('本地有token嘛', token, to)
         // 已配置pc移动端适配
         routerPush(to, from, next, redirect)
       } else {

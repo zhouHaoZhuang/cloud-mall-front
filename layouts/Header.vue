@@ -484,7 +484,6 @@ export default {
     this.logoUrl = this.webInfo.websiteLogo
     this.hoverIndex = 4
     this.headerItemData = { ...this.navList[4].children }
-    console.log(4, this.headerItemData)
   },
   methods: {
     // 鼠标进入
