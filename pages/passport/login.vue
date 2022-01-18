@@ -92,6 +92,12 @@ export default {
       immediate: true
     }
   },
+  mounted () {
+    if (this.$route.query.out) {
+      localStorage.setItem('store', '{}')
+      this.$router.push('/login-pc')
+    }
+  },
   methods: {
     // 登录前校验
     handleLoginBefore () {

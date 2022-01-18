@@ -98,7 +98,6 @@ export default {
     width: 100%;
     height: 724px;
     background: #f9f9f9;
-    margin-top: 160px;
     .online-tit {
       padding-top: 80px;
       padding-bottom: 60px;

@@ -87,8 +87,14 @@
           </p>
         </div>
         <div class="container">
-          <div v-for="(item, index) in typeList" :key="index">
-            <div v-if="item.content !== ''" class="list">
+          <div v-for="(item, index) in typeList" :key="index" class="cover">
+            <div
+              class="list-one"
+              :style="`background:url(${item.bg}) center no-repeat`"
+            >
+              {{ item.title }}
+            </div>
+            <div class="list">
               <div
                 class="typeTitle"
                 :style="`background:url(${item.bg}) center no-repeat`"
@@ -98,13 +104,6 @@
               <div class="typeContent">
                 {{ item.content }}
               </div>
-            </div>
-            <div
-              v-if="item.content === ''"
-              class="list-one"
-              :style="`background:url(${item.bg}) center no-repeat`"
-            >
-              {{ item.title }}
             </div>
           </div>
         </div>
@@ -267,19 +266,21 @@ export default {
       typeList: [
         {
           title: '故障赔偿',
-          bg: require('~/static/img/assurance/assurancetype.png'),
+          bg: require('~/static/img/assurance/assurancetype0.png'),
           content:
             '浙江云盾平台原因导致您的云服务器、云虚拟主机、服务器托管完全不可访问，不可正常使用'
         },
         {
           title: '非故障类不可补偿',
           bg: require('~/static/img/assurance/assurancetype1.png'),
-          content: ''
+          content:
+            '用户因操作或被攻击导致的云产品不能访问、IP被封停的情况，不可补偿'
         },
         {
-          title: '非故障类不可补偿',
+          title: '运营商故障不可补偿',
           bg: require('~/static/img/assurance/assurancetype2.png'),
-          content: ''
+          content:
+            '由于运营商故障导致的丢包和延时，不可抗力、意外事件导致的损失不在赔偿范围内'
         }
       ],
       reundList: [
@@ -524,38 +525,59 @@ export default {
     .container {
       display: flex;
       justify-content: space-around;
-      .list {
+      .cover {
+        position: relative;
         width: 380px;
         height: 180px;
-        background-size: cover !important;
-        box-shadow: 0px 0px 30px 0px rgba(15, 47, 87, 0.06);
-        .typeTitle {
-          width: 100%;
-          height: 64px;
+        overflow: hidden;
+        .list-one {
+          position: absolute;
+          top: 0px;
+          left: 0px;
+          width: 380px;
+          height: 180px;
           font-size: 24px;
           font-weight: bold;
           color: #fff;
+          line-height: 180px;
           text-align: center;
-          line-height: 64px;
+          transition: top 0.3s;
         }
-        .typeContent {
-          width: 295px;
-          height: 42px;
-          margin: 35px auto;
-          font-size: 14px;
-          font-weight: 500;
-          color: #333;
-          line-height: 28px;
+        .list {
+          position: absolute;
+          top: 180px;
+          left: 0px;
+          width: 380px;
+          height: 180px;
+          background-size: cover !important;
+          box-shadow: 0px 0px 30px 0px rgba(15, 47, 87, 0.06);
+          transition: top 0.3s;
+          .typeTitle {
+            width: 100%;
+            height: 64px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+            text-align: center;
+            line-height: 64px;
+          }
+          .typeContent {
+            width: 100%;
+            height: 120px;
+            padding: 35px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            background-color: #fff;
+            color: #333;
+            line-height: 28px;
+          }
         }
       }
-      .list-one {
-        width: 380px;
-        height: 180px;
-        font-size: 24px;
-        font-weight: bold;
-        color: #fff;
-        line-height: 180px;
-        text-align: center;
+      .cover:hover .list {
+        top: 0px;
+      }
+      .cover:hover .list-one {
+        top: -180px;
       }
     }
   }

@@ -29,12 +29,12 @@
           <div class="introduce-img">
             <img src="~/static/img/about/company.png" alt="">
           </div>
-          <div v-if="companypages[1]" class="introduce-info">
+          <div v-if="companypages[0]" class="introduce-info">
             <div class="public-title">
-              {{ companypages[1].pageName }}
+              {{ companypages[0].pageName }}
             </div>
             <div class="bottom-line" />
-            <p>{{ companypages[1].context }}</p>
+            <div introduce-text v-html="companypages[0].context" />
             <!-- <p>
               公司成立于2007年，是国内领先的互联网业务平台服务提供商。公司专注为用户提供低价高性能云计算产品，致力于云计算应用的易用性开发，并引导云计算在国内普及。目前公司研发以及运营云服务基础设施服务平台（IaaS），面向全球客户提供基于云计算的IT解决方案与客户服务，拥有丰富的国内BGP、双线高防、香港等优质的IDC资源。
             </p>
@@ -123,7 +123,9 @@
         <!-- 新闻公告主体部分 -->
         <div v-if="!newsDetail" class="newstabs-content">
           <div v-for="item in newsList" :key="item.id" class="newstabs-items">
-            <!-- <div class="img" /> -->
+            <div v-if="item.tittleImage === ''" class="newstab-img">
+              <img :src="item.tittleImage">
+            </div>
             <div class="newstab-title">
               <div class="newstab-header">
                 <h1 @click="getDetail(item.id)">
@@ -324,13 +326,17 @@ export default {
   async asyncData ({ app }) {
     // 获取公司简介
     const newsData = await app.$api.pages.getCompanyPage()
+    console.log('公司简介', newsData)
     // 获取新闻类别
     const typeData = await app.$api.news.getAllNewsList({
       currentPage: 1,
       pageSize: 999
     })
     console.log('data12345', typeData.data.list)
-    const typeCode = typeData.data.list[0].newTypeCode
+    let typeCode = '1'
+    if (typeData.data.list.length > 0) {
+      typeCode = typeData.data.list[0].newTypeCode
+    }
     // 获取新闻类别信息
     const detailData = await app.$api.news.getNews({
       currentPage: 1,
@@ -341,7 +347,7 @@ export default {
       companypages: newsData.data.list,
       newtabsList: typeData.data.list,
       newsList: detailData.data.list,
-      firstCode: typeData.data.list[0].newTypeCode,
+      firstCode: typeCode,
       total: Number(detailData.data.totalCount)
     }
   },
@@ -618,7 +624,7 @@ export default {
             margin: 32px 0 29px 0;
             background: #0257b2;
           }
-          p {
+          .introduce-text {
             font-size: 16px;
             font-weight: 500;
             color: #666666;
@@ -695,12 +701,15 @@ export default {
           display: flex;
           justify-content: flex-start;
           margin-top: 20px;
-          .img {
-            width: 350px;
+          .newstab-img {
+            width: 230px;
             height: 150px;
             margin-right: 30px;
-            background: red;
             border-radius: 8px;
+            img {
+              width: 100%;
+              height: 100%;
+            }
           }
           .newstab-title {
             padding-bottom: 30px;

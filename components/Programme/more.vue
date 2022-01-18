@@ -15,7 +15,7 @@
               : `item item${index + 1}`
           "
         >
-          <a :href="item.path" target="_blank" />
+          <nuxt-link :to="item.path" />
         </div>
       </div>
     </div>

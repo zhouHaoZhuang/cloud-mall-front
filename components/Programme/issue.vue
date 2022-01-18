@@ -44,7 +44,6 @@ export default {
 <style lang="scss" scoped>
 .issue-container {
   height: 894px;
-  margin-top: 180px;
   background: #f9f9f9;
   .container {
     padding-left: 10px;
