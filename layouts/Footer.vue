@@ -31,8 +31,9 @@
               <div
                 v-for="(ele, idx) in item.list"
                 :key="idx"
+                :to="ele.path"
                 class="list-item"
-                @click="handleClickJump(ele.path)"
+                @click="handleClick(ele.path)"
               >
                 {{ ele.name }}
               </div>
@@ -77,7 +78,7 @@
                 </div>
                 <div class="ele" />
                 <div class="ele" @click="jumpOutside(webInfo.webLink)" />
-                <div class="ele" />
+                <div class="ele" @click="mailsome" />
               </div>
             </div>
           </div>
@@ -104,7 +105,11 @@
             {{ webInfo.copyRightInfo }}
             &nbsp;&nbsp;&nbsp;
             {{ webInfo.companyName }}
-            &nbsp;&nbsp;<img width="13px" src="~/static/img/home/filing.png" alt="">
+            &nbsp;&nbsp;<img
+              width="13px"
+              src="~/static/img/home/filing.png"
+              alt=""
+            >
             <span @click="handleClickJump('')"> {{ webInfo.recordNo }}</span>
             &nbsp;&nbsp;
             {{ webInfo.bottomInfo }}
@@ -118,6 +123,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import { jumpCloudAdmin } from '@/utils/index'
 export default {
   data () {
     return {
@@ -143,26 +149,27 @@ export default {
           img: require('~/static/img/home/product_footer_5.png')
         }
       ],
+      jumpCloudAdmin,
       linkList: [
         {
           title: ' 浙江云盾产品',
           list: [
             {
               name: '云服务器',
-              path: ''
-            },
-            {
-              name: '云服务器托管',
-              path: ''
-            },
-            {
-              name: '云虚拟主机',
-              path: ''
-            },
-            {
-              name: '云监控',
-              path: ''
+              path: '/pc/cloud-choose'
             }
+            // {
+            //   name: '云服务器托管',
+            //   path: ''
+            // },
+            // {
+            //   name: '云虚拟主机',
+            //   path: ''
+            // },
+            // {
+            //   name: '云监控',
+            //   path: ''
+            // }
           ]
         },
         {
@@ -170,23 +177,23 @@ export default {
           list: [
             {
               name: '游戏云解决方案',
-              path: ''
+              path: '/pc/programme/game'
             },
             {
               name: '电商云解决方案',
-              path: ''
+              path: '/pc/programme/online'
             },
             {
               name: '金融云解决方案',
-              path: ''
+              path: '/pc/programme/finance'
             },
             {
               name: '网站云解决方案',
-              path: ''
+              path: '/pc/programme/website'
             },
             {
               name: '移动云解决方案',
-              path: ''
+              path: '/pc/programme/move'
             }
           ]
         },
@@ -195,24 +202,24 @@ export default {
           list: [
             {
               name: '产品文档',
-              path: ''
+              path: '/pc/help/helpInfo'
             },
-            {
-              name: 'Whois查询',
-              path: ''
-            },
+            // {
+            //   name: 'Whois查询',
+            //   path: ''
+            // },
             {
               name: '控制面板',
-              path: ''
-            },
-            {
-              name: '备案服务',
-              path: ''
-            },
-            {
-              name: '工单服务',
-              path: ''
+              path: 'controlPanel'
             }
+            // {
+            //   name: '备案服务',
+            //   path: ''
+            // },
+            // {
+            //   name: '工单服务',
+            //   path: ''
+            // }
           ]
         },
         {
@@ -220,23 +227,23 @@ export default {
           list: [
             {
               name: '公司简介',
-              path: ''
+              path: '/pc/about/index?tab=0'
             },
             {
-              name: '联系我们',
-              path: ''
+              name: '法律声明',
+              path: '/pc/about/index?tab=2'
             },
             {
               name: '新闻公告',
-              path: ''
+              path: '/pc/about/index?tab=1'
             },
             {
               name: '友情链接',
-              path: ''
+              path: '/pc/about/index?tab=3'
             },
             {
               name: '服务协议',
-              path: ''
+              path: '/pc/passport/agreement'
             }
           ]
         }
@@ -247,7 +254,8 @@ export default {
   computed: {
     ...mapState({
       friendLinks: state => state.home.friendLinks,
-      webInfo: state => state.home.webInfo
+      webInfo: state => state.home.webInfo,
+      token: state => state.user.token
     })
   },
   watch: {
@@ -268,6 +276,16 @@ export default {
       const newPath = path.includes('http') ? path : 'https://' + path
       window.open(newPath, '_blank')
     },
+    handleClick (path) {
+      if (path === 'controlPanel') {
+        this.jumpCloudAdmin(this.token)
+        return
+      }
+      this.$router.push(path)
+    },
+    mailsome () {
+      parent.location.href = 'mailto:' + '' + '?subject=' + '' + ''
+    },
     // 点击跳转
     handleClickJump (path) {
       if (!path) {
@@ -283,7 +301,7 @@ export default {
 .layout-footer {
   .join-wrap {
     height: 160px;
-    background: url('~/static/img/home/footer-bg.png') no-repeat center;
+    background: url("~/static/img/home/footer-bg.png") no-repeat center;
     overflow: hidden;
     .join {
       text-align: center;
@@ -306,7 +324,7 @@ export default {
   }
   .footer-wrap {
     // height: 634px;
-    background: url('../static/img/home/footerbj.png') no-repeat center;
+    background: url("../static/img/home/footerbj.png") no-repeat center;
     background-size: 100% 100%;
     background-color: #202835;
     padding-top: 52px;
@@ -345,6 +363,8 @@ export default {
           .list {
             .list-item {
               line-height: 30px;
+              color: #525c66;
+              display: block;
             }
             .list-item:hover {
               color: #fff;
@@ -363,7 +383,7 @@ export default {
                 width: 38px;
                 height: 38px;
                 margin-right: 20px;
-                background: url('~/static/img/home/icons-qq.png') no-repeat;
+                background: url("~/static/img/home/icons-qq.png") no-repeat;
                 position: relative;
                 .img-box {
                   width: 120px;
@@ -441,7 +461,7 @@ export default {
           display: inline-block;
           width: 25px;
           height: 20px;
-          background: url('~/static/img/home/icons-qq.png') no-repeat -93px -18px;
+          background: url("~/static/img/home/icons-qq.png") no-repeat -93px -18px;
           position: absolute;
           left: 0;
           top: 26px;
