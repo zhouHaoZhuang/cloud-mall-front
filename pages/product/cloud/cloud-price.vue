@@ -77,7 +77,7 @@
               <TabSelect
                 v-model="form.cpu"
                 :list="cpuData"
-                @change="cpuhandleCpuOrMemoryChange('')"
+                @change="cpuhandleCpuOrMemoryChange('cpu')"
               />
             </div>
           </div>
