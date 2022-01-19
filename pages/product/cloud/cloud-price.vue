@@ -77,7 +77,7 @@
               <TabSelect
                 v-model="form.cpu"
                 :list="cpuData"
-                @change="handleCpuOrMemoryChange('cpu')"
+                @change="cpuhandleCpuOrMemoryChange('cpu')"
               />
             </div>
           </div>
@@ -445,24 +445,8 @@ export default {
     NumberInput
   },
   // nuxt推荐请求方式
-  async asyncData ({ app, $axios }) {
-    console.log('进入请求')
-    const abcData = await $axios({
-      url: '/index/query/region'
-    })
-    console.log('地域全地址数据', abcData)
-    // 获取轮播图
-    app.$api.home
-      .getBannerList({
-        'qp-bannerType-eq': 0,
-        sorter: 'desc'
-      })
-      .then((res) => {
-        console.log('轮播图数据', res)
-      })
-      .catch((err) => {
-        console.log('请求失败', err)
-      })
+  async asyncData ({ app, $axios, params, query }) {
+    console.log('进入请求', params, query)
     // 获取地域列表
     const data = await app.$api.cloud.addressList()
     console.log('地域列表', data)
@@ -477,18 +461,24 @@ export default {
         regionId: selectAddressId
       })
       const cpuData = [...setCpuOrDiskData(cpu.data?.cpuCoreCount, '核')]
+      // 生成获取内存/询价/购买时，cpu和内存的参数/可能会别的页面跳转
+      const newCpu = query.cpu ? query.cpu : cpuData[0]?.value
       // 获取内存数据
       const disk = await app.$api.cloud.getAddressDisk({
         regionId: selectAddressId,
-        cpuCoreCount: cpuData[0].value
+        cpuCoreCount: newCpu
       })
       const memoryData = [...setCpuOrDiskData(disk.data, 'G')]
+      // 生成获取内存/询价/购买时，cpu和内存的参数/可能会别的页面跳转
+      const newMemory = query.memory
+        ? query.memory * 1
+        : memoryData[0]?.value * 1
       // console.log('cpu+内存', cpuData, memoryData)
       // 获取对应的实例和实例属性，属性值---目前页面没有设计选择，默认拿第一个
       const regionList = await app.$api.cloud.getRegionDetail({
         regionId: selectAddressId,
-        cpuCoreCount: cpuData[0]?.value,
-        memorySize: memoryData[0]?.value
+        cpuCoreCount: newCpu,
+        memorySize: newMemory
       })
       const regionDetail =
         regionList.data && regionList.data[0] ? regionList.data[0] : {}
@@ -511,8 +501,8 @@ export default {
         instanceType: regionDetail.instanceTypeId, // 实例规格ID
         regionId: selectAddressId, // 地域id
         ioOptimized: 'optimized', // I/O优化
-        cpu: cpuData[0]?.value, // CPU
-        memory: memoryData[0]?.value, // 内存
+        cpu: newCpu, // CPU
+        memory: newMemory, // 内存
         ssdSystem: true, // 系统盘-免费赠送
         // localStorageAmount: regionDetail.localStorageAmount, // 数据盘可添加的总数-默认写死4块
         // 数据盘
@@ -544,7 +534,7 @@ export default {
       }
       // 查询服务器价格
       const priceData = await app.$api.cloud.getCloudPrice(form)
-
+      console.log(form, memoryData)
       return {
         addressData: data.data,
         selectAddressId,

@@ -40,7 +40,7 @@ export default {
       link: [
         {
           rel: 'icon',
-          href: this.webInfo.websiteLogo
+          href: this.webInfo.websitieIcon
         }
       ]
     }

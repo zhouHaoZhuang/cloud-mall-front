@@ -38,7 +38,14 @@
               </div>
             </div>
             <div class="service-footer">
-              立即购买
+              <nuxt-link
+                :to="{
+                  path: '/pc/cloud-price',
+                  query: { cpu: item.cpu, memory: item.memory }
+                }"
+              >
+                立即购买
+              </nuxt-link>
             </div>
           </div>
         </div>
@@ -221,7 +228,11 @@
               <ul>
                 <li v-for="(ele, ind) in item.ccNewsResDtos" :key="ind">
                   <p>
-                    {{ ele.newsTitle }}
+                    {{
+                      ele.newsTitle.length > 20
+                        ? ele.newsTitle.substring(0, 20) + '...'
+                        : ele.newsTitle
+                    }}
                     <span class="news-time">{{
                       ele.modifyTime.substring(0, 10)
                     }}</span>
@@ -257,6 +268,8 @@ export default {
           tip: '入门型',
           title: '1核1G云服务器',
           describe: '适用小型企业官网或者个人站长',
+          cpu: 1,
+          memory: 1,
           content: [
             {
               question: '地域',
@@ -266,24 +279,18 @@ export default {
               question: '宽带',
               answer: '1M'
             },
-            // {
-            //   question: '默认防护',
-            //   answer: '5/20G'
-            // },
             {
               question: '时长',
               answer: '1个月'
             }
-            // {
-            //   question: '价格',
-            //   answer: '￥81.7'
-            // }
           ]
         },
         {
           tip: '进阶型',
           title: '2核4G云服务器',
           describe: '适用地方与行业门户网站',
+          cpu: 2,
+          memory: 4,
           content: [
             {
               question: '地域',
@@ -303,6 +310,8 @@ export default {
           tip: '专业型',
           title: '4核8G云服务器',
           describe: '适用网上商城、团购网',
+          cpu: 4,
+          memory: 8,
           content: [
             {
               question: '地域',
@@ -322,6 +331,8 @@ export default {
           tip: '理想型',
           title: '8核16G云服务器',
           describe: '适用社区、网络游戏等其他高端服务',
+          cpu: 8,
+          memory: 16,
           content: [
             {
               question: '地域',
@@ -686,6 +697,9 @@ export default {
           color: #fff;
           background: #e8506e;
           box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.06);
+          a {
+            color: #fff;
+          }
         }
       }
     }

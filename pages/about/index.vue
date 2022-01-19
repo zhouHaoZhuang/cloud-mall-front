@@ -2,12 +2,13 @@
   <div class="about-container">
     <!-- 轮播图 -->
     <div class="banner-wrap">
+      <Banner :type="{ typeName: 'assurance', typeId: 4 }" />
       <div class="container">
-        <p>杭州云盾科技</p>
+        <!-- <p>杭州云盾科技</p>
         <p>质量为本、客户为根、勇于拼搏、务实创新</p>
         <div class="product">
           了解产品
-        </div>
+        </div> -->
         <div class="tabs">
           <div
             v-for="(item, index) in tabList"
@@ -29,7 +30,7 @@
           <div class="introduce-img">
             <img src="~/static/img/about/company.png" alt="">
           </div>
-          <div v-if="companypages[0]" class="introduce-info">
+          <div v-if="companypages" class="introduce-info">
             <div class="public-title">
               {{ companypages[0].pageName }}
             </div>
@@ -123,7 +124,7 @@
         <!-- 新闻公告主体部分 -->
         <div v-if="!newsDetail" class="newstabs-content">
           <div v-for="item in newsList" :key="item.id" class="newstabs-items">
-            <div v-if="item.tittleImage === ''" class="newstab-img">
+            <div v-if="item.tittleImage" class="newstab-img">
               <img :src="item.tittleImage">
             </div>
             <div class="newstab-title">
@@ -275,7 +276,7 @@
                 </div>
                 <div class="code-box">
                   <div class="img-box">
-                    <img src="https://ydidc.com/logo_small.gif" alt="">
+                    <!-- <img src="https://ydidc.com/logo_small.gif" alt=""> -->
                   </div>
                 </div>
               </div>
@@ -306,11 +307,11 @@
           <a
             v-for="(item, index) in linkList"
             :key="index"
-            :href="item.path"
+            :href="item.linkUrl"
             class="item"
             target="_blank"
           >
-            <img :src="item.img" :alt="item.name">
+            <img :src="item.linkLogo" :alt="item.linkName">
           </a>
         </div>
       </div>
@@ -320,9 +321,10 @@
 
 <script>
 import { mapState } from 'vuex'
+import Banner from '~/components/product/banner.vue'
 import Statement from '@/components/About/statement'
 export default {
-  components: { Statement },
+  components: { Statement, Banner },
   async asyncData ({ app }) {
     // 获取公司简介
     const newsData = await app.$api.pages.getCompanyPage()
@@ -332,10 +334,13 @@ export default {
       currentPage: 1,
       pageSize: 999
     })
-    console.log('data12345', typeData.data.list)
-    let typeCode = '1'
-    if (typeData.data.list.length > 0) {
-      typeCode = typeData.data.list[0].newTypeCode
+    let typeCode = ''
+    if (
+      typeData &&
+      Array.isArray(typeData.data?.list) &&
+      typeData.data?.list.length > 0
+    ) {
+      typeCode = typeData.data.list[0].newTypeCode || ''
     }
     // 获取新闻类别信息
     const detailData = await app.$api.news.getNews({
@@ -344,11 +349,11 @@ export default {
       newTypeCode: typeCode
     })
     return {
-      companypages: newsData.data.list,
-      newtabsList: typeData.data.list,
-      newsList: detailData.data.list,
+      companypages: newsData.data?.list,
+      newtabsList: typeData.data?.list,
+      newsList: detailData.data?.list,
       firstCode: typeCode,
-      total: Number(detailData.data.totalCount)
+      total: Number(detailData.data?.totalCount)
     }
   },
   data () {
@@ -362,16 +367,6 @@ export default {
       newsDetail: false,
       newsTabSelectIndex: 0,
       linkList: [
-        {
-          name: '阿里云',
-          path: 'https://www.aliyun.com/',
-          img: require('~/static/img/about/60c480641dab2.jpg')
-        },
-        {
-          name: '阿里云',
-          path: 'https://www.aliyun.com/',
-          img: require('~/static/img/about/60c480641dab2.jpg')
-        },
         {
           name: '阿里云',
           path: 'https://www.aliyun.com/',
@@ -399,10 +394,10 @@ export default {
   },
   watch: {
     $route: {
-      immediate: true,
       handler (route) {
         this.tabSelectIndex = route.query.tab * 1
-      }
+      },
+      immediate: true
     }
   },
   mounted () {
@@ -492,7 +487,7 @@ export default {
     // 获取友情链接
     async getWebInfo () {
       const linksData = await this.$api.home.getFriendLink()
-      this.$store.dispatch('home/setFriendLinks', linksData.data?.list || [])
+      this.linkList = linksData.data.list || []
     }
   }
 }
@@ -504,16 +499,15 @@ export default {
   .banner-wrap {
     position: relative;
     top: 0px;
-    height: 657px;
+    height: 576px;
     min-width: 1220px;
     overflow: hidden;
     background: url('~/static/img/about/banner.png') center #0a1d46 no-repeat;
     background-size: cover;
-    padding-top: 155px;
     color: #fff;
     .container {
       position: relative;
-      height: 100%;
+      height: 80px;
       .product {
         position: absolute;
         top: 234px;
@@ -544,9 +538,9 @@ export default {
         height: 80px;
         position: absolute;
         left: 0;
-        bottom: 0;
+        bottom: 80px;
         right: 0;
-        z-index: 5;
+        z-index: 9999;
         display: flex;
         .tab-item {
           width: 25%;
@@ -564,7 +558,7 @@ export default {
       }
       .tabs-container {
         position: absolute;
-        bottom: 0px;
+        bottom: 80px;
         transform: translateX(-350px);
         width: 2000px;
         height: 80px;
