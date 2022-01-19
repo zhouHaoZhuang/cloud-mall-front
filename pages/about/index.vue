@@ -105,7 +105,7 @@
         </div>
       </div>
       <!-- 新闻公告 -->
-      <div v-if="tabSelectIndex === 1" class="news">
+      <div v-if="+tabSelectIndex === 1" class="news">
         <!-- 新闻公告tab栏切换 -->
         <div v-if="!newsDetail" class="newtabs">
           <div
@@ -325,7 +325,8 @@ import Banner from '~/components/product/banner.vue'
 import Statement from '@/components/About/statement'
 export default {
   components: { Statement, Banner },
-  async asyncData ({ app }) {
+  async asyncData ({ app, query }) {
+    console.log('queryqueryquery', query)
     // 获取公司简介
     const newsData = await app.$api.pages.getCompanyPage()
     console.log('公司简介', newsData)
@@ -334,13 +335,9 @@ export default {
       currentPage: 1,
       pageSize: 999
     })
-    let typeCode = ''
-    if (
-      typeData &&
-      Array.isArray(typeData.data?.list) &&
-      typeData.data?.list.length > 0
-    ) {
-      typeCode = typeData.data.list[0].newTypeCode || ''
+    let typeCode = typeData.data.list[0].newTypeCode || ''
+    if (query) {
+      typeCode = query.code
     }
     // 获取新闻类别信息
     const detailData = await app.$api.news.getNews({
@@ -348,12 +345,16 @@ export default {
       pageSize: 999,
       newTypeCode: typeCode
     })
+    // 新闻类别tab切换
+    const select = query?.newsIndex || 0
+    console.log('select', select)
     return {
       companypages: newsData.data?.list,
       newtabsList: typeData.data?.list,
       newsList: detailData.data?.list,
       firstCode: typeCode,
-      total: Number(detailData.data?.totalCount)
+      total: Number(detailData.data?.totalCount),
+      newsTabSelectIndex: Number(select)
     }
   },
   data () {
@@ -365,7 +366,6 @@ export default {
       newsDetail: [],
       tabSelectIndex: 0,
       newsDetail: false,
-      newsTabSelectIndex: 0,
       linkList: [
         {
           name: '阿里云',
@@ -408,6 +408,7 @@ export default {
     // tab选择
     onChangeTab (index) {
       this.tabSelectIndex = index
+      this.$router.push({ path: `/pc/about/index?tab=${index}` })
     },
     // 新闻公告tab选择
     onChangeNewTabs (ind, item) {
@@ -694,10 +695,12 @@ export default {
         .newstabs-items {
           display: flex;
           justify-content: flex-start;
+          width: 100%;
+          border-bottom: 1px solid #f1f1f1;
           margin-top: 20px;
           .newstab-img {
-            width: 230px;
-            height: 150px;
+            width: 220px;
+            height: 140px;
             margin-right: 30px;
             border-radius: 8px;
             img {
@@ -707,7 +710,6 @@ export default {
           }
           .newstab-title {
             padding-bottom: 30px;
-            border-bottom: 1px solid #f1f1f1;
             .newstab-header {
               display: flex;
               justify-content: flex-start;
