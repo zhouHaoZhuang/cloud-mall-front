@@ -84,18 +84,18 @@
           </div>
         </div>
       </div>
-      <!-- 友情链接 -->
+      <!-- 友情链接-->
       <div class="links-wrap">
         <div class="links">
           <!-- <div class="img" /> -->
-          <div
+          <!-- <div
             v-for="(item, index) in friendLinks"
             :key="index"
             class="item"
             @click="jumpOutside(item.linkUrl)"
           >
             {{ item.linkName }}
-          </div>
+          </div> -->
         </div>
       </div>
       <!-- copyright -->
@@ -114,7 +114,7 @@
             &nbsp;&nbsp;
             {{ webInfo.bottomInfo }}
           </p>
-          <!-- <p></p> -->
+          <p />
         </div>
       </div>
     </div>

@@ -61,7 +61,10 @@ export default {
   async asyncData ({ app }) {
     // 获取全部帮助中心的列表数据
     let listAll = await app.$api.help.getRegionDetail({ code: 'help_type_01' })
+    // console.log(listAll)
     listAll = listAll.data ? listAll.data.ccHelpTypeList : []
+    // console.log(listAll)
+    listAll = listAll || []
     for (let index = 0; index < listAll.length; index++) {
       const element = listAll[index]
       element.isShow = false
