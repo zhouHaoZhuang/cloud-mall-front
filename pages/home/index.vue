@@ -227,7 +227,7 @@
             <div class="news-con">
               <ul>
                 <li v-for="(ele, ind) in item.ccNewsResDtos" :key="ind">
-                  <p>
+                  <p @click="goNewsPage(item.newTypeCode, index)">
                     {{
                       ele.newsTitle.length > 20
                         ? ele.newsTitle.substring(0, 20) + '...'
@@ -477,14 +477,14 @@ export default {
         },
         {
           mark: '安全',
-          title: '稳定放心用',
+          title: '服务器安全护航',
           bg: require('~/static/img/home/home-choic2.png'),
           content:
             '单实例可用性达99.975%,多可用区多实例可用性达9995%，云盘可靠性达99999999%，可实现自动宕机迁移、快照备份'
         },
         {
           mark: '赔偿',
-          title: '稳定放心用',
+          title: '100倍故障赔偿',
           bg: require('~/static/img/home/home-choic3.png'),
           content:
             '单实例可用性达99.975%,多可用区多实例可用性达9995%，云盘可靠性达99999999%，可实现自动宕机迁移、快照备份'
@@ -577,6 +577,13 @@ export default {
         slidesPerView: 3.8, // 设置slider容器能够同时显示的slides数量(carousel模式)。
         spaceBetween: -160, // 在slide之间设置距离（单位px）。
         centeredSlides: true // 设置活动块居中
+      })
+    },
+    // 点击跳转新闻公告页面
+    goNewsPage (id, ind) {
+      this.$router.push({
+        path: '/pc/about/index?tab=1',
+        query: { code: id, newsIndex: ind }
       })
     }
   }
@@ -1130,6 +1137,7 @@ export default {
           p {
             position: relative;
             color: #333;
+            cursor: pointer;
           }
           .news-time {
             position: absolute;
