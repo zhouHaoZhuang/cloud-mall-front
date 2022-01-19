@@ -581,7 +581,6 @@ export default {
     },
     // 点击跳转新闻公告页面
     goNewsPage (id, ind) {
-      console.log(id)
       this.$router.push({
         path: '/pc/about/index?tab=1',
         query: { code: id, newsIndex: ind }

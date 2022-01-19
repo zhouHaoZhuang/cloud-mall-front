@@ -105,7 +105,7 @@
         </div>
       </div>
       <!-- 新闻公告 -->
-      <div v-if="+tabSelectIndex === 1" class="news">
+      <div v-if="tabSelectIndex === 1" class="news">
         <!-- 新闻公告tab栏切换 -->
         <div v-if="!newsDetail" class="newtabs">
           <div
@@ -347,7 +347,6 @@ export default {
     })
     // 新闻类别tab切换
     const select = query?.newsIndex || 0
-    console.log('select', select)
     return {
       companypages: newsData.data?.list,
       newtabsList: typeData.data?.list,
