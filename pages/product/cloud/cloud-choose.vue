@@ -380,11 +380,16 @@
               >
                 {{ ele.title }}:{{ ele.content }}
               </div>
-            </div>
-            <div class="application-btn">
-              <nuxt-link to="/pc/cloud-price">
-                立即购买
-              </nuxt-link>
+              <div class="application-btn">
+                <nuxt-link
+                  :to="{
+                    path: '/pc/cloud-price',
+                    query: { cpu: item.cpu, memory: item.memory }
+                  }"
+                >
+                  立即购买
+                </nuxt-link>
+              </div>
             </div>
           </div>
         </div>
@@ -472,6 +477,8 @@ export default {
       contents: [
         {
           id: 1,
+          cpu: 1,
+          memory: 1,
           text: [
             { title: 'CPU', content: '1核' },
             { title: '内存', content: '2G' },
@@ -481,6 +488,8 @@ export default {
         },
         {
           id: 2,
+          cpu: 2,
+          memory: 4,
           text: [
             { title: 'CPU', content: '2核' },
             { title: '内存', content: '4G' },
@@ -490,6 +499,8 @@ export default {
         },
         {
           id: 3,
+          cpu: 4,
+          memory: 8,
           text: [
             { title: 'CPU', content: '4核' },
             { title: '内存', content: '8G' },
@@ -499,6 +510,8 @@ export default {
         },
         {
           id: 4,
+          cpu: 8,
+          memory: 16,
           text: [
             { title: 'CPU', content: '8核' },
             { title: '内存', content: '16G' },
