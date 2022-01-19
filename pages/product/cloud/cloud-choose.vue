@@ -428,7 +428,7 @@
 </template>
 
 <script>
-import Banner from '@/components/product/banner.vue'
+import Banner from '@/components/banner/banner.vue'
 export default {
   components: { Banner },
   data () {

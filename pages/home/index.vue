@@ -257,7 +257,7 @@ import Swiper from '../../node_modules/swiper/swiper-bundle'
 
 // Import Swiper styles
 import '../../node_modules/swiper/swiper-bundle.min.css'
-import Banner from '~/components/product/banner.vue'
+import Banner from '~/components/banner/banner.vue'
 
 export default {
   components: { Banner },
