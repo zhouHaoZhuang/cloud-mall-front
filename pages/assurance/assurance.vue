@@ -1,7 +1,7 @@
 <template>
   <div class="assurance">
     <!-- 轮播图 -->
-    <Banner :type="{ typeName: 'assurance' }" />
+    <Banner :type="{ typeName: 'assurance', typeId: 3 }" />
     <!-- 优势 -->
     <div class="goodness">
       <div class="assurance-container">
@@ -215,7 +215,7 @@
 </template>
 
 <script>
-import Banner from '~/components/product/banner.vue'
+import Banner from '~/components/banner/banner.vue'
 export default {
   components: { Banner },
   data () {

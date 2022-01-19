@@ -101,8 +101,7 @@ export default {
   methods: {
     // 获取轮播图
     getBanner () {
-      console.log('this.type.typeId', this.type.typeId)
-      if (this.type.typeId !== 1) {
+      if (this.type.typeId !== 1 && this.type.typeId !== 3) {
         this.$api.home
           .getBannerList({
             'qp-bannerType-eq': this.type.typeId,
