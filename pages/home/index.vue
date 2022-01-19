@@ -38,7 +38,9 @@
               </div>
             </div>
             <div class="service-footer">
-              立即购买
+              <nuxt-link to="/pc/cloud-price">
+                立即购买
+              </nuxt-link>
             </div>
           </div>
         </div>
@@ -221,7 +223,11 @@
               <ul>
                 <li v-for="(ele, ind) in item.ccNewsResDtos" :key="ind">
                   <p>
-                    {{ ele.newsTitle }}
+                    {{
+                      ele.newsTitle.length > 20
+                        ? ele.newsTitle.substring(0, 20) + '...'
+                        : ele.newsTitle
+                    }}
                     <span class="news-time">{{
                       ele.modifyTime.substring(0, 10)
                     }}</span>
@@ -686,6 +692,9 @@ export default {
           color: #fff;
           background: #e8506e;
           box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.06);
+          a {
+            color: #fff;
+          }
         }
       }
     }

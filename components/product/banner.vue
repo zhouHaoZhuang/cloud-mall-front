@@ -6,6 +6,7 @@
         <a-carousel
           ref="banner"
           effect="fade"
+          :dots="type.typeId === 4 ? false : true"
           dots-class="dot"
           :autoplay="true"
         >
@@ -80,14 +81,6 @@ export default {
             describe:
               'Zhejiang yundun helps enterprises go to the cloud quickly',
             pcPicture: require('~/static/img/home/home_banner1.png')
-          },
-          {
-            id: 2,
-            title: '企业上云·智造未来',
-            pcButtonLink: '/pc',
-            pcButtonName: '参与活动',
-            describe: '以品质为核心，打造高性价比产品与服务',
-            pcPicture: require('~/static/img/home/home_banner2.png')
           }
         ],
         time: null
@@ -108,15 +101,18 @@ export default {
   methods: {
     // 获取轮播图
     getBanner () {
-      this.$api.home
-        .getBannerList({
-          'qp-bannerType-eq': this.type.typeId,
-          sorter: 'desc'
-        })
-        .then((res) => {
-          console.log('lunbotu', res)
-          // this.bannerData[this.type.typeName] = res.data.list
-        })
+      console.log('this.type.typeId', this.type.typeId)
+      if (this.type.typeId !== 1) {
+        this.$api.home
+          .getBannerList({
+            'qp-bannerType-eq': this.type.typeId,
+            sorter: 'desc'
+          })
+          .then((res) => {
+            console.log('lunbotu', res)
+            this.bannerData[this.type.typeName] = res.data.list
+          })
+      }
     },
     // 获取网站信息
     async getWebInfo () {

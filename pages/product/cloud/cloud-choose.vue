@@ -382,7 +382,9 @@
               </div>
             </div>
             <div class="application-btn">
-              立即购买
+              <nuxt-link to="/pc/cloud-price">
+                立即购买
+              </nuxt-link>
             </div>
           </div>
         </div>
@@ -856,6 +858,9 @@ export default {
         line-height: 60px;
         text-align: center;
         background-color: #fcac33;
+        a {
+          color: #fff;
+        }
       }
     }
   }
