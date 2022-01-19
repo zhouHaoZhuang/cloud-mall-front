@@ -596,7 +596,7 @@ export default {
           // background-color: #212629;
           background: url("../static/img/home/indexHover.png") no-repeat;
           background-size: 150% 100%;
-          background-position: -480px -15px;
+          background-position: -505px -15px;
           font-size: 14px;
           .popup-wrap {
             margin-top: 15px;
