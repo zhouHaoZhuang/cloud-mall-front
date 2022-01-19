@@ -470,7 +470,9 @@ export default {
       })
       const memoryData = [...setCpuOrDiskData(disk.data, 'G')]
       // 生成获取内存/询价/购买时，cpu和内存的参数/可能会别的页面跳转
-      const newMemory = query.memory ? query.memory : memoryData[0]?.value
+      const newMemory = query.memory
+        ? query.memory * 1
+        : memoryData[0]?.value * 1
       // console.log('cpu+内存', cpuData, memoryData)
       // 获取对应的实例和实例属性，属性值---目前页面没有设计选择，默认拿第一个
       const regionList = await app.$api.cloud.getRegionDetail({
