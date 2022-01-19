@@ -141,7 +141,7 @@ export default {
     position: relative;
     padding-right: 5px;
     .input {
-      width: 50px;
+      width: 60px;
       border: none;
       &:hover,
       &:focus {
