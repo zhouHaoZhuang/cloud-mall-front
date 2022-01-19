@@ -20,6 +20,7 @@
             <div class="borderbule">
               <input
                 v-model="form.phone"
+                v-number-evolution
                 type="text"
                 placeholder="请输入手机号"
               >
