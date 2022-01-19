@@ -32,10 +32,10 @@
           </div>
           <div v-if="companypages" class="introduce-info">
             <div class="public-title">
-              {{ companypages[0].pageName }}
+              {{ companypagesPageName || '关于我们' }}
             </div>
             <div class="bottom-line" />
-            <div introduce-text v-html="companypages[0].context" />
+            <div introduce-text v-html="companypagesContext" />
             <!-- <p>
               公司成立于2007年，是国内领先的互联网业务平台服务提供商。公司专注为用户提供低价高性能云计算产品，致力于云计算应用的易用性开发，并引导云计算在国内普及。目前公司研发以及运营云服务基础设施服务平台（IaaS），面向全球客户提供基于云计算的IT解决方案与客户服务，拥有丰富的国内BGP、双线高防、香港等优质的IDC资源。
             </p>
@@ -348,6 +348,8 @@ export default {
     const select = query?.newsIndex || 0
     return {
       companypages: newsData.data?.list,
+      companypagesPageName: newsData.data.list[0]?.pageName,
+      companypagesContext: newsData.data.list[0]?.context,
       newtabsList: typeData.data?.list,
       newsList: detailData.data?.list,
       firstCode: typeCode,
