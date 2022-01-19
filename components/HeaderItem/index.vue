@@ -36,7 +36,8 @@ export default {
 <style lang="scss" scoped="scoped">
 .header-item {
   // width: 15%;
-  margin-left: 2%;
+  margin: 0 0 0 5%;
+  font-size: 16px;
   // border: 1px solid #59ff2f;
   color: #fff;
   .top-title {

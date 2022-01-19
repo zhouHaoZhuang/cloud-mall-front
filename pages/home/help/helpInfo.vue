@@ -32,21 +32,28 @@
               class="subtype"
               @mouseleave="item.isShow = false"
             >
-              <img
+              <!-- <img
                 class="backgro-img"
                 src="~/static/img/help/Subscript.png"
                 alt=""
-              >
-              <span
-                v-for="title in item.ccHelpTypeList"
-                :key="title.typeCode"
-                @click="
-                  changeList(title.typeCode, item.typeName, title.typeName)
-                "
-              >
-                <img width="20px" height="20px" :src="title.typeIcon" alt="">
-                {{ title.typeName }}
-              </span>
+              /> -->
+              <div class="backgro-img">
+                <span
+                  v-for="title in item.ccHelpTypeList"
+                  :key="title.typeCode"
+                  @click="
+                    changeList(title.typeCode, item.typeName, title.typeName)
+                  "
+                >
+                  <img
+                    width="20px"
+                    height="20px"
+                    :src="title.typeIcon"
+                    alt=""
+                  >
+                  {{ title.typeName }}
+                </span>
+              </div>
             </div>
           </transition>
         </div>
@@ -160,20 +167,20 @@ export default {
       }
       .subtype {
         background: url("../../../static/img/help/helpTypebj.png") no-repeat;
+        background-size: 100% 100%;
         width: 100%;
         height: 200px;
         display: flex;
         flex-wrap: wrap;
         position: relative;
-        padding: 20px 30px;
+        padding: 10px 20px;
         align-content: flex-start;
         .backgro-img {
-          width: 95%;
-          height: 90%;
-          position: absolute;
-          z-index: 0;
-          top: 10px;
-          left: 10px;
+          background: url("../../../static/img/help/Subscript.png") no-repeat;
+          background-size: 100% 100%;
+          width: 100%;
+          height: 100%;
+          padding: 0px 10px ;
         }
         span {
           display: block;
