@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import env from '@/config/env'
 export const getIsPcOrMobile = (userAgent) => {
   // if (
   //   userAgent.match(
@@ -39,20 +38,30 @@ export const setCpuOrDiskData = (data, company) => {
     return []
   }
 }
+// 跳转控制台地址
+const cloudAdminUrl = {
+  dev: 'http://localhost:8000'
+  // dev: 'http://192.168.12.30:8000'
+}
+// 获取控制台地址
+function getCloudAdminUrl () {
+  return process.env.NODE_ENV === 'dev'
+    ? cloudAdminUrl[process.env.NODE_ENV]
+    : localStorage.getItem('idcUrl')
+}
 // 跳转控制台-首页
 export const jumpCloudAdmin = (token, type) => {
+  const url = getCloudAdminUrl()
   window.open(
-    env.ADMIN_URL + '/#/dashboard' + `?token=${token}`,
+    url + '/#/dashboard' + `?token=${token}`,
     type ? '_blank' : '_self'
   )
 }
 // 跳转控制台-详情页
 export const jumpCloudAdminDetail = (id, token) => {
+  const url = getCloudAdminUrl()
   window.open(
-    env.ADMIN_URL +
-      '/#/user/finance/orderDetail' +
-      `?id=${id}` +
-      `&token=${token}`,
+    url + '/#/user/finance/orderDetail' + `?id=${id}` + `&token=${token}`,
     '_self'
   )
 }
@@ -71,14 +80,11 @@ export const getRequestParams = (config) => {
 }
 
 // 跳转控制台的url地址生成
-export const getIdcAdminUrl = () => {
-  return 'http://console.test.ydidc.com'
-  // if (!window) { return '' }
-  // const url = window.location.href
-  // const newUrl = url.includes('http://')
-  //   ? url.replace('http://', '')
-  //   : url.replace('https://', '')
-  // const str = newUrl.substring(0, newUrl.indexOf('/')).replace('www.', '')
-  // const newResult = `${url.includes('http://') ? 'http://' : 'https://'}${str}`
-  // return newResult
+export const getIdcAdminUrl = (url) => {
+  const newUrl = url.includes('http://')
+    ? url.replace('http://', '')
+    : url.replace('https://', '')
+  const str = newUrl.substring(0, newUrl.indexOf('/')).replace('www.', '')
+  const newResult = `${url.includes('http://') ? 'http://' : 'https://'}${str}`
+  return newResult
 }
