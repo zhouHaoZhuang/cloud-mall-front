@@ -8,19 +8,9 @@ const urls = {
 // 请求头携带domain参数
 const domains = {
   dev: 'localhost'
-  // test: 'http://test.com',
-  // prod: 'http://prod.com'
-}
-// 跳转控制台地址
-const cloudAdminUrl = {
-  dev: 'http://localhost:8000',
-  // dev: 'http://192.168.12.30:8000',
-  test: 'http://console.test.ydidc.com',
-  prod: 'http://console.prod.ydidc.com'
 }
 
 export default {
   BASE_URL: urls[process.env.NODE_ENV],
-  DOMAIN_URL: domains[process.env.NODE_ENV],
-  ADMIN_URL: cloudAdminUrl[process.env.NODE_ENV]
+  DOMAIN_URL: domains[process.env.NODE_ENV]
 }

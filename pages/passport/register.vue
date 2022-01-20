@@ -168,7 +168,12 @@
             >《浙江云盾网站服务协议》</a>
           </span>
         </div>
-        <a-button class="btn" type="primary" @click="handleRegister">
+        <a-button
+          :loading="registerLoading"
+          class="btn"
+          type="primary"
+          @click="handleRegister"
+        >
           注册账号
         </a-button>
         <div class="go-login">
@@ -218,7 +223,8 @@ export default {
       //   是否同意协议
       isRead: false,
       passwordType: true,
-      confirmPwdType: true
+      confirmPwdType: true,
+      registerLoading: false
     }
   },
   methods: {
@@ -329,14 +335,20 @@ export default {
         this.$message.warning('请勾选服务协议')
         return
       }
-      this.$api.user.register(this.form).then((res) => {
-        if (res.code === '000000') {
-          this.$message.success('注册成功，请重新登录')
-          this.$router.replace('/login-pc')
-        } else {
-          this.$message.warning(res.msg)
-        }
-      })
+      this.registerLoading = true
+      this.$api.user
+        .register(this.form)
+        .then((res) => {
+          if (res.code === '000000') {
+            this.$message.success('注册成功，请重新登录')
+            this.$router.replace('/login-pc')
+          } else {
+            this.$message.warning(res.msg)
+          }
+        })
+        .finally(() => {
+          this.registerLoading = false
+        })
     }
   }
 }

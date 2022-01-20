@@ -8,7 +8,7 @@
         v-number-evolution="{ value: 0, min, max }"
         :value="inputValue"
         class="input"
-        @change="handleInput"
+        @blur="handleInput"
       />
       <div class="company">
         {{ company }}

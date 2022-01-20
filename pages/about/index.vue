@@ -28,14 +28,14 @@
       <div v-if="tabSelectIndex === 0" class="introduce">
         <div class="introduce-all">
           <div class="introduce-img">
-            <img src="~/static/img/about/company.png" alt="">
+            <img :src="companyPicture" alt="">
           </div>
           <div v-if="companypages" class="introduce-info">
             <div class="public-title">
-              {{ companypages[0].pageName }}
+              {{ companypagesPageName || '关于我们' }}
             </div>
             <div class="bottom-line" />
-            <div introduce-text v-html="companypages[0].context" />
+            <div introduce-text v-html="companypagesContext" />
             <!-- <p>
               公司成立于2007年，是国内领先的互联网业务平台服务提供商。公司专注为用户提供低价高性能云计算产品，致力于云计算应用的易用性开发，并引导云计算在国内普及。目前公司研发以及运营云服务基础设施服务平台（IaaS），面向全球客户提供基于云计算的IT解决方案与客户服务，拥有丰富的国内BGP、双线高防、香港等优质的IDC资源。
             </p>
@@ -321,22 +321,20 @@
 
 <script>
 import { mapState } from 'vuex'
-import Banner from '~/components/product/banner.vue'
+import Banner from '~/components/banner/banner.vue'
 import Statement from '@/components/About/statement'
 export default {
   components: { Statement, Banner },
   async asyncData ({ app, query }) {
-    console.log('queryqueryquery', query)
     // 获取公司简介
     const newsData = await app.$api.pages.getCompanyPage()
-    console.log('公司简介', newsData)
     // 获取新闻类别
     const typeData = await app.$api.news.getAllNewsList({
       currentPage: 1,
       pageSize: 999
     })
     let typeCode = typeData.data.list[0].newTypeCode || ''
-    if (query) {
+    if (query.code) {
       typeCode = query.code
     }
     // 获取新闻类别信息
@@ -349,6 +347,9 @@ export default {
     const select = query?.newsIndex || 0
     return {
       companypages: newsData.data?.list,
+      companypagesPageName: newsData.data.list[0]?.pageName,
+      companypagesContext: newsData.data.list[0]?.context,
+      companyPicture: newsData.data.list[0]?.bannerPicture,
       newtabsList: typeData.data?.list,
       newsList: detailData.data?.list,
       firstCode: typeCode,
@@ -401,7 +402,6 @@ export default {
   },
   mounted () {
     this.getWebInfo()
-    console.log('1273941278916598', this.friendLinks)
   },
   methods: {
     // tab选择
@@ -450,17 +450,14 @@ export default {
       })
       this.newtabsList = newsData.data.list
       this.getNewsListInfo(this.newtabsList[0].newTypeCode)
-      console.log('newtabsList', this.newtabsList)
     },
     // 获取新闻类别信息
     async getNewsListInfo (current, pageSize, code) {
-      console.log(current, pageSize, code)
       const newsData = await this.$api.news.getNews({
         currentPage: current || 1,
         pageSize: pageSize || 8,
         newTypeCode: code
       })
-      console.log('getAllNewsList', newsData)
       this.newsList = newsData.data.list || []
       this.total = Number(newsData.data.totalCount) || 0
     },
@@ -473,7 +470,6 @@ export default {
         'T',
         ' '
       )
-      console.log('newsDetail', this.newsDetail)
     },
     // 回退新闻内容页面
     backContent () {
@@ -482,7 +478,6 @@ export default {
     // 页码功能
     pageChange (current, pageSize, code) {
       this.getNewsListInfo(current, pageSize, code)
-      console.log('current', current, pageSize, code)
     },
     // 获取友情链接
     async getWebInfo () {
