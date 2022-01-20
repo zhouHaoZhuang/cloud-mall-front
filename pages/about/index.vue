@@ -28,7 +28,7 @@
       <div v-if="tabSelectIndex === 0" class="introduce">
         <div class="introduce-all">
           <div class="introduce-img">
-            <img src="~/static/img/about/company.png" alt="">
+            <img :src="companyPicture" alt="">
           </div>
           <div v-if="companypages" class="introduce-info">
             <div class="public-title">
@@ -326,7 +326,6 @@ import Statement from '@/components/About/statement'
 export default {
   components: { Statement, Banner },
   async asyncData ({ app, query }) {
-    console.log('queryqueryquery', Boolean(query.code))
     // 获取公司简介
     const newsData = await app.$api.pages.getCompanyPage()
     // 获取新闻类别
@@ -350,6 +349,7 @@ export default {
       companypages: newsData.data?.list,
       companypagesPageName: newsData.data.list[0]?.pageName,
       companypagesContext: newsData.data.list[0]?.context,
+      companyPicture: newsData.data.list[0]?.bannerPicture,
       newtabsList: typeData.data?.list,
       newsList: detailData.data?.list,
       firstCode: typeCode,
