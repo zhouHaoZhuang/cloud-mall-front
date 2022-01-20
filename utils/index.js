@@ -72,6 +72,7 @@ export const getRequestParams = (config) => {
 
 // 跳转控制台的url地址生成
 export const getIdcAdminUrl = () => {
+  if (!window) { return '' }
   const url = window.location.href
   const newUrl = url.includes('http://')
     ? url.replace('http://', '')
