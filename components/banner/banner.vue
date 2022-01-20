@@ -15,6 +15,7 @@
             :key="item.id"
             class="banner-item"
             :style="`background: url(${item.pcPicture}) no-repeat center`"
+            @click="goLink(item.pictureLink, item.openLinkType)"
           >
             <!-- info -->
             <div class="container banner-info-box">
@@ -25,10 +26,18 @@
                 <div class="info">
                   {{ item.describe }}
                 </div>
-                <div v-if="item.pcButtonName" class="btn">
-                  <nuxt-link :to="item.pcButtonLink">
+                <div
+                  v-if="item.pcButtonName"
+                  class="btn"
+                  @click.stop="goButton(item.pcButtonLink, item.openLinkType)"
+                >
+                  <!-- <nuxt-link
+                    :to="item.pcButtonLink"
+                    :target="item.openLinkType === '1' ? '' : '_blank'"
+                  >
                     {{ item.pcButtonName }}
-                  </nuxt-link>
+                  </nuxt-link> -->
+                  {{ item.pcButtonName }}
                 </div>
               </div>
             </div>
@@ -148,6 +157,28 @@ export default {
     nextBanner () {
       this.bannerIndex = this.bannerIndex === 1 ? 2 : 1
       this.$refs.banner.next()
+    },
+    // 点击banner进行页面跳转
+    goLink (link, type) {
+      if (type === '1') {
+        this.$router.push(link)
+      } else {
+        const routeUrl = this.$router.resolve({
+          path: link
+        })
+        window.open(routeUrl.href, '_blank')
+      }
+    },
+    // 点击按钮页面跳转
+    goButton (link, type) {
+      if (type === '1') {
+        this.$router.push(link)
+      } else {
+        const routeUrl = this.$router.resolve({
+          path: link
+        })
+        window.open(routeUrl.href, '_blank')
+      }
     }
   }
 }
