@@ -42,6 +42,7 @@
               </nuxt-link>
             </div>
             <a-button
+              :loading="loginLoading"
               class="login-btn"
               type="primary"
               size="large"
@@ -72,7 +73,8 @@ export default {
         autoLogin: false
       },
       phoneReg:
-        /^(13[0-9]|14[01456879]|15[0-3,5-9]|16[2567]|17[0-8]|18[0-9]|19[0-3,5-9])\d{8}$/
+        /^(13[0-9]|14[01456879]|15[0-3,5-9]|16[2567]|17[0-8]|18[0-9]|19[0-3,5-9])\d{8}$/,
+      loginLoading: false
     }
   },
   computed: {
@@ -117,26 +119,32 @@ export default {
       this.login(this.form)
     },
     login (form) {
-      this.$api.user.login(form).then((res) => {
-        if (res.code === '000000') {
-          this.$message.success('登录成功')
-          // 保存用户信息
-          this.$store.dispatch('user/login', res.data)
-          // 保存token到cookies
-          this.$cookies.set('token', res.data.token)
-          // 设置是否自动登录
-          this.$store.dispatch('user/setAutoLogin', form)
-          // 判断是否有需要重定向的地址
-          if (this.redirectPath) {
-            this.$router.replace(this.redirectPath)
-            this.$store.commit('user/saveRedirectPath', '')
+      this.loginLoading = true
+      this.$api.user
+        .login(form)
+        .then((res) => {
+          if (res.code === '000000') {
+            this.$message.success('登录成功')
+            // 保存用户信息
+            this.$store.dispatch('user/login', res.data)
+            // 保存token到cookies
+            this.$cookies.set('token', res.data.token)
+            // 设置是否自动登录
+            this.$store.dispatch('user/setAutoLogin', form)
+            // 判断是否有需要重定向的地址
+            if (this.redirectPath) {
+              this.$router.replace(this.redirectPath)
+              this.$store.commit('user/saveRedirectPath', '')
+            } else {
+              this.$router.replace('/')
+            }
           } else {
-            this.$router.replace('/')
+            this.$message.warning(res.msg)
           }
-        } else {
-          this.$message.warning(res.msg)
-        }
-      })
+        })
+        .finally(() => {
+          this.loginLoading = false
+        })
     }
   }
 }
