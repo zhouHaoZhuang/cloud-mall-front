@@ -72,12 +72,11 @@ export const getRequestParams = (config) => {
 
 // 跳转控制台的url地址生成
 export const getIdcAdminUrl = () => {
-  const url = 'http://www.test.ydidc.com/pc'
+  const url = window.location.href
   const newUrl = url.includes('http://')
     ? url.replace('http://', '')
     : url.replace('https://', '')
   const str = newUrl.substring(0, newUrl.indexOf('/')).replace('www.', '')
   const result = 'console.' + str
-  console.log('查看地址', result)
-  // return result
+  return result
 }

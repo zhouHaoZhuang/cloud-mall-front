@@ -13,13 +13,13 @@ const domains = {
 // 跳转控制台地址
 const cloudAdminUrl = {
   dev: 'http://localhost:8000'
-  // dev: 'http://192.168.12.30:8000',
+  // dev: 'http://192.168.12.30:8000'
   // test: 'http://console.test.ydidc.com',
   // prod: 'http://console.prod.ydidc.com'
 }
 // 获取控制台地址
 function getCloudAdminUrl () {
-  process.env.NODE_ENV === 'dev'
+  return process.env.NODE_ENV === 'dev'
     ? cloudAdminUrl[process.env.NODE_ENV]
     : getIdcAdminUrl()
 }
