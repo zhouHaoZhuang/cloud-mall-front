@@ -57,6 +57,8 @@ export default ({ $axios, redirect, route, store }) => {
     const cookieToken = config.headers.common.cookie
     config.headers.token = getToken(cookieToken, store)
     config.headers.domain = getDomainUrl(cookieToken, store)
+    // 携带system区分不同项目
+    config.headers.system = 'idc'
     // config.headers.domain = 'ydidc.com'
     console.log('查看domain', config.headers.domain)
     // 查看请求参数
