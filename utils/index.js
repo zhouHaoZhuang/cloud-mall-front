@@ -14,7 +14,7 @@ export const getIsPcOrMobile = (userAgent) => {
   return '/pc'
 }
 Vue.prototype.$getIsPcOrMobile = getIsPcOrMobile
-// 处理浏览器地址栏地址，截取地址中段,不需要http:// or https://和com后地址
+// 处理浏览器地址栏地址，截取地址中段,不需要http:// or https://和com/cn后地址
 export const getWindowUrl = (url) => {
   const newUrl = url.includes('http://')
     ? url.replace('http://', '')
@@ -68,4 +68,16 @@ export const getRequestParams = (config) => {
     token: config.headers.token
   }
   console.log('请求时参数', selectParams)
+}
+
+// 跳转控制台的url地址生成
+export const getIdcAdminUrl = () => {
+  const url = 'http://www.test.ydidc.com/pc'
+  const newUrl = url.includes('http://')
+    ? url.replace('http://', '')
+    : url.replace('https://', '')
+  const str = newUrl.substring(0, newUrl.indexOf('/')).replace('www.', '')
+  const result = 'console.' + str
+  console.log('查看地址', result)
+  // return result
 }
