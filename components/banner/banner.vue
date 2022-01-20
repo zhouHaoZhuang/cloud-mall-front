@@ -6,7 +6,6 @@
         <a-carousel
           ref="banner"
           effect="fade"
-          :dots="type.typeId === 4 ? false : true"
           dots-class="dot"
           :autoplay="true"
         >
