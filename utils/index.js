@@ -77,8 +77,6 @@ export const getIdcAdminUrl = () => {
     ? url.replace('http://', '')
     : url.replace('https://', '')
   const str = newUrl.substring(0, newUrl.indexOf('/')).replace('www.', '')
-  const result = url.includes('http://')
-    ? 'http://'
-    : 'https://' + 'console.' + str
-  return result
+  const newResult = `${url.includes('http://') ? 'http://' : 'https://'}${str}`
+  return newResult
 }
