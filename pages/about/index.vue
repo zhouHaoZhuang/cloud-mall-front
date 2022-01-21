@@ -102,14 +102,14 @@
         <!-- 新闻公告tab栏切换 -->
         <div v-if="!detailSelect" class="newtabs">
           <div
-            v-for="(item, ind) in newtabsList"
-            :key="ind"
+            v-for="item in newtabsList"
+            :key="item.id"
             :class="
-              newsTabSelectIndex === ind
+              newsTabSelectIndex === item.id
                 ? 'newtabs-item newtabs-active'
                 : 'newtabs-item'
             "
-            @click="onChangeNewTabs(ind, item.newTypeCode)"
+            @click="onChangeNewTabs(item.id, item.newTypeCode)"
           >
             {{ item.newTypeName }}
           </div>
@@ -319,6 +319,10 @@ export default {
     if (query.code) {
       typeCode = query.code
     }
+    let select = typeData.data?.list[0].id
+    if (query.id) {
+      select = query?.id
+    }
     // 获取新闻类别信息
     const detailData = await app.$api.news.getNews({
       currentPage: 1,
@@ -330,8 +334,6 @@ export default {
         item.newsPublishTime = item.newsPublishTime.replace('T', ' ')
       })
     }
-
-    const select = query?.newsIndex || 0
     return {
       companypages: newsData.data?.list,
       companypagesPageName: newsData.data.list[0]?.pageName,
@@ -345,7 +347,7 @@ export default {
       newsList: detailData.data?.list,
       firstCode: typeCode,
       total: Number(detailData.data?.totalCount),
-      newsTabSelectIndex: Number(select)
+      newsTabSelectIndex: select
     }
   },
   data () {
@@ -404,7 +406,7 @@ export default {
     onChangeNewTabs (ind, item) {
       this.newsTabSelectIndex = ind
       this.getNewsListInfo(1, 999, item)
-      this.getNewsInfo()
+      // this.getNewsInfo()
       this.firstCode = item
       this.current = 1
     },

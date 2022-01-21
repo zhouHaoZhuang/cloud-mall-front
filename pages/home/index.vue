@@ -227,7 +227,7 @@
             <div class="news-con">
               <ul>
                 <li v-for="(ele, ind) in item.ccNewsResDtos" :key="ind">
-                  <p @click="goNewsPage(item.newTypeCode, index)">
+                  <p @click="goNewsPage(item.newTypeCode, item.id)">
                     {{
                       ele.newsTitle.length > 20
                         ? ele.newsTitle.substring(0, 20) + '...'
@@ -580,10 +580,10 @@ export default {
       })
     },
     // 点击跳转新闻公告页面
-    goNewsPage (id, ind) {
+    goNewsPage (code, id) {
       this.$router.push({
         path: '/pc/about/index?tab=1',
-        query: { code: id, newsIndex: ind }
+        query: { code, id }
       })
     }
   }
