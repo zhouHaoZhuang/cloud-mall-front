@@ -54,6 +54,9 @@ export default ({ $axios, redirect, route, store }) => {
   $axios.defaults.timeout = 10000
   // 请求时拦截
   $axios.onRequest((config) => {
+    if (config.map) {
+      config.baseURL = '/map'
+    }
     const cookieToken = config.headers.common.cookie
     config.headers.token = getToken(cookieToken, store)
     config.headers.domain = getDomainUrl(cookieToken, store)

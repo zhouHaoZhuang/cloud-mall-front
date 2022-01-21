@@ -17,6 +17,12 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' }
+    ],
+    script: [
+      {
+        type: 'text/javascript',
+        src: 'https://webapi.amap.com/maps?v=1.4.15&key=d79adb5572920b840e8e4b559c812836&plugin=AMap.MouseTool,AMap.PolyEditor,AMap.LabelMarker,AMap.Autocomplete,AMap.ToolBar,AMap.PlaceSearch,AMap.Heatmap,AMap.Geocoder'
+      }
     ]
     // link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
     // script: [{ src: 'js/isMobile.js' }]
@@ -80,20 +86,27 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   // 跨域
-  // axios: {
-  //   proxy: true, // 开启跨域行为
-  //   prefix: '/api' // 所有请求前缀加上/api,无需配置axios请求地址(BASE_URL)
-  // },
-  // proxy: {
-  //   // 代理
-  //   '/api': {
-  //     target: process.env.BASE_URL, // 代理转发地址
-  //     changeOrigin: true,
-  //     pathRewrite: {
-  //       '^/api': ''
-  //     }
-  //   }
-  // },
+  axios: {
+    proxy: true // 开启跨域行为
+    // prefix: '/api' // 所有请求前缀加上/api,无需配置axios请求地址(BASE_URL)
+  },
+  proxy: {
+    // 代理
+    // '/api': {
+    //   target: process.env.BASE_URL, // 代理转发地址
+    //   changeOrigin: true,
+    //   pathRewrite: {
+    //     '^/api': ''
+    //   }
+    // }
+    '/map': {
+      target: 'https://restapi.amap.com', // 代理转发地址
+      changeOrigin: true,
+      pathRewrite: {
+        '^/map': ''
+      }
+    }
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
