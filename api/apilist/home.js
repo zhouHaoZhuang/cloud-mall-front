@@ -43,5 +43,15 @@ export default axios => ({
         ...params
       }
     })
+  },
+  // 根据地址获取经纬度
+  getMapLonAndLat (params) {
+    return axios({
+      url: '/v3/geocode/geo',
+      params: {
+        ...params
+      },
+      map: true
+    })
   }
 })
