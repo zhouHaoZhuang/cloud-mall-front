@@ -6,7 +6,9 @@
           width="15px"
           src="~/static/img/help/frontpagelogo.png"
           alt=""
-        ><span>首页></span><a href="">帮助中心</a>
+        ><span><nuxt-link to="/pc">首页</nuxt-link>></span><nuxt-link to="/pc/help/helpInfo">
+          帮助中心
+        </nuxt-link>
       </h3>
       <div v-if="listAll" class="helpInfo-listall">
         <div
