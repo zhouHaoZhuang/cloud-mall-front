@@ -93,8 +93,9 @@
                 </div>
               </div>
             </div>
+            <!-- 地图 -->
             <div class="contact-img">
-              1
+              <Map />
             </div>
           </div>
         </div>
@@ -290,8 +291,9 @@
 import { mapState } from 'vuex'
 import Banner from '~/components/banner/banner.vue'
 import Statement from '@/components/About/statement'
+import Map from '@/components/Map'
 export default {
-  components: { Statement, Banner },
+  components: { Statement, Banner, Map },
   async asyncData ({ app, query }) {
     // 获取公司网站信息
     const websiteData = await app.$api.home.getWebInfo()
@@ -642,7 +644,6 @@ export default {
           .contact-img {
             width: 610px;
             height: 300px;
-            background-color: red;
           }
         }
       }
