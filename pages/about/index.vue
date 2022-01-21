@@ -333,7 +333,7 @@ export default {
       currentPage: 1,
       pageSize: 999
     })
-    let typeCode = typeData.data.list[0].newTypeCode || ''
+    let typeCode = typeData.data.list[0]?.newTypeCode || ''
     if (query.code) {
       typeCode = query.code
     }
