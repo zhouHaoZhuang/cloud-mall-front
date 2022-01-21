@@ -3,7 +3,7 @@
     <div class="container header-box">
       <!-- logo -->
       <div class="logo" @click="handleClickJump('/pc')">
-        <img width="104px" style="margin-right: 100px" :src="logoUrl" alt="">
+        <img width="104px" style="margin-right: 100px" :src="webInfo.websiteLogo" alt="">
         <!-- <h1>浙江云盾</h1> -->
       </div>
       <!-- nav -->
@@ -468,7 +468,6 @@ export default {
       hoverIndex: -1,
       headerItemData: {},
       hoverStyle: '',
-      logoUrl: null,
       whiteList: ['/login-pc', '/pc/register', '/pc/forget']
     }
   },
@@ -481,7 +480,6 @@ export default {
     })
   },
   mounted () {
-    this.logoUrl = this.webInfo.websiteLogo
     this.hoverIndex = 4
     this.headerItemData = { ...this.navList[4].children }
   },
