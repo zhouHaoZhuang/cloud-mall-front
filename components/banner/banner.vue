@@ -187,7 +187,7 @@ export default {
 .banner-container {
   position: relative;
   .banner-wrap {
-    height: 576px;
+    height: 657px;
     position: relative;
     .banner {
       min-width: 1220px;

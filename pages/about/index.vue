@@ -4,11 +4,6 @@
     <div class="banner-wrap">
       <Banner :type="{ typeName: 'assurance', typeId: 4 }" />
       <div class="container">
-        <!-- <p>杭州云盾科技</p>
-        <p>质量为本、客户为根、勇于拼搏、务实创新</p>
-        <div class="product">
-          了解产品
-        </div> -->
         <div class="tabs">
           <div
             v-for="(item, index) in tabList"
@@ -132,23 +127,14 @@
                 <h1 @click="getDetail(item.id)">
                   {{ item.newsTitle }}
                 </h1>
-                <!-- <div class="news-time">
-                  最新
-                </div>
-                <div class="news-trends">
-                  公司动态
-                </div> -->
               </div>
               <div class="newstab-about">
-                {{
-                  item.seoDescribe ||
-                    '为深入推进“互联网+农业”模式，着力培养高水平电商人才，大力推进乡村振兴战略，河源市人社局结合河源市农村电商发展现状，在深河指挥部和社会资源的大力支持下，主导建设了“E网兴农”农村电商产业园。这是河源市深入学习贯彻习近平总书记关于乡村振兴工作的重要论述精..'
-                }}
+                {{ item.seoDescribe }}
               </div>
               <div class="newstab-footer">
                 <div class="time">
                   <a-icon type="clock-circle" class="icon" />
-                  {{ item.newsPublishTime.replace('T', ' ') }}
+                  {{ item.newsPublishTime }}
                 </div>
                 <!-- <div class="attilude">
                   <a-icon type="like" class="icon" />
@@ -186,25 +172,6 @@
             <div v-html="newsDetail.context">
               {{ newsDetail.context }}
             </div>
-            <!-- <p>
-              穿越千年时光，开封的宋都古城韵味犹存。作为开封古城区传统风貌保存最完整、面积规模最大的历史文化街区，双龙巷历史文化街区是保护与延续开封古都文化最理想的空间载体，如何合理保护利用？双龙巷文化旅游发展有限公司负责人刘涛涛告诉记者，“我们采用‘保护+微更新’管理模式，详细指导古城每一寸土地的保护、开发和利用2018年，开封市编制施行《开封宋都古城保护与修缮规划》。在总体保护框架要求下，面积共计64.7公顷的3个历史文化街区采用“保护+文旅”模式，坚持保护为主、修旧如旧原则，对各级文保单位、历史建筑等全方位保护；并大力发展文化产业，打造宋文化品牌IP，为宋都古城产业转型升级提供优质场所。
-            </p>
-            <p>
-              双龙巷文化旅游发展有限公司负责人刘涛涛告诉记者，“我们采用‘保护+微更新’管理模式，详细指导古城每一寸土地的保护、开发和利用2018年，开封市编制施行《开封宋都古城保护与修缮规划》。在总体保护框架要求下，面积共计64.7公顷的3个历史文化街区采用“保护+文旅”模式，坚持保护为主、修旧如旧原则，对各级文保单位、历史建筑等全方位保护；并大力发展文化产业，打造宋文化品牌IP为宋都古城产业转型升级提供优质场所。
-            </p>
-            <img class="news-img" src="" alt="">
-            <p>
-              穿越千年时光，开封的宋都古城韵味犹存。作为开封古城区传统风貌保存最完整、面积规模最大的历史文化街区，双龙巷历史文化街区是保护与延续开封古都文化最理想的空间载体，如何合理保护利用？双龙巷文化旅游发展有限公司负责人刘涛涛告诉记者，“我们采用‘保护+微更新’管理模式，详细指导古城每一寸土地的保护、开发和利用2018年，开封市编制施行《开封宋都古城保护与修缮规划》。在总体保护框架要求下，面积共计64.7公顷的3个历史文化街区采用“保护+文旅”模式，坚持保护为主、修旧如旧原则，对各级文保单位、历史建筑等全方位保护；并大力发展文化产业，打造宋文化品牌IP，为宋都古城产业转型升级提供优质场所。
-            </p>
-            <p>
-              双龙巷文化旅游发展有限公司负责人刘涛涛告诉记者，“我们采用‘保护+微更新’管理模式，详细指导古城每一寸土地的保护、开发和利用2018年，开封市编制施行《开封宋都古城保护与修缮规划》。在总体保护框架要求下，面积共计64.7公顷的3个历史文化街区采用“保护+文旅”模式，坚持保护为主、修旧如旧原则。
-            </p>
-            <p>
-              双龙巷文化旅游发展有限公司负责人刘涛涛告诉记者，“我们采用‘保护+微更新’管理模式，详细指导古城每一寸土地的保护、开发和利用2018年，开封市编制施行《开封宋都古城保护与修缮规划》。在总体保护框架要求下，面积共计64.7公顷的3个历史文化街区采用“保护+文旅”模式，坚持保护为主、修旧如旧原则，对各级文保单位、历史建筑等全方位保护；并大力发展文化产业，打造宋文化品牌IP为宋都古城产业转型升级提供优质场所。
-            </p>
-            <p>
-              穿越千年时光，开封的宋都古城韵味犹存。作为开封古城区传统风貌保存最完整、面积规模最大的历史文化街区，双龙巷历史文化街区是保护与延续开封古都文化最理想的空间载体，如何合理保护利用？双龙巷文化旅游发展有限公司负责人刘涛涛告诉记者，“我们采用‘保护+微更新’管理模式，详细指导古城每一寸土地的保护、开发和利用2018年，开封市编制施行《开封宋都古城保护与修缮规划》。在总体保护框架要求下，面积共计64.7公顷的3个历史文化街区采用“保护+文旅”模式，坚持保护为主、修旧如旧原则，对各级文保单位、历史建筑等全方位保护；并大力发展文化产业，打造宋文化品牌IP，为宋都古城产业转型升级提供优质场所。
-            </p> -->
           </div>
         </div>
       </div>
@@ -289,7 +256,7 @@
               style="margin-bottom: 34px"
             >
               完成第一步后，将贵站链接邮件至
-              <a href="mailto:service@ydidc.com">service@ydidc.com</a>
+              <a href="mailto:service@ydidc.com">{{ webInfo.email }}</a>
             </p>
             <div class="share-link-left-title share-link-left-title3">
               浙江云盾审核回复
@@ -326,6 +293,9 @@ import Statement from '@/components/About/statement'
 export default {
   components: { Statement, Banner },
   async asyncData ({ app, query }) {
+    // 获取公司网站信息
+    const websiteData = await app.$api.home.getWebInfo()
+    console.log('公司网站信息', websiteData)
     // 获取公司简介
     const newsData = await app.$api.pages.getCompanyPage()
     // 获取新闻类别
@@ -343,7 +313,12 @@ export default {
       pageSize: 999,
       newTypeCode: typeCode
     })
-    // 新闻类别tab切换
+    if (detailData.data.list) {
+      detailData.data.list.forEach((item) => {
+        item.newsPublishTime = item.newsPublishTime.replace('T', ' ')
+      })
+    }
+
     const select = query?.newsIndex || 0
     return {
       companypages: newsData.data?.list,
@@ -413,8 +388,13 @@ export default {
     onChangeNewTabs (ind, item) {
       this.newsTabSelectIndex = ind
       this.getNewsListInfo(1, 999, item)
+      this.getWebsiteInfo()
       this.firstCode = item
       this.current = 1
+    },
+    async getWebsiteInfo () {
+      const res = await this.$api.home.getWebInfo()
+      console.log('公司网站信息', res)
     },
     // 点击复制
     handleCopy (type) {
@@ -459,6 +439,10 @@ export default {
         newTypeCode: code
       })
       this.newsList = newsData.data.list || []
+      console.log('新闻类别信息', this.newsList)
+      this.newsList.forEach((item) => {
+        item.newsPublishTime = item.newsPublishTime.replace('T', ' ')
+      })
       this.total = Number(newsData.data.totalCount) || 0
     },
     // 进入详情页面
@@ -483,6 +467,7 @@ export default {
     async getWebInfo () {
       const linksData = await this.$api.home.getFriendLink()
       this.linkList = linksData.data.list || []
+      console.log('友情链接', this.linkList)
     }
   }
 }
@@ -533,7 +518,7 @@ export default {
         height: 80px;
         position: absolute;
         left: 0;
-        bottom: 80px;
+        bottom: 161px;
         right: 0;
         z-index: 9999;
         display: flex;
