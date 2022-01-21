@@ -76,7 +76,15 @@
                     <img :src="webInfo.wechatQrCode" alt="">
                   </div>
                 </div>
-                <div class="ele" />
+                <div class="ele">
+                  <div class="img-box">
+                    <i />
+                    <span>请选择客服进行咨询</span>
+                    <div class="right">
+                      {{ webInfo.qqNumber }}
+                    </div>
+                  </div>
+                </div>
                 <div class="ele" @click="jumpOutside(webInfo.webLink)" />
                 <div class="ele" @click="mailsome" />
               </div>
@@ -372,7 +380,7 @@ export default {
             .list-ele {
               display: flex;
               line-height: 36px;
-              .label{
+              .label {
                 color: #fff;
               }
               .value {
@@ -432,6 +440,9 @@ export default {
               }
               .ele:nth-child(2):hover {
                 background-position: -40px -86px;
+                .img-box {
+                  display: block;
+                }
               }
               .ele:nth-child(3) {
                 background-position: -80px -46px;
