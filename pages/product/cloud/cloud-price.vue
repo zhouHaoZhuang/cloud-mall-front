@@ -267,7 +267,7 @@
           <div class="choose-value">
             <div class="system">
               <div class="txt-info">
-                主机创建后，自动生成的密码将通过短信的形式发送给您。同时您也可登录浙江云盾控制台重置主机密码
+                实例创建后通过控制台“重置实例密码”操作完成设置
               </div>
             </div>
           </div>
