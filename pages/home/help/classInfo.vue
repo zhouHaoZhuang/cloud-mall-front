@@ -1,11 +1,8 @@
 <template>
   <div>
     <h2>
-      <img
-        width="15px"
-        src="~/static/img/help/frontpagelogo.png"
-        alt=""
-      ><nuxt-link to="/pc">
+      <img width="15px" src="~/static/img/help/frontpagelogo.png" alt="">
+      <nuxt-link to="/pc">
         首页
       </nuxt-link>
       <span>></span>
