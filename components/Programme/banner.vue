@@ -1,7 +1,5 @@
 <template>
   <div class="banner-container">
-    <!-- 占位div -->
-    <div class="seize" />
     <!-- 轮播图 -->
     <div
       class="banner"
@@ -72,16 +70,12 @@ export default {
 
 <style lang="scss" scoped>
 .banner-container {
-  .seize {
-    height: 80px;
-    background: #192933;
-  }
   .banner {
     height: 657px;
     background-size: cover !important;
     .container {
       padding-left: 10px;
-      padding-top: 115px;
+      padding-top: 116px;
       color: #fff;
       p:nth-child(1) {
         font-size: 70px;
