@@ -562,7 +562,7 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 0 20px;
+        padding: 0 30px;
         overflow: hidden;
         cursor: pointer;
         box-sizing: border-box;
@@ -596,7 +596,7 @@ export default {
           // background-color: #212629;
           background: url("../static/img/home/indexHover.png") no-repeat;
           background-size: 150% 100%;
-          background-position: -505px -15px;
+          background-position: -420px -15px;
           font-size: 14px;
           .popup-wrap {
             margin-top: 15px;
@@ -623,7 +623,7 @@ export default {
     }
     .login {
       height: 100%;
-      margin-left: 130px;
+      // margin-left: 130px;
       float: right;
       display: flex;
       align-items: center;

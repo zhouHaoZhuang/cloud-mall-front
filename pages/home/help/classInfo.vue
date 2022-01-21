@@ -1,7 +1,16 @@
 <template>
   <div>
     <h2>
-      <img width="15px" src="~/static/img/help/frontpagelogo.png" alt="">首页>{{ LeveltwoTitle }}><a href="">{{ LevelthreeTitle }}</a>
+      <img width="15px" src="~/static/img/help/frontpagelogo.png" alt="">
+      <nuxt-link to="/pc">
+        首页
+      </nuxt-link>
+      <span>></span>
+      <nuxt-link to="/pc/help/helpInfo">
+        {{ LeveltwoTitle }}
+      </nuxt-link>
+      <span>></span>
+      <a @click="typeCentexthtml = false">{{ LevelthreeTitle }}</a>
     </h2>
     <client-only>
       <div v-if="!typeCentexthtml">
@@ -52,6 +61,7 @@ export default {
       helpTypeCode: query.helpTypeCode,
       ...app.listQuery
     })
+    console.log(typeCentext, '点击目录的时候获取目录下的内容')
     const total = typeCentext.data ? typeCentext.data.totalCount * 1 : 0
     typeCentext = typeCentext.data.list
     const keyWords = query.keyWords
@@ -97,7 +107,9 @@ export default {
     },
     // 获取搜索列表
     async getDetail () {
-      const SearchList = await this.$api.help.getSearchList({ keyWords: this.$route.query.keyWords })
+      const SearchList = await this.$api.help.getSearchList({
+        keyWords: this.$route.query.keyWords
+      })
       console.log(SearchList, '搜索列表lllllllllllllllllll')
       this.typeCentext = SearchList.data
     },
@@ -115,7 +127,7 @@ export default {
 <style lang="scss" scoped>
 h2 {
   padding: 20px 305px;
-  img{
+  img {
     margin-top: -5px;
     margin-right: 5px;
   }
