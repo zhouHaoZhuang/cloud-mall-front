@@ -30,14 +30,11 @@
               {{ companypagesPageName || '关于我们' }}
             </div>
             <div class="bottom-line" />
-            <div introduce-text v-html="companypagesContext" />
-            <!-- <p>
-              公司成立于2007年，是国内领先的互联网业务平台服务提供商。公司专注为用户提供低价高性能云计算产品，致力于云计算应用的易用性开发，并引导云计算在国内普及。目前公司研发以及运营云服务基础设施服务平台（IaaS），面向全球客户提供基于云计算的IT解决方案与客户服务，拥有丰富的国内BGP、双线高防、香港等优质的IDC资源。
-            </p>
-            <p>
-              公司一直秉承"以人为本、客户为尊、永续创新"的价值观，坚持"以微笑收获友善，
-              以尊重收获理解，以责任收获支持，以谦卑收获成长"的行为观向客户提供全面优质的互联网应用服务。
-            </p> -->
+            <div
+              class="introduce-text"
+              introduce-text
+              v-html="companypagesContext"
+            />
           </div>
         </div>
         <div class="contact-all">
@@ -103,7 +100,7 @@
       <!-- 新闻公告 -->
       <div v-if="tabSelectIndex === 1" class="news">
         <!-- 新闻公告tab栏切换 -->
-        <div v-if="!newsDetail" class="newtabs">
+        <div v-if="!detailSelect" class="newtabs">
           <div
             v-for="(item, ind) in newtabsList"
             :key="ind"
@@ -118,7 +115,7 @@
           </div>
         </div>
         <!-- 新闻公告主体部分 -->
-        <div v-if="!newsDetail" class="newstabs-content">
+        <div v-if="!detailSelect" class="newstabs-content">
           <div v-for="item in newsList" :key="item.id" class="newstabs-items">
             <div v-if="item.tittleImage" class="newstab-img">
               <img :src="item.tittleImage">
@@ -146,7 +143,7 @@
           </div>
         </div>
         <!-- 分页功能 -->
-        <div v-show="!newsDetail" class="pagination">
+        <div v-show="!detailSelect" class="pagination">
           <a-pagination
             v-model="current"
             :hide-on-single-page="true"
@@ -156,7 +153,7 @@
           />
         </div>
         <!-- 新闻公告详情部分 -->
-        <div v-if="newsDetail" class="news-content">
+        <div v-if="detailSelect" class="news-content">
           <div class="news-title">
             <a-icon type="left" @click="backContent()" />
             {{ newsDetail.newsTitle }}
@@ -186,14 +183,18 @@
             <div class="bottom-line" />
           </div>
           <p class="info1">
-            符合PR>=5，Alexa排名20,000以内的网站，可以和浙江云盾相互添加网站链接，具体操作方式如下：
+            符合PR>=5，Alexa排名20,000以内的网站，可以和{{
+              websiteInfo.websiteName
+            }}相互添加网站链接，具体操作方式如下：
           </p>
           <div class="step-box">
             <div class="share-link-left-title">
-              在贵站添加浙江云盾链接
+              在贵站添加{{ websiteInfo.websiteName }}链接
             </div>
             <p class="share-link-left-title-introduce">
-              您可以根据下方提示，在您的网站中插入浙江云盾的文字链接、图片链接代码。
+              您可以根据下方提示，在您的网站中插入{{
+                websiteInfo.websiteName
+              }}的文字链接、图片链接代码。
             </p>
             <div class="share-code-title">
               文字链接代码：
@@ -215,7 +216,10 @@
                   文字预览效果：
                 </div>
                 <div class="code-box">
-                  <a target="_blank" href="#">浙江云盾</a>
+                  <a
+                    target="_blank"
+                    :href="websiteInfo.internationalSiteAddress"
+                  >{{ websiteInfo.websiteName }}</a>
                 </div>
               </div>
             </div>
@@ -244,7 +248,13 @@
                 </div>
                 <div class="code-box">
                   <div class="img-box">
-                    <!-- <img src="https://ydidc.com/logo_small.gif" alt=""> -->
+                    <a
+                      target="_blank"
+                      :href="websiteInfo.internationalSiteAddress"
+                    ><img
+                      :src="websiteInfo.websiteLogo"
+                      alt=""
+                    ></a>
                   </div>
                 </div>
               </div>
@@ -260,7 +270,7 @@
               <a href="mailto:service@ydidc.com">{{ webInfo.email }}</a>
             </p>
             <div class="share-link-left-title share-link-left-title3">
-              浙江云盾审核回复
+              {{ websiteInfo.websiteName }}审核回复
             </div>
             <p class="share-link-left-title-introduce">
               收到邮件后，我们会于5个工作日内尽快审核并回复。
@@ -305,7 +315,7 @@ export default {
       currentPage: 1,
       pageSize: 999
     })
-    let typeCode = typeData.data.list[0]?.newTypeCode || ''
+    let typeCode = typeData.data?.list[0]?.newTypeCode || ''
     if (query.code) {
       typeCode = query.code
     }
@@ -327,6 +337,10 @@ export default {
       companypagesPageName: newsData.data.list[0]?.pageName,
       companypagesContext: newsData.data.list[0]?.context,
       companyPicture: newsData.data.list[0]?.bannerPicture,
+      websiteInfo: websiteData.data?.list[0],
+      txtCode: `<a target="_blank" href="${websiteData.data?.list[0].internationalSiteAddress}">${websiteData.data?.list[0].websiteName}</a>`,
+      imgCode1: `<a target="_blank" href="${websiteData.data?.list[0].internationalSiteAddress}">`,
+      imgCode2: `<img src="${websiteData.data?.list[0].websiteLogo}">`,
       newtabsList: typeData.data?.list,
       newsList: detailData.data?.list,
       firstCode: typeCode,
@@ -341,8 +355,8 @@ export default {
       firstCode: '',
       newsList: [],
       newsDetail: [],
+      detailSelect: false,
       tabSelectIndex: 0,
-      newsDetail: false,
       linkList: [
         {
           name: '阿里云',
@@ -390,13 +404,9 @@ export default {
     onChangeNewTabs (ind, item) {
       this.newsTabSelectIndex = ind
       this.getNewsListInfo(1, 999, item)
-      this.getWebsiteInfo()
+      this.getNewsInfo()
       this.firstCode = item
       this.current = 1
-    },
-    async getWebsiteInfo () {
-      const res = await this.$api.home.getWebInfo()
-      console.log('公司网站信息', res)
     },
     // 点击复制
     handleCopy (type) {
@@ -431,6 +441,7 @@ export default {
         pageSize: 999
       })
       this.newtabsList = newsData.data.list
+      console.log('新闻类别', this.newtabsList)
       this.getNewsListInfo(this.newtabsList[0].newTypeCode)
     },
     // 获取新闻类别信息
@@ -440,16 +451,15 @@ export default {
         pageSize: pageSize || 8,
         newTypeCode: code
       })
-      this.newsList = newsData.data.list || []
-      console.log('新闻类别信息', this.newsList)
+      this.newsList = newsData.data?.list || []
       this.newsList.forEach((item) => {
         item.newsPublishTime = item.newsPublishTime.replace('T', ' ')
       })
-      this.total = Number(newsData.data.totalCount) || 0
+      this.total = Number(newsData.data?.totalCount) || 0
     },
     // 进入详情页面
     async getDetail (id) {
-      this.newsDetail = true
+      this.detailSelect = true
       const newData = await this.$api.news.getOneNews(id)
       this.newsDetail = newData.data
       this.newsDetail.newsPublishTime = this.newsDetail.newsPublishTime.replace(
@@ -459,7 +469,7 @@ export default {
     },
     // 回退新闻内容页面
     backContent () {
-      this.newsDetail = false
+      this.detailSelect = false
     },
     // 页码功能
     pageChange (current, pageSize, code) {
@@ -520,7 +530,7 @@ export default {
         height: 80px;
         position: absolute;
         left: 0;
-        bottom: 161px;
+        bottom: 80px;
         right: 0;
         z-index: 9999;
         display: flex;
@@ -916,5 +926,16 @@ export default {
       }
     }
   }
+}
+</style>
+<style>
+.about-content img {
+  /* float: left;
+  margin: 5px; */
+  vertical-align: text-top;
+}
+.news-content img {
+  float: left;
+  margin-right: 10px;
 }
 </style>
