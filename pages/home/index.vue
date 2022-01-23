@@ -236,7 +236,7 @@
                       {{ ele.newsTitle }}
                     </span>
                     <span class="news-time">{{
-                      ele.modifyTime.substring(0, 10)
+                      ele.modifyTime | formatDate('YYYY-MM-DD')
                     }}</span>
                   </p>
                 </li>
