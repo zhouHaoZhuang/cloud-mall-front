@@ -228,11 +228,7 @@
               <ul>
                 <li v-for="(ele, ind) in item.ccNewsResDtos" :key="ind">
                   <p @click="goNewsPage(item.newTypeCode, item.id)">
-                    <span
-                      :class="
-                        ele.newsTitle.length > 20 ? 'text-overflow newsTit' : ''
-                      "
-                    >
+                    <span class="text-overflow newsTit">
                       {{ ele.newsTitle }}
                     </span>
                     <span class="news-time">{{
