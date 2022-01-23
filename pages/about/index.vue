@@ -102,14 +102,14 @@
         <!-- 新闻公告tab栏切换 -->
         <div v-if="!detailSelect" class="newtabs">
           <div
-            v-for="(item, ind) in newtabsList"
-            :key="ind"
+            v-for="item in newtabsList"
+            :key="item.id"
             :class="
-              newsTabSelectIndex === ind
+              newsTabSelectIndex === item.id
                 ? 'newtabs-item newtabs-active'
                 : 'newtabs-item'
             "
-            @click="onChangeNewTabs(ind, item.newTypeCode)"
+            @click="onChangeNewTabs(item.id, item.newTypeCode)"
           >
             {{ item.newTypeName }}
           </div>
@@ -319,19 +319,25 @@ export default {
     if (query.code) {
       typeCode = query.code
     }
+    let select = typeData.data?.list[0].id
+    if (query.id) {
+      select = query?.id
+    }
     // 获取新闻类别信息
     const detailData = await app.$api.news.getNews({
       currentPage: 1,
       pageSize: 999,
       newTypeCode: typeCode
     })
-    if (detailData.data.list) {
-      detailData.data.list.forEach((item) => {
-        item.newsPublishTime = item.newsPublishTime.replace('T', ' ')
-      })
-    }
+    const detailTabs = detailData.data.list.map((item) => {
+      return {
+        ...item,
+        newsPublishTime: item.newsPublishTime
+          ? item.newsPublishTime.replace('T', ' ')
+          : ''
+      }
+    })
 
-    const select = query?.newsIndex || 0
     return {
       companypages: newsData.data?.list,
       companypagesPageName: newsData.data.list[0]?.pageName,
@@ -342,10 +348,10 @@ export default {
       imgCode1: `<a target="_blank" href="${websiteData.data?.list[0].internationalSiteAddress}">`,
       imgCode2: `<img src="${websiteData.data?.list[0].websiteLogo}">`,
       newtabsList: typeData.data?.list,
-      newsList: detailData.data?.list,
+      newsList: detailTabs,
       firstCode: typeCode,
       total: Number(detailData.data?.totalCount),
-      newsTabSelectIndex: Number(select)
+      newsTabSelectIndex: select
     }
   },
   data () {
@@ -398,13 +404,13 @@ export default {
     // tab选择
     onChangeTab (index) {
       this.tabSelectIndex = index
-      this.$router.push({ path: `/pc/about/index?tab=${index}` })
+      // this.$router.push({ path: `/pc/about/index?tab=${index}` })
     },
     // 新闻公告tab选择
     onChangeNewTabs (ind, item) {
       this.newsTabSelectIndex = ind
       this.getNewsListInfo(1, 999, item)
-      this.getNewsInfo()
+      // this.getNewsInfo()
       this.firstCode = item
       this.current = 1
     },

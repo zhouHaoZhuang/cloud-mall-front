@@ -227,14 +227,12 @@
             <div class="news-con">
               <ul>
                 <li v-for="(ele, ind) in item.ccNewsResDtos" :key="ind">
-                  <p @click="goNewsPage(item.newTypeCode, index)">
-                    {{
-                      ele.newsTitle.length > 20
-                        ? ele.newsTitle.substring(0, 20) + '...'
-                        : ele.newsTitle
-                    }}
+                  <p @click="goNewsPage(item.newTypeCode, item.id)">
+                    <span class="text-overflow newsTit">
+                      {{ ele.newsTitle }}
+                    </span>
                     <span class="news-time">{{
-                      ele.modifyTime.substring(0, 10)
+                      ele.modifyTime | formatDate('YYYY-MM-DD')
                     }}</span>
                   </p>
                 </li>
@@ -580,10 +578,10 @@ export default {
       })
     },
     // 点击跳转新闻公告页面
-    goNewsPage (id, ind) {
+    goNewsPage (code, id) {
       this.$router.push({
         path: '/pc/about/index?tab=1',
-        query: { code: id, newsIndex: ind }
+        query: { code, id }
       })
     }
   }
@@ -1138,6 +1136,10 @@ export default {
             position: relative;
             color: #333;
             cursor: pointer;
+            .newsTit {
+              display: inline-block;
+              width: 220px;
+            }
           }
           .news-time {
             position: absolute;
