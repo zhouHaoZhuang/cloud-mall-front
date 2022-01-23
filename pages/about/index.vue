@@ -329,11 +329,15 @@ export default {
       pageSize: 999,
       newTypeCode: typeCode
     })
-    if (detailData.data.list) {
-      detailData.data.list.forEach((item) => {
-        item.newsPublishTime = item.newsPublishTime.replace('T', ' ')
-      })
-    }
+    const detailTabs = detailData.data.list.map((item) => {
+      return {
+        ...item,
+        newsPublishTime: item.newsPublishTime
+          ? item.newsPublishTime.replace('T', ' ')
+          : ''
+      }
+    })
+
     return {
       companypages: newsData.data?.list,
       companypagesPageName: newsData.data.list[0]?.pageName,
@@ -344,7 +348,7 @@ export default {
       imgCode1: `<a target="_blank" href="${websiteData.data?.list[0].internationalSiteAddress}">`,
       imgCode2: `<img src="${websiteData.data?.list[0].websiteLogo}">`,
       newtabsList: typeData.data?.list,
-      newsList: detailData.data?.list,
+      newsList: detailTabs,
       firstCode: typeCode,
       total: Number(detailData.data?.totalCount),
       newsTabSelectIndex: select
@@ -400,7 +404,7 @@ export default {
     // tab选择
     onChangeTab (index) {
       this.tabSelectIndex = index
-      this.$router.push({ path: `/pc/about/index?tab=${index}` })
+      // this.$router.push({ path: `/pc/about/index?tab=${index}` })
     },
     // 新闻公告tab选择
     onChangeNewTabs (ind, item) {

@@ -228,11 +228,13 @@
               <ul>
                 <li v-for="(ele, ind) in item.ccNewsResDtos" :key="ind">
                   <p @click="goNewsPage(item.newTypeCode, item.id)">
-                    {{
-                      ele.newsTitle.length > 20
-                        ? ele.newsTitle.substring(0, 20) + '...'
-                        : ele.newsTitle
-                    }}
+                    <span
+                      :class="
+                        ele.newsTitle.length > 20 ? 'text-overflow newsTit' : ''
+                      "
+                    >
+                      {{ ele.newsTitle }}
+                    </span>
                     <span class="news-time">{{
                       ele.modifyTime.substring(0, 10)
                     }}</span>
@@ -1138,6 +1140,10 @@ export default {
             position: relative;
             color: #333;
             cursor: pointer;
+            .newsTit {
+              display: inline-block;
+              width: 220px;
+            }
           }
           .news-time {
             position: absolute;
