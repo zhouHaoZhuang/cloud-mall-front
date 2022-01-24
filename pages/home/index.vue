@@ -227,14 +227,12 @@
             <div class="news-con">
               <ul>
                 <li v-for="(ele, ind) in item.ccNewsResDtos" :key="ind">
-                  <p @click="goNewsPage(item.newTypeCode, index)">
-                    {{
-                      ele.newsTitle.length > 20
-                        ? ele.newsTitle.substring(0, 20) + '...'
-                        : ele.newsTitle
-                    }}
+                  <p @click="goNewsPage(item.newTypeCode, item.id)">
+                    <span class="text-overflow newsTit">
+                      {{ ele.newsTitle }}
+                    </span>
                     <span class="news-time">{{
-                      ele.modifyTime.substring(0, 10)
+                      ele.modifyTime | formatDate('YYYY-MM-DD')
                     }}</span>
                   </p>
                 </li>
@@ -480,14 +478,14 @@ export default {
           title: '服务器安全护航',
           bg: require('~/static/img/home/home-choic2.png'),
           content:
-            '单实例可用性达99.975%,多可用区多实例可用性达9995%，云盘可靠性达99999999%，可实现自动宕机迁移、快照备份'
+            '免费提供DDoS防护、木马查杀、防暴力破解等服务，通过多方国际安全认证，ECS云盘支持数据加密功能'
         },
         {
           mark: '赔偿',
           title: '100倍故障赔偿',
           bg: require('~/static/img/home/home-choic3.png'),
           content:
-            '单实例可用性达99.975%,多可用区多实例可用性达9995%，云盘可靠性达99999999%，可实现自动宕机迁移、快照备份'
+            '由于浙江云盾故障导致产品无法正常使用，我们将提供100倍的故障时间赔偿让您使用舒心。'
         }
       ],
       choiceTwoList: [
@@ -558,10 +556,13 @@ export default {
     // 获取新闻公告信息
     async getNewsListInfo () {
       const newsData = await this.$api.home.getNewsTypeInfo({
-        pageSize: '3'
+        pageSize: '9999'
       })
       console.log('新闻公告信息', newsData)
-      this.newsList = newsData.data.list
+      this.newsList = newsData.data.list.filter(item => item.status === 0)
+      if (this.newsList.length > 3) {
+        this.newsList = this.newsList.slice(0, 3)
+      }
       console.log(this.newsList, 'wdiohfuahkjfhbskjhf')
     },
     // 解决方案轮播
@@ -580,10 +581,10 @@ export default {
       })
     },
     // 点击跳转新闻公告页面
-    goNewsPage (id, ind) {
+    goNewsPage (code, id) {
       this.$router.push({
         path: '/pc/about/index?tab=1',
-        query: { code: id, newsIndex: ind }
+        query: { code, id }
       })
     }
   }
@@ -1138,6 +1139,10 @@ export default {
             position: relative;
             color: #333;
             cursor: pointer;
+            .newsTit {
+              display: inline-block;
+              width: 220px;
+            }
           }
           .news-time {
             position: absolute;

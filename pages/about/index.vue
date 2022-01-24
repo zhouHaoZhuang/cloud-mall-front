@@ -4,11 +4,6 @@
     <div class="banner-wrap">
       <Banner :type="{ typeName: 'assurance', typeId: 4 }" />
       <div class="container">
-        <!-- <p>杭州云盾科技</p>
-        <p>质量为本、客户为根、勇于拼搏、务实创新</p>
-        <div class="product">
-          了解产品
-        </div> -->
         <div class="tabs">
           <div
             v-for="(item, index) in tabList"
@@ -35,14 +30,11 @@
               {{ companypagesPageName || '关于我们' }}
             </div>
             <div class="bottom-line" />
-            <div introduce-text v-html="companypagesContext" />
-            <!-- <p>
-              公司成立于2007年，是国内领先的互联网业务平台服务提供商。公司专注为用户提供低价高性能云计算产品，致力于云计算应用的易用性开发，并引导云计算在国内普及。目前公司研发以及运营云服务基础设施服务平台（IaaS），面向全球客户提供基于云计算的IT解决方案与客户服务，拥有丰富的国内BGP、双线高防、香港等优质的IDC资源。
-            </p>
-            <p>
-              公司一直秉承"以人为本、客户为尊、永续创新"的价值观，坚持"以微笑收获友善，
-              以尊重收获理解，以责任收获支持，以谦卑收获成长"的行为观向客户提供全面优质的互联网应用服务。
-            </p> -->
+            <div
+              class="introduce-text"
+              introduce-text
+              v-html="companypagesContext"
+            />
           </div>
         </div>
         <div class="contact-all">
@@ -108,23 +100,27 @@
       <!-- 新闻公告 -->
       <div v-if="tabSelectIndex === 1" class="news">
         <!-- 新闻公告tab栏切换 -->
-        <div v-if="!newsDetail" class="newtabs">
+        <div v-if="!detailSelect" class="newtabs">
           <div
-            v-for="(item, ind) in newtabsList"
-            :key="ind"
+            v-for="(item, index) in newtabsList"
+            :key="index"
             :class="
-              newsTabSelectIndex === ind
+              newsTabSelectIndex === item.id
                 ? 'newtabs-item newtabs-active'
                 : 'newtabs-item'
             "
-            @click="onChangeNewTabs(ind, item.newTypeCode)"
+            @click="onChangeNewTabs(item.id, item.newTypeCode)"
           >
             {{ item.newTypeName }}
           </div>
         </div>
         <!-- 新闻公告主体部分 -->
-        <div v-if="!newsDetail" class="newstabs-content">
-          <div v-for="item in newsList" :key="item.id" class="newstabs-items">
+        <div v-if="!detailSelect" class="newstabs-content">
+          <div
+            v-for="(item, index) in newsList"
+            :key="index"
+            class="newstabs-items"
+          >
             <div v-if="item.tittleImage" class="newstab-img">
               <img :src="item.tittleImage">
             </div>
@@ -133,34 +129,21 @@
                 <h1 @click="getDetail(item.id)">
                   {{ item.newsTitle }}
                 </h1>
-                <!-- <div class="news-time">
-                  最新
-                </div>
-                <div class="news-trends">
-                  公司动态
-                </div> -->
               </div>
               <div class="newstab-about">
-                {{
-                  item.seoDescribe ||
-                    '为深入推进“互联网+农业”模式，着力培养高水平电商人才，大力推进乡村振兴战略，河源市人社局结合河源市农村电商发展现状，在深河指挥部和社会资源的大力支持下，主导建设了“E网兴农”农村电商产业园。这是河源市深入学习贯彻习近平总书记关于乡村振兴工作的重要论述精..'
-                }}
+                {{ item.seoDescribe }}
               </div>
               <div class="newstab-footer">
                 <div class="time">
                   <a-icon type="clock-circle" class="icon" />
-                  {{ item.newsPublishTime.replace('T', ' ') }}
+                  {{ item.newsPublishTime | formatDate }}
                 </div>
-                <!-- <div class="attilude">
-                  <a-icon type="like" class="icon" />
-                  256
-                </div> -->
               </div>
             </div>
           </div>
         </div>
         <!-- 分页功能 -->
-        <div v-show="!newsDetail" class="pagination">
+        <div v-show="newsList.length > 8 && !detailSelect" class="pagination">
           <a-pagination
             v-model="current"
             :hide-on-single-page="true"
@@ -170,7 +153,7 @@
           />
         </div>
         <!-- 新闻公告详情部分 -->
-        <div v-if="newsDetail" class="news-content">
+        <div v-if="detailSelect" class="news-content">
           <div class="news-title">
             <a-icon type="left" @click="backContent()" />
             {{ newsDetail.newsTitle }}
@@ -179,33 +162,13 @@
             <!-- <span class="left">最新</span> -->
             <span
               class="right"
-            >发布时间：{{ newsDetail.newsPublishTime }} | 作者：{{
-              newsDetail.createUserName
-            }}</span>
+            >发布时间：{{ newsDetail.newsPublishTime | formatDate }} |
+              作者：{{ newsDetail.createUserName }}</span>
           </div>
           <div class="news-cont">
             <div v-html="newsDetail.context">
               {{ newsDetail.context }}
             </div>
-            <!-- <p>
-              穿越千年时光，开封的宋都古城韵味犹存。作为开封古城区传统风貌保存最完整、面积规模最大的历史文化街区，双龙巷历史文化街区是保护与延续开封古都文化最理想的空间载体，如何合理保护利用？双龙巷文化旅游发展有限公司负责人刘涛涛告诉记者，“我们采用‘保护+微更新’管理模式，详细指导古城每一寸土地的保护、开发和利用2018年，开封市编制施行《开封宋都古城保护与修缮规划》。在总体保护框架要求下，面积共计64.7公顷的3个历史文化街区采用“保护+文旅”模式，坚持保护为主、修旧如旧原则，对各级文保单位、历史建筑等全方位保护；并大力发展文化产业，打造宋文化品牌IP，为宋都古城产业转型升级提供优质场所。
-            </p>
-            <p>
-              双龙巷文化旅游发展有限公司负责人刘涛涛告诉记者，“我们采用‘保护+微更新’管理模式，详细指导古城每一寸土地的保护、开发和利用2018年，开封市编制施行《开封宋都古城保护与修缮规划》。在总体保护框架要求下，面积共计64.7公顷的3个历史文化街区采用“保护+文旅”模式，坚持保护为主、修旧如旧原则，对各级文保单位、历史建筑等全方位保护；并大力发展文化产业，打造宋文化品牌IP为宋都古城产业转型升级提供优质场所。
-            </p>
-            <img class="news-img" src="" alt="">
-            <p>
-              穿越千年时光，开封的宋都古城韵味犹存。作为开封古城区传统风貌保存最完整、面积规模最大的历史文化街区，双龙巷历史文化街区是保护与延续开封古都文化最理想的空间载体，如何合理保护利用？双龙巷文化旅游发展有限公司负责人刘涛涛告诉记者，“我们采用‘保护+微更新’管理模式，详细指导古城每一寸土地的保护、开发和利用2018年，开封市编制施行《开封宋都古城保护与修缮规划》。在总体保护框架要求下，面积共计64.7公顷的3个历史文化街区采用“保护+文旅”模式，坚持保护为主、修旧如旧原则，对各级文保单位、历史建筑等全方位保护；并大力发展文化产业，打造宋文化品牌IP，为宋都古城产业转型升级提供优质场所。
-            </p>
-            <p>
-              双龙巷文化旅游发展有限公司负责人刘涛涛告诉记者，“我们采用‘保护+微更新’管理模式，详细指导古城每一寸土地的保护、开发和利用2018年，开封市编制施行《开封宋都古城保护与修缮规划》。在总体保护框架要求下，面积共计64.7公顷的3个历史文化街区采用“保护+文旅”模式，坚持保护为主、修旧如旧原则。
-            </p>
-            <p>
-              双龙巷文化旅游发展有限公司负责人刘涛涛告诉记者，“我们采用‘保护+微更新’管理模式，详细指导古城每一寸土地的保护、开发和利用2018年，开封市编制施行《开封宋都古城保护与修缮规划》。在总体保护框架要求下，面积共计64.7公顷的3个历史文化街区采用“保护+文旅”模式，坚持保护为主、修旧如旧原则，对各级文保单位、历史建筑等全方位保护；并大力发展文化产业，打造宋文化品牌IP为宋都古城产业转型升级提供优质场所。
-            </p>
-            <p>
-              穿越千年时光，开封的宋都古城韵味犹存。作为开封古城区传统风貌保存最完整、面积规模最大的历史文化街区，双龙巷历史文化街区是保护与延续开封古都文化最理想的空间载体，如何合理保护利用？双龙巷文化旅游发展有限公司负责人刘涛涛告诉记者，“我们采用‘保护+微更新’管理模式，详细指导古城每一寸土地的保护、开发和利用2018年，开封市编制施行《开封宋都古城保护与修缮规划》。在总体保护框架要求下，面积共计64.7公顷的3个历史文化街区采用“保护+文旅”模式，坚持保护为主、修旧如旧原则，对各级文保单位、历史建筑等全方位保护；并大力发展文化产业，打造宋文化品牌IP，为宋都古城产业转型升级提供优质场所。
-            </p> -->
           </div>
         </div>
       </div>
@@ -219,14 +182,18 @@
             <div class="bottom-line" />
           </div>
           <p class="info1">
-            符合PR>=5，Alexa排名20,000以内的网站，可以和浙江云盾相互添加网站链接，具体操作方式如下：
+            符合PR>=5，Alexa排名20,000以内的网站，可以和{{
+              websiteInfo.websiteName
+            }}相互添加网站链接，具体操作方式如下：
           </p>
           <div class="step-box">
             <div class="share-link-left-title">
-              在贵站添加浙江云盾链接
+              在贵站添加{{ websiteInfo.websiteName }}链接
             </div>
             <p class="share-link-left-title-introduce">
-              您可以根据下方提示，在您的网站中插入浙江云盾的文字链接、图片链接代码。
+              您可以根据下方提示，在您的网站中插入{{
+                websiteInfo.websiteName
+              }}的文字链接、图片链接代码。
             </p>
             <div class="share-code-title">
               文字链接代码：
@@ -248,7 +215,10 @@
                   文字预览效果：
                 </div>
                 <div class="code-box">
-                  <a target="_blank" href="#">浙江云盾</a>
+                  <a
+                    target="_blank"
+                    :href="websiteInfo.internationalSiteAddress"
+                  >{{ websiteInfo.websiteName }}</a>
                 </div>
               </div>
             </div>
@@ -277,7 +247,13 @@
                 </div>
                 <div class="code-box">
                   <div class="img-box">
-                    <!-- <img src="https://ydidc.com/logo_small.gif" alt=""> -->
+                    <a
+                      target="_blank"
+                      :href="websiteInfo.internationalSiteAddress"
+                    ><img
+                      :src="websiteInfo.websiteLogo"
+                      alt=""
+                    ></a>
                   </div>
                 </div>
               </div>
@@ -290,10 +266,10 @@
               style="margin-bottom: 34px"
             >
               完成第一步后，将贵站链接邮件至
-              <a href="mailto:service@ydidc.com">service@ydidc.com</a>
+              <a href="mailto:service@ydidc.com">{{ webInfo.email }}</a>
             </p>
             <div class="share-link-left-title share-link-left-title3">
-              浙江云盾审核回复
+              {{ websiteInfo.websiteName }}审核回复
             </div>
             <p class="share-link-left-title-introduce">
               收到邮件后，我们会于5个工作日内尽快审核并回复。
@@ -328,35 +304,50 @@ import Map from '@/components/Map'
 export default {
   components: { Statement, Banner, Map },
   async asyncData ({ app, query }) {
+    // 获取公司网站信息
+    const websiteData = await app.$api.home.getWebInfo()
     // 获取公司简介
     const newsData = await app.$api.pages.getCompanyPage()
+    const companyInfo = newsData.data.list.filter(item => item.status === 0)
+    console.log('获取公司简介', newsData.data.list)
     // 获取新闻类别
     const typeData = await app.$api.news.getAllNewsList({
       currentPage: 1,
       pageSize: 999
     })
-    let typeCode = typeData.data.list[0]?.newTypeCode || ''
+    const typeTabs = typeData.data?.list.filter(item => item.status === 0)
+    let typeCode = typeTabs[0]?.newTypeCode || ''
     if (query.code) {
       typeCode = query.code
     }
+    let select = typeTabs[0]?.id
+    if (query.id) {
+      select = query?.id
+    }
     // 获取新闻类别信息
-    const detailData = await app.$api.news.getNews({
-      currentPage: 1,
-      pageSize: 999,
-      newTypeCode: typeCode
-    })
-    // 新闻类别tab切换
-    const select = query?.newsIndex || 0
+    let detailData = []
+    if (typeTabs.length > 0) {
+      const res = await app.$api.news.getNews({
+        currentPage: 1,
+        pageSize: 999,
+        newTypeCode: typeCode
+      })
+      detailData = res.data.list
+    }
     return {
-      companypages: newsData.data?.list,
+      companypages: companyInfo,
       companypagesPageName: newsData.data.list[0]?.pageName,
       companypagesContext: newsData.data.list[0]?.context,
       companyPicture: newsData.data.list[0]?.bannerPicture,
-      newtabsList: typeData.data?.list,
-      newsList: detailData.data?.list,
+      websiteInfo: websiteData.data?.list[0],
+      txtCode: `<a target="_blank" href="${websiteData.data?.list[0].internationalSiteAddress}">${websiteData.data?.list[0].websiteName}</a>`,
+      imgCode1: `<a target="_blank" href="${websiteData.data?.list[0].internationalSiteAddress}">`,
+      imgCode2: `<img src="${websiteData.data?.list[0].websiteLogo}">`,
+      newtabsList: typeTabs,
+      newsList: detailData,
       firstCode: typeCode,
       total: Number(detailData.data?.totalCount),
-      newsTabSelectIndex: Number(select)
+      newsTabSelectIndex: select
     }
   },
   data () {
@@ -366,8 +357,8 @@ export default {
       firstCode: '',
       newsList: [],
       newsDetail: [],
+      detailSelect: false,
       tabSelectIndex: 0,
-      newsDetail: false,
       linkList: [
         {
           name: '阿里云',
@@ -409,12 +400,13 @@ export default {
     // tab选择
     onChangeTab (index) {
       this.tabSelectIndex = index
-      this.$router.push({ path: `/pc/about/index?tab=${index}` })
+      // this.$router.push({ path: `/pc/about/index?tab=${index}` })
     },
     // 新闻公告tab选择
     onChangeNewTabs (ind, item) {
       this.newsTabSelectIndex = ind
       this.getNewsListInfo(1, 999, item)
+      // this.getNewsInfo()
       this.firstCode = item
       this.current = 1
     },
@@ -451,6 +443,7 @@ export default {
         pageSize: 999
       })
       this.newtabsList = newsData.data.list
+      console.log('新闻类别', this.newtabsList)
       this.getNewsListInfo(this.newtabsList[0].newTypeCode)
     },
     // 获取新闻类别信息
@@ -460,22 +453,18 @@ export default {
         pageSize: pageSize || 8,
         newTypeCode: code
       })
-      this.newsList = newsData.data.list || []
-      this.total = Number(newsData.data.totalCount) || 0
+      this.newsList = newsData.data?.list || []
+      this.total = Number(newsData.data?.totalCount) || 0
     },
     // 进入详情页面
     async getDetail (id) {
-      this.newsDetail = true
+      this.detailSelect = true
       const newData = await this.$api.news.getOneNews(id)
       this.newsDetail = newData.data
-      this.newsDetail.newsPublishTime = this.newsDetail.newsPublishTime.replace(
-        'T',
-        ' '
-      )
     },
     // 回退新闻内容页面
     backContent () {
-      this.newsDetail = false
+      this.detailSelect = false
     },
     // 页码功能
     pageChange (current, pageSize, code) {
@@ -484,7 +473,8 @@ export default {
     // 获取友情链接
     async getWebInfo () {
       const linksData = await this.$api.home.getFriendLink()
-      this.linkList = linksData.data.list || []
+      this.linkList = linksData.data.list.filter(item => item.status === 0)
+      console.log('友情链接', this.linkList)
     }
   }
 }
@@ -931,5 +921,16 @@ export default {
       }
     }
   }
+}
+</style>
+<style>
+.about-content img {
+  /* float: left;
+  margin: 5px; */
+  vertical-align: text-top;
+}
+.news-content img {
+  float: left;
+  margin-right: 10px;
 }
 </style>

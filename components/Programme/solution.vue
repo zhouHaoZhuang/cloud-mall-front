@@ -14,11 +14,15 @@
           <div v-if="solutionData.infoTitle" class="infoTitle">
             {{ solutionData.infoTitle }}
           </div>
-          <p v-for="(item, index) in solutionData.infoList" :key="index">
+          <p
+            v-for="(item, index) in solutionData.infoList"
+            :key="index"
+            class="info-text"
+          >
             {{ item }}
           </p>
           <div
-          v-if="solutionData.foundbg"
+            v-if="solutionData.foundbg"
             class="info-found"
             :style="`${solutionData.foundbg}`"
           />
@@ -80,7 +84,8 @@ export default {
         color: #666;
         text-indent: 2em;
         background-color: #fff;
-        p {
+        .info-text {
+          text-indent: 0px;
           line-height: 26px;
           font-size: 16px;
           color: #333;

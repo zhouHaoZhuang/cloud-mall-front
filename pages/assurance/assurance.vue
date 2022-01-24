@@ -139,7 +139,7 @@
       <div class="assurance-container">
         <div class="title">
           <p class="title-top">
-            赔偿类型
+            退款常见问题
           </p>
         </div>
         <div class="container">

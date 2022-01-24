@@ -40,7 +40,7 @@ export default {
   data () {
     return {
       solutionData: {
-        title: '解决方案构架部署',
+        title: '解决方案架构部署',
         height: 'height: 370px',
         bg: `background:url(${require('~/static/img/programme/ecommerce-deploy.png')}) no-repeat left top`,
         foundbg: `background:url(${require('~/static/img/programme/found.png')}) no-repeat left top`,
