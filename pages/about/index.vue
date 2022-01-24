@@ -102,8 +102,8 @@
         <!-- 新闻公告tab栏切换 -->
         <div v-if="!detailSelect" class="newtabs">
           <div
-            v-for="item in newtabsList"
-            :key="item.id"
+            v-for="(item, index) in newtabsList"
+            :key="index"
             :class="
               newsTabSelectIndex === item.id
                 ? 'newtabs-item newtabs-active'
@@ -116,7 +116,11 @@
         </div>
         <!-- 新闻公告主体部分 -->
         <div v-if="!detailSelect" class="newstabs-content">
-          <div v-for="item in newsList" :key="item.id" class="newstabs-items">
+          <div
+            v-for="(item, index) in newsList"
+            :key="index"
+            class="newstabs-items"
+          >
             <div v-if="item.tittleImage" class="newstab-img">
               <img :src="item.tittleImage">
             </div>
@@ -132,14 +136,14 @@
               <div class="newstab-footer">
                 <div class="time">
                   <a-icon type="clock-circle" class="icon" />
-                  {{ item.newsPublishTime }}
+                  {{ item.newsPublishTime | formatDate }}
                 </div>
               </div>
             </div>
           </div>
         </div>
         <!-- 分页功能 -->
-        <div v-show="!detailSelect" class="pagination">
+        <div v-show="newsList.length > 8 && !detailSelect" class="pagination">
           <a-pagination
             v-model="current"
             :hide-on-single-page="true"
@@ -158,9 +162,8 @@
             <!-- <span class="left">最新</span> -->
             <span
               class="right"
-            >发布时间：{{ newsDetail.newsPublishTime }} | 作者：{{
-              newsDetail.createUserName
-            }}</span>
+            >发布时间：{{ newsDetail.newsPublishTime | formatDate }} |
+              作者：{{ newsDetail.createUserName }}</span>
           </div>
           <div class="news-cont">
             <div v-html="newsDetail.context">
@@ -305,37 +308,34 @@ export default {
     const websiteData = await app.$api.home.getWebInfo()
     // 获取公司简介
     const newsData = await app.$api.pages.getCompanyPage()
+    const companyInfo = newsData.data.list.filter(item => item.status === 0)
     console.log('获取公司简介', newsData.data.list)
     // 获取新闻类别
     const typeData = await app.$api.news.getAllNewsList({
       currentPage: 1,
       pageSize: 999
     })
-    let typeCode = typeData.data?.list[0]?.newTypeCode || ''
+    const typeTabs = typeData.data?.list.filter(item => item.status === 0)
+    let typeCode = typeTabs[0]?.newTypeCode || ''
     if (query.code) {
       typeCode = query.code
     }
-    let select = typeData.data?.list[0].id
+    let select = typeTabs[0]?.id
     if (query.id) {
       select = query?.id
     }
     // 获取新闻类别信息
-    const detailData = await app.$api.news.getNews({
-      currentPage: 1,
-      pageSize: 999,
-      newTypeCode: typeCode
-    })
-    const detailTabs = detailData.data.list.map((item) => {
-      return {
-        ...item,
-        newsPublishTime: item.newsPublishTime
-          ? item.newsPublishTime.replace('T', ' ')
-          : ''
-      }
-    })
-
+    let detailData = []
+    if (typeTabs.length > 0) {
+      const res = await app.$api.news.getNews({
+        currentPage: 1,
+        pageSize: 999,
+        newTypeCode: typeCode
+      })
+      detailData = res.data.list
+    }
     return {
-      companypages: newsData.data?.list,
+      companypages: companyInfo,
       companypagesPageName: newsData.data.list[0]?.pageName,
       companypagesContext: newsData.data.list[0]?.context,
       companyPicture: newsData.data.list[0]?.bannerPicture,
@@ -343,8 +343,8 @@ export default {
       txtCode: `<a target="_blank" href="${websiteData.data?.list[0].internationalSiteAddress}">${websiteData.data?.list[0].websiteName}</a>`,
       imgCode1: `<a target="_blank" href="${websiteData.data?.list[0].internationalSiteAddress}">`,
       imgCode2: `<img src="${websiteData.data?.list[0].websiteLogo}">`,
-      newtabsList: typeData.data?.list,
-      newsList: detailTabs,
+      newtabsList: typeTabs,
+      newsList: detailData,
       firstCode: typeCode,
       total: Number(detailData.data?.totalCount),
       newsTabSelectIndex: select
@@ -454,9 +454,6 @@ export default {
         newTypeCode: code
       })
       this.newsList = newsData.data?.list || []
-      this.newsList.forEach((item) => {
-        item.newsPublishTime = item.newsPublishTime.replace('T', ' ')
-      })
       this.total = Number(newsData.data?.totalCount) || 0
     },
     // 进入详情页面
@@ -464,10 +461,6 @@ export default {
       this.detailSelect = true
       const newData = await this.$api.news.getOneNews(id)
       this.newsDetail = newData.data
-      this.newsDetail.newsPublishTime = this.newsDetail.newsPublishTime.replace(
-        'T',
-        ' '
-      )
     },
     // 回退新闻内容页面
     backContent () {
@@ -480,9 +473,7 @@ export default {
     // 获取友情链接
     async getWebInfo () {
       const linksData = await this.$api.home.getFriendLink()
-      this.linkList = linksData.data.list.filter((item) => {
-        return item.status === 0
-      })
+      this.linkList = linksData.data.list.filter(item => item.status === 0)
       console.log('友情链接', this.linkList)
     }
   }
