@@ -19,10 +19,10 @@
             <!-- info -->
             <div class="container banner-info-box">
               <div class="banner-info" :style="bottomStyle">
-                <h2>
+                <h2 v-if="item.display">
                   {{ item.title }}
                 </h2>
-                <div class="info">
+                <div v-if="item.display" class="info">
                   {{ item.describe }}
                 </div>
                 <div
@@ -30,12 +30,6 @@
                   class="btn"
                   @click.stop="goButton(item.pcButtonLink, item.openLinkType)"
                 >
-                  <!-- <nuxt-link
-                    :to="item.pcButtonLink"
-                    :target="item.openLinkType === '1' ? '' : '_blank'"
-                  >
-                    {{ item.pcButtonName }}
-                  </nuxt-link> -->
                   {{ item.pcButtonName }}
                 </div>
               </div>
@@ -62,6 +56,8 @@ export default {
         choose: [
           {
             id: 1,
+            status: 0,
+            display: true,
             title: '弹性云服务器',
             pcButtonLink: '/pc/cloud-price',
             pcButtonName: '立即选购',
@@ -72,7 +68,9 @@ export default {
         ],
         assurance: [
           {
-            id: 1,
+            id: 3,
+            status: 0,
+            display: true,
             title: '百分服务，助您上云无忧 ',
             pcButtonLink: '/pc/cloud-price',
             describe:
@@ -116,8 +114,10 @@ export default {
             sorter: 'desc'
           })
           .then((res) => {
-            console.log('lunbotu', res)
-            this.bannerData[this.type.typeName] = res.data.list
+            this.bannerData[this.type.typeName] = res.data.list.filter((item) => {
+              return item.status === 0
+            })
+            console.log('lunbotu', this.bannerData[this.type.typeName])
           })
       }
     },
@@ -161,7 +161,8 @@ export default {
     goLink (link, type) {
       if (type === '1') {
         this.$router.push(link)
-      } else {
+      }
+      if (type === '0') {
         const routeUrl = this.$router.resolve({
           path: link
         })
@@ -172,7 +173,8 @@ export default {
     goButton (link, type) {
       if (type === '1') {
         this.$router.push(link)
-      } else {
+      }
+      if (type === '0') {
         const routeUrl = this.$router.resolve({
           path: link
         })
@@ -189,6 +191,7 @@ export default {
   .banner-wrap {
     height: 576px;
     position: relative;
+    background-color: #ccc;
     .banner {
       min-width: 1220px;
       height: 100%;

@@ -50,7 +50,7 @@ export default {
         ]
       },
       solutionData: {
-        title: '解决方案构架部署',
+        title: '解决方案架构部署',
         height: 'height: 380px',
         bg: `background:url(${require('~/static/img/programme/mobile-dep.png')}) no-repeat 100px top`,
         bottombg: `background:url(${require('~/static/img/programme/movebottomimg.png')}) no-repeat center`,
