@@ -501,7 +501,7 @@ export default {
           title: '7×24小时多渠道服务支持',
           bg: require('~/static/img/home/home-choic5.png'),
           content:
-            '专业的售后工程师团队未您提供7*24*365技术服务，保障产品的无忧使用和业务的稳定运行'
+            '专业的售后工程师团队为您提供7*24*365技术服务，保障产品的无忧使用和业务的稳定运行'
         }
       ],
       solveList: [
