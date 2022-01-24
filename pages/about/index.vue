@@ -134,10 +134,6 @@
                   <a-icon type="clock-circle" class="icon" />
                   {{ item.newsPublishTime }}
                 </div>
-                <!-- <div class="attilude">
-                  <a-icon type="like" class="icon" />
-                  256
-                </div> -->
               </div>
             </div>
           </div>
@@ -307,9 +303,9 @@ export default {
   async asyncData ({ app, query }) {
     // 获取公司网站信息
     const websiteData = await app.$api.home.getWebInfo()
-    console.log('公司网站信息', websiteData)
     // 获取公司简介
     const newsData = await app.$api.pages.getCompanyPage()
+    console.log('获取公司简介', newsData.data.list)
     // 获取新闻类别
     const typeData = await app.$api.news.getAllNewsList({
       currentPage: 1,
@@ -484,7 +480,10 @@ export default {
     // 获取友情链接
     async getWebInfo () {
       const linksData = await this.$api.home.getFriendLink()
-      this.linkList = linksData.data.list || []
+      this.linkList =
+        linksData.data.list.filter((item) => {
+          return item.status === 0
+        }) || []
       console.log('友情链接', this.linkList)
     }
   }

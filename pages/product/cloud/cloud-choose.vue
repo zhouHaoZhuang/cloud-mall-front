@@ -588,7 +588,6 @@ export default {
     font-stretch: normal;
     line-height: 16px;
     letter-spacing: 0px;
-    color: #fff;
     text-align: center;
     margin: 30px 0 20px;
   }

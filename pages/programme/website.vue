@@ -50,13 +50,13 @@ export default {
         ]
       },
       solutionData: {
-        title: '解决方案构架部署',
+        title: '解决方案架构部署',
         height: 'height: 380px',
         bg: `background:url(${require('~/static/img/programme/websitequestion.png')}) no-repeat left top`,
         foundbg: `background:url(${require('~/static/img/programme/found.png')}) no-repeat left top`,
         bottombg: `background:url(${require('~/static/img/programme/onlinebottombg.png')}) no-repeat center`,
         bottomwidth: 'width: 529px',
-        infoTitle: '构架说明',
+        infoTitle: '架构说明',
         infoWidth: 'width: 30%',
         infoList: [
           '浙江云盾网站解决方案为企业以及开发者用户实现灵活弹性自动化的基础IT设施建设、 按需付费的服务模式以及0成本的运维IT服务体系。 把传统的IDC数据中心改造成了一个高度简化、标准化、自动化和弹性灵活的云数据中心。使得企业以及开发者的IT支撑系统从“成本中心”而转型成为推动企业核心业务不断发展的引擎。'

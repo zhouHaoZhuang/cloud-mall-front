@@ -45,14 +45,14 @@ export default {
         ]
       },
       solutionData: {
-        title: '解决方案构架部署',
+        title: '解决方案架构部署',
         height: 'height: 380px',
         bg: `background:url(${require('~/static/img/programme/gamesolution.png')}) no-repeat left top`,
         foundbg: `background:url(${require('~/static/img/programme/found.png')}) no-repeat left top`,
         bottombg: `background:url(${require('~/static/img/programme/onlinebottombg.png')}) no-repeat center`,
         bottomwidth: 'width: 529px',
         infoWidth: 'width: 30%',
-        infoTitle: '构架说明',
+        infoTitle: '架构说明',
         infoList: [
           '浙江云盾游戏云服务，从构建基础设施到游戏上线到后期精细化运营，浙江云盾服务涵盖项目整个发展周期。浙江云盾拥有业内领先的辽宁双线高防节点以及国内优质的BGP多线网络资源，高效稳定的云服务器、云数据库以及专业的安全服务，为用户提供贴心全面的的游戏云解决方案，筑造游戏稳定运行的基石。'
         ]
