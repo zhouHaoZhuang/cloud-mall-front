@@ -4,8 +4,6 @@
       <!-- logo -->
       <div class="logo" @click="handleClickJump('/pc')">
         <img
-          width="104px"
-          style="margin-right: 100px"
           :src="webInfo.websiteLogo"
           alt=""
         >
@@ -550,8 +548,11 @@ export default {
       margin-left: 10px;
       position: relative;
       cursor: pointer;
+      overflow: hidden;
+      text-align: center;
       img {
         position: absolute;
+        width: 100%;
         top: 50%;
         left: 0;
         transform: translateY(-50%);
