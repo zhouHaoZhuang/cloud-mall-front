@@ -480,10 +480,9 @@ export default {
     // 获取友情链接
     async getWebInfo () {
       const linksData = await this.$api.home.getFriendLink()
-      this.linkList =
-        linksData.data.list.filter((item) => {
-          return item.status === 0
-        }) || []
+      this.linkList = linksData.data.list.filter((item) => {
+        return item.status === 0
+      })
       console.log('友情链接', this.linkList)
     }
   }

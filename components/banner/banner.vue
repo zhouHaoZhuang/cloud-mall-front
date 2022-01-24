@@ -159,28 +159,24 @@ export default {
     },
     // 点击banner进行页面跳转
     goLink (link, type) {
-      if (type === '1' || type === '0') {
-        if (type === '1') {
-          this.$router.push(link)
-        } else {
-          const routeUrl = this.$router.resolve({
-            path: link
-          })
-          window.open(routeUrl.href, '_blank')
-        }
+      if (type && type === '1') {
+        this.$router.push(link)
+      } else {
+        const routeUrl = this.$router.resolve({
+          path: link
+        })
+        window.open(routeUrl.href, '_blank')
       }
     },
     // 点击按钮页面跳转
     goButton (link, type) {
-      if (type === '1' || type === '0') {
-        if (type === '1') {
-          this.$router.push(link)
-        } else {
-          const routeUrl = this.$router.resolve({
-            path: link
-          })
-          window.open(routeUrl.href, '_blank')
-        }
+      if (type && type === '1') {
+        this.$router.push(link)
+      } else {
+        const routeUrl = this.$router.resolve({
+          path: link
+        })
+        window.open(routeUrl.href, '_blank')
       }
     }
   }
