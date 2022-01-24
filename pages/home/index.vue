@@ -559,9 +559,7 @@ export default {
         pageSize: '9999'
       })
       console.log('新闻公告信息', newsData)
-      this.newsList = newsData.data.list.filter((item) => {
-        return item.status === 0
-      })
+      this.newsList = newsData.data.list.filter(item => item.status === 0)
       if (this.newsList.length > 3) {
         this.newsList = this.newsList.slice(0, 3)
       }

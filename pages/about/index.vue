@@ -162,10 +162,8 @@
             <!-- <span class="left">最新</span> -->
             <span
               class="right"
-            >发布时间：{{
-              newsDetail.newsPublishTime | formatDate
-            }}
-              | 作者：{{ newsDetail.createUserName }}</span>
+            >发布时间：{{ newsDetail.newsPublishTime | formatDate }} |
+              作者：{{ newsDetail.createUserName }}</span>
           </div>
           <div class="news-cont">
             <div v-html="newsDetail.context">
@@ -310,18 +308,14 @@ export default {
     const websiteData = await app.$api.home.getWebInfo()
     // 获取公司简介
     const newsData = await app.$api.pages.getCompanyPage()
-    const companyInfo = newsData.data.list.filter((item) => {
-      return item.status === 0
-    })
+    const companyInfo = newsData.data.list.filter(item => item.status === 0)
     console.log('获取公司简介', newsData.data.list)
     // 获取新闻类别
     const typeData = await app.$api.news.getAllNewsList({
       currentPage: 1,
       pageSize: 999
     })
-    const typeTabs = typeData.data?.list.filter((item) => {
-      return item.status === 0
-    })
+    const typeTabs = typeData.data?.list.filter(item => item.status === 0)
     let typeCode = typeTabs[0]?.newTypeCode || ''
     if (query.code) {
       typeCode = query.code
@@ -479,9 +473,7 @@ export default {
     // 获取友情链接
     async getWebInfo () {
       const linksData = await this.$api.home.getFriendLink()
-      this.linkList = linksData.data.list.filter((item) => {
-        return item.status === 0
-      })
+      this.linkList = linksData.data.list.filter(item => item.status === 0)
       console.log('友情链接', this.linkList)
     }
   }
