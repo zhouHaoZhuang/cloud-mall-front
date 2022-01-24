@@ -136,7 +136,7 @@
               <div class="newstab-footer">
                 <div class="time">
                   <a-icon type="clock-circle" class="icon" />
-                  {{ item.newsPublishTime | formatDate('YYYY-MM-DD HH:mm:ss') }}
+                  {{ item.newsPublishTime | formatDate }}
                 </div>
               </div>
             </div>
@@ -163,7 +163,7 @@
             <span
               class="right"
             >发布时间：{{
-              newsDetail.newsPublishTime | formatDate('YYYY-MM-DD HH:mm:ss')
+              newsDetail.newsPublishTime | formatDate
             }}
               | 作者：{{ newsDetail.createUserName }}</span>
           </div>
