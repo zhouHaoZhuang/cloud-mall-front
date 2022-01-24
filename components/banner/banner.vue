@@ -159,9 +159,10 @@ export default {
     },
     // 点击banner进行页面跳转
     goLink (link, type) {
-      if (type && type === '1') {
+      if (type === '1') {
         this.$router.push(link)
-      } else {
+      }
+      if (type === '0') {
         const routeUrl = this.$router.resolve({
           path: link
         })
@@ -170,9 +171,10 @@ export default {
     },
     // 点击按钮页面跳转
     goButton (link, type) {
-      if (type && type === '1') {
+      if (type === '1') {
         this.$router.push(link)
-      } else {
+      }
+      if (type === '0') {
         const routeUrl = this.$router.resolve({
           path: link
         })
