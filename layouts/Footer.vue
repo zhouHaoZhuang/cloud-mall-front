@@ -371,17 +371,18 @@ export default {
           .list {
             .list-item {
               line-height: 30px;
-              color: #fff;
+              color: #FFFFFFcf;
               display: block;
+              cursor: pointer;
             }
-            // .list-item:hover {
-            //   color: #fff;
-            // }
+            .list-item:hover {
+              color: #1890ff;
+            }
             .list-ele {
               display: flex;
               line-height: 36px;
               .label {
-                color: #fff;
+                color: #FFFFFFcf;
               }
               .value {
                 color: #fff;

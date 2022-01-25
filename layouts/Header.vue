@@ -544,8 +544,8 @@ export default {
     padding: 0;
     width: 1220px;
     .logo {
-      width: 142px;
-      margin-left: 10px;
+      width: 116px;
+      margin: 0 10px;
       position: relative;
       cursor: pointer;
       overflow: hidden;
@@ -553,6 +553,7 @@ export default {
       img {
         position: absolute;
         width: 100%;
+        height: auto;
         top: 50%;
         left: 0;
         transform: translateY(-50%);
@@ -562,6 +563,7 @@ export default {
       }
     }
     .nav {
+      margin-left: 20px;
       height: 80px;
       display: flex;
       font-size: 18px;
@@ -605,7 +607,7 @@ export default {
           // padding-top: 40px;
           background: url("../static/img/home/indexHover.png") no-repeat;
           background-size: 150% 100%;
-          background-position: -420px -15px;
+          background-position: -405px -15px;
           font-size: 14px;
           .popup-wrap {
             margin-top: 15px;
