@@ -546,8 +546,8 @@ export default {
       .tabs-container {
         position: absolute;
         bottom: 80px;
-        transform: translateX(-350px);
-        width: 2000px;
+        transform: translateX(-650px);
+        width: 3000px;
         height: 80px;
         background: #091937;
         opacity: 0.5;
