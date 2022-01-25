@@ -3,7 +3,10 @@
     <div class="container header-box">
       <!-- logo -->
       <div class="logo" @click="handleClickJump('/pc')">
-        <img width="104px" style="margin-right: 100px" :src="webInfo.websiteLogo" alt="">
+        <img
+          :src="webInfo.websiteLogo"
+          alt=""
+        >
         <!-- <h1>浙江云盾</h1> -->
       </div>
       <!-- nav -->
@@ -12,22 +15,20 @@
           v-for="(item, index) in navList"
           :key="index"
           class="item"
-          @mouseenter="mouseEnter(index, item.show)"
-          @mouseleave="mouseLeave"
         >
-          <nuxt-link v-if="item.path" class="jump" :to="item.path">
+          <nuxt-link v-if="item.path" class="jump noSubmenu" :to="item.path">
             <div class="title-wrap">
               {{ item.title }}
-              <img
+              <!-- <img
                 v-if="index === 0"
                 src="~/static/img/home/hot.png"
                 alt=""
                 class="hot"
-              >
+              > -->
             </div>
             <!-- mask 鼠标进入nav展示列表 -->
             <div
-              v-if="JSON.stringify(headerItemData) !== '{}'"
+              v-if="hoverIndex == index"
               class="popup-box"
             >
               <div class="container popup-wrap">
@@ -38,21 +39,32 @@
                 />
               </div>
             </div>
+            <div class="underscore" />
           </nuxt-link>
-          <a v-else class="jump" href="javascript:void(0)">
+          <a
+            v-else
+            class="jump noSubmenu"
+            href="javascript:void(0)"
+            @mouseenter="mouseEnter(index, item.show)"
+            @mouseleave="mouseLeave"
+          >
             <div class="title-wrap">
               {{ item.title }}
-              <img
+              <!-- <img
                 v-if="index === 0"
                 src="~/static/img/home/hot.png"
                 alt=""
                 class="hot"
-              >
-              <a-icon v-if="index === 4" style="margin-left: 5px;" type="caret-down" />
+              > -->
+              <a-icon
+                v-if="index === 4"
+                style="margin-left: 5px"
+                type="caret-down"
+              />
             </div>
             <!-- mask 鼠标进入nav展示列表 -->
             <div
-              v-if="JSON.stringify(headerItemData) !== '{}'"
+              v-if="hoverIndex == 4"
               class="popup-box"
             >
               <div class="container popup-wrap">
@@ -63,6 +75,7 @@
                 />
               </div>
             </div>
+            <div class="underscore" />
           </a>
         </div>
       </div>
@@ -479,24 +492,18 @@ export default {
       webInfo: state => state.home.webInfo
     })
   },
-  mounted () {
-    this.hoverIndex = 4
-    this.headerItemData = { ...this.navList[4].children }
-  },
+
   methods: {
     // 鼠标进入
     mouseEnter (index, show) {
-      if (show) {
-        this.hoverIndex = index
-        this.headerItemData = { ...this.navList[index].children }
-      } else {
-        // this.hoverIndex = -1
-        this.headerItemData = {}
-      }
+      console.log(index, show)
+      this.hoverIndex = index
+      this.headerItemData = { ...this.navList[index].children }
+      console.log(this.headerItemData)
     },
     // 鼠标离开
     mouseLeave () {
-      // this.hoverIndex = -1
+      this.hoverIndex = -1
     },
     // 点击跳转
     handleClickJump (path) {
@@ -530,6 +537,7 @@ export default {
   left: 0;
   z-index: 100;
   transition: all 0.1s linear;
+  border-bottom: 1px solid #ffffff30;
   .header-box {
     height: 100%;
     display: flex;
@@ -540,8 +548,11 @@ export default {
       margin-left: 10px;
       position: relative;
       cursor: pointer;
+      overflow: hidden;
+      text-align: center;
       img {
         position: absolute;
+        width: 100%;
         top: 50%;
         left: 0;
         transform: translateY(-50%);
@@ -561,7 +572,7 @@ export default {
         align-items: center;
         justify-content: center;
         padding: 0 30px;
-        overflow: hidden;
+        // overflow: hidden;
         cursor: pointer;
         box-sizing: border-box;
         .jump {
@@ -569,6 +580,7 @@ export default {
           transition: 0s;
           height: 100%;
           display: flex;
+          position: relative;
           align-items: center;
           .title-wrap {
             position: relative;
@@ -580,10 +592,10 @@ export default {
           }
         }
         .popup-box {
-          display: none;
+          // display: block;
           position: absolute;
-          top: 80px;
-          left: 0;
+          top:75px;
+          left: -640px;
           right: 0;
           z-index: 1000;
           margin: 0 auto;
@@ -591,7 +603,6 @@ export default {
           max-width: 60%;
           height: 150px;
           // padding-top: 40px;
-          // background-color: #212629;
           background: url("../static/img/home/indexHover.png") no-repeat;
           background-size: 150% 100%;
           background-position: -420px -15px;
@@ -603,15 +614,27 @@ export default {
           }
         }
       }
-      .item:hover {
+      .noSubmenu:hover {
         a {
           color: #059fff;
-          margin-top: 3px;
+          // margin-top: 3px;
         }
-        border-bottom: 3px solid #059fff;
-        .popup-box {
-          display: block;
+        // border-bottom: 3px solid #059fff;
+        // .popup-box {
+        //   display: block;
+        // }
+        .underscore {
+          background-color: #059fff;
         }
+      }
+      .underscore {
+        width: 60%;
+        height: 3px;
+        background-color: transparent;
+        position: absolute;
+        // border: 1px solid #b6c8d3;
+        bottom: 0;
+        left: 20%;
       }
       // .item:nth-child(1) {
       //   // a {
