@@ -544,8 +544,8 @@ export default {
     padding: 0;
     width: 1220px;
     .logo {
-      width: 142px;
-      margin-left: 10px;
+      width: 116px;
+      margin: 0 10px;
       position: relative;
       cursor: pointer;
       overflow: hidden;
@@ -563,6 +563,7 @@ export default {
       }
     }
     .nav {
+      margin-left: 20px;
       height: 80px;
       display: flex;
       font-size: 18px;
