@@ -7,6 +7,7 @@
           ref="banner"
           effect="fade"
           dots-class="dot"
+          :dots="typeId === type.typeId ? false : true"
           :autoplay="true"
         >
           <div
@@ -94,7 +95,8 @@ export default {
         time: null
       },
       bottomStyle: 'bottom:235px',
-      curId: 1
+      curId: 1,
+      typeId: 4
     }
   },
   mounted () {
