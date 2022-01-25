@@ -3,6 +3,12 @@ export default axios => ({
   login (data) {
     return axios.post('/user/login', data)
   },
+  // 获取用户信息
+  getUserInfo () {
+    return axios({
+      url: '/ccCorporation/getByToken'
+    })
+  },
   // 注册
   register (data) {
     return axios.post('/user/register', data)
