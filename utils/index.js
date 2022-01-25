@@ -65,6 +65,14 @@ export const jumpCloudAdminDetail = (id, token) => {
     '_self'
   )
 }
+// 跳转控制台-实名认证
+export const jumpCloudAdminRealName = (token, type) => {
+  const url = getCloudAdminUrl()
+  window.open(
+    url + '/#/user/setting/realname' + `?token=${token}`,
+    type ? '_blank' : '_self'
+  )
+}
 // 因服务端渲染特殊性，无法直观查看页面刚进入时发送的请求，使用函数返回格式好看的数据帮助查看
 export const getRequestParams = (config) => {
   const selectParams = {
@@ -85,6 +93,8 @@ export const getIdcAdminUrl = (url) => {
     ? url.replace('http://', '')
     : url.replace('https://', '')
   const str = newUrl.substring(0, newUrl.indexOf('/')).replace('www.', '')
-  const newResult = `${url.includes('http://') ? 'http://' : 'https://'}console.${str}`
+  const newResult = `${
+    url.includes('http://') ? 'http://' : 'https://'
+  }console.${str}`
   return newResult
 }
