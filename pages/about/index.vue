@@ -757,7 +757,6 @@ export default {
         }
       }
       .news-content {
-        height: 900px;
         padding: 60px 0 103px 0;
         .news-title {
           font-size: 24px;

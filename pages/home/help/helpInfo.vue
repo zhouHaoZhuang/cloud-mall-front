@@ -2,11 +2,11 @@
   <div>
     <div class="helpInfo">
       <h3>
-        <img width="15px" src="~/static/img/help/frontpagelogo.png" alt="">
+        <a-icon type="home" />
         <nuxt-link to="/pc">
           首页
         </nuxt-link>
-        <span>></span>
+        <span><a-icon type="right" /></span>
         <nuxt-link to="/pc/help/helpInfo">
           帮助中心
         </nuxt-link>

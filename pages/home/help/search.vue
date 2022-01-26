@@ -1,10 +1,7 @@
 <template>
   <div class="help-search-container">
     <h1 class="help-search-top">
-      <img
-        src="https://www.ydidc.com/template/Home/Zkeys/PC/Static/css/module/help/img/help_home.png"
-        alt=""
-      >
+      <a-icon type="home" />
       <span>搜索</span><span>"{{ keyWords }}"</span>
     </h1>
     <div v-if="listAll" class="help-search-info">
