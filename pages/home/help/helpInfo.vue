@@ -2,11 +2,7 @@
   <div>
     <div class="helpInfo">
       <h3>
-        <img
-          width="15px"
-          src="~/static/img/help/frontpagelogo.png"
-          alt=""
-        >
+        <img width="15px" src="~/static/img/help/frontpagelogo.png" alt="">
         <nuxt-link to="/pc">
           首页
         </nuxt-link>
@@ -173,7 +169,7 @@ export default {
         }
       }
       .subtype {
-        background: url("../../../static/img/help/helpTypebj.png") no-repeat;
+        background: url('../../../static/img/help/helpTypebj.png') no-repeat;
         background-size: 100% 100%;
         width: 100%;
         height: 200px;
@@ -183,7 +179,7 @@ export default {
         padding: 10px 20px;
         align-content: flex-start;
         .backgro-img {
-          background: url("../../../static/img/help/Subscript.png") no-repeat;
+          background: url('../../../static/img/help/Subscript.png') no-repeat;
           background-size: 100% 100%;
           display: flex;
           flex-wrap: wrap;
@@ -191,12 +187,12 @@ export default {
           width: 100%;
           height: 100%;
           padding: 0px 10px;
-          span{
+          span {
             padding-left: 10%;
             display: block;
             line-height: 40px;
             height: 40px;
-            img{
+            img {
               margin-right: 5px;
             }
           }
