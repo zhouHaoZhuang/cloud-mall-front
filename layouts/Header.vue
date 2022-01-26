@@ -39,7 +39,7 @@
             @mouseleave="mouseLeave"
           >
             <div class="title-wrap">
-              {{ item.title }}
+              <span>{{ item.title }}</span>
               <!-- <img
                 v-if="index === 0"
                 src="~/static/img/home/hot.png"
