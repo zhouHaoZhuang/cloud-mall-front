@@ -4,12 +4,10 @@
       <img
         src="https://www.ydidc.com/template/Home/Zkeys/PC/Static/css/module/help/img/help_home.png"
         alt=""
-      ><span>搜索</span><span>"{{ keyWords }}"</span>
+      >
+      <span>搜索</span><span>"{{ keyWords }}"</span>
     </h1>
-    <div
-      v-if="listAll"
-      class="help-search-info"
-    >
+    <div v-if="listAll" class="help-search-info">
       <ul>
         <li class="liatv">
           全部({{ listAll.length }})
@@ -18,10 +16,7 @@
         <li>新闻中心(0)</li>
       </ul>
       <div>
-        <div
-          v-for="(item) in listAll"
-          :key="item.id"
-        >
+        <div v-for="item in listAll" :key="item.id">
           <h1>{{ item.title }}</h1>
           <p class="help-search-centext">
             {{ item.context }}
@@ -34,7 +29,6 @@
 
 <script>
 export default {
-
   async asyncData ({ query, app }) {
     const keyWords = query.keyWords
     const listAll = await app.$api.help.getSearchList({ keyWords })
@@ -64,11 +58,10 @@ export default {
   mounted () {
     // console.log(this.listAll, '搜索');
   }
-
 }
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .help-search-container {
   padding-left: 80px;
   margin-bottom: 100px;

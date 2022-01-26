@@ -309,7 +309,7 @@ export default {
 .layout-footer {
   .join-wrap {
     height: 160px;
-    background: url("~/static/img/home/footer-bg.png") no-repeat center;
+    background: url('~/static/img/home/footer-bg.png') no-repeat center;
     overflow: hidden;
     .join {
       text-align: center;
@@ -332,7 +332,7 @@ export default {
   }
   .footer-wrap {
     // height: 634px;
-    background: url("../static/img/home/footerbj.png") no-repeat center;
+    background: url('../static/img/home/footerbj.png') no-repeat center;
     background-size: 100% 100%;
     background-color: #202835;
     padding-top: 52px;
@@ -371,7 +371,7 @@ export default {
           .list {
             .list-item {
               line-height: 30px;
-              color: #FFFFFFcf;
+              color: #ffffffcf;
               display: block;
               cursor: pointer;
             }
@@ -382,7 +382,7 @@ export default {
               display: flex;
               line-height: 36px;
               .label {
-                color: #FFFFFFcf;
+                color: #ffffffcf;
               }
               .value {
                 color: #fff;
@@ -395,7 +395,7 @@ export default {
                 width: 38px;
                 height: 38px;
                 margin-right: 20px;
-                background: url("~/static/img/home/icons-qq.png") no-repeat;
+                background: url('~/static/img/home/icons-qq.png') no-repeat;
                 position: relative;
                 .img-box {
                   width: 120px;
@@ -476,7 +476,7 @@ export default {
           display: inline-block;
           width: 25px;
           height: 20px;
-          background: url("~/static/img/home/icons-qq.png") no-repeat -93px -18px;
+          background: url('~/static/img/home/icons-qq.png') no-repeat -93px -18px;
           position: absolute;
           left: 0;
           top: 26px;
