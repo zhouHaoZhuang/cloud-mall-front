@@ -79,7 +79,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .titletop {
-  background: url('../../../static/img/help/helptitle.png') no-repeat;
+  background: url('https://ydidc-test.oss-cn-shanghai.aliyuncs.com/idc-mall/help/helptitle.png') no-repeat;
   background-size: 110% 100%;
   height: 580px;
   padding-top: 175px;
