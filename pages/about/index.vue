@@ -160,10 +160,11 @@
           </div>
           <div class="news-name">
             <!-- <span class="left">最新</span> -->
-            <span
-              class="right"
-            >发布时间：{{ newsDetail.newsPublishTime | formatDate }} |
-              作者：{{ newsDetail.createUserName }}</span>
+            <span class="right">
+              <span>发布时间：</span>{{ newsDetail.newsPublishTime | formatDate }}
+              <span>|</span>
+              <span>作者：</span>{{ newsDetail.createUserName }}
+            </span>
           </div>
           <div class="news-cont">
             <div v-html="newsDetail.context">
@@ -182,18 +183,18 @@
             <div class="bottom-line" />
           </div>
           <p class="info1">
-            符合PR>=5，Alexa排名20,000以内的网站，可以和{{
-              websiteInfo.websiteName
-            }}相互添加网站链接，具体操作方式如下：
+            符合PR>=5，Alexa排名20,000以内的网站，可以和
+            {{ websiteInfo.websiteName }}
+            相互添加网站链接，具体操作方式如下：
           </p>
           <div class="step-box">
             <div class="share-link-left-title">
               在贵站添加{{ websiteInfo.websiteName }}链接
             </div>
             <p class="share-link-left-title-introduce">
-              您可以根据下方提示，在您的网站中插入{{
-                websiteInfo.websiteName
-              }}的文字链接、图片链接代码。
+              您可以根据下方提示，在您的网站中插入
+              {{ websiteInfo.websiteName }}
+              的文字链接、图片链接代码。
             </p>
             <div class="share-code-title">
               文字链接代码：
@@ -308,15 +309,21 @@ export default {
     const websiteData = await app.$api.home.getWebInfo()
     // 获取公司简介
     const newsData = await app.$api.pages.getCompanyPage()
-    const companyInfo = newsData.data.list.filter(item => item.status === 0)
-    console.log('获取公司简介', newsData.data.list)
+    let companyInfo = []
+    if (newsData.data && newsData.data.list) {
+      companyInfo = newsData.data.list.filter(item => item.status === 0)
+    }
     // 获取新闻类别
     const typeData = await app.$api.news.getAllNewsList({
       currentPage: 1,
       pageSize: 999
     })
-    const typeTabs = typeData.data?.list.filter(item => item.status === 0)
-    let typeCode = typeTabs[0]?.newTypeCode || ''
+    let typeTabs = []
+    let typeCode = ''
+    if (typeData.data && typeData.data.list) {
+      typeTabs = typeData.data.list.filter(item => item.status === 0)
+      typeCode = typeTabs[0]?.newTypeCode
+    }
     if (query.code) {
       typeCode = query.code
     }
@@ -336,9 +343,9 @@ export default {
     }
     return {
       companypages: companyInfo,
-      companypagesPageName: newsData.data.list[0]?.pageName,
-      companypagesContext: newsData.data.list[0]?.context,
-      companyPicture: newsData.data.list[0]?.bannerPicture,
+      companypagesPageName: newsData.data?.list[0].pageName,
+      companypagesContext: newsData.data?.list[0].context,
+      companyPicture: newsData.data?.list[0].bannerPicture,
       websiteInfo: websiteData.data?.list[0],
       txtCode: `<a target="_blank" href="${websiteData.data?.list[0].internationalSiteAddress}">${websiteData.data?.list[0].websiteName}</a>`,
       imgCode1: `<a target="_blank" href="${websiteData.data?.list[0].internationalSiteAddress}">`,
