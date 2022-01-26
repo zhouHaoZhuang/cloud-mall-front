@@ -1129,6 +1129,7 @@ export default {
           line-height: 32px;
         }
         .news-con li {
+          position: relative;
           list-style-type: disc !important;
           margin-top: 18px;
           margin-left: 38px;
@@ -1136,8 +1137,9 @@ export default {
           font-weight: 500;
           color: #dae2f2;
           p {
-            position: relative;
+            position: absolute;
             color: #333;
+            width: 100%;
             cursor: pointer;
             .newsTit {
               display: inline-block;

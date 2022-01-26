@@ -67,6 +67,12 @@ export const actions = {
     commit('saveToken', payload)
     commit('saveIsLogin', true)
   },
+  // 获取用户信息
+  getUserInfo ({ commit, state }) {
+    this.$api.user.getUserInfo().then((user) => {
+      commit('saveUserInfo', user)
+    })
+  },
   // 退出登录
   logOut ({ commit, state }) {
     commit('saveIsLogin', false)

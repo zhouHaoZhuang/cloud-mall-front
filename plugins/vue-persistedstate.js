@@ -6,9 +6,20 @@ export default ({ store, $cookies }) => {
   $cookies.set('domain', getWindowUrl(window.location.href))
   localStorage.setItem('idcUrl', getIdcAdminUrl(window.location.href))
   store.dispatch('user/setWindowsHref', getWindowUrl(window.location.href))
+  // 配置需要持久化的模块
+  // const PERSIST_PATHS = [
+  //   'home',
+  //   'user.isLogin',
+  //   'user.token',
+  //   'user.userInfo',
+  //   'user.windowHref',
+  //   'user.loginForm',
+  //   'user.redirectPath'
+  // ]
   window.onNuxtReady(() => {
     createPersistedState({
       key: 'store' // 读取本地存储的数据到store
+      // paths: PERSIST_PATHS
     })(store)
   })
 }

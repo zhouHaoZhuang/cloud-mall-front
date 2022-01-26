@@ -437,7 +437,11 @@ import { mapState } from 'vuex'
 import DragSlider from '@/components/DragSlider/index'
 import TabSelect from '@/components/TabSelect/index'
 import NumberInput from '@/components/NumberInput/index'
-import { setCpuOrDiskData, jumpCloudAdminDetail } from '@/utils/index'
+import {
+  setCpuOrDiskData,
+  jumpCloudAdminDetail,
+  jumpCloudAdminRealName
+} from '@/utils/index'
 export default {
   components: {
     DragSlider,
@@ -933,6 +937,9 @@ export default {
           jumpCloudAdminDetail(res.data.orderNo, this.token)
         } else {
           this.$message.warning(res.msg)
+        }
+        if (res.code === '1313009') {
+          jumpCloudAdminRealName(this.token)
         }
       })
     }
