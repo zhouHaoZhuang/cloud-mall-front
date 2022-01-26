@@ -126,7 +126,7 @@ export default {
       width: 800px;
       margin: 12px auto 0;
       li {
-        color: rgb(5 159 255);
+        color: #059FFF;
         margin-right: 20px;
         width: 100px;
         overflow: hidden;
@@ -138,7 +138,7 @@ export default {
       content: '搜索热词：';
       float: left;
       height: 25px;
-      color: rgb(153 153 153);
+      color: #999999;
     }
     input {
       width: 100%;
@@ -146,10 +146,11 @@ export default {
       padding: 0 20px;
       border-radius: 30px;
       background-color: #fff;
+      border: 2px solid transparent;
     }
     input:focus {
       outline: none;
-      border: 2px solid rgb(5 159 255);
+      border: 2px solid #059FFF;
     }
   }
 }
