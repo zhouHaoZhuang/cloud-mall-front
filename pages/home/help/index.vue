@@ -13,12 +13,14 @@
               placeholder="请输入您要搜索的关键词..."
             >
           </div>
-          <img
-            class="search"
+          <!-- icon-31sousuo -->
+          <Iconfont class="search" type="icon-31sousuo" />
+          <!-- <img
+
             src="~/static/img/help/search.png"
             alt=""
             @click="search"
-          >
+          > -->
         </div>
         <ul>
           <li
@@ -110,12 +112,13 @@ export default {
         border-radius: 30px;
       }
       .search {
-        border: 0;
-        height: 24px;
-        width: 24px;
         position: absolute;
+        font-size: 30px;
+        color: #1D7AEC;
         right: 25px;
-        top: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
       }
     }
     > ul {
