@@ -3,19 +3,12 @@
     <div class="container header-box">
       <!-- logo -->
       <div class="logo" @click="handleClickJump('/pc')">
-        <img
-          :src="webInfo.websiteLogo"
-          alt=""
-        >
+        <img :src="webInfo.websiteLogo" alt="">
         <!-- <h1>浙江云盾</h1> -->
       </div>
       <!-- nav -->
       <div class="nav">
-        <div
-          v-for="(item, index) in navList"
-          :key="index"
-          class="item"
-        >
+        <div v-for="(item, index) in navList" :key="index" class="item">
           <nuxt-link v-if="item.path" class="jump noSubmenu" :to="item.path">
             <div class="title-wrap">
               {{ item.title }}
@@ -27,10 +20,7 @@
               > -->
             </div>
             <!-- mask 鼠标进入nav展示列表 -->
-            <div
-              v-if="hoverIndex == index"
-              class="popup-box"
-            >
+            <div v-if="hoverIndex == index" class="popup-box">
               <div class="container popup-wrap">
                 <HeaderItem
                   v-for="(ele, idx) in headerItemData"
@@ -49,7 +39,7 @@
             @mouseleave="mouseLeave"
           >
             <div class="title-wrap">
-              {{ item.title }}
+              <span>{{ item.title }}</span>
               <!-- <img
                 v-if="index === 0"
                 src="~/static/img/home/hot.png"
@@ -63,10 +53,7 @@
               />
             </div>
             <!-- mask 鼠标进入nav展示列表 -->
-            <div
-              v-if="hoverIndex == 4"
-              class="popup-box"
-            >
+            <div v-if="hoverIndex == 4" class="popup-box">
               <div class="container popup-wrap">
                 <HeaderItem
                   v-for="(ele, idx) in headerItemData"
@@ -596,7 +583,7 @@ export default {
         .popup-box {
           // display: block;
           position: absolute;
-          top:75px;
+          top: 75px;
           left: -640px;
           right: 0;
           z-index: 1000;
@@ -605,7 +592,7 @@ export default {
           max-width: 60%;
           height: 150px;
           // padding-top: 40px;
-          background: url("../static/img/home/indexHover.png") no-repeat;
+          background: url('../static/img/home/indexHover.png') no-repeat;
           background-size: 150% 100%;
           background-position: -405px -15px;
           font-size: 14px;
