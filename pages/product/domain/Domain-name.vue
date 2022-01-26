@@ -79,7 +79,6 @@
       </div>
     </div>
     <!-- 选项卡 -->
-    
   </div>
 </template>
 
@@ -273,28 +272,28 @@ export default {
 }
 // 选项卡
 .tab {
-    width: 400px;
-    border: 1px solid #ccc;
-    margin: 60px auto 0;
-  }
-  .tab-bar {
-    width: 400px;
-    background-color: #ccc;
-  }
-  .tab-bar a {
-    float: left;
-    width: 100px;
-    height: 40px;
-    line-height: 40px;
-    text-align: center;
-    text-decoration: none;
-    color: #000;
-  }
-  .tab-bar .active {
-    background-color: #0099ff;
-  }
-  .tab-con div {
-    text-align: left;
-    height: 100px;
-  }
+  width: 400px;
+  border: 1px solid #ccc;
+  margin: 60px auto 0;
+}
+.tab-bar {
+  width: 400px;
+  background-color: #ccc;
+}
+.tab-bar a {
+  float: left;
+  width: 100px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  text-decoration: none;
+  color: #000;
+}
+.tab-bar .active {
+  background-color: #0099ff;
+}
+.tab-con div {
+  text-align: left;
+  height: 100px;
+}
 </style>

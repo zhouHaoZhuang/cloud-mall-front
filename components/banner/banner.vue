@@ -48,7 +48,7 @@ export default {
   props: {
     type: {
       type: Object,
-      default: 'choose'
+      default: () => {}
     }
   },
   data () {
@@ -66,7 +66,8 @@ export default {
             pcButtonName: '立即选购',
             describe:
               '浙江云盾服务器配备纯SSD架构打造的高性能存储，旨在为用户提供优质、高效、弹性伸缠的云计算服务。云服务器采用由数据切片技术构建的三层存储功能，切实保护客户数据的安全。同时可弹性扩展的资源用量，为客户业务在高峰期的赎畅保驾护航;灵活多样的计费方式，为客户最大程度的节省IT运营成本，提高资源的有效利用率。',
-            pcPicture: require('~/static/img/cloud/cloudbg.png')
+            pcPicture:
+              'https://ydidc-test.oss-cn-shanghai.aliyuncs.com/idc-mall/cloud/bg.png'
           }
         ],
         assurance: [
@@ -78,7 +79,8 @@ export default {
             pcButtonLink: '/pc/cloud-price',
             describe:
               '百分服务,助您上云无忧匠心打造完整的VIP会员服务体系，为国内国际用户提供多种服务支持和服务保障让用户尊享售后服务，让云端部署更轻松、更高效',
-            pcPicture: require('~/static/img/assurance/assurancebanner.png')
+            pcPicture:
+              'https://ydidc-test.oss-cn-shanghai.aliyuncs.com/idc-mall/assurance/assurancebanner.png'
           }
         ],
         home: [

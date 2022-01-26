@@ -13,12 +13,14 @@
               placeholder="请输入您要搜索的关键词..."
             >
           </div>
-          <img
-            class="search"
+          <!-- icon-31sousuo -->
+          <Iconfont class="search" type="icon-31sousuo" />
+          <!-- <img
+
             src="~/static/img/help/search.png"
             alt=""
             @click="search"
-          >
+          > -->
         </div>
         <ul>
           <li
@@ -79,7 +81,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .titletop {
-  background: url('../../../static/img/help/helptitle.png') no-repeat;
+  background: url('https://ydidc-test.oss-cn-shanghai.aliyuncs.com/idc-mall/help/helptitle.png') no-repeat;
   background-size: 110% 100%;
   height: 580px;
   padding-top: 175px;
@@ -110,12 +112,13 @@ export default {
         border-radius: 30px;
       }
       .search {
-        border: 0;
-        height: 24px;
-        width: 24px;
         position: absolute;
+        font-size: 30px;
+        color: #1D7AEC;
         right: 25px;
-        top: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
       }
     }
     > ul {
@@ -123,7 +126,7 @@ export default {
       width: 800px;
       margin: 12px auto 0;
       li {
-        color: rgb(5 159 255);
+        color: #059FFF;
         margin-right: 20px;
         width: 100px;
         overflow: hidden;
@@ -135,7 +138,7 @@ export default {
       content: '搜索热词：';
       float: left;
       height: 25px;
-      color: rgb(153 153 153);
+      color: #999999;
     }
     input {
       width: 100%;
@@ -143,10 +146,11 @@ export default {
       padding: 0 20px;
       border-radius: 30px;
       background-color: #fff;
+      border: 2px solid transparent;
     }
     input:focus {
       outline: none;
-      border: 2px solid rgb(5 159 255);
+      border: 2px solid #059FFF;
     }
   }
 }
