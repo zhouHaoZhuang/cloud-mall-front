@@ -185,9 +185,21 @@ export default {
         .backgro-img {
           background: url("../../../static/img/help/Subscript.png") no-repeat;
           background-size: 100% 100%;
+          display: flex;
+          flex-wrap: wrap;
+          align-content: center;
           width: 100%;
           height: 100%;
           padding: 0px 10px;
+          span{
+            padding-left: 10%;
+            display: block;
+            line-height: 40px;
+            height: 40px;
+            img{
+              margin-right: 5px;
+            }
+          }
         }
         span {
           display: block;
