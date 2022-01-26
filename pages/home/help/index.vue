@@ -13,10 +13,19 @@
               placeholder="请输入您要搜索的关键词..."
             >
           </div>
-          <img class="search" src="~/static/img/help/search.png" alt="" @click="search">
+          <img
+            class="search"
+            src="~/static/img/help/search.png"
+            alt=""
+            @click="search"
+          >
         </div>
         <ul>
-          <li v-for="item in hotAll" :key="item.id" @click="searchLi(item.keyWords)">
+          <li
+            v-for="item in hotAll"
+            :key="item.id"
+            @click="searchLi(item.keyWords)"
+          >
             {{ item.keyWords }}
           </li>
         </ul>
@@ -70,7 +79,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .titletop {
-  background: url("../../../static/img/help/helptitle.png") no-repeat;
+  background: url('../../../static/img/help/helptitle.png') no-repeat;
   background-size: 110% 100%;
   height: 580px;
   padding-top: 175px;
@@ -119,11 +128,11 @@ export default {
         width: 100px;
         overflow: hidden;
         white-space: nowrap;
-        text-overflow:ellipsis;
+        text-overflow: ellipsis;
       }
     }
     > ul:before {
-      content: "搜索热词：";
+      content: '搜索热词：';
       float: left;
       height: 25px;
       color: rgb(153 153 153);

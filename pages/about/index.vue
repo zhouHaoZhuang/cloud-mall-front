@@ -262,13 +262,13 @@
             <div class="share-link-left-title share-link-left-title2">
               将贵站链接邮件给我们
             </div>
-            <p
+            <div
               class="share-link-left-title-introduce"
               style="margin-bottom: 34px"
             >
               完成第一步后，将贵站链接邮件至
               <a href="mailto:service@ydidc.com">{{ webInfo.email }}</a>
-            </p>
+            </div>
             <div class="share-link-left-title share-link-left-title3">
               {{ websiteInfo.websiteName }}审核回复
             </div>

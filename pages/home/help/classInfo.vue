@@ -43,7 +43,7 @@
         <p v-html="typeCentexthtml.context" />
         <div>
           <p>
-            {{ typeCentexthtml.createTime.replace("T", " ").slice(0, 10) }}
+            {{ typeCentexthtml.createTime.replace('T', ' ').slice(0, 10) }}
           </p>
           <p>发布者:{{ typeCentexthtml.createUserName }}</p>
         </div>
@@ -134,7 +134,7 @@ h2 {
 }
 .typeCentext-list {
   padding: 20px 305px;
-  background: url("../../../static/img/help/helpwordbj.png") no-repeat;
+  background: url('../../../static/img/help/helpwordbj.png') no-repeat;
   width: 100%;
   height: 500px;
   display: flex;
