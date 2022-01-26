@@ -496,7 +496,7 @@ export default {
     height: 576px;
     min-width: 1220px;
     overflow: hidden;
-    background: url('~/static/img/about/banner.png') center #0a1d46 no-repeat;
+    background: url('https://ydidc-test.oss-cn-shanghai.aliyuncs.com/idc-mall/about/banner.png') center #0a1d46 no-repeat;
     background-size: cover;
     color: #fff;
     .container {
