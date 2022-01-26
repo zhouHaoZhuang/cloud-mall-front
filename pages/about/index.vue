@@ -307,11 +307,27 @@ export default {
   async asyncData ({ app, query }) {
     // 获取公司网站信息
     const websiteData = await app.$api.home.getWebInfo()
+    let websiteInfo = []
+    let websiteAddress = ''
+    let websiteName = ''
+    let websiteLogo = ''
+    if (websiteData.data && websiteData.data.list) {
+      websiteInfo = websiteData.data.list[0]
+      websiteAddress = websiteData.data.list[0].internationalSiteAddress
+      websiteName = websiteData.data.list[0].websiteName
+      websiteLogo = websiteData.data.list[0].websiteLogo
+    }
     // 获取公司简介
     const newsData = await app.$api.pages.getCompanyPage()
     let companyInfo = []
+    let companypagesPageName = ''
+    let companypagesContext = ''
+    let companyPicture = ''
     if (newsData.data && newsData.data.list) {
       companyInfo = newsData.data.list.filter(item => item.status === 0)
+      companypagesPageName = newsData.data.list[0].pageName
+      companypagesContext = newsData.data.list[0].context
+      companyPicture = newsData.data.list[0].bannerPicture
     }
     // 获取新闻类别
     const typeData = await app.$api.news.getAllNewsList({
@@ -320,19 +336,21 @@ export default {
     })
     let typeTabs = []
     let typeCode = ''
+    let select = ''
     if (typeData.data && typeData.data.list) {
       typeTabs = typeData.data.list.filter(item => item.status === 0)
-      typeCode = typeTabs[0]?.newTypeCode
+      typeCode = typeTabs[0].newTypeCode
+      select = typeTabs[0].id
     }
     if (query.code) {
       typeCode = query.code
     }
-    let select = typeTabs[0]?.id
     if (query.id) {
       select = query?.id
     }
     // 获取新闻类别信息
     let detailData = []
+    let total = 1
     if (typeTabs.length > 0) {
       const res = await app.$api.news.getNews({
         currentPage: 1,
@@ -340,20 +358,22 @@ export default {
         newTypeCode: typeCode
       })
       detailData = res.data.list
+      total = Number(res.data.totalCount)
     }
+    console.log(detailData, 'detailData')
     return {
       companypages: companyInfo,
-      companypagesPageName: newsData.data?.list[0].pageName,
-      companypagesContext: newsData.data?.list[0].context,
-      companyPicture: newsData.data?.list[0].bannerPicture,
-      websiteInfo: websiteData.data?.list[0],
-      txtCode: `<a target="_blank" href="${websiteData.data?.list[0].internationalSiteAddress}">${websiteData.data?.list[0].websiteName}</a>`,
-      imgCode1: `<a target="_blank" href="${websiteData.data?.list[0].internationalSiteAddress}">`,
-      imgCode2: `<img src="${websiteData.data?.list[0].websiteLogo}">`,
+      companypagesPageName,
+      companypagesContext,
+      companyPicture,
+      websiteInfo,
+      txtCode: `<a target="_blank" href="${websiteAddress}">${websiteName}</a>`,
+      imgCode1: `<a target="_blank" href="${websiteAddress}">`,
+      imgCode2: `<img src="${websiteLogo}">`,
       newtabsList: typeTabs,
       newsList: detailData,
       firstCode: typeCode,
-      total: Number(detailData.data?.totalCount),
+      total,
       newsTabSelectIndex: select
     }
   },
@@ -461,6 +481,7 @@ export default {
         newTypeCode: code
       })
       this.newsList = newsData.data?.list || []
+      console.log(newsData, 'this.newsList')
       this.total = Number(newsData.data?.totalCount) || 0
     },
     // 进入详情页面
