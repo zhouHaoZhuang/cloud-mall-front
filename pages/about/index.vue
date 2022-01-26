@@ -23,17 +23,17 @@
       <div v-if="tabSelectIndex === 0" class="introduce">
         <div class="introduce-all">
           <div class="introduce-img">
-            <img :src="companyPicture" alt="">
+            <img :src="resultCompany.bannerPicture" alt="">
           </div>
-          <div v-if="companypages" class="introduce-info">
+          <div class="introduce-info">
             <div class="public-title">
-              {{ companypagesPageName || '关于我们' }}
+              {{ resultCompany.pageName || '关于我们' }}
             </div>
             <div class="bottom-line" />
             <div
               class="introduce-text"
               introduce-text
-              v-html="companypagesContext"
+              v-html="resultCompany.context"
             />
           </div>
         </div>
@@ -102,7 +102,7 @@
         <!-- 新闻公告tab栏切换 -->
         <div v-if="!detailSelect" class="newtabs">
           <div
-            v-for="(item, index) in newtabsList"
+            v-for="(item, index) in newsTabsList"
             :key="index"
             :class="
               newsTabSelectIndex === item.id
@@ -116,17 +116,13 @@
         </div>
         <!-- 新闻公告主体部分 -->
         <div v-if="!detailSelect" class="newstabs-content">
-          <div
-            v-for="(item, index) in newsList"
-            :key="index"
-            class="newstabs-items"
-          >
+          <div v-for="item in newsList" :key="item.id" class="newstabs-items">
             <div v-if="item.tittleImage" class="newstab-img">
               <img :src="item.tittleImage">
             </div>
             <div class="newstab-title">
               <div class="newstab-header">
-                <h1 @click="getDetail(item.id)">
+                <h1 @click="handleGoDetail(item.id)">
                   {{ item.newsTitle }}
                 </h1>
               </div>
@@ -143,19 +139,19 @@
           </div>
         </div>
         <!-- 分页功能 -->
-        <div v-show="newsList.length > 8 && !detailSelect" class="pagination">
+        <div v-show="!detailSelect" class="pagination">
           <a-pagination
-            v-model="current"
-            :hide-on-single-page="true"
-            :total="total"
-            :page-size="pageSize"
-            @change="pageChange(current, pageSize, firstCode)"
+            v-model="listQuery.currentPage"
+            :page-size="listQuery.pageSize"
+            :total="listQuery.total"
+            hide-on-single-page
+            @change="pageChange"
           />
         </div>
         <!-- 新闻公告详情部分 -->
         <div v-if="detailSelect" class="news-content">
           <div class="news-title">
-            <a-icon type="left" @click="backContent()" />
+            <a-icon type="left" @click="backContent" />
             {{ newsDetail.newsTitle }}
           </div>
           <div class="news-name">
@@ -184,16 +180,16 @@
           </div>
           <p class="info1">
             符合PR>=5，Alexa排名20,000以内的网站，可以和
-            {{ websiteInfo.websiteName }}
+            {{ webInfo.websiteName }}
             相互添加网站链接，具体操作方式如下：
           </p>
           <div class="step-box">
             <div class="share-link-left-title">
-              在贵站添加{{ websiteInfo.websiteName }}链接
+              在贵站添加{{ webInfo.websiteName }}链接
             </div>
             <p class="share-link-left-title-introduce">
               您可以根据下方提示，在您的网站中插入
-              {{ websiteInfo.websiteName }}
+              {{ webInfo.websiteName }}
               的文字链接、图片链接代码。
             </p>
             <div class="share-code-title">
@@ -216,10 +212,9 @@
                   文字预览效果：
                 </div>
                 <div class="code-box">
-                  <a
-                    target="_blank"
-                    :href="websiteInfo.internationalSiteAddress"
-                  >{{ websiteInfo.websiteName }}</a>
+                  <a target="_blank" :href="webInfo.internationalSiteAddress">{{
+                    webInfo.websiteName
+                  }}</a>
                 </div>
               </div>
             </div>
@@ -250,9 +245,9 @@
                   <div class="img-box">
                     <a
                       target="_blank"
-                      :href="websiteInfo.internationalSiteAddress"
+                      :href="webInfo.internationalSiteAddress"
                     ><img
-                      :src="websiteInfo.websiteLogo"
+                      :src="webInfo.websiteLogo"
                       alt=""
                     ></a>
                   </div>
@@ -270,7 +265,7 @@
               <a href="mailto:service@ydidc.com">{{ webInfo.email }}</a>
             </div>
             <div class="share-link-left-title share-link-left-title3">
-              {{ websiteInfo.websiteName }}审核回复
+              {{ webInfo.websiteName }}审核回复
             </div>
             <p class="share-link-left-title-introduce">
               收到邮件后，我们会于5个工作日内尽快审核并回复。
@@ -283,8 +278,8 @@
             <div class="bottom-line" />
           </div>
           <a
-            v-for="(item, index) in linkList"
-            :key="index"
+            v-for="item in friendLinks"
+            :key="item.id"
             :href="item.linkUrl"
             class="item"
             target="_blank"
@@ -305,112 +300,117 @@ import Map from '@/components/Map'
 export default {
   components: { Statement, Banner, Map },
   async asyncData ({ app, query }) {
-    // 获取公司网站信息
-    const websiteData = await app.$api.home.getWebInfo()
-    let websiteInfo = []
-    let websiteAddress = ''
-    let websiteName = ''
-    let websiteLogo = ''
-    if (websiteData.data && websiteData.data.list) {
-      websiteInfo = websiteData.data.list[0]
-      websiteAddress = websiteData.data.list[0].internationalSiteAddress
-      websiteName = websiteData.data.list[0].websiteName
-      websiteLogo = websiteData.data.list[0].websiteLogo
+    const tabKey = query.tab
+    if (tabKey === '0') {
+      // 获取公司简介
+      const companyData = await app.$api.pages.getCompanyPage()
+      const cpmpanyObj = {
+        pageName: '',
+        bannerPicture: '',
+        context: ''
+      }
+      const resultCompany =
+        companyData.data &&
+        Array.isArray(companyData.data.list) &&
+        companyData.data.list.length > 0
+          ? companyData.data.list[0]
+          : cpmpanyObj
+
+      return {
+        resultCompany
+      }
     }
-    // 获取公司简介
-    const newsData = await app.$api.pages.getCompanyPage()
-    let companyInfo = []
-    let companypagesPageName = ''
-    let companypagesContext = ''
-    let companyPicture = ''
-    if (newsData.data && newsData.data.list) {
-      companyInfo = newsData.data.list.filter(item => item.status === 0)
-      companypagesPageName = newsData.data.list[0].pageName
-      companypagesContext = newsData.data.list[0].context
-      companyPicture = newsData.data.list[0].bannerPicture
-    }
-    // 获取新闻类别
-    const typeData = await app.$api.news.getAllNewsList({
-      currentPage: 1,
-      pageSize: 999
-    })
-    let typeTabs = []
-    let typeCode = ''
-    let select = ''
-    if (typeData.data && typeData.data.list) {
-      typeTabs = typeData.data.list.filter(item => item.status === 0)
-      typeCode = typeTabs[0].newTypeCode
-      select = typeTabs[0].id
-    }
-    if (query.code) {
-      typeCode = query.code
-    }
-    if (query.id) {
-      select = query?.id
-    }
-    // 获取新闻类别信息
-    let detailData = []
-    let total = 1
-    if (typeTabs.length > 0) {
-      const res = await app.$api.news.getNews({
+    if (tabKey === '1') {
+      // 获取新闻类别
+      const newTypeData = await app.$api.news.getAllNewsList({
         currentPage: 1,
-        pageSize: 999,
-        newTypeCode: typeCode
+        pageSize: 999
       })
-      detailData = res.data.list
-      total = Number(res.data.totalCount)
-    }
-    console.log(detailData, 'detailData')
-    return {
-      companypages: companyInfo,
-      companypagesPageName,
-      companypagesContext,
-      companyPicture,
-      websiteInfo,
-      txtCode: `<a target="_blank" href="${websiteAddress}">${websiteName}</a>`,
-      imgCode1: `<a target="_blank" href="${websiteAddress}">`,
-      imgCode2: `<img src="${websiteLogo}">`,
-      newtabsList: typeTabs,
-      newsList: detailData,
-      firstCode: typeCode,
-      total,
-      newsTabSelectIndex: select
+      const newsTabsList =
+        newTypeData.data &&
+        Array.isArray(newTypeData.data.list) &&
+        newTypeData.data.list.length > 0
+          ? [...newTypeData.data.list]
+          : []
+
+      const newTypeCode =
+        newsTabsList.length > 0 ? newsTabsList[0].newTypeCode : ''
+      const newsTabSelectIndex =
+        newsTabsList.length > 0 ? newsTabsList[0].id : ''
+      if (newTypeCode) {
+        // 获取新闻列表
+        const newsListData = await app.$api.news.getNews({
+          currentPage: 1,
+          pageSize: 999,
+          newTypeCode
+        })
+        const newsList =
+          newsListData.data &&
+          Array.isArray(newsListData.data.list) &&
+          newsListData.data.list.length > 0
+            ? [...newsListData.data.list]
+            : []
+        const total = newsListData.data ? newsListData.data.totalCount * 1 : 0
+        return {
+          listQuery: {
+            currentPage: 1,
+            pageSize: 10,
+            total
+          },
+          newsTabsList,
+          newsTabSelectIndex,
+          newTypeCode,
+          newsList
+        }
+      }
     }
   },
   data () {
     return {
+      listQuery: {
+        currentPage: 1,
+        pageSize: 10,
+        total: 0
+      },
+      // 公司简介
+      resultCompany: {
+        pageName: '',
+        bannerPicture: '',
+        context: ''
+      },
+      // tab的列表+key
       tabList: ['公司简介', '新闻公告', '法律声明', '友情链接'],
-      newtabsList: [],
-      firstCode: '',
+      tabSelectIndex: '0',
+      // 新闻
+      newsTabSelectIndex: '',
+      newsTabsList: [],
+      newTypeCode: '',
       newsList: [],
-      newsDetail: [],
+      newsDetail: {},
       detailSelect: false,
-      tabSelectIndex: 0,
-      linkList: [
-        {
-          name: '阿里云',
-          path: 'https://www.aliyun.com/',
-          img: require('~/static/img/about/60c480641dab2.jpg')
-        }
-      ],
-      txtCode: '<a target="_blank" href="https://ydidc.com">浙江云盾</a>',
-      imgCode1: '<a target="_blank" href="https://ydidc.com">',
-      imgCode2: '<img src="https://ydidc.com/logo_small.gif">',
-      imgCode3: '</a>',
+      // 复制文本所需参数
       txtMessage: false,
       imgMessage: false,
-      loading: false,
-      companypages: [],
-      current: 1,
-      pageSize: 8,
-      total: 0
+      loading: false
     }
   },
   computed: {
     ...mapState({
       friendLinks: state => state.home.friendLinks,
       webInfo: state => state.home.webInfo
-    })
+    }),
+    txtCode () {
+      return `<a target="_blank" href="${this.webInfo.internationalSiteAddress}">${this.webInfo.websiteName}</a>`
+    },
+    imgCode1 () {
+      return `<a target="_blank" href="${this.webInfo.internationalSiteAddress}">`
+    },
+    imgCode2 () {
+      return `<img src="${this.webInfo.websiteLogo}">`
+    },
+    imgCode3 () {
+      return '</a>'
+    }
   },
   watch: {
     $route: {
@@ -420,22 +420,39 @@ export default {
       immediate: true
     }
   },
-  mounted () {
-    this.getWebInfo()
-  },
   methods: {
     // tab选择
     onChangeTab (index) {
+      console.log(index)
       this.tabSelectIndex = index
-      // this.$router.push({ path: `/pc/about/index?tab=${index}` })
+      if (index === 0) {
+        this.getCompanyInfo()
+      }
+      if (index === 1) {
+        this.getNewTabsList()
+      }
+    },
+    // 获取公司简介
+    async getCompanyInfo () {
+      const companyData = await this.$api.pages.getCompanyPage()
+      const cpmpanyObj = {
+        pageName: '',
+        bannerPicture: '',
+        context: ''
+      }
+      this.resultCompany =
+        companyData.data &&
+        Array.isArray(companyData.data.list) &&
+        companyData.data.list.length > 0
+          ? companyData.data.list[0]
+          : cpmpanyObj
     },
     // 新闻公告tab选择
-    onChangeNewTabs (ind, item) {
-      this.newsTabSelectIndex = ind
-      this.getNewsListInfo(1, 999, item)
-      // this.getNewsInfo()
-      this.firstCode = item
-      this.current = 1
+    onChangeNewTabs (id, newTypeCode) {
+      this.listQuery.currentPage = 1
+      this.newsTabSelectIndex = id
+      this.firstCode = newTypeCode
+      this.getNewsList()
     },
     // 点击复制
     handleCopy (type) {
@@ -464,45 +481,52 @@ export default {
       })
     },
     // 获取新闻类别
-    async getNewsInfo () {
-      const newsData = await this.$api.news.getAllNewsList({
-        currentPage: 1,
-        pageSize: 999
-      })
-      this.newtabsList = newsData.data.list
-      console.log('新闻类别', this.newtabsList)
-      this.getNewsListInfo(this.newtabsList[0].newTypeCode)
+    async getNewTabsList () {
+      const newTypeData = await this.$api.news.getAllNewsList(this.listQuery)
+      const newsTabsList =
+        newTypeData.data &&
+        Array.isArray(newTypeData.data.list) &&
+        newTypeData.data.list.length > 0
+          ? [...newTypeData.data.list]
+          : []
+
+      this.newTypeCode =
+        newsTabsList.length > 0 ? newsTabsList[0].newTypeCode : ''
+      this.newsTabSelectIndex =
+        newsTabsList.length > 0 ? newsTabsList[0].id : ''
+      if (this.newTypeCode) {
+        this.getNewsList()
+      }
     },
-    // 获取新闻类别信息
-    async getNewsListInfo (current, pageSize, code) {
-      const newsData = await this.$api.news.getNews({
-        currentPage: current || 1,
-        pageSize: pageSize || 8,
-        newTypeCode: code
+    // 获取新闻列表
+    async getNewsList () {
+      const newsListData = await this.$api.news.getNews({
+        ...this.listQuery,
+        newTypeCode: this.newTypeCode
       })
-      this.newsList = newsData.data?.list || []
-      console.log(newsData, 'this.newsList')
-      this.total = Number(newsData.data?.totalCount) || 0
+      this.newsList =
+        newsListData.data &&
+        Array.isArray(newsListData.data.list) &&
+        newsListData.data.list.length > 0
+          ? [...newsListData.data.list]
+          : []
+      this.listQuery.total = newsListData.data
+        ? newsListData.data.totalCount * 1
+        : 0
     },
     // 进入详情页面
-    async getDetail (id) {
+    async handleGoDetail (id) {
       this.detailSelect = true
       const newData = await this.$api.news.getOneNews(id)
-      this.newsDetail = newData.data
+      this.newsDetail = { ...newData.data }
     },
     // 回退新闻内容页面
     backContent () {
       this.detailSelect = false
     },
     // 页码功能
-    pageChange (current, pageSize, code) {
-      this.getNewsListInfo(current, pageSize, code)
-    },
-    // 获取友情链接
-    async getWebInfo () {
-      const linksData = await this.$api.home.getFriendLink()
-      this.linkList = linksData.data.list.filter(item => item.status === 0)
-      console.log('友情链接', this.linkList)
+    pageChange () {
+      this.getNewsList()
     }
   }
 }
@@ -517,7 +541,8 @@ export default {
     height: 576px;
     min-width: 1220px;
     overflow: hidden;
-    background: url('https://ydidc-test.oss-cn-shanghai.aliyuncs.com/idc-mall/about/banner.png') center #0a1d46 no-repeat;
+    background: url('https://ydidc-test.oss-cn-shanghai.aliyuncs.com/idc-mall/about/banner.png')
+      center #0a1d46 no-repeat;
     background-size: cover;
     color: #fff;
     .container {
