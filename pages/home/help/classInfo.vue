@@ -14,7 +14,7 @@
     </h2>
     <client-only>
       <div v-if="!typeCentexthtml">
-        <div v-if="typeCentext" class="typeCentext-list">
+        <div v-if="typeCentext.length > 0" class="typeCentext-list">
           <h3
             v-for="(item, index) in typeCentext"
             :key="index"
@@ -63,7 +63,7 @@ export default {
     })
     console.log(typeCentext, '点击目录的时候获取目录下的内容')
     const total = typeCentext.data ? typeCentext.data.totalCount * 1 : 0
-    typeCentext = typeCentext.data.list
+    typeCentext = typeCentext.data.list ? typeCentext.data.list : []
     const keyWords = query.keyWords
     if (keyWords) {
       // 如果有关键字，则按关键字搜索
