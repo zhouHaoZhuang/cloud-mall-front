@@ -489,7 +489,7 @@ export default {
         newTypeData.data.list.length > 0
           ? [...newTypeData.data.list]
           : []
-
+      this.newsTabsList = [...newsTabsList]
       this.newTypeCode =
         newsTabsList.length > 0 ? newsTabsList[0].newTypeCode : ''
       this.newsTabSelectIndex =
