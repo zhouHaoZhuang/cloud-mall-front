@@ -14,7 +14,7 @@
     </h2>
     <client-only>
       <div v-if="!typeCentexthtml">
-        <div v-if="typeCentext" class="typeCentext-list">
+        <div v-if="typeCentext.length > 0" class="typeCentext-list">
           <h3
             v-for="(item, index) in typeCentext"
             :key="index"
