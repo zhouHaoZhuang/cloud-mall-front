@@ -300,6 +300,7 @@ import Map from '@/components/Map'
 export default {
   components: { Statement, Banner, Map },
   async asyncData ({ app, query }) {
+    console.log(query, 'query')
     const tabKey = query.tab
     if (tabKey === '0') {
       // 获取公司简介
@@ -333,10 +334,15 @@ export default {
           ? [...newTypeData.data.list]
           : []
 
-      const newTypeCode =
+      let newTypeCode =
         newsTabsList.length > 0 ? newsTabsList[0].newTypeCode : ''
-      const newsTabSelectIndex =
-        newsTabsList.length > 0 ? newsTabsList[0].id : ''
+      if (query.code) {
+        newTypeCode = query.code
+      }
+      let newsTabSelectIndex = newsTabsList.length > 0 ? newsTabsList[0].id : ''
+      if (query.id) {
+        newsTabSelectIndex = query.id
+      }
       if (newTypeCode) {
         // 获取新闻列表
         const newsListData = await app.$api.news.getNews({
