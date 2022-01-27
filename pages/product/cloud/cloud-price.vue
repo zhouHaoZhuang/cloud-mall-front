@@ -954,7 +954,7 @@ export default {
     width: 100%;
     height: 480px;
     margin-top: 0;
-    background: url('../../../static/img/cloud/bg.png') no-repeat center;
+    background: url('https://ydidc-test.oss-cn-shanghai.aliyuncs.com/idc-mall/cloud/bg.png') no-repeat center;
     background-size: cover;
     color: rgb(255, 255, 255);
     padding-top: 150px;
