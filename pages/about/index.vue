@@ -449,9 +449,10 @@ export default {
     },
     // 新闻公告tab选择
     onChangeNewTabs (id, newTypeCode) {
+      console.log('插卡', id, newTypeCode)
       this.listQuery.currentPage = 1
       this.newsTabSelectIndex = id
-      this.firstCode = newTypeCode
+      this.newTypeCode = newTypeCode
       this.getNewsList()
     },
     // 点击复制
