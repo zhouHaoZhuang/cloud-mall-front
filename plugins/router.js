@@ -53,7 +53,10 @@ export default ({ app, redirect, params, query, store, req }) => {
     }
   })
   // 插件全局后置守卫
-  // app.router.afterEach((to, from) => {
-  //   console.log('插件全局后置守卫')
-  // })
+  app.router.afterEach((to, from) => {
+    try {
+      window._hmt = window._hmt || []
+      window._hmt.push(['_trackPageview', to.fullPath])
+    } catch (e) {}
+  })
 }

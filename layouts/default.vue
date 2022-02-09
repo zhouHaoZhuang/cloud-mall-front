@@ -54,6 +54,12 @@ export default {
           name: 'keywords',
           content: this.webInfo.keyWords
         }
+      ],
+      script: [
+        {
+          type: 'text/javascript',
+          src: this.webInfo.statisticalCode
+        }
       ]
     }
   },
