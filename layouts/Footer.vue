@@ -256,7 +256,8 @@ export default {
           ]
         }
       ],
-      show: true
+      show: true,
+      allConfig: null
     }
   },
   computed: {
@@ -278,6 +279,9 @@ export default {
       immediate: true
     }
   },
+  mounted () {
+    this.getDetail()
+  },
   methods: {
     // 跳转外部链接
     jumpOutside (path) {
@@ -291,8 +295,17 @@ export default {
       }
       this.$router.push(path)
     },
+    async getDetail () {
+      const allConfig = await this.$api.user.getAllConfig()
+      this.allConfig = allConfig.data
+    },
     mailsome () {
-      parent.location.href = 'mailto:' + '' + '?subject=' + '' + ''
+      parent.location.href =
+        'mailto:' +
+        this.allConfig.email_address +
+        '?subject=' +
+        '' +
+        ''
     },
     // 点击跳转
     handleClickJump (path) {

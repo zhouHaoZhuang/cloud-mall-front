@@ -9,6 +9,12 @@ export default axios => ({
       url: '/ccCorporation/getByToken'
     })
   },
+  // 获取全局配置信息
+  getAllConfig () {
+    return axios({
+      url: '/ccConfig/allConfig',
+    })
+  },
   // 注册
   register (data) {
     return axios.post('/user/register', data)
