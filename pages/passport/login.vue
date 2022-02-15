@@ -1,5 +1,7 @@
 <template>
   <div class="login-container">
+    <div class="top-background">
+    </div>
     <!-- <div>登录-pc端</div> -->
     <div class="titleTop">
       <div class="titleInfo container">
@@ -160,6 +162,11 @@ export default {
   .login-btn {
     width: 100%;
   }
+}
+.top-background{
+  background-color: #2B303B;
+  width: 100%;
+  height: 80px;
 }
 .titleTop {
   padding-top: 160px;
