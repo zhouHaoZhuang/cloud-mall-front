@@ -257,14 +257,14 @@ export default {
         }
       ],
       show: true,
-      allConfig: null
     }
   },
   computed: {
     ...mapState({
       friendLinks: state => state.home.friendLinks,
       webInfo: state => state.home.webInfo,
-      token: state => state.user.token
+      token: state => state.user.token,
+      allConfig: state => state.user.allConfig
     })
   },
   watch: {
@@ -279,9 +279,6 @@ export default {
       immediate: true
     }
   },
-  mounted () {
-    this.getDetail()
-  },
   methods: {
     // 跳转外部链接
     jumpOutside (path) {
@@ -295,17 +292,9 @@ export default {
       }
       this.$router.push(path)
     },
-    async getDetail () {
-      const allConfig = await this.$api.user.getAllConfig()
-      this.allConfig = allConfig.data
-    },
     mailsome () {
       parent.location.href =
-        'mailto:' +
-        this.allConfig.email_address +
-        '?subject=' +
-        '' +
-        ''
+        'mailto:' + this.allConfig.email_address + '?subject=' + '' + ''
     },
     // 点击跳转
     handleClickJump (path) {

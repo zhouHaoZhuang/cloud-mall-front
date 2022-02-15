@@ -9,7 +9,8 @@ export const state = () => ({
     password: '',
     autoLogin: false
   },
-  redirectPath: ''
+  redirectPath: '',
+  allConfig:''
 })
 
 // getters
@@ -44,6 +45,10 @@ export const mutations = {
   // 保存重定向跳转地址
   saveRedirectPath (state, redirectPath) {
     state.redirectPath = redirectPath
+  },
+  // 保存所有全局配置信息（除基本设置）
+  saveAllConfig (state, payload) {
+    state.allConfig = payload
   }
 }
 
@@ -71,6 +76,12 @@ export const actions = {
   getUserInfo ({ commit, state }) {
     this.$api.user.getUserInfo().then((user) => {
       commit('saveUserInfo', user)
+    })
+  },
+  // 获取全局配置
+  getAllConfig({ commit, state }) {
+    this.$api.user.getAllConfig().then((config) => {
+      commit('saveAllConfig', config.data)
     })
   },
   // 退出登录

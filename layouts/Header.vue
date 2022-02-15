@@ -485,7 +485,6 @@ export default {
       headerItemData: {},
       hoverStyle: '',
       whiteList: ['/login-pc', '/pc/register', '/pc/forget'],
-      allConfig: null
     }
   },
   computed: {
@@ -493,16 +492,17 @@ export default {
       isLogin: state => state.user.isLogin,
       userInfo: state => state.user.userInfo,
       token: state => state.user.token,
-      webInfo: state => state.home.webInfo
+      webInfo: state => state.home.webInfo,
+      allConfig:state => state.user.allConfig,
     })
   },
   mounted () {
     this.getDetail()
+    console.log(this.allConfig,'0000000000000');
   },
   methods: {
-    async getDetail () {
-      const allConfig = await this.$api.user.getAllConfig()
-      this.allConfig = allConfig.data
+    getDetail () {
+      this.$store.dispatch('user/getAllConfig')
     },
     // 鼠标进入
     mouseEnter (index, show) {
