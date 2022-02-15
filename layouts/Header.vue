@@ -497,11 +497,10 @@ export default {
     })
   },
   mounted () {
-    this.getDetail()
-    console.log(this.allConfig,'0000000000000');
+    this.getAllConfig()
   },
   methods: {
-    getDetail () {
+    getAllConfig () {
       this.$store.dispatch('user/getAllConfig')
     },
     // 鼠标进入
