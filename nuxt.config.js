@@ -14,7 +14,6 @@ export default {
     },
     meta: [
       { charset: 'utf-8' },
-      { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' }
     ],
     script: [
