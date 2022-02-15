@@ -256,14 +256,15 @@ export default {
           ]
         }
       ],
-      show: true
+      show: true,
     }
   },
   computed: {
     ...mapState({
       friendLinks: state => state.home.friendLinks,
       webInfo: state => state.home.webInfo,
-      token: state => state.user.token
+      token: state => state.user.token,
+      allConfig: state => state.user.allConfig
     })
   },
   watch: {
@@ -292,7 +293,8 @@ export default {
       this.$router.push(path)
     },
     mailsome () {
-      parent.location.href = 'mailto:' + '' + '?subject=' + '' + ''
+      parent.location.href =
+        'mailto:' + this.allConfig.email_address + '?subject=' + '' + ''
     },
     // 点击跳转
     handleClickJump (path) {
