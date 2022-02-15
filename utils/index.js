@@ -82,6 +82,7 @@ export const getRequestParams = (config) => {
     data: config.data,
     timeout: config.timeout,
     domain: config.headers.domain,
+    tenantId: config.headers.tenantId,
     token: config.headers.token
   }
   console.log('请求时参数', selectParams)

@@ -89,10 +89,18 @@
         </div> -->
         <!-- 登录/注册 -->
         <div v-if="!isLogin" class="btns">
-          <div class="btn disembark" @click="handleClickJump('/login-pc')">
+          <div
+            v-show="allConfig && allConfig.enable_login == '1'"
+            class="btn disembark"
+            @click="handleClickJump('/login-pc')"
+          >
             登录
           </div>
-          <div class="btn" @click="handleClickJump('/pc/register')">
+          <div
+            v-show="allConfig && allConfig.enable_register == '1'"
+            class="btn"
+            @click="handleClickJump('/pc/register')"
+          >
             免费注册
           </div>
         </div>
@@ -125,6 +133,14 @@ export default {
   components: {
     HeaderItem
   },
+  // async asyncData ({ app}) {
+  //   // 点击目录的时候获取目录下的内容
+  //   let typeCentext = await app.$api.user.getAllConfig()
+  //   console.log(typeCentext, '点击目录的时候获取目录下的内容')
+  //   return {
+  //     typeCentext,
+  //   }
+  // },
   data () {
     return {
       jumpCloudAdmin,
@@ -468,7 +484,7 @@ export default {
       hoverIndex: -1,
       headerItemData: {},
       hoverStyle: '',
-      whiteList: ['/login-pc', '/pc/register', '/pc/forget']
+      whiteList: ['/login-pc', '/pc/register', '/pc/forget'],
     }
   },
   computed: {
@@ -476,11 +492,17 @@ export default {
       isLogin: state => state.user.isLogin,
       userInfo: state => state.user.userInfo,
       token: state => state.user.token,
-      webInfo: state => state.home.webInfo
+      webInfo: state => state.home.webInfo,
+      allConfig:state => state.user.allConfig,
     })
   },
-
+  mounted () {
+    this.getAllConfig()
+  },
   methods: {
+    getAllConfig () {
+      this.$store.dispatch('user/getAllConfig')
+    },
     // 鼠标进入
     mouseEnter (index, show) {
       console.log(index, show)

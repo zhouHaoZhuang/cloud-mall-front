@@ -129,6 +129,8 @@ export default {
             this.$store.dispatch('user/login', res.data)
             // 保存token到cookies
             this.$cookies.set('token', res.data.token)
+            // 保存租户id到cookies
+            this.$cookies.set('tenantId', res.data.tenantId)
             // 设置是否自动登录
             this.$store.dispatch('user/setAutoLogin', form)
             // 判断是否有需要重定向的地址

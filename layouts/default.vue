@@ -42,6 +42,24 @@ export default {
           rel: 'icon',
           href: this.webInfo.websitieIcon
         }
+      ],
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.webInfo.describe
+        },
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content: this.webInfo.keyWords
+        }
+      ],
+      script: [
+        {
+          type: 'text/javascript',
+          src: this.webInfo.statisticalCode
+        }
       ]
     }
   },
