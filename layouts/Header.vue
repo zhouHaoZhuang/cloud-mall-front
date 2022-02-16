@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-header">
+  <div :class="{ 'layout-header': true, 'background-white': isWhite($route.path) }">
     <div class="container header-box">
       <!-- logo -->
       <div class="logo" @click="handleClickJump('/pc')">
@@ -484,7 +484,7 @@ export default {
       hoverIndex: -1,
       headerItemData: {},
       hoverStyle: '',
-      whiteList: ['/login-pc', '/pc/register', '/pc/forget'],
+      whiteList: ['/login-pc', '/pc/register', '/pc/forget']
     }
   },
   computed: {
@@ -493,7 +493,7 @@ export default {
       userInfo: state => state.user.userInfo,
       token: state => state.user.token,
       webInfo: state => state.home.webInfo,
-      allConfig:state => state.user.allConfig,
+      allConfig: state => state.user.allConfig
     })
   },
   mounted () {
@@ -502,6 +502,9 @@ export default {
   methods: {
     getAllConfig () {
       this.$store.dispatch('user/getAllConfig')
+    },
+    isWhite (path) {
+      return this.whiteList.includes(path)
     },
     // 鼠标进入
     mouseEnter (index, show) {
@@ -796,6 +799,9 @@ export default {
       }
     }
   }
+}
+.background-white {
+  background-color: #2B303B;
 }
 .layout-header:hover {
   // background-color: #2b3033;
