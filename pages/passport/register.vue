@@ -1,190 +1,190 @@
 <template>
-  <div class="register-container">
-    <div class="top-title">
-      账号密码注册
-    </div>
-    <div class="register">
-      <div class="content">
-        <div class="item">
-          <div class="input-box">
-            <Iconfont class="left-icon" type="icon-phone" />
-            <a-input
-              v-model="form.phone"
-              v-number-evolution
-              :max-length="11"
-              placeholder="请输入手机号码"
-              @focus="
-                phoneEnter = true
-                phoneStatus = 0
-              "
-              @blur="phoneblurfns"
-            />
+    <div class="register-container">
+      <div class="top-title">
+        账号密码注册
+      </div>
+      <div class="register">
+        <div class="content">
+          <div class="item">
+            <div class="input-box">
+              <Iconfont class="left-icon" type="icon-phone" />
+              <a-input
+                v-model="form.phone"
+                v-number-evolution
+                :max-length="11"
+                placeholder="请输入手机号码"
+                @focus="
+                  phoneEnter = true
+                  phoneStatus = 0
+                "
+                @blur="phoneblurfns"
+              />
+            </div>
+            <div class="info">
+              <div v-if="phoneStatus === 0" class="info-item">
+                <Iconfont class="info-icon" type="icon-info" />
+                <span>手机号码可用于登陆、激活账号、密码找回</span>
+              </div>
+              <div v-else-if="phoneStatus === 1" class="info-item">
+                <Iconfont class="info-icon" type="icon-err" />
+                <span>你输入的手机号码不正确</span>
+              </div>
+              <div v-else-if="phoneStatus === 2" class="info-item">
+                <Iconfont class="info-icon" type="icon-ok" />
+                <span>填写正确</span>
+              </div>
+            </div>
           </div>
-          <div class="info">
-            <div v-if="phoneStatus === 0" class="info-item">
-              <Iconfont class="info-icon" type="icon-info" />
-              <span>手机号码可用于登陆、激活账号、密码找回</span>
+          <div class="item short">
+            <div class="input-box">
+              <Iconfont class="left-icon" type="icon-code" />
+              <a-input
+                v-model="form.code"
+                v-number-evolution
+                placeholder="请输入短信验证码"
+                :max-length="6"
+                @focus="
+                  codeEnter = true
+                  codeStatus = 0
+                "
+                @blur="shortblurfns"
+              />
             </div>
-            <div v-else-if="phoneStatus === 1" class="info-item">
-              <Iconfont class="info-icon" type="icon-err" />
-              <span>你输入的手机号码不正确</span>
+            <div class="info">
+              <div v-if="codeStatus === 0" class="info-item">
+                <Iconfont class="info-icon" type="icon-info" />
+                <span>请输入收到的验证码</span>
+              </div>
+              <div v-else-if="codeStatus === 1" class="info-item">
+                <Iconfont class="info-icon" type="icon-err" />
+                <span>验证码格式错误</span>
+              </div>
+              <div v-else-if="codeStatus === 2" class="info-item">
+                <Iconfont class="info-icon" type="icon-ok" />
+                <span>验证码格式正确</span>
+              </div>
             </div>
-            <div v-else-if="phoneStatus === 2" class="info-item">
-              <Iconfont class="info-icon" type="icon-ok" />
-              <span>填写正确</span>
+            <a-button
+              class="section"
+              :style="`background:${codeLoading ? '#ccc' : ''}`"
+              type="primary"
+              :disabled="codeLoading"
+              @click="sendCode"
+            >
+              {{ codeTxt }}
+            </a-button>
+          </div>
+          <div class="item">
+            <div class="input-box">
+              <Iconfont class="left-icon" type="icon-lock" />
+              <a-input
+                v-model="form.password"
+                :type="!passwordType ? 'text' : 'password'"
+                placeholder="请输入密码"
+                :max-length="20"
+                @focus="
+                  pwdEnter = true
+                  pwdStatus = 0
+                "
+                @blur="setpswdblurfns"
+              />
+              <a-icon
+                v-if="passwordType"
+                class="eye-icon"
+                type="eye-invisible"
+                @click="changePwdShow('pwd', false)"
+              />
+              <a-icon
+                v-else
+                class="eye-icon"
+                type="eye"
+                @click="changePwdShow('pwd', true)"
+              />
+            </div>
+            <div class="info">
+              <div v-if="pwdStatus === 0" class="info-item">
+                <Iconfont class="info-icon" type="icon-info" />
+                <span>密码由8-20个英文字母、数字和特殊符号组成</span>
+              </div>
+              <div v-else-if="pwdStatus === 1" class="info-item">
+                <Iconfont class="info-icon" type="icon-err" />
+                <span>密码格式填写错误</span>
+              </div>
+              <div v-else-if="pwdStatus === 2" class="info-item">
+                <Iconfont class="info-icon" type="icon-ok" />
+                <span>密码格式填写正确</span>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="item short">
-          <div class="input-box">
-            <Iconfont class="left-icon" type="icon-code" />
-            <a-input
-              v-model="form.code"
-              v-number-evolution
-              placeholder="请输入短信验证码"
-              :max-length="6"
-              @focus="
-                codeEnter = true
-                codeStatus = 0
-              "
-              @blur="shortblurfns"
-            />
+          <div class="item">
+            <div class="input-box">
+              <Iconfont class="left-icon" type="icon-lock" />
+              <a-input
+                v-model="form.confrimPassword"
+                :type="!confirmPwdType ? 'text' : 'password'"
+                placeholder="请再次填写密码"
+                :max-length="20"
+                @focus="
+                  confirmPwdEnter = true
+                  confirmPwdStatus = 0
+                "
+                @blur="confirmpswdblurfns"
+              />
+              <a-icon
+                v-if="confirmPwdType"
+                class="eye-icon"
+                type="eye-invisible"
+                @click="changePwdShow('confirm', false)"
+              />
+              <a-icon
+                v-else
+                class="eye-icon"
+                type="eye"
+                @click="changePwdShow('confirm', true)"
+              />
+            </div>
+            <div class="info">
+              <div v-if="confirmPwdStatus === 0" class="info-item">
+                <Iconfont class="info-icon" type="icon-info" />
+                <span>请再次输入密码</span>
+              </div>
+              <div v-else-if="confirmPwdStatus === 1" class="info-item">
+                <Iconfont class="info-icon" type="icon-err" />
+                <span>两次输入的密码不一致</span>
+              </div>
+              <div v-else-if="confirmPwdStatus === 2" class="info-item">
+                <Iconfont class="info-icon" type="icon-ok" />
+                <span>填写正确</span>
+              </div>
+            </div>
           </div>
-          <div class="info">
-            <div v-if="codeStatus === 0" class="info-item">
-              <Iconfont class="info-icon" type="icon-info" />
-              <span>请输入收到的验证码</span>
-            </div>
-            <div v-else-if="codeStatus === 1" class="info-item">
-              <Iconfont class="info-icon" type="icon-err" />
-              <span>验证码格式错误</span>
-            </div>
-            <div v-else-if="codeStatus === 2" class="info-item">
-              <Iconfont class="info-icon" type="icon-ok" />
-              <span>验证码格式正确</span>
-            </div>
+          <div class="check-box">
+            <a-checkbox v-model="isRead" />
+            <span>
+              我已阅读并同意
+              <a
+                href="/pc/passport/agreement"
+                target="_blank"
+              >《浙江云盾网站服务协议》</a>
+            </span>
           </div>
           <a-button
-            class="section"
-            :style="`background:${codeLoading ? '#ccc' : ''}`"
+            :loading="registerLoading"
+            class="btn"
             type="primary"
-            :disabled="codeLoading"
-            @click="sendCode"
+            @click="handleRegister"
           >
-            {{ codeTxt }}
+            注册账号
           </a-button>
-        </div>
-        <div class="item">
-          <div class="input-box">
-            <Iconfont class="left-icon" type="icon-lock" />
-            <a-input
-              v-model="form.password"
-              :type="!passwordType ? 'text' : 'password'"
-              placeholder="请输入密码"
-              :max-length="20"
-              @focus="
-                pwdEnter = true
-                pwdStatus = 0
-              "
-              @blur="setpswdblurfns"
-            />
-            <a-icon
-              v-if="passwordType"
-              class="eye-icon"
-              type="eye-invisible"
-              @click="changePwdShow('pwd', false)"
-            />
-            <a-icon
-              v-else
-              class="eye-icon"
-              type="eye"
-              @click="changePwdShow('pwd', true)"
-            />
+          <div class="go-login">
+            <span>已经拥有账号？</span>
+            <nuxt-link to="/login-pc">
+              账号登录
+            </nuxt-link>
           </div>
-          <div class="info">
-            <div v-if="pwdStatus === 0" class="info-item">
-              <Iconfont class="info-icon" type="icon-info" />
-              <span>密码由8-20个英文字母、数字和特殊符号组成</span>
-            </div>
-            <div v-else-if="pwdStatus === 1" class="info-item">
-              <Iconfont class="info-icon" type="icon-err" />
-              <span>密码格式填写错误</span>
-            </div>
-            <div v-else-if="pwdStatus === 2" class="info-item">
-              <Iconfont class="info-icon" type="icon-ok" />
-              <span>密码格式填写正确</span>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="input-box">
-            <Iconfont class="left-icon" type="icon-lock" />
-            <a-input
-              v-model="form.confrimPassword"
-              :type="!confirmPwdType ? 'text' : 'password'"
-              placeholder="请再次填写密码"
-              :max-length="20"
-              @focus="
-                confirmPwdEnter = true
-                confirmPwdStatus = 0
-              "
-              @blur="confirmpswdblurfns"
-            />
-            <a-icon
-              v-if="confirmPwdType"
-              class="eye-icon"
-              type="eye-invisible"
-              @click="changePwdShow('confirm', false)"
-            />
-            <a-icon
-              v-else
-              class="eye-icon"
-              type="eye"
-              @click="changePwdShow('confirm', true)"
-            />
-          </div>
-          <div class="info">
-            <div v-if="confirmPwdStatus === 0" class="info-item">
-              <Iconfont class="info-icon" type="icon-info" />
-              <span>请再次输入密码</span>
-            </div>
-            <div v-else-if="confirmPwdStatus === 1" class="info-item">
-              <Iconfont class="info-icon" type="icon-err" />
-              <span>两次输入的密码不一致</span>
-            </div>
-            <div v-else-if="confirmPwdStatus === 2" class="info-item">
-              <Iconfont class="info-icon" type="icon-ok" />
-              <span>填写正确</span>
-            </div>
-          </div>
-        </div>
-        <div class="check-box">
-          <a-checkbox v-model="isRead" />
-          <span>
-            我已阅读并同意
-            <a
-              href="/pc/passport/agreement"
-              target="_blank"
-            >《浙江云盾网站服务协议》</a>
-          </span>
-        </div>
-        <a-button
-          :loading="registerLoading"
-          class="btn"
-          type="primary"
-          @click="handleRegister"
-        >
-          注册账号
-        </a-button>
-        <div class="go-login">
-          <span>已经拥有账号？</span>
-          <nuxt-link to="/login-pc">
-            账号登录
-          </nuxt-link>
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>

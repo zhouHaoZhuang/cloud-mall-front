@@ -1,5 +1,4 @@
 <template>
-  <div class="login-container">
     <!-- <div>登录-pc端</div> -->
     <div class="titleTop">
       <div class="titleInfo container">
@@ -59,7 +58,6 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -161,6 +159,7 @@ export default {
     width: 100%;
   }
 }
+
 .titleTop {
   padding-top: 160px;
   color: #fff;
