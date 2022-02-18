@@ -40,9 +40,7 @@ export const setCpuOrDiskData = (data, company) => {
 }
 // 跳转控制台地址
 const cloudAdminUrl = {
-  local: 'http://localhost:8000',
-  dev: 'http://localhost:8000'
-  // dev: 'http://192.168.12.30:8000'
+  local: 'http://localhost:8000'
 }
 // 获取控制台地址
 function getCloudAdminUrl () {

@@ -42,7 +42,7 @@ function getToken (cookie, store) {
 }
 // 根据环境返回domain地址--后端需要请求头携带浏览器地址，字段：domain
 function getDomainUrl (cookie, store) {
-  if (process.env.NODE_ENV === 'dev') {
+  if (process.env.NODE_ENV === 'local' || process.env.NODE_ENV === 'dev') {
     return env.DOMAIN_URL
   }
   if (store.state.user.windowHref) {
