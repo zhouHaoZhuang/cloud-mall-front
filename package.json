@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "local": "cross-env NODE_ENV=local nuxt",
     "dev": "cross-env NODE_ENV=dev nuxt",
     "dev:test": "cross-env NODE_ENV=test nuxt",
     "dev:preprod": "cross-env NODE_ENV=preprod nuxt",

@@ -1,11 +1,13 @@
 // 请求地址头
 const urls = {
+  local: 'http://site.ydidc.com/server',
   dev: 'http://site.ydidc.com/server',
   test: 'http://www.zjyundun.com/server',
   prod: 'http://www.zjyundun.com/server'
 }
 // 请求头携带domain参数
 const domains = {
+  local: 'localhost',
   dev: 'localhost'
 }
 
