@@ -40,12 +40,11 @@ export const setCpuOrDiskData = (data, company) => {
 }
 // 跳转控制台地址
 const cloudAdminUrl = {
-  dev: 'http://localhost:8000'
-  // dev: 'http://192.168.12.30:8000'
+  local: 'http://localhost:8000/console'
 }
 // 获取控制台地址
 function getCloudAdminUrl () {
-  return process.env.NODE_ENV === 'dev'
+  return process.env.NODE_ENV === 'local'
     ? cloudAdminUrl[process.env.NODE_ENV]
     : localStorage.getItem('idcUrl')
 }
@@ -53,7 +52,7 @@ function getCloudAdminUrl () {
 export const jumpCloudAdmin = (token, type) => {
   const url = getCloudAdminUrl()
   window.open(
-    url + '/#/dashboard' + `?token=${token}`,
+    url + '/dashboard' + `?token=${token}`,
     type ? '_blank' : '_self'
   )
 }
@@ -61,7 +60,7 @@ export const jumpCloudAdmin = (token, type) => {
 export const jumpCloudAdminDetail = (id, token) => {
   const url = getCloudAdminUrl()
   window.open(
-    url + '/#/user/finance/orderDetail' + `?id=${id}` + `&token=${token}`,
+    url + '/user/finance/orderDetail' + `?id=${id}` + `&token=${token}`,
     '_self'
   )
 }
@@ -69,7 +68,7 @@ export const jumpCloudAdminDetail = (id, token) => {
 export const jumpCloudAdminRealName = (token, type) => {
   const url = getCloudAdminUrl()
   window.open(
-    url + '/#/user/setting/realname' + `?token=${token}`,
+    url + '/user/setting/realname' + `?token=${token}`,
     type ? '_blank' : '_self'
   )
 }
@@ -93,9 +92,9 @@ export const getIdcAdminUrl = (url) => {
   const newUrl = url.includes('http://')
     ? url.replace('http://', '')
     : url.replace('https://', '')
-  const str = newUrl.substring(0, newUrl.indexOf('/')).replace('www.', '')
+  const str = newUrl.substring(0, newUrl.indexOf('/'))
   const newResult = `${
     url.includes('http://') ? 'http://' : 'https://'
-  }console.${str}`
+  }${str}/console`
   return newResult
 }
