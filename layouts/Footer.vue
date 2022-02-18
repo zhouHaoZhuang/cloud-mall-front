@@ -120,6 +120,8 @@
             >
             <span @click="handleClickJump('')"> {{ webInfo.recordNo }}</span>
             &nbsp;&nbsp;
+            {{ webInfo.recordNo }}
+            &nbsp;&nbsp;
             {{ webInfo.bottomInfo }}
           </p>
           <p />
@@ -256,7 +258,7 @@ export default {
           ]
         }
       ],
-      show: true,
+      show: true
     }
   },
   computed: {
