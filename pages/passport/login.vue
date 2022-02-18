@@ -1,5 +1,6 @@
 <template>
-    <!-- <div>登录-pc端</div> -->
+  <!-- <div>登录-pc端</div> -->
+  <div class="login-container">
     <div class="titleTop">
       <div class="titleInfo container">
         <div>
@@ -17,19 +18,19 @@
           </h4>
           <div class="content">
             <div class="borderbule">
-              <input
+              <a-input
                 v-model="form.phone"
                 v-number-evolution
                 type="text"
                 placeholder="请输入手机号"
-              >
+              />
             </div>
             <div class="borderbule">
-              <input
+              <a-input
                 v-model="form.password"
                 type="password"
                 placeholder="请输入登录密码"
-              >
+              />
             </div>
             <div class="auto-login">
               <div class="left">
@@ -58,6 +59,7 @@
         </div>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -201,21 +203,20 @@ export default {
         .borderbule {
           width: 100%;
           height: 40px;
-          line-height: 40px;
           border: 1px solid rgb(221 221 221);
           margin-top: 8px;
-          padding-left: 10px;
-          input {
+          .ant-input {
             width: 100%;
+            height: 100%;
             outline: none;
             border: 0;
-            line-height: 0;
             font-size: 14px;
             color: #000;
           }
           input:focus {
             outline: none;
             font-size: 14px;
+            box-shadow: none;
           }
         }
         .auto-login {

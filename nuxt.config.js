@@ -91,12 +91,12 @@ export default {
   proxy: {
     // 代理
     // '/api': {
-    //   target: process.env.BASE_URL, // 代理转发地址
+    //   target: 'http://site.ydidc.com/server', // 代理转发地址
     //   changeOrigin: true,
     //   pathRewrite: {
     //     '^/api': ''
     //   }
-    // }
+    // },
     '/map': {
       target: 'https://restapi.amap.com', // 代理转发地址
       changeOrigin: true,
