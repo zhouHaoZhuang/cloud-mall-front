@@ -1,9 +1,8 @@
 // 请求地址头
 const urls = {
-  // dev: 'http://9v46031703.eicp.vip:8082',
-  dev: 'http://ims.dev.ydidc.com',
-  test: 'http://ims.test.ydidc.com',
-  prod: 'http://ims.prod.ydidc.com'
+  dev: 'http://site.ydidc.com/server',
+  test: 'http://www.zjyundun.com/server',
+  prod: 'http://www.zjyundun.com/server'
 }
 // 请求头携带domain参数
 const domains = {
