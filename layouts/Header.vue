@@ -1,5 +1,7 @@
 <template>
-  <div :class="{ 'layout-header': true, 'background-white': isWhite($route.path) }">
+  <div
+    :class="{ 'layout-header': true, 'background-white': isWhite($route.path) }"
+  >
     <div class="container header-box">
       <!-- logo -->
       <div class="logo" @click="handleClickJump('/pc')">
@@ -499,6 +501,22 @@ export default {
   mounted () {
     this.getAllConfig()
   },
+  beforeRouteEnter: (to, from, next) => {
+    console.log(to.path, '=============000000')
+    // next(vm=>{
+    //     alert("hello" + vm.name);
+    // })
+    if (to.path == '/login-pc') {
+      if (this.allConfig && this.allConfig.enable_login == '1') {
+        next()
+      }
+    }
+    if (to.path == '/pc/register') {
+      if (this.allConfig && this.allConfig.enable_register == '1') {
+        next()
+      }
+    }
+  },
   methods: {
     getAllConfig () {
       this.$store.dispatch('user/getAllConfig')
@@ -801,7 +819,7 @@ export default {
   }
 }
 .background-white {
-  background-color: #2B303B;
+  background-color: #2b303b;
 }
 .layout-header:hover {
   // background-color: #2b3033;

@@ -95,6 +95,12 @@ export default {
       immediate: true
     }
   },
+  beforeRouteEnter: (to, from, next) => {
+    console.log(to,'=============')
+    // next(vm=>{
+    //     alert("hello" + vm.name);
+    // })
+  },
   mounted () {
     if (this.$route.query.out) {
       localStorage.setItem('store', '{}')
