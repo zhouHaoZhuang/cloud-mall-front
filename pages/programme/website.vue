@@ -19,6 +19,8 @@ import Issue from '@/components/Programme/issue'
 import Solution from '@/components/Programme/solution'
 import Advantage from '@/components/Programme/advantage'
 import More from '@/components/Programme/more'
+import { mapState } from 'vuex'
+
 export default {
   components: { Banner, Issue, Solution, Advantage, More },
   data () {
@@ -88,6 +90,18 @@ export default {
         ]
       }
     }
+  },
+  computed: {
+    ...mapState({
+      webInfo: state => state.home.webInfo
+    })
+  },
+  mounted(){
+    this.solutionData.infoList[0] = this.solutionData.infoList[0].replace('浙江云盾',this.webInfo.title)||''
+    console.log(this.solutionData.infoList[0],'0000000');
+    this.advantageData.list.forEach(item => {
+      item.info = item.info.replace('浙江云盾',this.webInfo.title)||''
+    });
   },
   methods: {
     // 点击跳转

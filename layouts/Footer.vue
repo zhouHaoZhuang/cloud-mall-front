@@ -162,7 +162,7 @@ export default {
       jumpCloudAdmin,
       linkList: [
         {
-          title: ' 浙江云盾产品',
+          title: '产品',
           list: [
             {
               name: '云服务器',
@@ -280,6 +280,10 @@ export default {
       },
       immediate: true
     }
+  },
+  mounted () {
+    // console.log(this.webInfo.title,'000000000');
+    this.linkList[0].title = this.webInfo.title || '' + '产品'
   },
   methods: {
     // 跳转外部链接
