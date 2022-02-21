@@ -551,7 +551,7 @@ export default {
     }
   },
   mounted(){
-    this.application[3].contentTwo = this.application[3].contentTwo.replace('浙江云盾',this.webInfo.title)
+    this.application[3].contentTwo = this.application[3].contentTwo.replace('浙江云盾',this.webInfo.title)||''
     console.log( this.application[3].contentTwo);
   },
   computed: {

@@ -43,6 +43,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   components: {},
   props: {
@@ -50,6 +52,11 @@ export default {
       type: Object,
       default: () => {}
     }
+  },
+  computed: {
+    ...mapState({
+      webInfo: state => state.home.webInfo
+    })
   },
   data () {
     return {
@@ -106,6 +113,8 @@ export default {
     this.getBanner()
     // 获取网站信息
     this.getWebInfo()
+    this.bannerData.choose[0].describe = this.bannerData.choose[0].describe.replace('浙江云盾',this.webInfo.title)
+    this.bannerData.home[0].title = this.bannerData.home[0].title.replace('浙江云盾',this.webInfo.title)
   },
   beforeDestroy () {
     clearInterval(this.time)

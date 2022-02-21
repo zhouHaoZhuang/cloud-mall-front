@@ -135,14 +135,6 @@ export default {
   components: {
     HeaderItem
   },
-  async asyncData ({ app}) {
-    // 点击目录的时候获取目录下的内容
-    let typeCentext = await app.$api.user.getAllConfig()
-    console.log(typeCentext, '点击目录的时候获取目录下的内容')
-    return {
-      typeCentext,
-    }
-  },
   data () {
     return {
       jumpCloudAdmin,
@@ -486,7 +478,7 @@ export default {
       hoverIndex: -1,
       headerItemData: {},
       hoverStyle: '',
-      typeCentext:null,
+      typeCentext: null,
       whiteList: ['/login-pc', '/pc/register', '/pc/forget']
     }
   },
@@ -499,9 +491,27 @@ export default {
       allConfig: state => state.user.allConfig
     })
   },
+
+  watch: {
+    $route: {
+      immediate: true,
+      handler (to, from) {
+        // console.log(to.path, '--------------')
+        if (to.path == '/login-pc' && this.allConfig.enable_login !== '1') {
+          this.$router.push('/pc')
+        }
+        if (
+          to.path == '/pc/register' &&
+          this.allConfig.enable_register !== '1'
+        ) {
+          this.$router.push('/pc')
+        }
+      }
+    }
+  },
   mounted () {
     this.getAllConfig()
-    console.log('头部',this.typeCentext);
+    console.log('头部', this.typeCentext)
   },
   beforeRouteEnter: (to, from, next) => {
     console.log(to.path, '=============000000')
@@ -510,7 +520,7 @@ export default {
     // })
     if (to.path == '/login-pc') {
       if (this.allConfig && this.allConfig.enable_login == '1') {
-        console.log("可以跳转");
+        console.log('可以跳转')
         next()
       }
     }
