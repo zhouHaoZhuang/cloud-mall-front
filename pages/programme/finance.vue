@@ -94,10 +94,10 @@ export default {
     })
   },
   mounted () {
-    this.solutionData.infoList[0] = this.solutionData.infoList[0].replace(
+    this.solutionData.infoList = [this.solutionData.infoList[0].replace(
       /浙江云盾/g,
       this.webInfo.title
-    )||''
+    )||'']
     this.advantageData.list[0].info = this.advantageData.list[0].info.replace(
       '浙江云盾',
       this.webInfo.title

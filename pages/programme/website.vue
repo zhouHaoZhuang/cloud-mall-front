@@ -97,7 +97,7 @@ export default {
     })
   },
   mounted(){
-    this.solutionData.infoList[0] = this.solutionData.infoList[0].replace('浙江云盾',this.webInfo.title)||''
+    this.solutionData.infoList = [this.solutionData.infoList[0].replace('浙江云盾',this.webInfo.title)||'']
     console.log(this.solutionData.infoList[0],'0000000');
     this.advantageData.list.forEach(item => {
       item.info = item.info.replace('浙江云盾',this.webInfo.title)||''

@@ -92,12 +92,12 @@ export default {
   },
   mounted () {
     this.issueData.list.forEach((item) => {
-      item.info.replace('浙江云盾', this.webInfo.title)
+      item.info = item.info.replace('浙江云盾', this.webInfo.title)
     })
-    this.solutionData.infoList[0] = this.solutionData.infoList[0].replace(
+    this.solutionData.infoList = [this.solutionData.infoList[0].replace(
       /浙江云盾/g,
       this.webInfo.title
-    )||''
+    )||'']
     this.advantageData.list[3].info = this.advantageData.list[3].info.replace(
       '浙江云盾',
       this.webInfo.title
