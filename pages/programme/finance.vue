@@ -14,11 +14,13 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Banner from '@/components/Programme/banner'
 import Issue from '@/components/Programme/issue'
 import Solution from '@/components/Programme/solution'
 import Advantage from '@/components/Programme/advantage'
 import More from '@/components/Programme/more'
+
 export default {
   components: { Banner, Issue, Solution, Advantage, More },
   data () {
@@ -85,6 +87,29 @@ export default {
         ]
       }
     }
+  },
+  computed: {
+    ...mapState({
+      webInfo: state => state.home.webInfo
+    })
+  },
+  mounted () {
+    this.solutionData.infoList[0] = this.solutionData.infoList[0].replace(
+      /浙江云盾/g,
+      this.webInfo.title
+    )||''
+    this.advantageData.list[0].info = this.advantageData.list[0].info.replace(
+      '浙江云盾',
+      this.webInfo.title
+    )||''
+    this.advantageData.list[1].info = this.advantageData.list[1].info.replace(
+      '浙江云盾',
+      this.webInfo.title
+    )||''
+    this.advantageData.list[3].info = this.advantageData.list[3].info.replace(
+      '浙江云盾',
+      this.webInfo.title
+    )||''
   },
   methods: {
     // 点击跳转

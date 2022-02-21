@@ -165,7 +165,7 @@
               <a
                 href="/pc/passport/agreement"
                 target="_blank"
-              >《浙江云盾网站服务协议》</a>
+              >《{{webInfo.title}}网站服务协议》</a>
             </span>
           </div>
           <a-button
@@ -188,6 +188,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   data () {
     return {
@@ -226,6 +228,12 @@ export default {
       confirmPwdType: true,
       registerLoading: false
     }
+  },
+  computed: {
+    ...mapState({
+      webInfo: state => state.home.webInfo,
+      allConfig: state => state.user.allConfig
+    })
   },
   methods: {
     // 手机号码失去焦点

@@ -1,7 +1,7 @@
 // 请求地址头
 const urls = {
-  local: 'http://i.ydidc.com/server',
-  dev: 'http://i.ydidc.com/server',
+  local: 'http://site.ydidc.com/server',
+  dev: 'http://site.ydidc.com/server',
   test: 'http://i.zjyundun.com/server',
   prod: 'http://i.zjyundun.com/server'
 }

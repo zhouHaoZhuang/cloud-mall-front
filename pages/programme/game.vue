@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Banner from '@/components/Programme/banner'
 import Issue from '@/components/Programme/issue'
 import Solution from '@/components/Programme/solution'
@@ -83,6 +84,24 @@ export default {
         ]
       }
     }
+  },
+  computed: {
+    ...mapState({
+      webInfo: state => state.home.webInfo
+    })
+  },
+  mounted () {
+    this.issueData.list.forEach((item) => {
+      item.info.replace('浙江云盾', this.webInfo.title)
+    })
+    this.solutionData.infoList[0] = this.solutionData.infoList[0].replace(
+      /浙江云盾/g,
+      this.webInfo.title
+    )||''
+    this.advantageData.list[3].info = this.advantageData.list[3].info.replace(
+      '浙江云盾',
+      this.webInfo.title
+    )||''
   },
   methods: {
     // 点击跳转

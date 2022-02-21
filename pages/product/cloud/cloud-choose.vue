@@ -26,7 +26,9 @@
               服务器在线push功能
             </div>
             <div class="adv-content">
-              浙江云盾鼓励支持用户将手中闲置服务器随时转让，提高闲置资源使用率，减少资源浪费并帮用户有效降低成本。
+              {{
+                webInfo.title
+              }}鼓励支持用户将手中闲置服务器随时转让，提高闲置资源使用率，减少资源浪费并帮用户有效降低成本。
             </div>
           </li>
           <li>
@@ -44,7 +46,9 @@
               免费20G防御
             </div>
             <div class="adv-content">
-              浙江云盾采用自带硬防节点，部分节点享免费20G防御，可实现300G防御峰值，有效防御DDoS、CC等恶意攻击，保障用户网络安全。
+              {{
+                webInfo.title
+              }}采用自带硬防节点，部分节点享免费20G防御，可实现300G防御峰值，有效防御DDoS、CC等恶意攻击，保障用户网络安全。
             </div>
           </li>
           <li>
@@ -64,7 +68,9 @@
               全网BGP带宽
             </div>
             <div class="adv-content">
-              浙江云盾使用BGP线路，解决了南北互联互通的问题。同时自身具有容灾性，保障线路安全稳定。
+              {{
+                webInfo.title
+              }}使用BGP线路，解决了南北互联互通的问题。同时自身具有容灾性，保障线路安全稳定。
             </div>
           </li>
         </ul>
@@ -91,7 +97,9 @@
                 02 存储
               </p>
               <p class="right-content">
-                三层存储技术，支撑用户数据自动生成备份,切实保障用户数据安全，满足不同的I/O性能要求。采用浙江云盾三层存储革新技术，自动分层缓存、沉淀、备份数据保障用户数据完整性、可用性，数据安全性高达99.9999%,
+                三层存储技术，支撑用户数据自动生成备份,切实保障用户数据安全，满足不同的I/O性能要求。采用{{
+                  webInfo.title
+                }}三层存储革新技术，自动分层缓存、沉淀、备份数据保障用户数据完整性、可用性，数据安全性高达99.9999%,
               </p>
             </div>
             <div class="right-container">
@@ -224,7 +232,7 @@
           </div>
           <div class="contrast-right box">
             <div class="contrast-title">
-              浙江云盾主机
+              {{ webInfo.title }}主机
               <div class="icon" />
             </div>
             <div class="contrast-content">
@@ -428,6 +436,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Banner from '@/components/banner/banner.vue'
 export default {
   components: { Banner },
@@ -540,6 +549,15 @@ export default {
     changeCurId (item) {
       this.curId = item
     }
+  },
+  mounted(){
+    this.application[3].contentTwo = this.application[3].contentTwo.replace('浙江云盾',this.webInfo.title)
+    console.log( this.application[3].contentTwo);
+  },
+  computed: {
+    ...mapState({
+      webInfo: state => state.home.webInfo
+    })
   }
 }
 </script>

@@ -1,5 +1,7 @@
 <template>
-  <div :class="{ 'layout-header': true, 'background-white': isWhite($route.path) }">
+  <div
+    :class="{ 'layout-header': true, 'background-white': isWhite($route.path) }"
+  >
     <div class="container header-box">
       <!-- logo -->
       <div class="logo" @click="handleClickJump('/pc')">
@@ -133,14 +135,14 @@ export default {
   components: {
     HeaderItem
   },
-  // async asyncData ({ app}) {
-  //   // 点击目录的时候获取目录下的内容
-  //   let typeCentext = await app.$api.user.getAllConfig()
-  //   console.log(typeCentext, '点击目录的时候获取目录下的内容')
-  //   return {
-  //     typeCentext,
-  //   }
-  // },
+  async asyncData ({ app}) {
+    // 点击目录的时候获取目录下的内容
+    let typeCentext = await app.$api.user.getAllConfig()
+    console.log(typeCentext, '点击目录的时候获取目录下的内容')
+    return {
+      typeCentext,
+    }
+  },
   data () {
     return {
       jumpCloudAdmin,
@@ -484,6 +486,7 @@ export default {
       hoverIndex: -1,
       headerItemData: {},
       hoverStyle: '',
+      typeCentext:null,
       whiteList: ['/login-pc', '/pc/register', '/pc/forget']
     }
   },
@@ -498,6 +501,24 @@ export default {
   },
   mounted () {
     this.getAllConfig()
+    console.log('头部',this.typeCentext);
+  },
+  beforeRouteEnter: (to, from, next) => {
+    console.log(to.path, '=============000000')
+    // next(vm=>{
+    //     alert("hello" + vm.name);
+    // })
+    if (to.path == '/login-pc') {
+      if (this.allConfig && this.allConfig.enable_login == '1') {
+        console.log("可以跳转");
+        next()
+      }
+    }
+    if (to.path == '/pc/register') {
+      if (this.allConfig && this.allConfig.enable_register == '1') {
+        next()
+      }
+    }
   },
   methods: {
     getAllConfig () {
@@ -801,7 +822,7 @@ export default {
   }
 }
 .background-white {
-  background-color: #2B303B;
+  background-color: #2b303b;
 }
 .layout-header:hover {
   // background-color: #2b3033;
