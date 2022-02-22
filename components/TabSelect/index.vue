@@ -72,6 +72,7 @@ export default {
 <style lang="scss" scoped>
 .tab-select-wrap {
   display: flex;
+  flex-wrap: wrap;
   .tab-item {
     height: 35px;
     border: 1px solid #ddd;
@@ -84,8 +85,12 @@ export default {
     text-overflow: ellipsis;
     word-break: keep-all;
     white-space: nowrap;
+    margin-bottom: 5px;
     cursor: pointer;
     &:last-child {
+      border-right: 1px solid #ddd;
+    }
+    &:nth-child(8n) {
       border-right: 1px solid #ddd;
     }
     &.active {

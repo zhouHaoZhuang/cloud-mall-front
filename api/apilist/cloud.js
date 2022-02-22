@@ -5,6 +5,12 @@ export default axios => ({
       url: '/index/query/region'
     })
   },
+  // 获取分类列表
+  typeList () {
+    return axios({
+      url: '/index/getSpecFamily'
+    })
+  },
   // 获取对应的实例和实例属性，属性值
   getRegionDetail (params) {
     return axios({
@@ -15,7 +21,8 @@ export default axios => ({
   // 获取单个地域对应的cpu信息
   getAddressCpu (params) {
     return axios({
-      url: `/index/query/property/value/${params.regionId}`
+      url: '/index/query/property/cpu',
+      params
     })
   },
   // 获取单个地域对应的内存信息
