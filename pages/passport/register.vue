@@ -104,7 +104,7 @@
             <div class="info">
               <div v-if="pwdStatus === 0" class="info-item">
                 <Iconfont class="info-icon" type="icon-info" />
-                <span>密码由8-20个英文字母、数字和特殊符号组成</span>
+                <span>密码由{{allConfig.pwd_min_length}}-{{allConfig.pwd_max_length}}个英文字母、数字和特殊符号组成</span>
               </div>
               <div v-else-if="pwdStatus === 1" class="info-item">
                 <Iconfont class="info-icon" type="icon-err" />
@@ -234,6 +234,10 @@ export default {
       webInfo: state => state.home.webInfo,
       allConfig: state => state.user.allConfig
     })
+  },
+  mounted(){
+    this.pwdReg = new RegExp("(?=.*[0-9])(?=.*[a-z])(?=.*[^a-zA-Z0-9]).{"+this.allConfig.pwd_min_length+","+this.allConfig.pwd_max_length+"}");
+    // console.log(this.pwdReg,'----------');
   },
   methods: {
     // 手机号码失去焦点
