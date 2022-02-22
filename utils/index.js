@@ -81,6 +81,7 @@ export const getRequestParams = (config) => {
     data: config.data,
     timeout: config.timeout,
     domain: config.headers.domain,
+    system: config.headers.system,
     tenantId: config.headers.tenantId,
     token: config.headers.token
   }

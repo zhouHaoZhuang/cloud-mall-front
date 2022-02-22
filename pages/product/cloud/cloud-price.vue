@@ -48,23 +48,15 @@
       <div class="choose-right">
         <div class="choose-item">
           <div class="choose-label">
-            I/O优化：
+            分类：
           </div>
           <div class="choose-value">
             <div class="selection">
               <TabSelect
-                v-model="form.ioOptimized"
-                :list="[{ title: '免费开启', value: 'optimized' }]"
-                bg-color="#FCAC33"
+                v-model="typeId"
+                :list="typeList"
+                @change="typeChange"
               />
-              <div class="info-txt">
-                免费赠送
-                <span class="strong"> I/O优化 </span>
-                <img
-                  class="info-icon"
-                  src="../../../static/img/cloud/gift.png"
-                >
-              </div>
             </div>
           </div>
         </div>
@@ -450,29 +442,49 @@ export default {
   },
   // nuxt推荐请求方式
   async asyncData ({ app, $axios, params, query }) {
-    console.log('进入请求', params, query)
+    // console.log('进入请求', params, query)
     // 获取地域列表
     const data = await app.$api.cloud.addressList()
-    console.log('地域列表', data)
+    // console.log('地域列表', data)
     const selectAddressId =
       Array.isArray(data.data) && data.data.length > 1
         ? data.data[1].regionId
         : ''
-    console.log('地域id', selectAddressId)
-    if (selectAddressId) {
+    // console.log('地域id', selectAddressId)
+    // 获取规格簇列表
+    const typeData = await app.$api.cloud.typeList()
+    const typeId =
+      Array.isArray(typeData.data) && typeData.data.length > 1
+        ? typeData.data[0].typeFamily
+        : ''
+    const typeList = typeId
+      ? typeData.data.map((ele) => {
+        return {
+          ...ele,
+          title: ele.typeFamily,
+          value: ele.typeFamily
+        }
+      })
+      : []
+    // console.log('获取规格簇列表', typeData, typeId, typeList)
+    if (selectAddressId && typeId) {
       // 获取cpu数据
       const cpu = await app.$api.cloud.getAddressCpu({
-        regionId: selectAddressId
+        regionId: selectAddressId,
+        specFamily: typeId
       })
-      const cpuData = [...setCpuOrDiskData(cpu.data?.cpuCoreCount, '核')]
+      const cpuData = [...setCpuOrDiskData(cpu.data, '核')]
+      // console.log('cpu数据', cpu, cpuData)
       // 生成获取内存/询价/购买时，cpu和内存的参数/可能会别的页面跳转
       const newCpu = query.cpu ? query.cpu : cpuData[0]?.value
       // 获取内存数据
       const disk = await app.$api.cloud.getAddressDisk({
         regionId: selectAddressId,
+        specFamily: typeId,
         cpuCoreCount: newCpu
       })
       const memoryData = [...setCpuOrDiskData(disk.data, 'G')]
+      // console.log('memory数据', disk, memoryData)
       // 生成获取内存/询价/购买时，cpu和内存的参数/可能会别的页面跳转
       const newMemory = query.memory
         ? query.memory * 1
@@ -481,6 +493,7 @@ export default {
       // 获取对应的实例和实例属性，属性值---目前页面没有设计选择，默认拿第一个
       const regionList = await app.$api.cloud.getRegionDetail({
         regionId: selectAddressId,
+        specFamily: typeId,
         cpuCoreCount: newCpu,
         memorySize: newMemory
       })
@@ -538,10 +551,11 @@ export default {
       }
       // 查询服务器价格
       const priceData = await app.$api.cloud.getCloudPrice(form)
-      console.log(form, memoryData)
       return {
         addressData: data.data,
         selectAddressId,
+        typeId,
+        typeList,
         cpuData,
         memoryData,
         systemList: newSystemList,
@@ -564,6 +578,9 @@ export default {
       // 地域数据
       addressData: [],
       selectAddressId: '',
+      // 规格簇数据
+      typeList: [],
+      typeId: '',
       // 查询价格参数
       form: {},
       // 是否显示已选择配置
@@ -747,6 +764,7 @@ export default {
     // 地域切换
     addressChange (item) {
       this.selectAddressId = item.regionId
+      this.typeId = this.typeList.length > 0 ? this.typeList[0].value : ''
       // 生成询价+购买参数
       const newForm = {
         ...this.form,
@@ -770,12 +788,19 @@ export default {
       this.form = { ...newForm }
       this.getCpu()
     },
+    // 分类切换
+    typeChange () {
+      this.getCpu()
+    },
     // 获取地域对应的cpu信息
     getCpu () {
       this.$api.cloud
-        .getAddressCpu({ regionId: this.selectAddressId })
+        .getAddressCpu({
+          regionId: this.selectAddressId,
+          specFamily: this.typeId
+        })
         .then((res) => {
-          this.cpuData = [...setCpuOrDiskData(res.data?.cpuCoreCount, '核')]
+          this.cpuData = [...setCpuOrDiskData(res.data, '核')]
           if (this.cpuData.length > 0) {
             this.form.cpu = this.cpuData[0]?.value
             this.getDisk()
@@ -791,6 +816,7 @@ export default {
       this.$api.cloud
         .getAddressDisk({
           regionId: this.selectAddressId,
+          specFamily: this.typeId,
           cpuCoreCount: cpu || this.cpuData[0].value
         })
         .then((res) => {
@@ -804,6 +830,7 @@ export default {
       this.$api.cloud
         .getRegionDetail({
           regionId: this.selectAddressId,
+          specFamily: this.typeId,
           cpuCoreCount: this.form.cpu,
           memorySize: this.form.memory
         })
@@ -813,6 +840,7 @@ export default {
             this.getCloudPrice()
           } else {
             this.$message.warning('该地域/内存/CPU下没有实例')
+            this.form.tradePrice = '---'
           }
         })
     },
@@ -954,7 +982,8 @@ export default {
     width: 100%;
     height: 480px;
     margin-top: 0;
-    background: url('https://ydidc-test.oss-cn-shanghai.aliyuncs.com/idc-mall/cloud/bg.png') no-repeat center;
+    background: url('https://ydidc-test.oss-cn-shanghai.aliyuncs.com/idc-mall/cloud/bg.png')
+      no-repeat center;
     background-size: cover;
     color: rgb(255, 255, 255);
     padding-top: 150px;
