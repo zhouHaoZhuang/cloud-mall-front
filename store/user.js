@@ -81,7 +81,6 @@ export const actions = {
   // 获取全局配置
   getAllConfig({ commit, state }) {
     this.$api.user.getAllConfig().then((config) => {
-      console.log(config,'全局配置');
       commit('saveAllConfig', config.data)
     })
   },

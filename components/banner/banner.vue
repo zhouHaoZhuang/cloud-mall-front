@@ -30,8 +30,7 @@
                   v-if="item.pcButtonName"
                   class="btn"
                   @click.stop="goButton(item.pcButtonLink, item.openLinkType)"
-                >
-                  {{ item.pcButtonName }}
+                >{{ item.pcButtonName }}
                 </div>
               </div>
             </div>
@@ -113,8 +112,12 @@ export default {
     this.getBanner()
     // 获取网站信息
     this.getWebInfo()
-    this.bannerData.choose[0].describe = this.bannerData.choose[0].describe.replace('浙江云盾',this.webInfo.title)
-    this.bannerData.home[0].title = this.bannerData.home[0].title.replace('浙江云盾',this.webInfo.title)
+    this.bannerData.choose[0].describe =
+      this.bannerData.choose[0].describe.replace('浙江云盾', this.webInfo.title)
+    this.bannerData.home[0].title = this.bannerData.home[0].title.replace(
+      '浙江云盾',
+      this.webInfo.title
+    )
   },
   beforeDestroy () {
     clearInterval(this.time)
@@ -132,7 +135,6 @@ export default {
             this.bannerData[this.type.typeName] = res.data.list.filter((item) => {
               return item.status === 0
             })
-            console.log('lunbotu', this.bannerData[this.type.typeName])
           })
       }
     },

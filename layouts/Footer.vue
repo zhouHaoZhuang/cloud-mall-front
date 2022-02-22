@@ -283,7 +283,7 @@ export default {
   },
   mounted () {
     // console.log(this.webInfo.title,'000000000');
-    this.linkList[0].title = this.webInfo.title || '' + '产品'
+    this.linkList[0].title = this.webInfo.title + '产品'
   },
   methods: {
     // 跳转外部链接
