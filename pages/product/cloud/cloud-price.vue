@@ -443,6 +443,14 @@ export default {
   // nuxt推荐请求方式
   async asyncData ({ app, $axios, params, query }) {
     // console.log('进入请求', params, query)
+    // 获取产品code
+    const productData = await app.$api.cloud.productList()
+    const productCode =
+      productData.data &&
+      Array.isArray(productData.data.list) &&
+      productData.data.list.length > 0
+        ? productData.data.list[0].productCode
+        : ''
     // 获取地域列表
     const data = await app.$api.cloud.addressList()
     // console.log('地域列表', data)
@@ -454,7 +462,7 @@ export default {
     // 获取规格簇列表
     const typeData = await app.$api.cloud.typeList()
     const typeId =
-      Array.isArray(typeData.data) && typeData.data.length > 1
+      Array.isArray(typeData.data) && typeData.data.length > 0
         ? typeData.data[0].typeFamily
         : ''
     const typeList = typeId
@@ -547,7 +555,7 @@ export default {
         amount: 1, // 购买数量
         tradePrice: '0.00', // 服务器金额
         // 产品编码-从导航云服务点击进来，每个产品都有自己的编码-暂时写死
-        productCode: 'P211214000003'
+        productCode
       }
       // 查询服务器价格
       const priceData = await app.$api.cloud.getCloudPrice(form)
@@ -752,7 +760,7 @@ export default {
         .getCloudPrice({
           ...this.form,
           // 产品编码-从导航云服务点击进来，每个产品都有自己的编码-暂时写死
-          productCode: 'P211214000003',
+          productCode: this.form.productCode,
           // 处理时间，判断是年还是月
           ...this.setBuyTimeData(this.form.period)
         })
@@ -948,7 +956,7 @@ export default {
           }
         ],
         // 产品编码-从导航云服务点击进来，每个产品都有自己的编码-暂时写死
-        productCode: 'P211214000003',
+        productCode: this.form.productCode,
         // 询价时所用参数
         productConfig: {
           ...this.form,
