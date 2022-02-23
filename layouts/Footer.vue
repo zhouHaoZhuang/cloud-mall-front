@@ -120,8 +120,6 @@
             >
             <span @click="handleClickJump('')"> {{ webInfo.recordNo }}</span>
             &nbsp;&nbsp;
-            {{ webInfo.recordNo }}
-            &nbsp;&nbsp;
             {{ webInfo.bottomInfo }}
           </p>
           <p />
@@ -162,7 +160,7 @@ export default {
       jumpCloudAdmin,
       linkList: [
         {
-          title: '产品',
+          title: '浙江云盾产品',
           list: [
             {
               name: '云服务器',
@@ -282,8 +280,8 @@ export default {
     }
   },
   mounted () {
-    // console.log(this.webInfo.title,'000000000');
-    this.linkList[0].title = this.webInfo.title + '产品'
+    console.log(this.webInfo, '000000000')
+    this.linkList[0].title = this.linkList[0].title.replace('浙江云盾',this.webInfo.title) 
   },
   methods: {
     // 跳转外部链接
