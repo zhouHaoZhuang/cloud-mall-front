@@ -1,4 +1,11 @@
 export default axios => ({
+  // 获取产品列表
+  productList (params) {
+    return axios({
+      url: '/icProduct',
+      params
+    })
+  },
   // 获取地域信息
   addressList () {
     return axios({
