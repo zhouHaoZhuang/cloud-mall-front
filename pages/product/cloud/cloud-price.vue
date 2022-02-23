@@ -525,6 +525,7 @@ export default {
       const form = {
         instanceType: regionDetail.instanceTypeId, // 实例规格ID
         regionId: selectAddressId, // 地域id
+        instanceTypeFamily: typeId, // 分类id
         ioOptimized: 'optimized', // I/O优化
         cpu: newCpu, // CPU
         memory: newMemory, // 内存
