@@ -14,13 +14,7 @@
             >
           </div>
           <!-- icon-31sousuo -->
-          <Iconfont class="search" type="icon-31sousuo" />
-          <!-- <img
-
-            src="~/static/img/help/search.png"
-            alt=""
-            @click="search"
-          > -->
+          <Iconfont @click="search" class="search" type="icon-31sousuo" />
         </div>
         <ul>
           <li

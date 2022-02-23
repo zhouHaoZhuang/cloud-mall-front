@@ -482,6 +482,10 @@ export default {
       whiteList: ['/login-pc', '/pc/register', '/pc/forget']
     }
   },
+  created() {
+    this.$store.dispatch("user/getAllConfig")
+    console.log('--------');
+  },
   computed: {
     ...mapState({
       isLogin: state => state.user.isLogin,
@@ -510,26 +514,10 @@ export default {
     }
   },
   mounted () {
-    this.getAllConfig()
-    console.log('头部', this.typeCentext)
+    // this.getAllConfig()
+    console.log('头部', this.allConfig)
   },
-  beforeRouteEnter: (to, from, next) => {
-    console.log(to.path, '=============000000')
-    // next(vm=>{
-    //     alert("hello" + vm.name);
-    // })
-    if (to.path == '/login-pc') {
-      if (this.allConfig && this.allConfig.enable_login == '1') {
-        console.log('可以跳转')
-        next()
-      }
-    }
-    if (to.path == '/pc/register') {
-      if (this.allConfig && this.allConfig.enable_register == '1') {
-        next()
-      }
-    }
-  },
+  
   methods: {
     getAllConfig () {
       this.$store.dispatch('user/getAllConfig')

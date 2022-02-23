@@ -9,7 +9,11 @@
         <p>{{ bannerData[type].title }}</p>
         <p>{{ bannerData[type].info }}</p>
         <div class="btn">
-          方案应讯
+          <a
+            class="ceshi"
+            target="_blank"
+            :href="`http://wpa.qq.com/msgrd?v=3&amp;uin=${webInfo.qqNumber}&amp;site=qq&amp;menu=yes`"
+          >方案应讯</a>
         </div>
       </div>
     </div>
@@ -17,6 +21,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   components: {},
   props: {
@@ -55,6 +61,11 @@ export default {
         }
       }
     }
+  },
+  computed: {
+    ...mapState({
+      webInfo: state => state.home.webInfo
+    })
   },
   methods: {
     // 点击跳转
@@ -101,6 +112,9 @@ export default {
         margin: 0 auto;
         font-size: 20px;
         background-color: transparent;
+        .ceshi {
+          color: #fff;
+        }
       }
     }
   }
