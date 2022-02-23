@@ -482,9 +482,9 @@ export default {
       whiteList: ['/login-pc', '/pc/register', '/pc/forget']
     }
   },
-  created() {
-    this.$store.dispatch("user/getAllConfig")
-    console.log('--------');
+  created () {
+    this.$store.dispatch('user/getAllConfig')
+    console.log('--------')
   },
   computed: {
     ...mapState({
@@ -517,7 +517,7 @@ export default {
     // this.getAllConfig()
     console.log('头部', this.allConfig)
   },
-  
+
   methods: {
     getAllConfig () {
       this.$store.dispatch('user/getAllConfig')
