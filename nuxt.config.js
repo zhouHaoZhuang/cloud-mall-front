@@ -90,13 +90,13 @@ export default {
   },
   proxy: {
     // 代理
-    // '/api': {
-    //   target: 'http://site.ydidc.com/server', // 代理转发地址
-    //   changeOrigin: true,
-    //   pathRewrite: {
-    //     '^/api': ''
-    //   }
-    // },
+    '/server': {
+      target: 'http://site.ydidc.com/server', // 代理转发地址
+      changeOrigin: true,
+      pathRewrite: {
+        '^/server': ''
+      }
+    },
     '/map': {
       target: 'https://restapi.amap.com', // 代理转发地址
       changeOrigin: true,
