@@ -13,17 +13,21 @@ export const getIsPcOrMobile = (userAgent) => {
   return '/pc'
 }
 Vue.prototype.$getIsPcOrMobile = getIsPcOrMobile
-// 处理浏览器地址栏地址，截取地址中段,不需要http:// or https://和com/cn后地址
+
+// 处理浏览器地址栏地址，获取请求头domain参数
 export const getWindowUrl = (url) => {
   const newUrl = url.includes('http://')
     ? url.replace('http://', '')
     : url.replace('https://', '')
   const str = newUrl.substring(0, newUrl.indexOf('/'))
-  const index1 = str.lastIndexOf('.')
-  const index2 = str.lastIndexOf('.', index1 - 1)
-  const result = str.substring(index2 + 1)
+  const result = `${url.includes('http://') ? 'http://' : 'https://'}${str}`
+  // 下方注释为截取.com
+  // const index1 = str.lastIndexOf(".");
+  // const index2 = str.lastIndexOf(".", index1 - 1);
+  // const result = str.substring(index2 + 1);
   return result
 }
+
 // 处理cpu+内存数据  data:默认数组  company:单位
 export const setCpuOrDiskData = (data, company) => {
   if (data && Array.isArray(data) && data.length > 0) {
@@ -51,10 +55,7 @@ function getCloudAdminUrl () {
 // 跳转控制台-首页
 export const jumpCloudAdmin = (token, type) => {
   const url = getCloudAdminUrl()
-  window.open(
-    url + '/dashboard' + `?token=${token}`,
-    type ? '_blank' : '_self'
-  )
+  window.open(url + '/dashboard' + `?token=${token}`, type ? '_blank' : '_self')
 }
 // 跳转控制台-详情页
 export const jumpCloudAdminDetail = (id, token) => {
