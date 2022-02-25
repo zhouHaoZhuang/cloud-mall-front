@@ -1,8 +1,8 @@
 // 请求地址头
 const baseUrl = {
   local: 'http://site.ydidc.com/server',
-  dev: '/server',
-  test: '/server',
+  dev: 'http://site.ydidc.com/server',
+  test: 'http://t647893.site.zjyundun.com/server',
   prod: '/server'
 }
 // 请求头携带domain参数
