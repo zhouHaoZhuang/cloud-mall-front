@@ -84,7 +84,12 @@ export default ({ $axios, redirect, route, store }) => {
     // 携带system区分不同项目
     config.headers.system = 'idc'
     // config.headers.domain = 'ydidc.com'
-    console.log('查看domain', config.headers.domain)
+    console.log(
+      '查看domain',
+      process.env.NODE_ENV,
+      getCookieObj(cookieToken).baseUrl + env.BASE_URL,
+      config.headers.domain
+    )
     // 查看请求参数
     getRequestParams(config)
     return config
