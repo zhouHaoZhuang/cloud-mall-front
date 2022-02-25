@@ -109,6 +109,7 @@ export default ({ $axios, redirect, route, store }) => {
   $axios.onResponse((res) => {
     const data = res.data
     const status = data.status
+    console.log('请求响应', data, status)
     if (status !== 200) {
       // message.warning(errmsg)
       if (status === 10001 || status === 10006 || status === 3) {
