@@ -1,7 +1,7 @@
 // 请求地址头
 const baseUrl = {
   local: 'http://site.ydidc.com/server',
-  dev: '/server',
+  dev: 'http://site.ydidc.com/server',
   test: '/server',
   prod: '/server'
 }
