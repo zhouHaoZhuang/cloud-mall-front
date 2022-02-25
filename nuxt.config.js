@@ -1,7 +1,7 @@
 import router from './router/index'
 export default {
   server: {
-    prot: 80,
+    prot: 3000,
     host: '0.0.0.0'
   },
   env: {

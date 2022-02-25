@@ -82,7 +82,7 @@ export default ({ $axios, redirect, route, store }) => {
   $axios.onRequest((config) => {
     const cookieToken = config.headers.common.cookie
     // 如果不是本地开发环境，需要处理请求地址
-    config.baseURL = getBaseUrl(cookieToken, store)
+    // config.baseURL = getBaseUrl(cookieToken, store)
     // 地图请求地址
     if (config.map) {
       config.baseURL = '/map'
