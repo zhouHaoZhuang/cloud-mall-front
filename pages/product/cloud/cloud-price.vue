@@ -469,7 +469,7 @@ export default {
       ? typeData.data.map((ele) => {
         return {
           ...ele,
-          title: ele.typeFamily,
+          title: ele.description,
           value: ele.typeFamily
         }
       })
