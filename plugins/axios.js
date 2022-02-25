@@ -87,6 +87,8 @@ export default ({ $axios, redirect, route, store }) => {
     console.log(
       '查看domain',
       process.env.NODE_ENV,
+      cookieToken,
+      getCookieObj(cookieToken),
       getCookieObj(cookieToken).baseUrl + env.BASE_URL,
       config.headers.domain
     )
