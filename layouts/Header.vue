@@ -482,10 +482,6 @@ export default {
       whiteList: ['/login-pc', '/pc/register', '/pc/forget']
     }
   },
-  created () {
-    this.$store.dispatch('user/getAllConfig')
-    console.log('--------')
-  },
   computed: {
     ...mapState({
       isLogin: state => state.user.isLogin,
@@ -495,17 +491,15 @@ export default {
       allConfig: state => state.user.allConfig
     })
   },
-
   watch: {
     $route: {
       immediate: true,
       handler (to, from) {
-        // console.log(to.path, '--------------')
-        if (to.path == '/login-pc' && this.allConfig.enable_login !== '1') {
+        if (to.path === '/login-pc' && this.allConfig.enable_login !== '1') {
           this.$router.push('/pc')
         }
         if (
-          to.path == '/pc/register' &&
+          to.path === '/pc/register' &&
           this.allConfig.enable_register !== '1'
         ) {
           this.$router.push('/pc')
@@ -513,9 +507,13 @@ export default {
       }
     }
   },
+
+  created () {
+    this.$store.dispatch('user/getAllConfig')
+  },
+
   mounted () {
     // this.getAllConfig()
-    console.log('头部', this.allConfig)
   },
 
   methods: {

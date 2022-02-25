@@ -7,10 +7,7 @@ export default ({ store, $cookies }) => {
   $cookies.set('baseUrl', getWindowUrl(window.location.href, true))
   localStorage.setItem('idcUrl', getIdcAdminUrl(window.location.href))
   store.dispatch('user/setWindowsHref', getWindowUrl(window.location.href))
-  store.dispatch(
-    'user/setBaseUrl',
-    getWindowUrl(window.location.href, true)
-  )
+  store.dispatch('user/setBaseUrl', getWindowUrl(window.location.href, true))
   // 配置需要持久化的模块
   // const PERSIST_PATHS = [
   //   'home',

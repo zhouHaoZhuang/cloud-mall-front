@@ -92,14 +92,11 @@ export default ({ $axios, redirect, route, store }) => {
     config.headers.tenantId = getTenantId(cookieToken, store)
     // 携带system区分不同项目
     config.headers.system = 'idc'
-    // console.log(
-    //   '查看domain',
-    //   process.env.NODE_ENV,
-    //   cookieToken,
-    //   getCookieObj(cookieToken),
-    //   getCookieObj(cookieToken).baseUrl + env.BASE_URL,
-    //   config.headers.domain
-    // )
+    console.log(
+      '查看domain',
+      getBaseUrl(cookieToken, store),
+      config.headers.domain
+    )
     // 查看请求参数
     getRequestParams(config)
     return config
@@ -108,8 +105,8 @@ export default ({ $axios, redirect, route, store }) => {
   // 响应拦截
   $axios.onResponse((res) => {
     const data = res.data
-    const status = data.status
-    if (status !== 200) {
+    const status = res.code
+    if (status !== '000000') {
       // message.warning(errmsg)
       if (status === 10001 || status === 10006 || status === 3) {
         store.dispatch('user/logout')

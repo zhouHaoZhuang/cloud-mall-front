@@ -12,7 +12,7 @@ export default axios => ({
   // 获取全局配置信息
   getAllConfig () {
     return axios({
-      url: '/ccConfigRelation/selectCcConfigConfigRelation',
+      url: '/ccConfigRelation/selectCcConfigConfigRelation'
     })
   },
   // 注册

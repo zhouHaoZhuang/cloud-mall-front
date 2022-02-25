@@ -442,7 +442,7 @@ export default {
   },
   // nuxt推荐请求方式
   async asyncData ({ app, $axios, params, query }) {
-    // console.log('进入请求', params, query)
+    console.log('进入请求', params, query)
     // 获取产品code
     const productData = await app.$api.cloud.productList()
     const productCode =
