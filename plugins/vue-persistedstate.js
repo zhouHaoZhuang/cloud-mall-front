@@ -4,6 +4,7 @@ import { getWindowUrl, getIdcAdminUrl } from '@/utils/index'
 export default ({ store, $cookies }) => {
   // 保存domain地址
   $cookies.set('domain', getWindowUrl(window.location.href))
+  $cookies.set('baseUrl', getWindowUrl(window.location.href, true))
   localStorage.setItem('idcUrl', getIdcAdminUrl(window.location.href))
   store.dispatch('user/setWindowsHref', getWindowUrl(window.location.href))
   // 配置需要持久化的模块

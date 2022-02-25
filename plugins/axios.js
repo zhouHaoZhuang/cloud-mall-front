@@ -10,7 +10,8 @@ function getCookieObj (cookie) {
   const obj = {
     domain: '',
     token: '',
-    tenantId: ''
+    tenantId: '',
+    baseUrl: ''
   }
   if (cookie === undefined) {
     return obj
@@ -20,6 +21,7 @@ function getCookieObj (cookie) {
     const domainIndex = ele.search('domain')
     const tokenIndex = ele.search('token')
     const tenantIdIndex = ele.search('tenantId')
+    const baseUrlIndex = ele.search('baseUrl')
     const str = trim(ele)
     if (domainIndex !== -1) {
       obj.domain = str.substring(7)
@@ -29,6 +31,9 @@ function getCookieObj (cookie) {
     }
     if (tenantIdIndex !== -1) {
       obj.tenantId = str.substring(9)
+    }
+    if (baseUrlIndex !== -1) {
+      obj.baseUrl = str.substring(8)
     }
   })
   return obj
@@ -57,6 +62,7 @@ function getTenantId (cookie, store) {
   }
   return getCookieObj(cookie).tenantId
 }
+
 // 拦截器
 export default ({ $axios, redirect, route, store }) => {
   // 基本配置
@@ -64,10 +70,14 @@ export default ({ $axios, redirect, route, store }) => {
   $axios.defaults.timeout = 10000
   // 请求时拦截
   $axios.onRequest((config) => {
+    const cookieToken = config.headers.common.cookie
+    // 如果不是本地开发环境，需要处理请求地址
+    if (process.env.NODE_ENV !== 'local') {
+      config.baseURL = getCookieObj(cookieToken).baseUrl + env.BASE_URL
+    }
     if (config.map) {
       config.baseURL = '/map'
     }
-    const cookieToken = config.headers.common.cookie
     config.headers.token = getToken(cookieToken, store)
     config.headers.domain = getDomainUrl(cookieToken, store)
     config.headers.tenantId = getTenantId(cookieToken, store)
