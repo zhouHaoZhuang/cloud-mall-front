@@ -62,6 +62,16 @@ function getTenantId (cookie, store) {
   }
   return getCookieObj(cookie).tenantId
 }
+// 如果不是本地开发环境，需要处理请求地址
+function getBaseUrl (cookie, store) {
+  if (process.env.NODE_ENV === 'local') {
+    return env.BASE_URL
+  }
+  if (store.state.user.baseUrl) {
+    return store.state.user.baseUrl
+  }
+  return getCookieObj(cookie).baseUrl
+}
 
 // 拦截器
 export default ({ $axios, redirect, route, store }) => {
@@ -72,9 +82,8 @@ export default ({ $axios, redirect, route, store }) => {
   $axios.onRequest((config) => {
     const cookieToken = config.headers.common.cookie
     // 如果不是本地开发环境，需要处理请求地址
-    if (process.env.NODE_ENV !== 'local') {
-      config.baseURL = getCookieObj(cookieToken).baseUrl + env.BASE_URL
-    }
+    config.baseURL = getBaseUrl(cookieToken, store)
+    // 地图请求地址
     if (config.map) {
       config.baseURL = '/map'
     }
@@ -83,15 +92,14 @@ export default ({ $axios, redirect, route, store }) => {
     config.headers.tenantId = getTenantId(cookieToken, store)
     // 携带system区分不同项目
     config.headers.system = 'idc'
-    // config.headers.domain = 'ydidc.com'
-    console.log(
-      '查看domain',
-      process.env.NODE_ENV,
-      cookieToken,
-      getCookieObj(cookieToken),
-      getCookieObj(cookieToken).baseUrl + env.BASE_URL,
-      config.headers.domain
-    )
+    // console.log(
+    //   '查看domain',
+    //   process.env.NODE_ENV,
+    //   cookieToken,
+    //   getCookieObj(cookieToken),
+    //   getCookieObj(cookieToken).baseUrl + env.BASE_URL,
+    //   config.headers.domain
+    // )
     // 查看请求参数
     getRequestParams(config)
     return config

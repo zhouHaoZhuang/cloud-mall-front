@@ -4,13 +4,14 @@ export const state = () => ({
   token: '',
   userInfo: {},
   windowHref: '',
+  baseUrl: '',
   loginForm: {
     phone: '',
     password: '',
     autoLogin: false
   },
   redirectPath: '',
-  allConfig:''
+  allConfig: ''
 })
 
 // getters
@@ -25,6 +26,10 @@ export const mutations = {
   // 保存当前浏览器地址
   saveWindowsHref (state, href) {
     state.windowHref = href
+  },
+  // 保存请求地址
+  saveBaseUrl (state, href) {
+    state.baseUrl = href
   },
   // 保存用户信息
   saveUserInfo (state, payload) {
@@ -62,6 +67,10 @@ export const actions = {
   setWindowsHref ({ commit, state }, payload) {
     commit('saveWindowsHref', payload)
   },
+  // 保存请求地址
+  setBaseUrl ({ commit, state }, payload) {
+    commit('saveBaseUrl', payload)
+  },
   // 登录时设置下次是否自动登录
   setAutoLogin ({ commit, state }, data) {
     commit('saveAutoLogin', data)
@@ -79,7 +88,7 @@ export const actions = {
     })
   },
   // 获取全局配置
-  getAllConfig({ commit, state }) {
+  getAllConfig ({ commit, state }) {
     this.$api.user.getAllConfig().then((config) => {
       commit('saveAllConfig', config.data)
     })
