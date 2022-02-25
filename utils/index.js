@@ -15,17 +15,18 @@ export const getIsPcOrMobile = (userAgent) => {
 Vue.prototype.$getIsPcOrMobile = getIsPcOrMobile
 
 // 处理浏览器地址栏地址，获取请求头domain参数
-export const getWindowUrl = (url) => {
+export const getWindowUrl = (url, isSaveHeader) => {
   const newUrl = url.includes('http://')
     ? url.replace('http://', '')
     : url.replace('https://', '')
   const str = newUrl.substring(0, newUrl.indexOf('/'))
   const result = `${str}`
+  const newResult = `${url.includes('http://') ? 'http://' : 'https://'}${str}`
   // 下方注释为截取.com
   // const index1 = str.lastIndexOf(".");
   // const index2 = str.lastIndexOf(".", index1 - 1);
   // const result = str.substring(index2 + 1);
-  return result
+  return isSaveHeader ? newResult : result
 }
 
 // 处理cpu+内存数据  data:默认数组  company:单位
