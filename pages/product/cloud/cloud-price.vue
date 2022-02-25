@@ -453,7 +453,7 @@ export default {
         : ''
     // 获取地域列表
     const data = await app.$api.cloud.addressList()
-    // console.log('地域列表', data)
+    console.log('地域列表', data)
     const selectAddressId =
       Array.isArray(data.data) && data.data.length > 1
         ? data.data[1].regionId
@@ -474,7 +474,7 @@ export default {
         }
       })
       : []
-    // console.log('获取规格簇列表', typeData, typeId, typeList)
+    console.log('获取规格簇列表', typeData, typeId, typeList)
     if (selectAddressId && typeId) {
       // 获取cpu数据
       const cpu = await app.$api.cloud.getAddressCpu({
