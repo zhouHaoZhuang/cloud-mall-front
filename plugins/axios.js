@@ -68,9 +68,9 @@ function getBaseUrl (cookie, store) {
     return env.BASE_URL
   }
   if (store.state.user.baseUrl) {
-    return store.state.user.baseUrl
+    return `${store.state.user.baseUrl}${env.BASE_URL}`
   }
-  return getCookieObj(cookie).baseUrl
+  return `${getCookieObj(cookie).baseUrl}${env.BASE_URL}`
 }
 
 // 拦截器
