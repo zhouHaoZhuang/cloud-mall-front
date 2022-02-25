@@ -280,8 +280,10 @@ export default {
     }
   },
   mounted () {
-    console.log(this.webInfo, '000000000')
-    this.linkList[0].title = this.linkList[0].title.replace('浙江云盾',this.webInfo.title) 
+    this.linkList[0].title = this.linkList[0].title.replace(
+      '浙江云盾',
+      this.webInfo.title
+    )
   },
   methods: {
     // 跳转外部链接
