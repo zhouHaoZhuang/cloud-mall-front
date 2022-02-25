@@ -82,7 +82,7 @@ export default ({ $axios, redirect, route, store }) => {
   $axios.onRequest((config) => {
     const cookieToken = config.headers.common.cookie
     // 如果不是本地开发环境，需要处理请求地址
-    // config.baseURL = getBaseUrl(cookieToken, store)
+    config.baseURL = getBaseUrl(cookieToken, store)
     // 地图请求地址
     if (config.map) {
       config.baseURL = '/map'
@@ -92,14 +92,11 @@ export default ({ $axios, redirect, route, store }) => {
     config.headers.tenantId = getTenantId(cookieToken, store)
     // 携带system区分不同项目
     config.headers.system = 'idc'
-    // console.log(
-    //   '查看domain',
-    //   process.env.NODE_ENV,
-    //   cookieToken,
-    //   getCookieObj(cookieToken),
-    //   getCookieObj(cookieToken).baseUrl + env.BASE_URL,
-    //   config.headers.domain
-    // )
+    console.log(
+      '查看domain',
+      getBaseUrl(cookieToken, store),
+      config.headers.domain
+    )
     // 查看请求参数
     getRequestParams(config)
     return config
@@ -109,7 +106,6 @@ export default ({ $axios, redirect, route, store }) => {
   $axios.onResponse((res) => {
     const data = res.data
     const status = res.code
-    console.log('请求响应', data, status)
     if (status !== '000000') {
       // message.warning(errmsg)
       if (status === 10001 || status === 10006 || status === 3) {
