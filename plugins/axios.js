@@ -108,9 +108,9 @@ export default ({ $axios, redirect, route, store }) => {
   // 响应拦截
   $axios.onResponse((res) => {
     const data = res.data
-    const status = data.status
+    const status = res.code
     console.log('请求响应', data, status)
-    if (status !== 200) {
+    if (status !== '000000') {
       // message.warning(errmsg)
       if (status === 10001 || status === 10006 || status === 3) {
         store.dispatch('user/logout')
