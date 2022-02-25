@@ -546,8 +546,19 @@ export default {
   computed: {
     ...mapState({
       webInfo: state => state.home.webInfo
-    }),
-    url () {
+    })
+  },
+  // eslint-disable-next-line vue/order-in-components
+  data () {
+    return {
+      url: ''
+    }
+  },
+  mounted () {
+    this.url = this.getUrl()
+  },
+  methods: {
+    getUrl () {
       return window.location.protocol + '//' + window.location.host
     }
   }
