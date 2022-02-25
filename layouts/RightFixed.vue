@@ -7,17 +7,21 @@
         <div class="box">
           <div class="left" />
           <div class="right">
-            {{ webInfo.qqNumber }}
+            <a
+              class="ceshi"
+              target="_blank"
+              :href="`http://wpa.qq.com/msgrd?v=3&amp;uin=${webInfo.qqNumber}&amp;site=qq&amp;menu=yes`"
+            >{{ webInfo.qqNumber }}</a>
           </div>
         </div>
       </div>
     </div>
-    <div class="item">
+    <!-- <div class="item">
       <span>微信咨询</span>
       <div v-if="webInfo.wechatQrCode" class="detail">
         <img class="img" :src="webInfo.wechatQrCode" alt="">
       </div>
-    </div>
+    </div> -->
     <div class="item">
       <span>电话咨询</span>
       <div class="detail">
@@ -237,13 +241,13 @@ export default {
       background-position: -85px 0;
     }
   }
+  // .item:nth-child(5) {
+  //   display: none;
+  //   .img {
+  //     background-position: -116px 0;
+  //   }
+  // }
   .item:nth-child(5) {
-    display: none;
-    .img {
-      background-position: -116px 0;
-    }
-  }
-  .item:nth-child(6) {
     transition: 0.3s all linear;
     .img {
       background-position: -206px 0;

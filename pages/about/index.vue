@@ -416,6 +416,9 @@ export default {
     },
     imgCode3 () {
       return '</a>'
+    },
+    url () {
+      return window.location.protocol + '//' + window.location.host
     }
   },
   watch: {
