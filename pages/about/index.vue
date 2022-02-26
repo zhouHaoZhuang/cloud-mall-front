@@ -85,7 +85,7 @@
                 >
                   <div class="title">
                     <div>邮政编码</div>
-                    {{ webInfo.postcode || '311200' }}
+                    {{ webInfo.postcode }}
                   </div>
                 </div>
               </div>
@@ -279,12 +279,17 @@
           </div>
           <a
             v-for="item in friendLinks"
+            v-show="item.bottomShow !== 2"
             :key="item.id"
             :href="item.linkUrl"
             class="item"
             target="_blank"
           >
-            <img :src="item.linkLogo" :alt="item.linkName">
+            <img
+              v-if="item.bottomShow !== 2"
+              :src="item.linkLogo"
+              :alt="item.linkName"
+            >
           </a>
         </div>
       </div>
