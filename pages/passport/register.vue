@@ -301,10 +301,16 @@ export default {
         return
       }
       this.codeLoading = true
-      this.$api.user.getCode({ receiver: this.form.phone }).then((res) => {
-        console.log(res)
-        this.sendCodeTime()
-      })
+      this.$api.user
+        .getCode({
+          receiverAccount: this.form.phone,
+          codeType: '1',
+          sendType: '1'
+        })
+        .then((res) => {
+          console.log(res)
+          this.sendCodeTime()
+        })
     },
     // 验证码发送成功后开始倒计时
     sendCodeTime () {
