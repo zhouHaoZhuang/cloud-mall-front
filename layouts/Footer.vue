@@ -69,8 +69,16 @@
                   {{ webInfo.companyAddress }}
                 </div>
               </div>
+              <div class="list-ele">
+                <div class="label">
+                  商务洽谈：
+                </div>
+                <div class="value">
+                  {{ webInfo.businessPhone }}
+                </div>
+              </div>
               <div class="list-outerChain">
-                <div class="ele">
+                <div v-show="false" class="ele">
                   <div v-if="webInfo.wechatQrCode" class="img-box">
                     <i />
                     <img :src="webInfo.wechatQrCode" alt="">
@@ -85,7 +93,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="ele" @click="jumpOutside(webInfo.webLink)" />
+                <div v-show="false" class="ele" @click="jumpOutside(webInfo.webLink)" />
                 <div class="ele" @click="mailsome" />
               </div>
             </div>

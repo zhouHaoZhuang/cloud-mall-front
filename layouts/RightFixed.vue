@@ -35,7 +35,7 @@
       </div>
     </div>
     <div class="item">
-      <div class="img" />
+      <!-- <div class="img" /> -->
       <span>备案</span>
     </div>
     <div class="item">
@@ -189,20 +189,30 @@ export default {
       }
     }
   }
+  // .item:nth-child(2) {
+  //   background: url('~/static/img/home/wx.png') #fff no-repeat center 8px;
+  //   .detail {
+  //     width: 118px;
+  //     height: 118px;
+  //     padding: 0;
+  //   }
+  // }
   .item:nth-child(2) {
-    background: url('~/static/img/home/wx.png') #fff no-repeat center 8px;
-    .detail {
-      width: 118px;
-      height: 118px;
-      padding: 0;
-    }
-  }
-  .item:nth-child(3) {
     background: url('~/static/img/home/tel.png') #fff no-repeat center 8px;
     .detail {
       width: 220px;
       .box {
         background: url('~/static/img/home/tel-hover.png') no-repeat;
+      }
+    }
+  }
+  .item:nth-child(3) {
+    background: url('~/static/img/home/rightfiling.png') #fff no-repeat center 8px;
+    background-size: 60%;
+    .detail {
+      width: 220px;
+      .box {
+        background: url('~/static/img/home/rightfiling-hover.png') no-repeat;
       }
     }
   }
@@ -212,15 +222,23 @@ export default {
       display: block;
     }
   }
+  // .item:nth-child(2):hover {
+  //   background: url('~/static/img/home/wx-active.png') #fff no-repeat center 8px;
+  //   .detail {
+  //     display: block;
+  //   }
+  // }
   .item:nth-child(2):hover {
-    background: url('~/static/img/home/wx-active.png') #fff no-repeat center 8px;
+    background: url('~/static/img/home/tel-active.png') #fff no-repeat center
+      8px;
     .detail {
       display: block;
     }
   }
   .item:nth-child(3):hover {
-    background: url('~/static/img/home/tel-active.png') #fff no-repeat center
+    background: url('~/static/img/home/rightfiling-hover.png') #fff no-repeat center
       8px;
+    background-size: 60%;
     .detail {
       display: block;
     }

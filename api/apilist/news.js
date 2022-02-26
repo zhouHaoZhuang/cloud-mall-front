@@ -11,7 +11,7 @@ export default axios => ({
   // 查询一系列资源对象，也就是列表
   getNews (params) {
     return axios({
-      url: '/ccNews',
+      url: '/ccNews/user',
       params: {
         ...params
       }
