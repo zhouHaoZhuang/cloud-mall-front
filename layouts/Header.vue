@@ -114,7 +114,7 @@
             <span>{{ userInfo.phone }}</span>
           </div>
           <!-- 控制台 -->
-          <div class="control" @click="jumpCloudAdmin(token)">
+          <div class="control" @click="jumpConsole">
             控制台
           </div>
           <!-- 登出 -->
@@ -137,7 +137,6 @@ export default {
   },
   data () {
     return {
-      jumpCloudAdmin,
       navList: [
         {
           title: '首页',
@@ -475,6 +474,7 @@ export default {
           ]
         }
       ],
+      jumpCloudAdmin,
       hoverIndex: -1,
       headerItemData: {},
       hoverStyle: '',
@@ -528,6 +528,10 @@ export default {
     },
     isWhite (path) {
       return this.whiteList.includes(path)
+    },
+    jumpConsole () {
+      console.log(this.token, this.jumpCloudAdmin)
+      this.jumpCloudAdmin(this.token)
     },
     // 鼠标进入
     mouseEnter (index, show) {
