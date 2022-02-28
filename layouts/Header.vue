@@ -130,14 +130,14 @@
 <script>
 import { mapState } from 'vuex'
 import HeaderItem from '../components/HeaderItem/index.vue'
-import { jumpCloudAdmin } from '@/utils/index'
+import { jumpCloudAdmin } from '@/utils/index.js'
 export default {
   components: {
     HeaderItem
   },
+
   data () {
     return {
-      jumpCloudAdmin,
       navList: [
         {
           title: '首页',
@@ -475,12 +475,22 @@ export default {
           ]
         }
       ],
+      jumpCloudAdmin,
       hoverIndex: -1,
       headerItemData: {},
       hoverStyle: '',
       typeCentext: null,
       whiteList: ['/login-pc', '/pc/register', '/pc/forget']
     }
+  },
+  async fetch ({ app, store }) {
+    const webInfoData = await app.$api.home.getWebInfo()
+    const companyInfoData = await app.$api.home.getCompanyInfo()
+    console.log(webInfoData, companyInfoData, app, '-----------')
+    store.dispatch('home/setWebCompanyInfo', {
+      ...webInfoData.data.list[0],
+      ...companyInfoData.data.list[0]
+    })
   },
   computed: {
     ...mapState({
@@ -507,27 +517,24 @@ export default {
       }
     }
   },
+
   created () {
     this.$store.dispatch('user/getAllConfig')
   },
   mounted () {
     console.log(this.webInfo, 'webInfo')
   },
-  // eslint-disable-next-line vue/order-in-components
-  async fetch () {
-    const webInfoData = await this.$api.home.getWebInfo()
-    const companyInfoData = await this.$api.home.getCompanyInfo()
-    this.$store.dispatch('home/setWebCompanyInfo', {
-      ...webInfoData.data.list[0],
-      ...companyInfoData.data.list[0]
-    })
-  },
+
   methods: {
     getAllConfig () {
       this.$store.dispatch('user/getAllConfig')
     },
     isWhite (path) {
       return this.whiteList.includes(path)
+    },
+    jumpConsole () {
+      console.log(this.token, this.jumpCloudAdmin)
+      this.jumpCloudAdmin(this.token)
     },
     // 鼠标进入
     mouseEnter (index, show) {

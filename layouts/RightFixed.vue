@@ -63,6 +63,14 @@ export default {
       show: true
     }
   },
+  async fetch () {
+    const webInfoData = await this.$api.home.getWebInfo()
+    const companyInfoData = await this.$api.home.getCompanyInfo()
+    this.$store.dispatch('home/setWebCompanyInfo', {
+      ...webInfoData.data.list[0],
+      ...companyInfoData.data.list[0]
+    })
+  },
   computed: {
     ...mapState({
       webInfo: state => state.home.webInfo
