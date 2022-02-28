@@ -21,7 +21,7 @@ export default axios => ({
   },
   // 获取验证码
   getCode (data) {
-    return axios.post('/sms/sendSms', data)
+    return axios.post('/sms/sendMessage', data)
   },
   // 忘记密码-修改密码
   forgetPwd (data) {
