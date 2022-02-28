@@ -93,7 +93,11 @@
                     </div>
                   </div>
                 </div>
-                <div v-show="false" class="ele" @click="jumpOutside(webInfo.webLink)" />
+                <div
+                  v-show="false"
+                  class="ele"
+                  @click="jumpOutside(webInfo.webLink)"
+                />
                 <div class="ele" @click="mailsome" />
               </div>
             </div>

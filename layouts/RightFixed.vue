@@ -271,16 +271,16 @@ export default {
       background-position: -206px 0;
     }
   }
-  .item:nth-child(4):hover {
-    .img {
-      background-position: -85px -28px;
-    }
-  }
-  .item:nth-child(5):hover {
-    .img {
-      background-position: -116px -28px;
-    }
-  }
+  // .item:nth-child(4):hover {
+  //   .img {
+  //     background-position: -85px -28px;
+  //   }
+  // }
+  // .item:nth-child(5):hover {
+  //   .img {
+  //     background-position: -116px -28px;
+  //   }
+  // }
   .item:nth-child(6):hover {
     .img {
       background-position: -206px -27px;
