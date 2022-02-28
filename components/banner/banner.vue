@@ -30,7 +30,8 @@
                   v-if="item.pcButtonName"
                   class="btn"
                   @click.stop="goButton(item.pcButtonLink, item.openLinkType)"
-                >{{ item.pcButtonName }}
+                >
+                  {{ item.pcButtonName }}
                 </div>
               </div>
             </div>
