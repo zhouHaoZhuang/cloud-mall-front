@@ -135,7 +135,6 @@ export default {
   components: {
     HeaderItem
   },
-
   data () {
     return {
       navList: [
@@ -483,15 +482,6 @@ export default {
       whiteList: ['/login-pc', '/pc/register', '/pc/forget']
     }
   },
-  async fetch ({ app, store }) {
-    const webInfoData = await app.$api.home.getWebInfo()
-    const companyInfoData = await app.$api.home.getCompanyInfo()
-    console.log(webInfoData, companyInfoData, app, '-----------')
-    store.dispatch('home/setWebCompanyInfo', {
-      ...webInfoData.data.list[0],
-      ...companyInfoData.data.list[0]
-    })
-  },
   computed: {
     ...mapState({
       isLogin: state => state.user.isLogin,
@@ -524,7 +514,6 @@ export default {
   mounted () {
     console.log(this.webInfo, 'webInfo')
   },
-
   methods: {
     getAllConfig () {
       this.$store.dispatch('user/getAllConfig')
