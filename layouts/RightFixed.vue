@@ -207,7 +207,8 @@ export default {
     }
   }
   .item:nth-child(3) {
-    background: url('~/static/img/home/rightfiling.png') #fff no-repeat center 8px;
+    background: url('~/static/img/home/rightfiling.png') #fff no-repeat center
+      8px;
     background-size: 60%;
     .detail {
       width: 220px;
@@ -236,8 +237,8 @@ export default {
     }
   }
   .item:nth-child(3):hover {
-    background: url('~/static/img/home/rightfiling-hover.png') #fff no-repeat center
-      8px;
+    background: url('~/static/img/home/rightfiling-hover.png') #fff no-repeat
+      center 8px;
     background-size: 60%;
     .detail {
       display: block;
@@ -253,6 +254,9 @@ export default {
       background: url('~/static/img/home/side-menu.png') no-repeat;
     }
   }
+  .item:nth-child(3) {
+    display: none;
+  }
   .item:nth-child(4) {
     display: none;
     .img {
@@ -266,21 +270,22 @@ export default {
   //   }
   // }
   .item:nth-child(5) {
-    transition: 0.3s all linear;
+    // transition: 0.3s all linear;
     .img {
       background-position: -206px 0;
     }
   }
-  // .item:nth-child(4):hover {
-  //   .img {
-  //     background-position: -85px -28px;
-  //   }
-  // }
-  // .item:nth-child(5):hover {
-  //   .img {
-  //     background-position: -116px -28px;
-  //   }
-  // }
+  .item:nth-child(4):hover {
+    .img {
+      background-position: -85px -28px;
+    }
+  }
+  .item:nth-child(5):hover {
+    .img {
+      background-position: -116px -28px;
+      background-position: -206px -27px;
+    }
+  }
   .item:nth-child(6):hover {
     .img {
       background-position: -206px -27px;
