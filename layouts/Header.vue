@@ -111,7 +111,7 @@
           <img width="30px" src="~/static/img/home/member.png" alt="">
           <div class="name">
             <!-- <i>*</i> -->
-            <span>{{ userInfo.username }}</span>
+            <span>{{ userInfo.phone }}</span>
           </div>
           <!-- 控制台 -->
           <div class="control" @click="jumpCloudAdmin(token)">
@@ -507,15 +507,21 @@ export default {
       }
     }
   },
-
   created () {
     this.$store.dispatch('user/getAllConfig')
   },
-
   mounted () {
-    // this.getAllConfig()
+    console.log(this.webInfo, 'webInfo')
   },
-
+  // eslint-disable-next-line vue/order-in-components
+  async fetch () {
+    const webInfoData = await this.$api.home.getWebInfo()
+    const companyInfoData = await this.$api.home.getCompanyInfo()
+    this.$store.dispatch('home/setWebCompanyInfo', {
+      ...webInfoData.data.list[0],
+      ...companyInfoData.data.list[0]
+    })
+  },
   methods: {
     getAllConfig () {
       this.$store.dispatch('user/getAllConfig')
