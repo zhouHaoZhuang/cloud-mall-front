@@ -114,7 +114,7 @@
             <span>{{ userInfo.phone }}</span>
           </div>
           <!-- 控制台 -->
-          <div class="control" @click="jumpConsole">
+          <div class="control" @click="jumpCloudAdmin(token)">
             控制台
           </div>
           <!-- 登出 -->
@@ -130,11 +130,12 @@
 <script>
 import { mapState } from 'vuex'
 import HeaderItem from '../components/HeaderItem/index.vue'
-import { jumpCloudAdmin } from '@/utils/index'
+import { jumpCloudAdmin } from '@/utils/index.js'
 export default {
   components: {
     HeaderItem
   },
+
   data () {
     return {
       navList: [
@@ -482,6 +483,15 @@ export default {
       whiteList: ['/login-pc', '/pc/register', '/pc/forget']
     }
   },
+  async fetch ({ app, store }) {
+    const webInfoData = await app.$api.home.getWebInfo()
+    const companyInfoData = await app.$api.home.getCompanyInfo()
+    console.log(webInfoData, companyInfoData, app, '-----------')
+    store.dispatch('home/setWebCompanyInfo', {
+      ...webInfoData.data.list[0],
+      ...companyInfoData.data.list[0]
+    })
+  },
   computed: {
     ...mapState({
       isLogin: state => state.user.isLogin,
@@ -507,21 +517,14 @@ export default {
       }
     }
   },
+
   created () {
     this.$store.dispatch('user/getAllConfig')
   },
   mounted () {
     console.log(this.webInfo, 'webInfo')
   },
-  // eslint-disable-next-line vue/order-in-components
-  async fetch () {
-    const webInfoData = await this.$api.home.getWebInfo()
-    const companyInfoData = await this.$api.home.getCompanyInfo()
-    this.$store.dispatch('home/setWebCompanyInfo', {
-      ...webInfoData.data.list[0],
-      ...companyInfoData.data.list[0]
-    })
-  },
+
   methods: {
     getAllConfig () {
       this.$store.dispatch('user/getAllConfig')
