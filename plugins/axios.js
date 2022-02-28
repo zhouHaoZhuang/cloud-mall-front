@@ -1,4 +1,4 @@
-// import { message } from 'ant-design-vue'
+import { message } from 'ant-design-vue'
 import env from '~/config/env'
 import { getRequestParams } from '~/utils/index'
 // 删除字符串首尾空格
@@ -105,12 +105,16 @@ export default ({ $axios, redirect, route, store }) => {
   // 响应拦截
   $axios.onResponse((res) => {
     const data = res.data
-    const status = res.code
-    if (status !== '000000') {
-      // message.warning(errmsg)
-      if (status === 10001 || status === 10006 || status === 3) {
+    const errno = res.code
+    if (errno !== '000000') {
+      // 判断是否登录失效
+      if (errno === '000001') {
+        message.warning('登录已失效，请重新登录')
         store.dispatch('user/logout')
+        redirect('/login-pc?out=1')
+        return Promise.reject(data)
       }
+      // message.warning(errmsg)
       return Promise.reject(data)
     }
     return data
