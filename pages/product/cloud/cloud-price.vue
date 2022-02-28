@@ -961,6 +961,7 @@ export default {
         // 询价时所用参数
         productConfig: {
           ...this.form,
+          instanceTypeFamily: this.typeId,
           osName,
           // 处理时间，判断是年还是月
           ...time
