@@ -85,7 +85,7 @@
                 >
                   <div class="title">
                     <div>邮政编码</div>
-                    {{ webInfo.postcode }}
+                    {{ webInfo.postCode }}
                   </div>
                 </div>
               </div>
