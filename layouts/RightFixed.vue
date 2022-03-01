@@ -67,17 +67,19 @@ export default {
     const webInfoData = await this.$api.home.getWebInfo()
     const companyInfoData = await this.$api.home.getCompanyInfo()
     let data = {}
-    if (webInfoData.data && companyInfoData.data) {
-      data = {
-        ...(webInfoData.data.list ? webInfoData.data.list[0] : []),
-        ...(companyInfoData.data.list ? companyInfoData.data.list[0] : [])
-      }
-    } else if (webInfoData.data) {
-      data = webInfoData.data.list ? webInfoData.data.list[0] : []
-    } else if (companyInfoData.data) {
-      data = companyInfoData.data.list ? companyInfoData.data.list[0] : []
-    } else {
-      data = {}
+    let webInfoDataList = {}
+    let companyInfoDataList = {}
+    if (webInfoData.data) {
+      webInfoDataList = webInfoData.data.list ? webInfoData.data.list[0] : {}
+    }
+    if (companyInfoData.data) {
+      companyInfoDataList = companyInfoData.data.list
+        ? companyInfoData.data.list[0]
+        : {}
+    }
+    data = {
+      ...webInfoDataList,
+      ...companyInfoDataList
     }
     this.$store.dispatch('home/setWebCompanyInfo', data)
   },
