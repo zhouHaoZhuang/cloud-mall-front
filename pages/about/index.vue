@@ -313,7 +313,8 @@ export default {
       const cpmpanyObj = {
         pageName: '',
         bannerPicture: '',
-        context: ''
+        context: '',
+        status: 0
       }
       const resultCompany =
         companyData.data &&
