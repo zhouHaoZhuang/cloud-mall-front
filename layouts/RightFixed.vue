@@ -66,10 +66,22 @@ export default {
   async fetch () {
     const webInfoData = await this.$api.home.getWebInfo()
     const companyInfoData = await this.$api.home.getCompanyInfo()
-    this.$store.dispatch('home/setWebCompanyInfo', {
-      ...webInfoData.data.list[0],
-      ...companyInfoData.data.list[0]
-    })
+    let data = {}
+    let webInfoDataList = {}
+    let companyInfoDataList = {}
+    if (webInfoData.data) {
+      webInfoDataList = webInfoData.data.list ? webInfoData.data.list[0] : {}
+    }
+    if (companyInfoData.data) {
+      companyInfoDataList = companyInfoData.data.list
+        ? companyInfoData.data.list[0]
+        : {}
+    }
+    data = {
+      ...webInfoDataList,
+      ...companyInfoDataList
+    }
+    this.$store.dispatch('home/setWebCompanyInfo', data)
   },
   computed: {
     ...mapState({

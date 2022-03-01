@@ -108,8 +108,13 @@
         </div>
         <!-- 已登录用户信息 -->
         <div v-else class="userinfo">
-          <img width="30px" src="~/static/img/home/member.png" alt="">
-          <div class="name">
+          <img
+            width="30px"
+            src="~/static/img/home/member.png"
+            alt=""
+            @click="jumpCloudAdmin(token)"
+          >
+          <div class="name" @click="jumpCloudAdmin(token)">
             <!-- <i>*</i> -->
             <span>{{ userInfo.phone }}</span>
           </div>
