@@ -21,7 +21,7 @@
     <div class="about-content container">
       <!-- 公司简介 -->
       <div v-if="tabSelectIndex === 0" class="introduce">
-        <div class="introduce-all">
+        <div v-show="resultCompany.status == 0" class="introduce-all">
           <div class="introduce-img">
             <img :src="resultCompany.bannerPicture" alt="">
           </div>
@@ -313,7 +313,8 @@ export default {
       const cpmpanyObj = {
         pageName: '',
         bannerPicture: '',
-        context: ''
+        context: '',
+        status: 0
       }
       const resultCompany =
         companyData.data &&

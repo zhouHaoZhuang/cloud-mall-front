@@ -4,7 +4,7 @@
   >
     <div class="container header-box">
       <!-- logo -->
-      <div class="logo" @click="handleClickJump('/pc')">
+      <div class="logo" @click="handleClickJump('/')">
         <img :src="webInfo.websiteLogo" alt="">
         <!-- <h1>浙江云盾</h1> -->
       </div>
@@ -94,14 +94,14 @@
           <div
             v-show="allConfig && allConfig.enable_login == '1'"
             class="btn disembark"
-            @click="handleClickJump('/login-pc')"
+            @click="handleClickJump('/login')"
           >
             登录
           </div>
           <div
             v-show="allConfig && allConfig.enable_register == '1'"
             class="btn"
-            @click="handleClickJump('/pc/register')"
+            @click="handleClickJump('/register')"
           >
             免费注册
           </div>
@@ -145,11 +145,11 @@ export default {
       navList: [
         {
           title: '首页',
-          path: '/pc'
+          path: '/'
         },
         {
           title: '产品',
-          path: '/pc/cloud-choose',
+          path: '/cloud-choose',
           children: [
             {
               title: '云计算',
@@ -157,35 +157,35 @@ export default {
                 {
                   title: '云服务器',
                   info: '高速稳定高弹性的计算服务',
-                  path: '/pc/cloud-choose',
+                  path: '/cloud-choose',
                   hot: true,
                   new: false
                 },
                 {
                   title: '负载均衡',
                   info: '高性能流量分发的负载均衡服务',
-                  path: '/pc/balancing-ba',
+                  path: '/balancing-ba',
                   hot: false,
                   new: false
                 },
                 {
                   title: '对象存储',
                   info: '高可用、易扩展、低成本、一站式',
-                  path: '/pc/object-based-use',
+                  path: '/object-based-use',
                   hot: false,
                   new: false
                 },
                 {
                   title: '云数据库 MySQL',
                   info: '稳定可靠、可弹性伸缩的数据方案',
-                  path: '/pc/mysql',
+                  path: '/mysql',
                   hot: false,
                   new: false
                 },
                 {
                   title: '云数据库 SQL Server',
                   info: '安全运行、轻松管理的数据方案',
-                  path: '/pc/sqlserver',
+                  path: '/sqlserver',
                   hot: false,
                   new: false
                 }
@@ -204,7 +204,7 @@ export default {
                 {
                   title: '域名注册',
                   info: '提供五星级的域名注册服务',
-                  path: '/pc/Domain-name',
+                  path: '/Domain-name',
                   hot: true,
                   new: false
                 },
@@ -287,7 +287,7 @@ export default {
         },
         {
           title: '服务保障',
-          path: '/pc/assurance',
+          path: '/assurance',
           children: [
             {
               title: '',
@@ -348,7 +348,7 @@ export default {
         },
         {
           title: '帮助中心',
-          path: '/pc/help/helpInfo'
+          path: '/help/helpInfo'
         },
         {
           title: '解决方案',
@@ -361,14 +361,14 @@ export default {
                 {
                   title: '金融解决方案',
                   info: '',
-                  path: '/pc/programme/finance',
+                  path: '/programme/finance',
                   hot: false,
                   new: false
                 }
                 // {
                 //   title: '网站解决方案',
                 //   info: '',
-                //   path: '/pc/programme/website',
+                //   path: '/programme/website',
                 //   hot: false,
                 //   new: false
                 // }
@@ -380,7 +380,7 @@ export default {
                 {
                   title: '电商解决方案',
                   info: '',
-                  path: '/pc/programme/online',
+                  path: '/programme/online',
                   hot: false,
                   new: false
                 }
@@ -392,7 +392,7 @@ export default {
                 {
                   title: '移动解决方案',
                   info: '',
-                  path: '/pc/programme/move',
+                  path: '/programme/move',
                   hot: false,
                   new: false
                 }
@@ -404,7 +404,7 @@ export default {
                 {
                   title: '游戏解决方案',
                   info: '',
-                  path: '/pc/programme/game',
+                  path: '/programme/game',
                   hot: false,
                   new: false
                 }
@@ -416,7 +416,7 @@ export default {
                 {
                   title: '网站解决方案',
                   info: '',
-                  path: '/pc/programme/website',
+                  path: '/programme/website',
                   hot: false,
                   new: false
                 }
@@ -426,7 +426,7 @@ export default {
         },
         {
           title: '关于我们',
-          path: '/pc/about/index?tab=0',
+          path: '/about/index?tab=0',
           children: [
             {
               title: '关于我们',
@@ -434,7 +434,7 @@ export default {
                 {
                   title: '公司简介',
                   info: '',
-                  path: '/pc/about/index?tab=0',
+                  path: '/about/index?tab=0',
                   hot: false,
                   new: false
                 }
@@ -446,7 +446,7 @@ export default {
                 {
                   title: '新闻公告',
                   info: '',
-                  path: '/pc/about/index?tab=1',
+                  path: '/about/index?tab=1',
                   hot: false,
                   new: false
                 }
@@ -458,7 +458,7 @@ export default {
                 {
                   title: '联系我们',
                   info: '',
-                  path: '/pc/about/index?tab=2',
+                  path: '/about/index?tab=2',
                   hot: false,
                   new: false
                 }
@@ -470,7 +470,7 @@ export default {
                 {
                   title: '代理招募',
                   info: '',
-                  path: '/pc/about/recruit',
+                  path: '/about/recruit',
                   hot: false,
                   new: false
                 }
@@ -484,7 +484,7 @@ export default {
       headerItemData: {},
       hoverStyle: '',
       typeCentext: null,
-      whiteList: ['/login-pc', '/pc/register', '/pc/forget']
+      whiteList: ['/login', '/register', '/forget']
     }
   },
   computed: {
@@ -500,14 +500,14 @@ export default {
     $route: {
       immediate: true,
       handler (to, from) {
-        if (to.path === '/login-pc' && this.allConfig.enable_login !== '1') {
-          this.$router.push('/pc')
+        if (to.path === '/login' && this.allConfig.enable_login !== '1') {
+          this.$router.push('/')
         }
         if (
-          to.path === '/pc/register' &&
+          to.path === '/register' &&
           this.allConfig.enable_register !== '1'
         ) {
-          this.$router.push('/pc')
+          this.$router.push('/')
         }
       }
     }
@@ -556,7 +556,7 @@ export default {
       console.log('点击了退出')
       this.$cookies.remove('token', { path: '/' })
       this.$store.dispatch('user/logOut')
-      this.$router.push('/login-pc')
+      this.$router.push('/login')
     }
   }
 }

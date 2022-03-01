@@ -60,7 +60,7 @@ export default {
     search () {
       console.log(this.keyWords, '搜索')
       this.$router.push({
-        path: '/pc/help/classInfo',
+        path: '/help/classInfo',
         query: {
           keyWords: this.keyWords
         }

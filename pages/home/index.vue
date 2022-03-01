@@ -40,7 +40,7 @@
             <div class="service-footer">
               <nuxt-link
                 :to="{
-                  path: '/pc/cloud-price',
+                  path: '/cloud-price',
                   query: { cpu: item.cpu, memory: item.memory }
                 }"
               >
@@ -195,7 +195,7 @@
               ,面向全球客户提供基于云计算的IT解决方案与客户服务，拥有丰富的国内BGP、双线高防、香港等优质的IDC资源。
             </p>
             <div class="about-btn">
-              <nuxt-link to="/pc/about/index?tab=0">
+              <nuxt-link to="/about/index?tab=0">
                 了解更多 →
               </nuxt-link>
             </div>
@@ -241,7 +241,7 @@
           </div>
         </div>
         <div class="news-footer">
-          <nuxt-link to="/pc/about/index?tab=1">
+          <nuxt-link to="/about/index?tab=1">
             查看更多 →
           </nuxt-link>
         </div>
@@ -510,7 +510,7 @@ export default {
           id: 'one',
           title: '网站云解决方案',
           type: 'icon-wangzhan',
-          path: '/pc/programme/website',
+          path: '/programme/website',
           content:
             '网站云为企业及开发者提供灵活弹性自动化的基础IT设施建设、按需付费的服务模式及成本的运维服务体系，帮助客户转型，推动企业核心业务创新发展。'
         },
@@ -518,7 +518,7 @@ export default {
           id: 'two',
           title: '电商云解决方案',
           type: 'icon-a-gouwuche1',
-          path: '/pc/programme/online',
+          path: '/programme/online',
           content:
             '电商云帮助电商客户快速实现平台搭建、节约成本、应对业务高并发、强化安全防护能力，助力电商客户快速实现金融创新及业务增收的目标。'
         },
@@ -526,7 +526,7 @@ export default {
           id: 'three',
           title: '游戏云解决方案',
           type: 'icon-a-youxi1',
-          path: '/pc/programme/game',
+          path: '/programme/game',
           content:
             '游戏云为客户游戏开发、游戏运营提供专属服务集群；多场景多类型的游戏部署解决方案，同时提供尊贵VIP售后服务，为客户游戏稳定运行提供基石。'
         },
@@ -534,7 +534,7 @@ export default {
           id: 'four',
           title: '移动云解决方案',
           type: 'icon-a-shouji13',
-          path: '/pc/programme/move',
+          path: '/programme/move',
           content:
             '移动云应用虚拟化系统为客户提供最佳的应用性能及灵活的应用虚拟化服务，帮助客户实现手机、平板电脑等移动设备安全顺畅地访问服务器上各种应用软件。'
         },
@@ -542,7 +542,7 @@ export default {
           id: 'five',
           title: '金融云解决方案',
           type: 'icon-xianxingduosejinrong',
-          path: '/pc/programme/finance',
+          path: '/programme/finance',
           content:
             '金融云为客户提供量身定制的云计算服务，IT硬件零投入，云设施运维零维护，高品质保障的售后服务机制，帮助金融用户高效应用云计算服务，是您互联网转型的首选。'
         }
@@ -589,7 +589,7 @@ export default {
     // 点击跳转新闻公告页面
     goNewsPage (code, id) {
       this.$router.push({
-        path: '/pc/about/index?tab=1',
+        path: '/about/index?tab=1',
         query: { code, id }
       })
     }
