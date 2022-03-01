@@ -1,9 +1,9 @@
 // 请求地址头
 const baseUrl = {
-  local: 'http://site.ydidc.com/server',
-  dev: 'http://site.ydidc.com/server',
-  test: 'http://site.zjyundun.com/server',
-  prod: 'http://site.slayun.com/server'
+  local: 'http://site.ydidc.com/ims',
+  dev: 'http://site.ydidc.com/ims',
+  test: 'http://site.zjyundun.com/ims',
+  prod: 'http://site.slayun.com/ims'
 }
 // 请求头携带domain参数
 const domains = {
