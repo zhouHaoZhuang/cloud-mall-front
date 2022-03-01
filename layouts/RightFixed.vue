@@ -66,22 +66,20 @@ export default {
   async fetch () {
     const webInfoData = await this.$api.home.getWebInfo()
     const companyInfoData = await this.$api.home.getCompanyInfo()
+    let data = {}
     if (webInfoData.data && companyInfoData.data) {
-      this.$store.dispatch('home/setWebCompanyInfo', {
+      data = {
         ...(webInfoData.data.list ? webInfoData.data.list[0] : []),
         ...(companyInfoData.data.list ? companyInfoData.data.list[0] : [])
-      })
+      }
     } else if (webInfoData.data) {
-      this.$store.dispatch('home/setWebCompanyInfo', {
-        ...(webInfoData.data.list ? webInfoData.data.list[0] : [])
-      })
+      data = webInfoData.data.list ? webInfoData.data.list[0] : []
     } else if (companyInfoData.data) {
-      this.$store.dispatch('home/setWebCompanyInfo', {
-        ...(companyInfoData.data.list ? companyInfoData.data.list[0] : [])
-      })
+      data = companyInfoData.data.list ? companyInfoData.data.list[0] : []
     } else {
-      this.$store.dispatch('home/setWebCompanyInfo', {})
+      data = {}
     }
+    this.$store.dispatch('home/setWebCompanyInfo', data)
   },
   computed: {
     ...mapState({
