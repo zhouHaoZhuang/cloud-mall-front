@@ -37,7 +37,7 @@
                 <input v-model="form.autoLogin" type="checkbox">
                 <span>下次自动登录</span>
               </div>
-              <nuxt-link to="/pc/forget">
+              <nuxt-link to="/forget">
                 忘记密码？
               </nuxt-link>
             </div>
@@ -51,7 +51,7 @@
               登录
             </a-button>
             <div class="register">
-              <nuxt-link to="/pc/register">
+              <nuxt-link to="/register">
                 免费注册
               </nuxt-link>
             </div>
@@ -98,7 +98,7 @@ export default {
   mounted () {
     if (this.$route.query.out) {
       localStorage.setItem('store', '{}')
-      this.$router.push('/login-pc')
+      this.$router.push('/login')
     }
   },
   methods: {

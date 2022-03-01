@@ -10,12 +10,12 @@
         <p>
           <router-link
             class="select"
-            to="/pc/mysql/buy"
+            to="/mysql/buy"
           >
             立即选购
           </router-link>
           <!-- <a href="">产品价格</a> -->
-          <router-link to="/pc/mysql/price">
+          <router-link to="/mysql/price">
             产品价格
           </router-link>
         </p>

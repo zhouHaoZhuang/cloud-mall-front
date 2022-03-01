@@ -165,7 +165,7 @@
           <span>
             我已阅读并同意
             <a
-              href="/pc/passport/agreement"
+              href="/passport/agreement"
               target="_blank"
             >《{{ webInfo.title }}网站服务协议》</a>
           </span>
@@ -180,7 +180,7 @@
         </a-button>
         <div class="go-login">
           <span>已经拥有账号？</span>
-          <nuxt-link to="/login-pc">
+          <nuxt-link to="/login">
             账号登录
           </nuxt-link>
         </div>
@@ -366,7 +366,7 @@ export default {
         .then((res) => {
           if (res.code === '000000') {
             this.$message.success('注册成功，请重新登录')
-            this.$router.replace('/login-pc')
+            this.$router.replace('/login')
           } else {
             this.$message.warning(res.msg)
           }
