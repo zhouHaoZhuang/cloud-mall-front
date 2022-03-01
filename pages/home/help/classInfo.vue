@@ -2,11 +2,11 @@
   <div>
     <h2>
       <a-icon type="home" />
-      <nuxt-link to="/pc">
+      <nuxt-link to="/">
         首页
       </nuxt-link>
       <span><a-icon type="right" /></span>
-      <nuxt-link to="/pc/help/helpInfo">
+      <nuxt-link to="/help/helpInfo">
         {{ LeveltwoTitle }}
       </nuxt-link>
       <span><a-icon type="right" /></span>

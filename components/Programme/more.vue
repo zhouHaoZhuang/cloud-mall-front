@@ -37,27 +37,27 @@ export default {
         {
           title: '金融云解决方案',
           type: 'finance',
-          path: '/pc/programme/finance'
+          path: '/programme/finance'
         },
         {
           title: '电商云解决方案',
           type: 'online',
-          path: '/pc/programme/online'
+          path: '/programme/online'
         },
         {
           title: '游戏云解决方案',
           type: 'game',
-          path: '/pc/programme/game'
+          path: '/programme/game'
         },
         {
           title: '网站云解决方案',
           type: 'website',
-          path: '/pc/programme/website'
+          path: '/programme/website'
         },
         {
           title: '移动云解决方案',
           type: 'move',
-          path: '/pc/programme/move'
+          path: '/programme/move'
         }
       ]
     }

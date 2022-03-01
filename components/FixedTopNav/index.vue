@@ -54,7 +54,7 @@ export default {
         {
           title: '弹性云服务器',
           info: '高速稳定高弹性的计算服务',
-          path: '/pc/cloud-choose',
+          path: '/cloud-choose',
           hot: true,
           new: false
         },
@@ -82,7 +82,7 @@ export default {
         {
           title: '负载均衡',
           info: '高性能流量分发的负载均衡服务',
-          path: '/pc/balancing-ba',
+          path: '/balancing-ba',
           hot: false,
           new: false
         },
@@ -96,7 +96,7 @@ export default {
         {
           title: '域名注册',
           info: '提供五星级的域名注册服务',
-          path: '/pc/Domain-name',
+          path: '/Domain-name',
           hot: true,
           new: false
         },
@@ -110,7 +110,7 @@ export default {
         {
           title: '对象存储',
           info: '高可用、易扩展、低成本、一站式',
-          path: '/pc/object-based-use',
+          path: '/object-based-use',
           hot: false,
           new: false
         },
@@ -124,14 +124,14 @@ export default {
         {
           title: '云数据库 MySQL',
           info: '稳定可靠、可弹性伸缩的数据方案',
-          path: '/pc/mysql',
+          path: '/mysql',
           hot: false,
           new: false
         },
         {
           title: '云数据库 SQL Server',
           info: '安全运行、轻松管理的数据方案',
-          path: '/pc/sqlserver',
+          path: '/sqlserver',
           hot: false,
           new: false
         },
@@ -152,7 +152,7 @@ export default {
         {
           title: '代理招募',
           info: '',
-          path: '/pc/about/recruit',
+          path: '/about/recruit',
           hot: false,
           new: true
         }
