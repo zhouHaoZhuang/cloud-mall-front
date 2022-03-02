@@ -403,9 +403,14 @@ export default {
               line-height: 36px;
               .label {
                 color: #ffffffcf;
+                width: 70px;
               }
               .value {
+                flex: 1;
                 color: #fff;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
               }
             }
             .list-outerChain {

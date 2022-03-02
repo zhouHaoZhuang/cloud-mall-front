@@ -17,21 +17,28 @@
             登录
           </h4>
           <div class="content">
-            <div class="borderbule">
-              <a-input
-                v-model="form.phone"
-                v-number-evolution
-                type="text"
-                placeholder="请输入手机号"
-              />
-            </div>
-            <div class="borderbule">
-              <a-input
-                v-model="form.password"
-                type="password"
-                placeholder="请输入登录密码"
-              />
-            </div>
+            <a-form-model
+              ref="ruleForm"
+              :model="form"
+              :rules="rules"
+              :label-col="labelCol"
+              :wrapper-col="wrapperCol"
+            >
+              <a-form-model-item prop="phone">
+                <a-input
+                  v-model="form.phone"
+                  v-number-evolution
+                  type="text"
+                  placeholder="请输入手机号"
+                />
+              </a-form-model-item>
+              <a-form-model-item prop="password">
+                <a-input-password
+                  v-model="form.password"
+                  placeholder="请输入登录密码"
+                />
+              </a-form-model-item>
+            </a-form-model>
             <div class="auto-login">
               <div class="left">
                 <input v-model="form.autoLogin" type="checkbox">
@@ -67,13 +74,58 @@ import { mapState } from 'vuex'
 export default {
   data () {
     return {
+      labelCol: { span: 0 },
+      wrapperCol: { span: 25 },
       form: {
         phone: '',
         password: '',
         autoLogin: false
       },
-      phoneReg:
-        /^(13[0-9]|14[01456879]|15[0-3,5-9]|16[2567]|17[0-8]|18[0-9]|19[0-3,5-9])\d{8}$/,
+      pwdReg: /(?=.*[0-9])(?=.*[a-z])(?=.*[^a-zA-Z0-9]).{8,20}/,
+      rules: {
+        phone: [
+          {
+            required: true,
+            message: '手机号为必填项',
+            trigger: 'blur'
+          },
+          {
+            validator: (rule, value, callback) => {
+              if (value === '') {
+                callback()
+              } else {
+                if (/^1[3456789]\d{9}$/.test(value)) {
+                  callback()
+                } else {
+                  callback(new Error('请输入正确格式的手机号'))
+                }
+              }
+            },
+            trigger: 'blur'
+          }
+        ],
+        password: [
+          {
+            required: true,
+            message: '密码为必填项',
+            trigger: 'blur'
+          },
+          {
+            validator: (rule, value, callback) => {
+              if (value === '') {
+                callback()
+              } else {
+                if (this.pwdReg.test(value)) {
+                  callback()
+                } else {
+                  callback(new Error('请输入正确的密码格式'))
+                }
+              }
+            },
+            trigger: 'blur'
+          }
+        ]
+      },
       loginLoading: false
     }
   },
@@ -82,7 +134,8 @@ export default {
       autoLogin: state => state.user.loginForm.autoLogin,
       isLogin: state => state.user.isLogin,
       loginForm: state => state.user.loginForm,
-      redirectPath: state => state.user.redirectPath
+      redirectPath: state => state.user.redirectPath,
+      allConfig: state => state.user.allConfig
     })
   },
   watch: {
@@ -100,23 +153,34 @@ export default {
       localStorage.setItem('store', '{}')
       this.$router.push('/login')
     }
+    this.pwdReg = new RegExp(
+      '(?=.*[0-9])(?=.*[a-z])(?=.*[^a-zA-Z0-9]).{' +
+        this.allConfig.pwd_min_length +
+        ',' +
+        this.allConfig.pwd_max_length +
+        '}'
+    )
   },
   methods: {
     // 登录前校验
     handleLoginBefore () {
-      if (this.form.phone === '') {
-        this.$message.warning('请输入手机号')
-        return
-      }
-      if (!this.phoneReg.test(this.form.phone)) {
-        this.$message.warning('请输入格式正确的手机号')
-        return
-      }
-      if (this.form.password === '') {
-        this.$message.warning('请输入密码')
-        return
-      }
-      this.login(this.form)
+      // if (this.form.phone === '') {
+      //   this.$message.warning('请输入手机号')
+      //   return
+      // }
+      // if (!this.phoneReg.test(this.form.phone)) {
+      //   this.$message.warning('请输入格式正确的手机号')
+      //   return
+      // }
+      // if (this.form.password === '') {
+      //   this.$message.warning('请输入密码')
+      //   return
+      // }
+      this.$refs.ruleForm.validate((valid) => {
+        if (valid) {
+          this.login(this.form)
+        }
+      })
     },
     login (form) {
       this.loginLoading = true
@@ -221,7 +285,7 @@ export default {
         }
         .auto-login {
           font-size: 14px;
-          margin: 10px 0;
+          margin: 20px 0;
           display: flex;
           justify-content: space-between;
           .left {
@@ -246,5 +310,9 @@ export default {
       }
     }
   }
+}
+.ant-input {
+  border-radius: 0;
+  height: 40px;
 }
 </style>
