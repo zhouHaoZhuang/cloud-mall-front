@@ -4,7 +4,7 @@ const resolve = pagePath => path.resolve(process.cwd(), `./${pagePath}`)
 // 白名单
 const whiteList = [
   {
-    path: '/login-pc',
+    path: '/login',
     name: 'Login-pc',
     component: resolve('pages/passport/login.vue'),
     meta: {
@@ -13,7 +13,7 @@ const whiteList = [
     }
   },
   {
-    path: '/pc/register',
+    path: '/register',
     name: 'register',
     component: resolve('pages/passport/register.vue'),
     meta: {
@@ -22,7 +22,7 @@ const whiteList = [
     }
   },
   {
-    path: '/pc/forget',
+    path: '/forget',
     name: 'forget',
     component: resolve('pages/passport/forget.vue'),
     meta: {
@@ -43,18 +43,18 @@ const whiteList = [
 
 export const $routes = [
   ...whiteList,
-  {
-    path: '/',
-    name: 'Home',
-    component: resolve('pages/home/index.vue'),
-    meta: {
-      title: '首页',
-      icon: 'icon-home'
-    }
-  },
+  // {
+  //   path: '/',
+  //   name: 'Home',
+  //   component: resolve('pages/home/index.vue'),
+  //   meta: {
+  //     title: '首页',
+  //     icon: 'icon-home'
+  //   }
+  // },
   // 首页
   {
-    path: '/pc',
+    path: '/',
     name: 'Home-pc',
     component: resolve('pages/home/index.vue'),
     meta: {
@@ -63,7 +63,7 @@ export const $routes = [
     },
     children: [
       {
-        path: '/pc/detail',
+        path: '/detail',
         name: 'Home-detail-pc',
         component: resolve('pages/home/detail/detail.vue'),
         meta: {
@@ -74,7 +74,7 @@ export const $routes = [
     ]
   },
   {
-    path: '/pc/cloud-choose',
+    path: '/cloud-choose',
     name: 'cloud',
     component: resolve('pages/product/cloud/cloud-choose.vue'),
     meta: {
@@ -83,7 +83,7 @@ export const $routes = [
     }
   },
   {
-    path: '/pc/cloud-price',
+    path: '/cloud-price',
     name: 'cloud-p',
     component: resolve('pages/product/cloud/cloud-price.vue'),
     meta: {
@@ -92,7 +92,7 @@ export const $routes = [
     }
   },
   {
-    path: '/pc/cloud-product',
+    path: '/cloud-product',
     name: 'cloud-c',
     component: resolve('pages/product/cloud/cloud-pin.vue'),
     meta: {
@@ -101,7 +101,7 @@ export const $routes = [
     }
   },
   {
-    path: '/pc/balancing-ba',
+    path: '/balancing-ba',
     name: 'balancing',
     component: resolve('pages/product/balancing/balancing-ba.vue'),
     meta: {
@@ -110,7 +110,7 @@ export const $routes = [
     }
   },
   {
-    path: '/pc/object-based-use',
+    path: '/object-based-use',
     name: 'object',
     component: resolve('pages/product/object-based/object-based-use.vue'),
     meta: {
@@ -119,7 +119,7 @@ export const $routes = [
     }
   },
   {
-    path: '/pc/object-based-price',
+    path: '/object-based-price',
     name: 'object-price',
     component: resolve('pages/product/object-based/object-based-price.vue'),
     meta: {
@@ -128,7 +128,7 @@ export const $routes = [
     }
   },
   {
-    path: '/pc/Domain-name',
+    path: '/Domain-name',
     name: 'domain',
     component: resolve('pages/product/domain/Domain-name.vue'),
     meta: {
@@ -137,7 +137,7 @@ export const $routes = [
     }
   },
   {
-    path: '/pc/mysql',
+    path: '/mysql',
     name: 'mysql-pc',
     component: resolve('pages/home/database/mysql/index.vue'),
     meta: {
@@ -147,7 +147,7 @@ export const $routes = [
   },
 
   {
-    path: '/pc/mysql/buy',
+    path: '/mysql/buy',
     name: 'buy-pc',
     component: resolve('pages/home/database/buy/index.vue'),
     meta: {
@@ -156,7 +156,7 @@ export const $routes = [
     }
   },
   {
-    path: '/pc/sqlserver',
+    path: '/sqlserver',
     name: 'sqlserver-pc',
     component: resolve('pages/home/database/sqlserver/index.vue'),
     meta: {
@@ -165,7 +165,7 @@ export const $routes = [
     }
   },
   {
-    path: '/pc/help',
+    path: '/help',
     name: 'help-pc',
     component: resolve('pages/home/help/index.vue'),
     meta: {
@@ -203,7 +203,7 @@ export const $routes = [
     ]
   },
   {
-    path: '/pc/mysql/price',
+    path: '/mysql/price',
     name: 'price-pc',
     component: resolve('pages/home/database/price/index.vue'),
     meta: {
@@ -233,7 +233,7 @@ export const $routes = [
   },
   // 服务保障
   {
-    path: '/pc/assurance',
+    path: '/assurance',
     name: 'assurances',
     component: resolve('pages/assurance/assurance.vue'),
     meta: {
@@ -243,7 +243,7 @@ export const $routes = [
   },
   // 解决方案
   {
-    path: '/pc/programme/finance',
+    path: '/programme/finance',
     name: 'Finance-pc',
     component: resolve('pages/programme/finance.vue'),
     meta: {
@@ -252,7 +252,7 @@ export const $routes = [
     }
   },
   {
-    path: '/pc/programme/online',
+    path: '/programme/online',
     name: 'Online-pc',
     component: resolve('pages/programme/online.vue'),
     meta: {
@@ -261,7 +261,7 @@ export const $routes = [
     }
   },
   {
-    path: '/pc/programme/move',
+    path: '/programme/move',
     name: 'Move-pc',
     component: resolve('pages/programme/move.vue'),
     meta: {
@@ -270,7 +270,7 @@ export const $routes = [
     }
   },
   {
-    path: '/pc/programme/game',
+    path: '/programme/game',
     name: 'Game-pc',
     component: resolve('pages/programme/game.vue'),
     meta: {
@@ -279,7 +279,7 @@ export const $routes = [
     }
   },
   {
-    path: '/pc/programme/website',
+    path: '/programme/website',
     name: 'Website-pc',
     component: resolve('pages/programme/website.vue'),
     meta: {
@@ -289,7 +289,7 @@ export const $routes = [
   },
   // 关于我们
   {
-    path: '/pc/about/index',
+    path: '/about/index',
     name: 'About-pc',
     component: resolve('pages/about/index.vue'),
     meta: {
@@ -299,7 +299,7 @@ export const $routes = [
   },
   // 代理招募
   {
-    path: '/pc/about/recruit',
+    path: '/about/recruit',
     name: 'Recruit-pc',
     component: resolve('pages/about/recruit.vue'),
     meta: {
@@ -308,7 +308,7 @@ export const $routes = [
     }
   },
   {
-    path: '/pc/passport/agreement',
+    path: '/passport/agreement',
     name: 'Agreement',
     component: resolve('pages/passport/agreement.vue'),
     meta: {

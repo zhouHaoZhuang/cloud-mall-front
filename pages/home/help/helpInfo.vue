@@ -3,11 +3,11 @@
     <div class="helpInfo">
       <h3>
         <a-icon type="home" />
-        <nuxt-link to="/pc">
+        <nuxt-link to="/">
           首页
         </nuxt-link>
         <span><a-icon type="right" /></span>
-        <nuxt-link to="/pc/help/helpInfo">
+        <nuxt-link to="/help/helpInfo">
           帮助中心
         </nuxt-link>
       </h3>
@@ -92,7 +92,7 @@ export default {
   methods: {
     changeList (helpTypeCode, LeveltwoTitle, LevelthreeTitle) {
       this.$router.push({
-        path: '/pc/help/classInfo',
+        path: '/help/classInfo',
         query: {
           helpTypeCode,
           LeveltwoTitle,

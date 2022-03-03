@@ -111,7 +111,7 @@ export default ({ $axios, redirect, route, store }) => {
       if (errno === '000001') {
         message.warning('登录已失效，请重新登录')
         store.dispatch('user/logout')
-        redirect('/login-pc?out=1')
+        redirect('/login?out=1')
         return Promise.reject(data)
       }
       // message.warning(errmsg)

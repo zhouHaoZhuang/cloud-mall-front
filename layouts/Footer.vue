@@ -176,7 +176,7 @@ export default {
           list: [
             {
               name: '云服务器',
-              path: '/pc/cloud-choose'
+              path: '/cloud-choose'
             }
             // {
             //   name: '云服务器托管',
@@ -197,23 +197,23 @@ export default {
           list: [
             {
               name: '游戏云解决方案',
-              path: '/pc/programme/game'
+              path: '/programme/game'
             },
             {
               name: '电商云解决方案',
-              path: '/pc/programme/online'
+              path: '/programme/online'
             },
             {
               name: '金融云解决方案',
-              path: '/pc/programme/finance'
+              path: '/programme/finance'
             },
             {
               name: '网站云解决方案',
-              path: '/pc/programme/website'
+              path: '/programme/website'
             },
             {
               name: '移动云解决方案',
-              path: '/pc/programme/move'
+              path: '/programme/move'
             }
           ]
         },
@@ -247,23 +247,23 @@ export default {
           list: [
             {
               name: '公司简介',
-              path: '/pc/about/index?tab=0'
+              path: '/about/index?tab=0'
             },
             {
               name: '法律声明',
-              path: '/pc/about/index?tab=2'
+              path: '/about/index?tab=2'
             },
             {
               name: '新闻公告',
-              path: '/pc/about/index?tab=1'
+              path: '/about/index?tab=1'
             },
             {
               name: '友情链接',
-              path: '/pc/about/index?tab=3'
+              path: '/about/index?tab=3'
             },
             {
               name: '服务协议',
-              path: '/pc/passport/agreement'
+              path: '/passport/agreement'
             }
           ]
         }
@@ -282,7 +282,7 @@ export default {
   watch: {
     $route: {
       handler (newVal) {
-        if (newVal.path === '/login-pc' || newVal.path === '/pc/register') {
+        if (newVal.path === '/login' || newVal.path === '/register') {
           this.show = false
         } else {
           this.show = true

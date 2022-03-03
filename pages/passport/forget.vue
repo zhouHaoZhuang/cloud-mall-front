@@ -311,7 +311,7 @@ export default {
       this.$api.user.forgetPwd(this.form).then((res) => {
         if (res.code === '000000') {
           this.$message.success('修改成功，请重新登录')
-          this.$router.replace('/login-pc')
+          this.$router.replace('/login')
         } else {
           this.$message.warning(res.msg)
         }

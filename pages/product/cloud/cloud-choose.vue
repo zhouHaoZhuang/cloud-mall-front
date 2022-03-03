@@ -391,7 +391,7 @@
               <div class="application-btn">
                 <nuxt-link
                   :to="{
-                    path: '/pc/cloud-price',
+                    path: '/cloud-price',
                     query: { cpu: item.cpu, memory: item.memory }
                   }"
                 >
@@ -425,7 +425,7 @@
           </div>
         </div>
         <div class="question-btn">
-          <nuxt-link to="/pc/help/helpInfo">
+          <nuxt-link to="/help/helpInfo">
             更多
           </nuxt-link>
           <!-- <a href=":;javaScript">更多</a> -->

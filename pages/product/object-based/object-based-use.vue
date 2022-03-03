@@ -17,14 +17,14 @@
               <p class="product-info-btn">
                 <router-link
                   class="info-btn1"
-                  to="/pc/object-based-price"
+                  to="/object-based-price"
                 >
                   立即使用
                 </router-link>
                 <!-- <a href="#" class="info-btn1">立即使用</a> -->
                 <router-link
                   class="info-btn2"
-                  to="/pc/object-based-price"
+                  to="/object-based-price"
                 >
                   产品价格
                 </router-link>
