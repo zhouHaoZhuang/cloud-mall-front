@@ -7,7 +7,7 @@ const baseUrl = {
 }
 // 请求头携带domain参数
 const domains = {
-  local: 't946471742443573248.site.ydidc.com'
+  local: 't946471742443573248.site.sailayun.com'
 }
 
 export default {
