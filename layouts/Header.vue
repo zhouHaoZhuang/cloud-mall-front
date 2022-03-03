@@ -516,9 +516,6 @@ export default {
     console.log(this.webInfo, 'webInfo')
   },
   methods: {
-    getAllConfig () {
-      this.$store.dispatch('user/getAllConfig')
-    },
     isWhite (path) {
       return this.whiteList.includes(path)
     },

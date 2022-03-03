@@ -53,6 +53,7 @@ export default {
       ...companyInfoDataList
     }
     this.$store.dispatch('home/setWebCompanyInfo', data)
+    this.$store.dispatch('user/getAllConfig')
   },
   head () {
     return {
