@@ -212,15 +212,6 @@ export default {
       allConfig: state => state.user.allConfig
     })
   },
-  mounted () {
-    this.pwdReg = new RegExp(
-      '(?=.*[0-9])(?=.*[a-z])(?=.*[^a-zA-Z0-9]).{' +
-        this.allConfig.pwd_min_length +
-        ',' +
-        this.allConfig.pwd_max_length +
-        '}'
-    )
-  },
   methods: {
     // 手机号码失去焦点
     phoneblurfns () {
@@ -244,7 +235,11 @@ export default {
     },
     // 密码失去焦点
     setpswdblurfns () {
-      if (this.pwdReg.test(this.form.password)) {
+      const length = this.form.password.length
+      if (
+        length >= this.allConfig.pwd_min_length * 1 &&
+        length <= this.allConfig.pwd_max_length * 1
+      ) {
         this.pwdStatus = 2
       } else {
         this.pwdStatus = 1

@@ -115,7 +115,7 @@ export default {
               if (value === '') {
                 callback()
               } else {
-                if (this.pwdReg.test(value)) {
+                if (this.setpswdblurfns()) {
                   callback()
                 } else {
                   callback(new Error('请输入正确的密码格式'))
@@ -153,29 +153,22 @@ export default {
       localStorage.setItem('store', '{}')
       this.$router.push('/login')
     }
-    this.pwdReg = new RegExp(
-      '(?=.*[0-9])(?=.*[a-z])(?=.*[^a-zA-Z0-9]).{' +
-        this.allConfig.pwd_min_length +
-        ',' +
-        this.allConfig.pwd_max_length +
-        '}'
-    )
   },
   methods: {
+    // 校验密码长度
+    setpswdblurfns () {
+      const length = this.form.password.length
+      if (
+        length >= this.allConfig.pwd_min_length * 1 &&
+        length <= this.allConfig.pwd_max_length * 1
+      ) {
+        return true
+      } else {
+        return false
+      }
+    },
     // 登录前校验
     handleLoginBefore () {
-      // if (this.form.phone === '') {
-      //   this.$message.warning('请输入手机号')
-      //   return
-      // }
-      // if (!this.phoneReg.test(this.form.phone)) {
-      //   this.$message.warning('请输入格式正确的手机号')
-      //   return
-      // }
-      // if (this.form.password === '') {
-      //   this.$message.warning('请输入密码')
-      //   return
-      // }
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
           this.login(this.form)
