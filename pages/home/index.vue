@@ -7,7 +7,7 @@
       <div class="about-container">
         <div class="title">
           <p class="title-top">
-            {{webInfo.title}}为您提供高速、稳定、安全、弹性的云计算服务
+            {{ webInfo.title }}为您提供高速、稳定、安全、弹性的云计算服务
           </p>
           <p class="title-bottom">
             根据不同应用场景推荐适合您的最优质服务器，满足您一切需求
@@ -37,16 +37,16 @@
                 <!-- <input type="text" :value="ele.answer"> -->
               </div>
             </div>
-            <div class="service-footer">
-              <nuxt-link
-                :to="{
-                  path: '/cloud-price',
-                  query: { cpu: item.cpu, memory: item.memory }
-                }"
-              >
+            <nuxt-link
+              :to="{
+                path: '/cloud-price',
+                query: { cpu: item.cpu, memory: item.memory }
+              }"
+            >
+              <div class="service-footer">
                 立即购买
-              </nuxt-link>
-            </div>
+              </div>
+            </nuxt-link>
           </div>
         </div>
       </div>
@@ -56,7 +56,7 @@
       <div class="about-container">
         <div class="title">
           <p class="title-top">
-            为什么选择{{webInfo.title}}
+            为什么选择{{ webInfo.title }}
           </p>
           <p class="title-bottom">
             完善的云产品，为用户提供多种服务支持和保障，让云端部署更轻松、更高效
@@ -556,9 +556,14 @@ export default {
   },
   mounted () {
     this.getNewsListInfo()
-    this.initSwiper();
-    this.choiceList[2].content = '由于'+this.webInfo.title+'故障导致产品无法正常使用，我们将提供100倍的故障时间赔偿让您使用舒心。'
-    this.choiceTwoList[0].content = this.webInfo.title+'承诺用户购买云服务器5天内无条件退款，致力为您打造更优良的服务器体验环境'
+    this.initSwiper()
+    this.choiceList[2].content =
+      '由于' +
+      this.webInfo.title +
+      '故障导致产品无法正常使用，我们将提供100倍的故障时间赔偿让您使用舒心。'
+    this.choiceTwoList[0].content =
+      this.webInfo.title +
+      '承诺用户购买云服务器5天内无条件退款，致力为您打造更优良的服务器体验环境'
   },
   methods: {
     // 获取新闻公告信息
