@@ -79,9 +79,10 @@
             <Iconfont class="left-icon" type="icon-lock" />
             <a-input
               v-model="form.password"
+              v-password-input
               :type="!passwordType ? 'text' : 'password'"
               placeholder="请输入密码"
-              :max-length="20"
+              :max-length="allConfig.pwd_max_length * 1"
               @focus="
                 pwdEnter = true
                 pwdStatus = 0
@@ -123,9 +124,10 @@
             <Iconfont class="left-icon" type="icon-lock" />
             <a-input
               v-model="form.confrimPassword"
+              v-password-input
               :type="!confirmPwdType ? 'text' : 'password'"
               placeholder="请再次填写密码"
-              :max-length="20"
+              :max-length="allConfig.pwd_max_length * 1"
               @focus="
                 confirmPwdEnter = true
                 confirmPwdStatus = 0
@@ -237,15 +239,6 @@ export default {
       allConfig: state => state.user.allConfig
     })
   },
-  mounted () {
-    this.pwdReg = new RegExp(
-      '(?=.*[0-9])(?=.*[a-z])(?=.*[^a-zA-Z0-9]).{' +
-        this.allConfig.pwd_min_length +
-        ',' +
-        this.allConfig.pwd_max_length +
-        '}'
-    )
-  },
   methods: {
     // 手机号码失去焦点
     phoneblurfns () {
@@ -269,7 +262,11 @@ export default {
     },
     // 密码失去焦点
     setpswdblurfns () {
-      if (this.pwdReg.test(this.form.password)) {
+      const length = this.form.password.length
+      if (
+        length >= this.allConfig.pwd_min_length * 1 &&
+        length <= this.allConfig.pwd_max_length * 1
+      ) {
         this.pwdStatus = 2
       } else {
         this.pwdStatus = 1
