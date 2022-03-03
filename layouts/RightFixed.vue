@@ -3,7 +3,7 @@
     <div class="item">
       <span>QQ咨询</span>
       <div class="detail">
-        <span>请选择客服进行咨询</span>
+        <span>请选择QQ进行咨询</span>
         <div class="box">
           <div class="left" />
           <div class="right">
