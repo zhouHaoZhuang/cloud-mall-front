@@ -111,8 +111,17 @@ export default {
             trigger: 'blur'
           },
           {
-            pattern: this.pwdReg,
-            message: '密码格式不正确',
+            validator: (rule, value, callback) => {
+              if (value === '') {
+                callback()
+              } else {
+                if (this.setpswdblurfns()) {
+                  callback()
+                } else {
+                  callback(new Error('请输入正确的密码格式'))
+                }
+              }
+            },
             trigger: 'blur'
           }
         ]
