@@ -90,11 +90,11 @@ export default {
   },
   proxy: {
     // 代理
-    // '/ims': {
-    //   target: 'http://site.ydidc.com/ims', // 代理转发地址
+    // '/api': {
+    //   target: 'http://site.sailayun.com', // 代理转发地址
     //   changeOrigin: true,
     //   pathRewrite: {
-    //     '^/ims': ''
+    //     '^/api': ''
     //   }
     // },
     '/map': {
