@@ -3,7 +3,7 @@
     <div class="item">
       <span>QQ咨询</span>
       <div class="detail">
-        <span>请选择客服进行咨询</span>
+        <span>请选择QQ进行咨询</span>
         <div class="box">
           <div class="left" />
           <div class="right">
@@ -62,26 +62,6 @@ export default {
       btnFlag: false,
       show: true
     }
-  },
-  async fetch () {
-    const webInfoData = await this.$api.home.getWebInfo()
-    const companyInfoData = await this.$api.home.getCompanyInfo()
-    let data = {}
-    let webInfoDataList = {}
-    let companyInfoDataList = {}
-    if (webInfoData.data) {
-      webInfoDataList = webInfoData.data.list ? webInfoData.data.list[0] : {}
-    }
-    if (companyInfoData.data) {
-      companyInfoDataList = companyInfoData.data.list
-        ? companyInfoData.data.list[0]
-        : {}
-    }
-    data = {
-      ...webInfoDataList,
-      ...companyInfoDataList
-    }
-    this.$store.dispatch('home/setWebCompanyInfo', data)
   },
   computed: {
     ...mapState({
