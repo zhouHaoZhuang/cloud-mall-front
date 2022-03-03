@@ -17,7 +17,7 @@
         <div class="tabs-container" />
       </div>
     </div>
-    <!-- 主体部分1 -->
+    <!-- 主体部分-->
     <div class="about-content container">
       <!-- 公司简介 -->
       <div v-if="tabSelectIndex === 0" class="introduce">

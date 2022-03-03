@@ -221,7 +221,7 @@ export default {
           title: '帮助与支持',
           list: [
             {
-              name: '产品文档',
+              name: '帮助中心',
               path: '/pc/help/helpInfo'
             },
             // {
@@ -229,7 +229,7 @@ export default {
             //   path: ''
             // },
             {
-              name: '控制面板',
+              name: '控制台',
               path: 'controlPanel'
             }
             // {
