@@ -87,7 +87,7 @@
                 <div class="ele">
                   <div class="img-box">
                     <i />
-                    <span>请选择客服进行咨询</span>
+                    <span>请选择QQ进行咨询</span>
                     <div class="right">
                       {{ webInfo.qqNumber }}
                     </div>
@@ -122,6 +122,7 @@
       <div class="copyright-wrap">
         <div class="container">
           <p>
+            {{ webInfo.publicSecurityRecord }}&nbsp;&nbsp;&nbsp;
             {{ webInfo.copyRightInfo }}
             &nbsp;&nbsp;&nbsp;
             {{ webInfo.companyName }}
@@ -134,7 +135,6 @@
             &nbsp;&nbsp;
             {{ webInfo.bottomInfo }}
           </p>
-          <p />
         </div>
       </div>
     </div>
@@ -403,9 +403,14 @@ export default {
               line-height: 36px;
               .label {
                 color: #ffffffcf;
+                width: 70px;
               }
               .value {
+                flex: 1;
                 color: #fff;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
               }
             }
             .list-outerChain {
