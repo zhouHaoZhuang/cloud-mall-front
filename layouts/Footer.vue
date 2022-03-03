@@ -222,7 +222,7 @@ export default {
           list: [
             {
               name: '帮助中心',
-              path: '/pc/help/helpInfo'
+              path: '/help/helpInfo'
             },
             // {
             //   name: 'Whois查询',

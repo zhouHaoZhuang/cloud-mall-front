@@ -39,7 +39,7 @@
             </div>
             <nuxt-link
               :to="{
-                path: '/pc/cloud-price',
+                path: '/cloud-price',
                 query: { cpu: item.cpu, memory: item.memory }
               }"
             >
