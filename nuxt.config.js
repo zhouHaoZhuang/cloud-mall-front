@@ -10,11 +10,17 @@ export default {
   head: {
     title: 'ydidc-mall',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'zh-CN'
     },
     meta: [
       { charset: 'utf-8' },
-      { name: 'format-detection', content: 'telephone=no' }
+      { name: 'format-detection', content: 'telephone=no' },
+      { 'http-equiv': 'pragram', content: 'no-cache' },
+      {
+        'http-equiv': 'cache-control',
+        content: 'no-cache, no-store, must-revalidate'
+      },
+      { 'http-equiv': 'expires', content: '0' }
     ],
     script: [
       {
@@ -25,9 +31,8 @@ export default {
     // link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
     // script: [{ src: 'js/isMobile.js' }]
     // link: [
-    //   { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-    //   { rel: 'stylesheet', href: '外部链接' }
-    // ],
+    //   { rel: 'stylesheet', href: '/assets/css/base.css' }
+    // ]
   },
 
   // middleware
@@ -109,5 +114,18 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     // transpile: [/^antd-ui/]
+    // analyze: true,
+    extractCSS: { allChunks: true },
+    filenames: {
+      app: ({ isDev }) => (isDev ? '[name].js' : '[contenthash].js'),
+      chunk: ({ isDev }) => (isDev ? '[name].js' : '[contenthash].js'),
+      css: ({ isDev }) => (isDev ? '[name].css' : '[contenthash].css'),
+      img: ({ isDev }) =>
+        isDev ? '[path][name].[ext]' : 'img/[contenthash:7].[ext]',
+      font: ({ isDev }) =>
+        isDev ? '[path][name].[ext]' : 'fonts/[contenthash:7].[ext]',
+      video: ({ isDev }) =>
+        isDev ? '[path][name].[ext]' : 'videos/[contenthash:7].[ext]'
+    }
   }
 }

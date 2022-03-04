@@ -41,8 +41,11 @@
             </a-form-model>
             <div class="auto-login">
               <div class="left">
-                <input v-model="form.autoLogin" type="checkbox">
-                <span>下次自动登录</span>
+                <!-- <input v-model="form.autoLogin" type="checkbox">
+                <span>下次自动登录</span> -->
+                <nuxt-link to="/register">
+                  免费注册
+                </nuxt-link>
               </div>
               <nuxt-link to="/forget">
                 忘记密码？
@@ -57,11 +60,6 @@
             >
               登录
             </a-button>
-            <div class="register">
-              <nuxt-link to="/register">
-                免费注册
-              </nuxt-link>
-            </div>
           </div>
         </div>
       </div>
