@@ -79,7 +79,7 @@ export default {
       script: [
         {
           type: 'text/javascript',
-          src: this.webInfo.statisticalCode
+          src: this.baiduCode
         }
       ]
     }
@@ -87,7 +87,18 @@ export default {
   computed: {
     ...mapState({
       webInfo: state => state.home.webInfo
-    })
+    }),
+    baiduCode () {
+      let str = ''
+      const index = this.webInfo.statisticalCode.indexOf('http')
+      if (index === -1) {
+        return ''
+      }
+      str = this.webInfo.statisticalCode.substring(index)
+      const index1 = str.indexOf('"')
+      str = str.substring(0, index1)
+      return str
+    }
   },
   watch: {
     $route: {
