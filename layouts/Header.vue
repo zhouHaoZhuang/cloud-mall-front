@@ -512,9 +512,6 @@ export default {
       }
     }
   },
-  mounted () {
-    console.log(this.webInfo, 'webInfo')
-  },
   methods: {
     isWhite (path) {
       return this.whiteList.includes(path)

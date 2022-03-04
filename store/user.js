@@ -11,7 +11,7 @@ export const state = () => ({
     autoLogin: false
   },
   redirectPath: '',
-  allConfig: ''
+  allConfig: {}
 })
 
 // getters
@@ -53,7 +53,7 @@ export const mutations = {
   },
   // 保存所有全局配置信息（除基本设置）
   saveAllConfig (state, payload) {
-    state.allConfig = payload
+    state.allConfig = { ...payload }
   }
 }
 
