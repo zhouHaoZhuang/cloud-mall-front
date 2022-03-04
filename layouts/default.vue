@@ -34,6 +34,27 @@ export default {
   data () {
     return {}
   },
+  async fetch () {
+    const webInfoData = await this.$api.home.getWebInfo()
+    const companyInfoData = await this.$api.home.getCompanyInfo()
+    let data = {}
+    let webInfoDataList = {}
+    let companyInfoDataList = {}
+    if (webInfoData.data) {
+      webInfoDataList = webInfoData.data.list ? webInfoData.data.list[0] : {}
+    }
+    if (companyInfoData.data) {
+      companyInfoDataList = companyInfoData.data.list
+        ? companyInfoData.data.list[0]
+        : {}
+    }
+    data = {
+      ...webInfoDataList,
+      ...companyInfoDataList
+    }
+    this.$store.dispatch('home/setWebCompanyInfo', data)
+    this.$store.dispatch('user/getAllConfig')
+  },
   head () {
     return {
       title: this.webInfo.websiteName,
