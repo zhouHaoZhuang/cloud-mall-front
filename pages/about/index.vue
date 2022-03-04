@@ -277,20 +277,18 @@
             友情链接
             <div class="bottom-line" />
           </div>
-          <a
+          <div
             v-for="item in friendLinks"
-            v-show="item.bottomShow !== 2"
             :key="item.id"
-            :href="item.linkUrl"
-            class="item"
-            target="_blank"
+            :class="item.bottomShow !== 2 ? 'item' : 'item-none'"
+            @click="handleJump(item.linkUrl)"
           >
             <img
               v-if="item.bottomShow !== 2"
               :src="item.linkLogo"
               :alt="item.linkName"
             >
-          </a>
+          </div>
         </div>
       </div>
     </div>
@@ -543,6 +541,11 @@ export default {
     // 页码功能
     pageChange () {
       this.getNewsList()
+    },
+    // 友情链接跳转
+    handleJump (url) {
+      const newUrl = url.includes('http') ? url : `http://${url}`
+      window.open(newUrl, '_blank')
     }
   }
 }
@@ -886,7 +889,9 @@ export default {
             height: 100%;
           }
         }
-
+        .item-none {
+          display: none;
+        }
         .item:hover {
           box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
         }
