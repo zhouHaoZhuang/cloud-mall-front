@@ -162,6 +162,7 @@ h2 {
 .typeCentext-html {
   padding: 20px 305px;
   margin-bottom: 60px;
+  color: #000;
   h2 {
     text-align: center;
     font-size: 20px;
