@@ -90,9 +90,12 @@ export default {
     }),
     baiduCode () {
       let str = ''
+      if (!this.webInfo.statisticalCode) {
+        return str
+      }
       const index = this.webInfo.statisticalCode.indexOf('http')
       if (index === -1) {
-        return ''
+        return str
       }
       str = this.webInfo.statisticalCode.substring(index)
       const index1 = str.indexOf('"')
