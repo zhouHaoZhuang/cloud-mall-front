@@ -403,6 +403,7 @@ export default {
     box-shadow: none;
   }
   .eye-icon {
+    color: #bfbfbf;
     font-size: 16px;
     margin-right: 20px;
     cursor: pointer;

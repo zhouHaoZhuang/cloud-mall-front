@@ -92,14 +92,14 @@
         <!-- 登录/注册 -->
         <div v-if="!isLogin" class="btns">
           <div
-            v-show="allConfig && allConfig.enable_login == '1'"
+            v-if="isShowLoginBtn"
             class="btn disembark"
             @click="handleClickJump('/login')"
           >
             登录
           </div>
           <div
-            v-show="allConfig && allConfig.enable_register == '1'"
+            v-if="isShowRegisterBtn"
             class="btn"
             @click="handleClickJump('/register')"
           >
@@ -494,7 +494,13 @@ export default {
       token: state => state.user.token,
       webInfo: state => state.home.webInfo,
       allConfig: state => state.user.allConfig
-    })
+    }),
+    isShowLoginBtn () {
+      return this.allConfig.enable_login * 1 === 1
+    },
+    isShowRegisterBtn () {
+      return this.allConfig.enable_register * 1 === 1
+    }
   },
   watch: {
     $route: {
@@ -503,17 +509,11 @@ export default {
         if (to.path === '/login' && this.allConfig.enable_login !== '1') {
           this.$router.push('/')
         }
-        if (
-          to.path === '/register' &&
-          this.allConfig.enable_register !== '1'
-        ) {
+        if (to.path === '/register' && this.allConfig.enable_register !== '1') {
           this.$router.push('/')
         }
       }
     }
-  },
-  mounted () {
-    console.log(this.webInfo, 'webInfo')
   },
   methods: {
     isWhite (path) {

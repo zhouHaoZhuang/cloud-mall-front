@@ -1,5 +1,15 @@
 import Vue from 'vue'
-import Antd, { Icon } from 'ant-design-vue/lib'
+import {
+  Icon,
+  Button,
+  FormModel,
+  Input,
+  Tooltip,
+  Select,
+  Spin,
+  Carousel,
+  message
+} from 'ant-design-vue'
 import VueClipboard from 'vue-clipboard2'
 import VueScrollTo from 'vue-scrollto'
 // 自定义字体图标
@@ -20,7 +30,16 @@ const options = {
   y: true
 }
 
-Vue.use(Antd)
+Vue.use(Button)
+Vue.use(FormModel)
+Vue.use(Input)
+Vue.use(Tooltip)
+Vue.use(Select)
+Vue.use(Spin)
+Vue.use(Carousel)
+Vue.use(Icon)
 Vue.component('Iconfont', iconfont) // 注册组件
 Vue.use(VueClipboard)
 Vue.use(VueScrollTo, options)
+// 全局挂在message组件
+Vue.prototype.$message = message
