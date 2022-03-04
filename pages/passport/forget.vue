@@ -361,6 +361,7 @@ export default {
     box-shadow: none;
   }
   .eye-icon {
+    color: #bfbfbf;
     font-size: 16px;
     margin-right: 20px;
     cursor: pointer;
@@ -397,6 +398,9 @@ export default {
             .info-icon {
               font-size: 16px;
               margin-right: 5px;
+            }
+            span {
+              color: #bfbfbf;
             }
           }
         }

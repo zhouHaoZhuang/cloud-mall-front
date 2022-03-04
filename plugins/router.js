@@ -58,6 +58,7 @@ export default ({ app, redirect, params, query, store, req }) => {
   // 插件全局后置守卫
   app.router.afterEach((to, from) => {
     try {
+      console.log('百度统计代码', window._hmt)
       window._hmt = window._hmt || []
       window._hmt.push(['_trackPageview', to.fullPath])
     } catch (e) {}

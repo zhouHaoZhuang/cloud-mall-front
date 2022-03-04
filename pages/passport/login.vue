@@ -33,16 +33,20 @@
                 />
               </a-form-model-item>
               <a-form-model-item prop="password">
-                <a-input-password
+                <a-input
                   v-model="form.password"
+                  type="password"
                   placeholder="请输入登录密码"
                 />
               </a-form-model-item>
             </a-form-model>
             <div class="auto-login">
               <div class="left">
-                <input v-model="form.autoLogin" type="checkbox">
-                <span>下次自动登录</span>
+                <!-- <input v-model="form.autoLogin" type="checkbox">
+                <span>下次自动登录</span> -->
+                <nuxt-link to="/register">
+                  免费注册
+                </nuxt-link>
               </div>
               <nuxt-link to="/forget">
                 忘记密码？
@@ -57,11 +61,6 @@
             >
               登录
             </a-button>
-            <div class="register">
-              <nuxt-link to="/register">
-                免费注册
-              </nuxt-link>
-            </div>
           </div>
         </div>
       </div>
@@ -264,7 +263,8 @@ export default {
           margin-top: 8px;
           .ant-input {
             width: 100%;
-            height: 100%;
+            height: 40px;
+            border-radius: 0;
             outline: none;
             border: 0;
             font-size: 14px;

@@ -403,6 +403,7 @@ export default {
     box-shadow: none;
   }
   .eye-icon {
+    color: #bfbfbf;
     font-size: 16px;
     margin-right: 20px;
     cursor: pointer;
@@ -440,6 +441,9 @@ export default {
               font-size: 16px;
               margin-right: 5px;
             }
+            span {
+              color: #bfbfbf;
+            }
           }
         }
         > input {
@@ -473,6 +477,7 @@ export default {
         span {
           font-size: 14px;
           margin-left: 6px;
+          color: #bfbfbf;
         }
       }
       .btn {
@@ -489,6 +494,7 @@ export default {
         text-align: center;
         span {
           font-size: 14px;
+          color: #bfbfbf;
         }
       }
     }

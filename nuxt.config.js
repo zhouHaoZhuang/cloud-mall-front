@@ -1,3 +1,4 @@
+import path from 'path'
 import router from './router/index'
 export default {
   server: {
@@ -10,11 +11,17 @@ export default {
   head: {
     title: 'ydidc-mall',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'zh-CN'
     },
     meta: [
       { charset: 'utf-8' },
-      { name: 'format-detection', content: 'telephone=no' }
+      { name: 'format-detection', content: 'telephone=no' },
+      { 'http-equiv': 'pragram', content: 'no-cache' },
+      {
+        'http-equiv': 'cache-control',
+        content: 'no-cache, no-store, must-revalidate'
+      },
+      { 'http-equiv': 'expires', content: '0' }
     ],
     script: [
       {
@@ -25,9 +32,8 @@ export default {
     // link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
     // script: [{ src: 'js/isMobile.js' }]
     // link: [
-    //   { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-    //   { rel: 'stylesheet', href: '外部链接' }
-    // ],
+    //   { rel: 'stylesheet', href: '/assets/css/base.css' }
+    // ]
   },
 
   // middleware
@@ -42,8 +48,8 @@ export default {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     'assets/css/base.css',
-    'assets/css/transition.css',
-    'ant-design-vue/dist/antd.css'
+    'assets/css/transition.css'
+    // 'ant-design-vue/dist/antd.css'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -108,6 +114,40 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    // transpile: [/^antd-ui/]
+    transpile: ['ant-design-vue'],
+    // 打包信息
+    // analyze: true,
+    extractCSS: { allChunks: true },
+    // 按需引入ui组件
+    babel: {
+      plugins: [
+        [
+          'import',
+          {
+            libraryName: 'ant-design-vue',
+            libraryDirectory: 'es',
+            style: 'css'
+          }
+        ]
+      ]
+    },
+    // 按需引入ui组件的icon
+    extend (config) {
+      config.resolve.alias['@ant-design/icons/lib/dist$'] = path.resolve(
+        __dirname,
+        './plugins/antd-icons.js'
+      )
+    },
+    filenames: {
+      app: ({ isDev }) => (isDev ? '[name].js' : '[contenthash].js'),
+      chunk: ({ isDev }) => (isDev ? '[name].js' : '[contenthash].js'),
+      css: ({ isDev }) => (isDev ? '[name].css' : '[contenthash].css'),
+      img: ({ isDev }) =>
+        isDev ? '[path][name].[ext]' : 'img/[contenthash:7].[ext]',
+      font: ({ isDev }) =>
+        isDev ? '[path][name].[ext]' : 'fonts/[contenthash:7].[ext]',
+      video: ({ isDev }) =>
+        isDev ? '[path][name].[ext]' : 'videos/[contenthash:7].[ext]'
+    }
   }
 }
