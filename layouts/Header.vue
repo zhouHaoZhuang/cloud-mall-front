@@ -92,14 +92,14 @@
         <!-- 登录/注册 -->
         <div v-if="!isLogin" class="btns">
           <div
-            v-show="allConfig && allConfig.enable_login == '1'"
+            v-show="allConfig.enable_login === '1'"
             class="btn disembark"
             @click="handleClickJump('/login')"
           >
             登录
           </div>
           <div
-            v-show="allConfig && allConfig.enable_register == '1'"
+            v-show="allConfig.enable_register === '1'"
             class="btn"
             @click="handleClickJump('/register')"
           >
