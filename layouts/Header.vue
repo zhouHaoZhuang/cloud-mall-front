@@ -68,10 +68,10 @@
           </a>
         </div>
       </div>
+      {{ allConfig.enable_login }}
+      {{ allConfig.enable_register }}
       <!-- login -->
       <div class="login">
-        {{ allConfig.enable_login }}
-        {{ allConfig.enable_register }}
         <!-- 语言 -->
         <!-- <div class="language">
           <div class="select">
