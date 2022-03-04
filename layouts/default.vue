@@ -53,7 +53,8 @@ export default {
       ...companyInfoDataList
     }
     this.$store.dispatch('home/setWebCompanyInfo', data)
-    this.$store.dispatch('user/getAllConfig')
+    const config = await this.$api.user.getAllConfig()
+    this.$store.dispatch('user/getAllConfig', config.data)
   },
   head () {
     return {
