@@ -88,10 +88,8 @@ export const actions = {
     })
   },
   // 获取全局配置
-  getAllConfig ({ commit, state }) {
-    this.$api.user.getAllConfig().then((config) => {
-      commit('saveAllConfig', config.data)
-    })
+  saveAllConfig ({ commit, state }, data) {
+    commit('saveAllConfig', data)
   },
   // 退出登录
   logOut ({ commit, state }) {
