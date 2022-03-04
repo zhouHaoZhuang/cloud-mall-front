@@ -33,8 +33,9 @@
                 />
               </a-form-model-item>
               <a-form-model-item prop="password">
-                <a-input-password
+                <a-input
                   v-model="form.password"
+                  type="password"
                   placeholder="请输入登录密码"
                 />
               </a-form-model-item>
@@ -262,7 +263,8 @@ export default {
           margin-top: 8px;
           .ant-input {
             width: 100%;
-            height: 100%;
+            height: 40px;
+            border-radius: 0;
             outline: none;
             border: 0;
             font-size: 14px;

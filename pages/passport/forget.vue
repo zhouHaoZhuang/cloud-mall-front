@@ -398,6 +398,9 @@ export default {
               font-size: 16px;
               margin-right: 5px;
             }
+            span {
+              color: #bfbfbf;
+            }
           }
         }
         > input {
