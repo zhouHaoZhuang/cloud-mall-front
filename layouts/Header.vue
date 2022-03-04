@@ -68,8 +68,6 @@
           </a>
         </div>
       </div>
-      {{ allConfig.enable_login }}
-      {{ allConfig.enable_register }}
       <!-- login -->
       <div class="login">
         <!-- 语言 -->
