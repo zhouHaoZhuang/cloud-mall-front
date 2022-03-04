@@ -1,3 +1,4 @@
+import path from 'path'
 import router from './router/index'
 export default {
   server: {
@@ -47,8 +48,8 @@ export default {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     'assets/css/base.css',
-    'assets/css/transition.css',
-    'ant-design-vue/dist/antd.css'
+    'assets/css/transition.css'
+    // 'ant-design-vue/dist/antd.css'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -113,9 +114,30 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    // transpile: [/^antd-ui/]
-    // analyze: true,
+    transpile: ['ant-design-vue'],
+    // 打包信息
+    analyze: true,
     extractCSS: { allChunks: true },
+    // 按需引入ui组件
+    babel: {
+      plugins: [
+        [
+          'import',
+          {
+            libraryName: 'ant-design-vue',
+            libraryDirectory: 'es',
+            style: 'css'
+          }
+        ]
+      ]
+    },
+    // 按需引入ui组件的icon
+    extend (config) {
+      config.resolve.alias['@ant-design/icons/lib/dist$'] = path.resolve(
+        __dirname,
+        './plugins/antd-icons.js'
+      )
+    },
     filenames: {
       app: ({ isDev }) => (isDev ? '[name].js' : '[contenthash].js'),
       chunk: ({ isDev }) => (isDev ? '[name].js' : '[contenthash].js'),

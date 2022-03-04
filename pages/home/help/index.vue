@@ -104,6 +104,7 @@ export default {
         text-align: center;
         line-height: 60px;
         border-radius: 30px;
+        color: #333;
       }
       .search {
         position: absolute;
