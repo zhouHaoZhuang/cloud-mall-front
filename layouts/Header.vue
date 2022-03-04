@@ -512,6 +512,9 @@ export default {
       }
     }
   },
+  mounted () {
+    console.log(this.allConfig, 'allConfig')
+  },
   methods: {
     isWhite (path) {
       return this.whiteList.includes(path)
