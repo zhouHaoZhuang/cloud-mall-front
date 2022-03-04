@@ -8,6 +8,7 @@ import {
   Select,
   Spin,
   Carousel,
+  Checkbox,
   message
 } from 'ant-design-vue'
 import VueClipboard from 'vue-clipboard2'
@@ -37,6 +38,7 @@ Vue.use(Tooltip)
 Vue.use(Select)
 Vue.use(Spin)
 Vue.use(Carousel)
+Vue.use(Checkbox)
 Vue.use(Icon)
 Vue.component('Iconfont', iconfont) // 注册组件
 Vue.use(VueClipboard)
