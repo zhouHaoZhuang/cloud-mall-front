@@ -53,11 +53,6 @@ export default {
       default: () => {}
     }
   },
-  computed: {
-    ...mapState({
-      webInfo: state => state.home.webInfo
-    })
-  },
   data () {
     return {
       bannerData: {
@@ -108,11 +103,14 @@ export default {
       typeId: 4
     }
   },
+  computed: {
+    ...mapState({
+      webInfo: state => state.home.webInfo
+    })
+  },
   mounted () {
     // 获取数据
     this.getBanner()
-    // 获取网站信息
-    this.getWebInfo()
     this.bannerData.choose[0].describe =
       this.bannerData.choose[0].describe.replace('浙江云盾', this.webInfo.title)
     this.bannerData.home[0].title = this.bannerData.home[0].title.replace(
@@ -138,24 +136,6 @@ export default {
             })
           })
       }
-    },
-    // 获取网站信息
-    async getWebInfo () {
-      // 获取友情链接
-      const linksData = await this.$api.home.getFriendLink()
-      this.$store.dispatch('home/setFriendLinks', linksData.data?.list || [])
-      // 获取网站信息+公司信息
-      const webInfoData = await this.$api.home.getWebInfo()
-      const companyInfoData = await this.$api.home.getCompanyInfo()
-      let resultData = {}
-      const newArr = [
-        ...(webInfoData.data?.list || []),
-        ...(companyInfoData.data?.list || [])
-      ]
-      newArr.forEach((item) => {
-        resultData = { ...resultData, ...item }
-      })
-      this.$store.dispatch('home/setWebCompanyInfo', resultData)
     },
     // 点击跳转
     handleClickJump (path) {

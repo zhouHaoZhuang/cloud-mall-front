@@ -88,8 +88,8 @@ export const actions = {
     })
   },
   // 获取全局配置
-  getAllConfig ({ commit, state }, payload) {
-    commit('saveAllConfig', payload)
+  saveAllConfig ({ commit, state }, data) {
+    commit('saveAllConfig', data)
   },
   // 退出登录
   logOut ({ commit, state }) {

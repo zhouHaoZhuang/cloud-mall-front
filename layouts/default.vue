@@ -35,26 +35,24 @@ export default {
     return {}
   },
   async fetch () {
+    // 获取友情链接
+    const linksData = await this.$api.home.getFriendLink()
+    this.$store.dispatch('home/setFriendLinks', linksData.data?.list || [])
+    // 获取网站信息+公司信息
     const webInfoData = await this.$api.home.getWebInfo()
     const companyInfoData = await this.$api.home.getCompanyInfo()
-    let data = {}
-    let webInfoDataList = {}
-    let companyInfoDataList = {}
-    if (webInfoData.data) {
-      webInfoDataList = webInfoData.data.list ? webInfoData.data.list[0] : {}
-    }
-    if (companyInfoData.data) {
-      companyInfoDataList = companyInfoData.data.list
-        ? companyInfoData.data.list[0]
-        : {}
-    }
-    data = {
-      ...webInfoDataList,
-      ...companyInfoDataList
-    }
-    this.$store.dispatch('home/setWebCompanyInfo', data)
-    const config = await this.$api.user.getAllConfig()
-    this.$store.dispatch('user/getAllConfig', config.data)
+    let resultData = {}
+    const newArr = [
+      ...(webInfoData.data?.list || []),
+      ...(companyInfoData.data?.list || [])
+    ]
+    newArr.forEach((item) => {
+      resultData = { ...resultData, ...item }
+    })
+    this.$store.dispatch('home/setWebCompanyInfo', resultData)
+    // 获取全局配置
+    const allConfigData = await this.$api.user.getAllConfig()
+    this.$store.dispatch('user/saveAllConfig', allConfigData.data)
   },
   head () {
     return {
@@ -91,9 +89,12 @@ export default {
     }),
     baiduCode () {
       let str = ''
+      if (!this.webInfo.statisticalCode) {
+        return str
+      }
       const index = this.webInfo.statisticalCode.indexOf('http')
       if (index === -1) {
-        return ''
+        return str
       }
       str = this.webInfo.statisticalCode.substring(index)
       const index1 = str.indexOf('"')
