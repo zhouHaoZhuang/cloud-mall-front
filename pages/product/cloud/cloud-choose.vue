@@ -593,7 +593,7 @@ export default {
   color: #333;
 }
 .adv-wrap ul li {
-  width: 380px;
+  width: 366px;
   height: 310px;
   float: left;
   padding: 50px;
