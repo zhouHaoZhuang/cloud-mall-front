@@ -65,7 +65,7 @@
                 <div class="label">
                   联系地址：
                 </div>
-                <div class="value">
+                <div class="value address">
                   {{ webInfo.companyAddress }}
                 </div>
               </div>
@@ -408,9 +408,9 @@ export default {
               .value {
                 flex: 1;
                 color: #fff;
-                overflow: hidden;
-                white-space: nowrap;
-                text-overflow: ellipsis;
+              }
+              .address{
+                word-wrap: break-word
               }
             }
             .list-outerChain {
