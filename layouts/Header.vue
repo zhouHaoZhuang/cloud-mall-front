@@ -70,6 +70,8 @@
       </div>
       <!-- login -->
       <div class="login">
+        {{ allConfig.enable_login }}
+        {{ allConfig.enable_register }}
         <!-- 语言 -->
         <!-- <div class="language">
           <div class="select">
@@ -92,14 +94,14 @@
         <!-- 登录/注册 -->
         <div v-if="!isLogin" class="btns">
           <div
-            v-if="allConfig['enable_login'] === '1'"
+            v-if="isShowLoginBtn"
             class="btn disembark"
             @click="handleClickJump('/login')"
           >
-            登录{{ allConfig['enable_login'] }}
+            登录
           </div>
           <div
-            v-if="allConfig['enable_register'] === '1'"
+            v-if="isShowRegisterBtn"
             class="btn"
             @click="handleClickJump('/register')"
           >
@@ -494,7 +496,13 @@ export default {
       token: state => state.user.token,
       webInfo: state => state.home.webInfo,
       allConfig: state => state.user.allConfig
-    })
+    }),
+    isShowLoginBtn () {
+      return this.allConfig.enable_login * 1 === 1
+    },
+    isShowRegisterBtn () {
+      return this.allConfig.enable_register * 1 === 1
+    }
   },
   watch: {
     $route: {
@@ -508,9 +516,6 @@ export default {
         }
       }
     }
-  },
-  mounted () {
-    console.log(this.allConfig, 'allConfig')
   },
   methods: {
     isWhite (path) {
