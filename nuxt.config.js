@@ -116,7 +116,7 @@ export default {
   build: {
     transpile: ['ant-design-vue'],
     // 打包信息
-    analyze: true,
+    // analyze: true,
     extractCSS: { allChunks: true },
     // 按需引入ui组件
     babel: {
