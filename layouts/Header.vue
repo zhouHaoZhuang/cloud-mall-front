@@ -92,14 +92,14 @@
         <!-- 登录/注册 -->
         <div v-if="!isLogin" class="btns">
           <div
-            v-show="allConfig.enable_login === '1'"
+            v-if="allConfig['enable_login'] === '1'"
             class="btn disembark"
             @click="handleClickJump('/login')"
           >
-            登录
+            登录{{ allConfig['enable_login'] }}
           </div>
           <div
-            v-show="allConfig.enable_register === '1'"
+            v-if="allConfig['enable_register'] === '1'"
             class="btn"
             @click="handleClickJump('/register')"
           >
@@ -503,10 +503,7 @@ export default {
         if (to.path === '/login' && this.allConfig.enable_login !== '1') {
           this.$router.push('/')
         }
-        if (
-          to.path === '/register' &&
-          this.allConfig.enable_register !== '1'
-        ) {
+        if (to.path === '/register' && this.allConfig.enable_register !== '1') {
           this.$router.push('/')
         }
       }
