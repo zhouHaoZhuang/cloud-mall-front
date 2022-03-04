@@ -115,6 +115,7 @@ export default {
   build: {
     // transpile: [/^antd-ui/]
     // analyze: true,
+    extractCSS: { allChunks: true },
     filenames: {
       app: ({ isDev }) => (isDev ? '[name].js' : '[contenthash].js'),
       chunk: ({ isDev }) => (isDev ? '[name].js' : '[contenthash].js'),
