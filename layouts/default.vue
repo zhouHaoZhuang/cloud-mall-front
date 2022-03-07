@@ -35,24 +35,26 @@ export default {
     return {}
   },
   async fetch () {
-    // 获取友情链接
-    const linksData = await this.$api.home.getFriendLink()
-    this.$store.dispatch('home/setFriendLinks', linksData.data?.list || [])
-    // 获取网站信息+公司信息
-    const webInfoData = await this.$api.home.getWebInfo()
-    const companyInfoData = await this.$api.home.getCompanyInfo()
-    let resultData = {}
-    const newArr = [
-      ...(webInfoData.data?.list || []),
-      ...(companyInfoData.data?.list || [])
-    ]
-    newArr.forEach((item) => {
-      resultData = { ...resultData, ...item }
-    })
-    this.$store.dispatch('home/setWebCompanyInfo', resultData)
-    // 获取全局配置
-    const allConfigData = await this.$api.user.getAllConfig()
-    this.$store.dispatch('user/saveAllConfig', allConfigData.data)
+    if (this.$store.state.user.windowHref) {
+      // 获取友情链接
+      const linksData = await this.$api.home.getFriendLink()
+      this.$store.dispatch('home/setFriendLinks', linksData.data?.list || [])
+      // 获取网站信息+公司信息
+      const webInfoData = await this.$api.home.getWebInfo()
+      const companyInfoData = await this.$api.home.getCompanyInfo()
+      let resultData = {}
+      const newArr = [
+        ...(webInfoData.data?.list || []),
+        ...(companyInfoData.data?.list || [])
+      ]
+      newArr.forEach((item) => {
+        resultData = { ...resultData, ...item }
+      })
+      this.$store.dispatch('home/setWebCompanyInfo', resultData)
+      // 获取全局配置
+      const allConfigData = await this.$api.user.getAllConfig()
+      this.$store.dispatch('user/saveAllConfig', allConfigData.data)
+    }
   },
   head () {
     return {
