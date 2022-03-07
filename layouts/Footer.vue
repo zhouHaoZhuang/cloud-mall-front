@@ -292,10 +292,9 @@ export default {
     },
     webInfo: {
       handler (newVal) {
-        console.log(newVal, '-------')
         this.linkList[0].title = this.linkList[0].title.replace(
           '浙江云盾',
-          this.webInfo.title || ''
+          newVal.title || ''
         )
       },
       immediate: true
