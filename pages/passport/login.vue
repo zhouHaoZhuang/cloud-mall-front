@@ -37,6 +37,7 @@
                   v-model="form.password"
                   type="password"
                   placeholder="请输入登录密码"
+                  @pressEnter="handleLoginBefore"
                 />
               </a-form-model-item>
             </a-form-model>
