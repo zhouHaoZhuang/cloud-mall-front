@@ -1,7 +1,7 @@
 // 请求地址头
 const baseUrl = {
   local: 'http://site.sailayun.com/ims',
-  dev: 'http://site.ydidc.com/ims',
+  dev: 'http://site.sailayun.com/ims',
   test: 'http://site.zjyundun.com/ims',
   prod: 'http://site.slayun.com/ims'
 }
