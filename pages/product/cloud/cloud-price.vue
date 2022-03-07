@@ -270,9 +270,9 @@
           </div>
           <div class="choose-value">
             <div class="system">
-              <a-input
+              <a-input-password
                 v-model="form.password"
-                type="password"
+                v-password-input
                 :max-length="30"
                 class="password-input"
               />
@@ -297,9 +297,9 @@
           </div>
           <div class="choose-value">
             <div class="system">
-              <a-input
+              <a-input-password
                 v-model="form.okPassword"
-                type="password"
+                v-password-input
                 :max-length="30"
                 class="password-input"
               />
@@ -484,7 +484,7 @@ export default {
       const cpuData = [...setCpuOrDiskData(cpu.data, '核')]
       // console.log('cpu数据', cpu, cpuData)
       // 生成获取内存/询价/购买时，cpu和内存的参数/可能会别的页面跳转
-      const newCpu = query.cpu ? query.cpu : cpuData[0]?.value
+      const newCpu = query.cpu ? query.cpu * 1 : cpuData[0]?.value
       // 获取内存数据
       const disk = await app.$api.cloud.getAddressDisk({
         regionId: selectAddressId,
@@ -1164,12 +1164,12 @@ export default {
             .password-input {
               width: 280px;
               height: 35px;
-              border-radius: 2px;
-              &:hover,
-              &:focus {
-                border: 1px solid #d9d9d9;
-                box-shadow: none;
-              }
+              // border-radius: 2px;
+              // &:hover,
+              // &:focus {
+              //   border: 1px solid #d9d9d9;
+              //   box-shadow: none;
+              // }
             }
           }
           // 数量
