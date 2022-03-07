@@ -53,10 +53,10 @@
           </li>
           <li>
             <div class="adv-icon adv-icon-7" />
-            <div class="adv-title">
+            <div class="adv-title title-line-height">
               纯SSD架构配备至强硬件
             </div>
-            <div class="adv-content">
+            <div class="adv-content margin-top14">
               搭建纯SSD架构的高性能企业级云服务器，同时采用Intel Haswell
               CPU、高频DDR4内存、高速Sas3
               SSD闪存作为底层硬件配置，分钟级响应速度。
@@ -545,14 +545,16 @@ export default {
       ]
     }
   },
+  mounted () {
+    this.application[3].contentTwo =
+      this.application[3].contentTwo.replace('浙江云盾', this.webInfo.title) ||
+      ''
+    console.log(this.application[3].contentTwo)
+  },
   methods: {
     changeCurId (item) {
       this.curId = item
     }
-  },
-  mounted(){
-    this.application[3].contentTwo = this.application[3].contentTwo.replace('浙江云盾',this.webInfo.title)||''
-    console.log( this.application[3].contentTwo);
   },
   computed: {
     ...mapState({
@@ -608,6 +610,7 @@ export default {
     letter-spacing: 0px;
     text-align: center;
     margin: 30px 0 20px;
+    line-height: 1;
   }
   .adv-content {
     font-size: 14px;
@@ -617,6 +620,12 @@ export default {
     letter-spacing: 0px;
     line-height: 24px;
     color: #778699;
+  }
+  .title-line-height {
+    margin-bottom: 0;
+  }
+  .margin-top14 {
+    margin-top: 14px;
   }
   .adv-icon {
     width: 60px;
