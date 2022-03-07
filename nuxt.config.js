@@ -9,7 +9,7 @@ export default {
     NODE_ENV: process.env.NODE_ENV
   },
   head: {
-    title: 'ydidc-mall',
+    title: '云商城',
     htmlAttrs: {
       lang: 'zh-CN'
     },

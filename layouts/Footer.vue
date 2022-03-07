@@ -289,13 +289,17 @@ export default {
         }
       },
       immediate: true
+    },
+    webInfo: {
+      handler (newVal) {
+        this.linkList[0].title = this.linkList[0].title.replace(
+          '浙江云盾',
+          newVal.title || ''
+        )
+      },
+      immediate: true,
+      deep: true
     }
-  },
-  mounted () {
-    this.linkList[0].title = this.linkList[0].title.replace(
-      '浙江云盾',
-      this.webInfo.title
-    )
   },
   methods: {
     // 跳转外部链接
@@ -409,8 +413,8 @@ export default {
                 flex: 1;
                 color: #fff;
               }
-              .address{
-                word-wrap: break-word
+              .address {
+                word-wrap: break-word;
               }
             }
             .list-outerChain {
