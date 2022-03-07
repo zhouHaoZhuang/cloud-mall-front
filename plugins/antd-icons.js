@@ -54,5 +54,13 @@ export {
   FileTextTwoTone,
   // 向下三角
   CaretDownFill,
-  CaretDownOutline
+  CaretDownOutline,
+  // 实底i
+  ExclamationCircleFill,
+  ExclamationCircleOutline,
+  ExclamationCircleTwoTone,
+  // 实底对号
+  CheckCircleFill,
+  CheckCircleOutline,
+  CheckCircleTwoTone
 } from '@ant-design/icons'
