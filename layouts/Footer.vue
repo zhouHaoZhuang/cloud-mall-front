@@ -297,7 +297,8 @@ export default {
           newVal.title || ''
         )
       },
-      immediate: true
+      immediate: true,
+      deep: true
     }
   },
   methods: {

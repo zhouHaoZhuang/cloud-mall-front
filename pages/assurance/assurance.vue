@@ -61,7 +61,9 @@
             100倍故障赔偿
           </p>
           <p class="title-bottom">
-            {{ webInfo.title }}承诺由于{{ webInfo.title }}故障导致产品无法正常使用，我们将提供100倍的故障时间赔偿让您使用舒心
+            {{ webInfo.title }}承诺由于{{
+              webInfo.title
+            }}故障导致产品无法正常使用，我们将提供100倍的故障时间赔偿让您使用舒心
           </p>
         </div>
         <div class="container">
@@ -168,7 +170,9 @@
                 退款流程
               </div>
               <div class="question-content">
-                用户中心提交退款申请>系统审核通过>款项退至您的{{ webInfo.title }}账户，您可以直接前往用户中心查看
+                用户中心提交退款申请>系统审核通过>款项退至您的{{
+                  webInfo.title
+                }}账户，您可以直接前往用户中心查看
               </div>
             </div>
             <div class="right-text">
@@ -192,7 +196,9 @@
             7X24小时多渠道服务支持
           </p>
           <p class="title-bottom">
-            在您使用{{ webInfo.title }}产品期间遇到任何问题，专业的售后工程师团队为您提供7*24*365技术服务，
+            在您使用{{
+              webInfo.title
+            }}产品期间遇到任何问题，专业的售后工程师团队为您提供7*24*365技术服务，
           </p>
         </div>
         <div class="container">
@@ -358,8 +364,15 @@ export default {
       webInfo: state => state.home.webInfo
     })
   },
-  mounted () {
-    this.typeList[0].content = this.typeList[0].content.replace('浙江云盾', this.webInfo.title) || ''
+  watch: {
+    webInfo: {
+      handler (val) {
+        this.typeList[0].content =
+          this.typeList[0].content.replace('浙江云盾', val.title) || ''
+      },
+      deep: true,
+      immediate: true
+    }
   }
 }
 </script>
