@@ -105,7 +105,7 @@
           <div class="info">
             <div v-if="pwdStatus === 0" class="info-item">
               <Iconfont class="info-icon" type="icon-info" />
-              <span>密码由{{ allConfig.pwd_min_length }}-{{
+              <span>{{ allConfig.pwd_min_length }}-{{
                 allConfig.pwd_max_length
               }}个字符组成，区分大小写</span>
             </div>
