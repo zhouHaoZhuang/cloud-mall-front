@@ -270,9 +270,9 @@
           </div>
           <div class="choose-value">
             <div class="system">
-              <a-input
+              <a-input-password
                 v-model="form.password"
-                type="password"
+                v-password-input
                 :max-length="30"
                 class="password-input"
               />
@@ -297,9 +297,9 @@
           </div>
           <div class="choose-value">
             <div class="system">
-              <a-input
+              <a-input-password
                 v-model="form.okPassword"
-                type="password"
+                v-password-input
                 :max-length="30"
                 class="password-input"
               />
@@ -1164,12 +1164,12 @@ export default {
             .password-input {
               width: 280px;
               height: 35px;
-              border-radius: 2px;
-              &:hover,
-              &:focus {
-                border: 1px solid #d9d9d9;
-                box-shadow: none;
-              }
+              // border-radius: 2px;
+              // &:hover,
+              // &:focus {
+              //   border: 1px solid #d9d9d9;
+              //   box-shadow: none;
+              // }
             }
           }
           // 数量
