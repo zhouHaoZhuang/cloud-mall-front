@@ -98,6 +98,7 @@ export default ({ $axios, redirect, route, store }) => {
       config.headers.domain
     )
     // 查看请求参数
+    console.log('查看consig', config)
     getRequestParams(config)
     return config
   })
