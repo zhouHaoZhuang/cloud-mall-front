@@ -85,7 +85,7 @@ export default {
   // 全局css配置
   styleResources: {
     // 需要添加这个 用来配置全局
-    scss: ['./assets/scss/global.scss']
+    scss: ['./assets/scss/global.scss', './assets/scss/theme.scss']
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
