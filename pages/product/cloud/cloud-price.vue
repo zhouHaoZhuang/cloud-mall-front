@@ -510,7 +510,8 @@ export default {
       // console.log('实例数据', regionList, regionDetail)
       // 获取镜像数据
       const systemList = await app.$api.cloud.systemList({
-        regionId: selectAddressId
+        regionId: selectAddressId,
+        instanceType: regionDetail.instanceTypeId
       })
       // 设置默认选中的系统镜像
       const newSystemList = systemList.data.imageMap
@@ -846,7 +847,7 @@ export default {
         .then((res) => {
           if (res.data && res.data.length > 0) {
             this.form.instanceType = res.data[0].instanceTypeId
-            this.getCloudPrice()
+            this.getSystemData()
           } else {
             this.$message.warning('该地域/内存/CPU下没有实例')
             this.form.tradePrice = '---'
@@ -856,9 +857,21 @@ export default {
     // 获取对应地域的系统镜像
     getSystemData () {
       this.$api.cloud
-        .systemList({ regionId: this.selectAddressId })
+        .systemList({
+          regionId: this.selectAddressId,
+          instanceType: this.form.instanceType
+        })
         .then((res) => {
           this.systemList = res.data.imageMap
+          const newSystemList = res.data.imageMap
+          this.defaultSystem = Object.keys(newSystemList)[0]
+          this.systemEditionList = newSystemList[this.defaultSystem]
+          this.form.imageId =
+            Array.isArray(newSystemList[this.defaultSystem]) &&
+            newSystemList[this.defaultSystem].length > 0
+              ? newSystemList[this.defaultSystem][0].imageId
+              : ''
+          this.getCloudPrice()
         })
     },
     // 修改ssd数据盘
