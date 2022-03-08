@@ -436,7 +436,7 @@ export default {
                   padding: 10px;
                   margin-bottom: 15px;
                   display: none;
-                  .qq-hint{
+                  .qq-hint .right{
                     line-height: 20px;
                   }
                   i {
