@@ -87,7 +87,7 @@
                 <div class="ele">
                   <div class="img-box">
                     <i />
-                    <span>请选择QQ进行咨询</span>
+                    <span class="qq-hint">请选择QQ进行咨询</span>
                     <div class="right">
                       {{ webInfo.qqNumber }}
                     </div>
@@ -436,6 +436,9 @@ export default {
                   padding: 10px;
                   margin-bottom: 15px;
                   display: none;
+                  .qq-hint{
+                    line-height: 20px;
+                  }
                   i {
                     display: inline-block;
                     position: absolute;
