@@ -3,7 +3,7 @@ const baseUrl = {
   local: 'http://site.sailayun.com/ims',
   dev: 'http://site.sailayun.com/ims',
   test: 'http://site.zjyundun.com/ims',
-  prod: 'http://site.slayun.com/ims'
+  prod: 'https://site.slayun.com/ims'
 }
 // 请求头携带domain参数
 const domains = {
