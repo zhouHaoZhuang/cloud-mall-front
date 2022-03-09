@@ -9,8 +9,8 @@ import {
   Spin,
   Carousel,
   Checkbox,
-  message,
-  Pagination
+  Pagination,
+  message
 } from 'ant-design-vue'
 import VueClipboard from 'vue-clipboard2'
 import VueScrollTo from 'vue-scrollto'
@@ -40,6 +40,7 @@ Vue.use(Select)
 Vue.use(Spin)
 Vue.use(Carousel)
 Vue.use(Checkbox)
+Vue.use(Pagination)
 Vue.use(Icon)
 Vue.use(Pagination)
 Vue.component('Iconfont', iconfont) // 注册组件

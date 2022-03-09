@@ -218,7 +218,12 @@
                 @change="handleSystemChange"
               >
                 <a-select-option v-for="(val, key) in systemList" :key="key">
-                  {{ key }}
+                  <a-tooltip placement="top">
+                    <template slot="title">
+                      <span> {{ key }}</span>
+                    </template>
+                    <span> {{ key }}</span>
+                  </a-tooltip>
                 </a-select-option>
               </a-select>
               <a-select
@@ -1169,7 +1174,7 @@ export default {
               }
             }
             .select1 {
-              width: 180px;
+              width: 200px;
             }
             .select2 {
               width: 280px;
