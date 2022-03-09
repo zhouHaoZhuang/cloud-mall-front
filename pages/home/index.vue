@@ -260,14 +260,6 @@ import Banner from '~/components/banner/banner.vue'
 
 export default {
   components: { Banner },
-  // nuxt推荐请求方式
-  async asyncData ({ app, $axios, params, query, req }) {
-    // 获取友情链接
-    const linksData = await app.$api.home.getFriendLink({
-      domain: req.headers.host
-    })
-    console.log('查看reqqqqqqqqqqqqqqqqqqq', req.headers.host, linksData)
-  },
   data () {
     return {
       serviceList: [
