@@ -42,6 +42,7 @@ Vue.use(Carousel)
 Vue.use(Checkbox)
 Vue.use(Pagination)
 Vue.use(Icon)
+Vue.use(Pagination)
 Vue.component('Iconfont', iconfont) // 注册组件
 Vue.use(VueClipboard)
 Vue.use(VueScrollTo, options)
