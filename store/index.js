@@ -22,15 +22,14 @@ export const actions = {
     const token = $cookies.get('token') ? $cookies.get('token') : ''
     store.commit('user/saveToken', token)
     // 获取网站+公司+配置的数据
-    const domain = { domain: req.headers.host }
     // 保存浏览器地址
     store.dispatch('user/setWindowsHref', req.headers.host)
     // 获取友情链接
-    const linksData = await this.$api.home.getFriendLink(domain)
+    const linksData = await this.$api.home.getFriendLink()
     store.dispatch('home/setFriendLinks', linksData.data?.list || [])
     // 获取网站信息+公司信息
-    const webInfoData = await this.$api.home.getWebInfo(domain)
-    const companyInfoData = await this.$api.home.getCompanyInfo(domain)
+    const webInfoData = await this.$api.home.getWebInfo()
+    const companyInfoData = await this.$api.home.getCompanyInfo()
     let resultData = {}
     const newArr = [
       ...(webInfoData.data?.list || []),
@@ -41,7 +40,7 @@ export const actions = {
     })
     store.dispatch('home/setWebCompanyInfo', resultData)
     // 获取全局配置
-    const allConfigData = await this.$api.user.getAllConfig(domain)
+    const allConfigData = await this.$api.user.getAllConfig()
     store.dispatch('user/saveAllConfig', allConfigData.data)
   },
   // 查询列表
