@@ -10,9 +10,12 @@ export default axios => ({
     })
   },
   // 获取全局配置信息
-  getAllConfig () {
+  getAllConfig (params) {
     return axios({
-      url: '/ccConfigRelation/selectCcConfigConfigRelation'
+      url: '/ccConfigRelation/selectCcConfigConfigRelation',
+      params: {
+        ...params
+      }
     })
   },
   // 注册

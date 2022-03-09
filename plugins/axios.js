@@ -63,15 +63,15 @@ function getTenantId (cookie, store) {
   return getCookieObj(cookie).tenantId
 }
 // 如果不是本地开发环境，需要处理请求地址
-function getBaseUrl (cookie, store) {
-  if (process.env.NODE_ENV === 'local') {
-    return env.BASE_URL
-  }
-  if (store.state.user.baseUrl) {
-    return `${store.state.user.baseUrl}${env.BASE_URL}`
-  }
-  return `${getCookieObj(cookie).baseUrl}${env.BASE_URL}`
-}
+// function getBaseUrl (cookie, store) {
+//   if (process.env.NODE_ENV === 'local') {
+//     return env.BASE_URL
+//   }
+//   if (store.state.user.baseUrl) {
+//     return `${store.state.user.baseUrl}${env.BASE_URL}`
+//   }
+//   return `${getCookieObj(cookie).baseUrl}${env.BASE_URL}`
+// }
 
 // 拦截器
 export default ({ $axios, redirect, route, store }) => {
@@ -88,17 +88,18 @@ export default ({ $axios, redirect, route, store }) => {
       config.baseURL = '/map'
     }
     config.headers.token = getToken(cookieToken, store)
+    // const newDomain =
+    //   config.params && config.params.domain ? config.params.domain : ''
     config.headers.domain = getDomainUrl(cookieToken, store)
     config.headers.tenantId = getTenantId(cookieToken, store)
     // 携带system区分不同项目
     config.headers.system = 'idc'
-    console.log(
-      '查看domain',
-      getBaseUrl(cookieToken, store),
-      config.headers.domain
-    )
+    // console.log(
+    //   '查看domain',
+    //   getBaseUrl(cookieToken, store),
+    //   config.headers.domain
+    // )
     // 查看请求参数
-    console.log('查看consig', config)
     getRequestParams(config)
     return config
   })
