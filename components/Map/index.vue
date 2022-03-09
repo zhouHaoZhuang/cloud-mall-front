@@ -23,7 +23,8 @@ export default {
         if (JSON.stringify(newVal) !== '{}') {
           this.getMapLonAndLat()
         }
-      }
+      },
+      immediate: true
     }
   },
   methods: {
