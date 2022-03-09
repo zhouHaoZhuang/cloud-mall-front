@@ -14,7 +14,10 @@
     </h2>
     <client-only>
       <div v-if="!typeCentexthtml">
-        <div v-if="typeCentext.length > 0" class="typeCentext-list">
+        <div
+          v-if="typeCentext && typeCentext.length > 0"
+          class="typeCentext-list"
+        >
           <h3
             v-for="(item, index) in typeCentext"
             :key="index"
@@ -69,6 +72,7 @@ export default {
       // 如果有关键字，则按关键字搜索
       const SearchList = await app.$api.help.getSearchList({ keyWords })
       typeCentext = SearchList.data
+      console.log(typeCentext, 'async按关键字搜索')
     }
     return {
       typeCentext,
