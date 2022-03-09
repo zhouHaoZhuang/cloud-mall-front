@@ -88,6 +88,8 @@ export default ({ $axios, redirect, route, store }) => {
       config.baseURL = '/map'
     }
     config.headers.token = getToken(cookieToken, store)
+    // const newDomain =
+    //   config.params && config.params.domain ? config.params.domain : ''
     config.headers.domain = getDomainUrl(cookieToken, store)
     config.headers.tenantId = getTenantId(cookieToken, store)
     // 携带system区分不同项目
