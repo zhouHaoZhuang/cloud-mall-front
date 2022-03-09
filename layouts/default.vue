@@ -31,31 +31,37 @@ export default {
   //   // console.log('layouts守卫前置守卫')
   //   // redirect('/reg')
   // },
+  // nuxt推荐请求方式
+  async asyncData ({ app, $axios, params, query, req }) {
+    // 获取友情链接
+    const linksData = await app.$api.home.getFriendLink()
+    console.log('查看reqqqqqqqqqqqqqqqqqqq', req, linksData)
+  },
   data () {
     return {}
   },
-  async fetch () {
-    if (this.$store.state.user.windowHref) {
-      // 获取友情链接
-      const linksData = await this.$api.home.getFriendLink()
-      this.$store.dispatch('home/setFriendLinks', linksData.data?.list || [])
-      // 获取网站信息+公司信息
-      const webInfoData = await this.$api.home.getWebInfo()
-      const companyInfoData = await this.$api.home.getCompanyInfo()
-      let resultData = {}
-      const newArr = [
-        ...(webInfoData.data?.list || []),
-        ...(companyInfoData.data?.list || [])
-      ]
-      newArr.forEach((item) => {
-        resultData = { ...resultData, ...item }
-      })
-      this.$store.dispatch('home/setWebCompanyInfo', resultData)
-      // 获取全局配置
-      const allConfigData = await this.$api.user.getAllConfig()
-      this.$store.dispatch('user/saveAllConfig', allConfigData.data)
-    }
-  },
+  // async fetch () {
+  //   if (this.$store.state.user.windowHref) {
+  //     // 获取友情链接
+  //     const linksData = await this.$api.home.getFriendLink()
+  //     this.$store.dispatch('home/setFriendLinks', linksData.data?.list || [])
+  //     // 获取网站信息+公司信息
+  //     const webInfoData = await this.$api.home.getWebInfo()
+  //     const companyInfoData = await this.$api.home.getCompanyInfo()
+  //     let resultData = {}
+  //     const newArr = [
+  //       ...(webInfoData.data?.list || []),
+  //       ...(companyInfoData.data?.list || [])
+  //     ]
+  //     newArr.forEach((item) => {
+  //       resultData = { ...resultData, ...item }
+  //     })
+  //     this.$store.dispatch('home/setWebCompanyInfo', resultData)
+  //     // 获取全局配置
+  //     const allConfigData = await this.$api.user.getAllConfig()
+  //     this.$store.dispatch('user/saveAllConfig', allConfigData.data)
+  //   }
+  // },
   head () {
     return {
       title: this.webInfo.websiteName,
@@ -111,9 +117,9 @@ export default {
     }
   },
   mounted () {
-    if (JSON.stringify(this.webInfo) === '{}') {
-      this.getAllData()
-    }
+    // if (JSON.stringify(this.webInfo) === '{}') {
+    //   this.getAllData()
+    // }
   },
   methods: {
     async getAllData () {

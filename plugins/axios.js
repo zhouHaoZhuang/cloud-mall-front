@@ -80,6 +80,7 @@ export default ({ $axios, redirect, route, store }) => {
   $axios.defaults.timeout = 10000
   // 请求时拦截
   $axios.onRequest((config) => {
+    console.log('查看路由拦截器参数', config.params.domain)
     const cookieToken = config.headers.common.cookie
     // 如果不是本地开发环境，需要处理请求地址
     // config.baseURL = getBaseUrl(cookieToken, store)
@@ -88,7 +89,8 @@ export default ({ $axios, redirect, route, store }) => {
       config.baseURL = '/map'
     }
     config.headers.token = getToken(cookieToken, store)
-    config.headers.domain = getDomainUrl(cookieToken, store)
+    config.headers.domain =
+      config.params.domain || getDomainUrl(cookieToken, store)
     config.headers.tenantId = getTenantId(cookieToken, store)
     // 携带system区分不同项目
     config.headers.system = 'idc'
@@ -98,7 +100,6 @@ export default ({ $axios, redirect, route, store }) => {
       config.headers.domain
     )
     // 查看请求参数
-    console.log('查看consig', config)
     getRequestParams(config)
     return config
   })
