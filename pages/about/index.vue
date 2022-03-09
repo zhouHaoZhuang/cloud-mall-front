@@ -679,6 +679,7 @@ export default {
           }
           .introduce-text {
             font-size: 16px;
+            line-height: 21px;
             font-weight: 500;
             color: #666666;
           }
@@ -713,6 +714,7 @@ export default {
                 .title {
                   font-size: 16px;
                   font-weight: 500;
+                  line-height: 21px;
                   color: #333;
                 }
               }
@@ -940,6 +942,7 @@ export default {
               }
               div:nth-child(2) {
                 margin-left: 15px;
+                line-height: 18px;
               }
             }
             .left {

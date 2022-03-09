@@ -427,10 +427,10 @@ export default {
                 background: url('~/static/img/home/icons-qq.png') no-repeat;
                 position: relative;
                 .img-box {
-                  width: 120px;
+                  width: 145px;
                   height: 120px;
                   position: absolute;
-                  left: -42px;
+                  left: -50px;
                   bottom: 33px;
                   background: #fff;
                   padding: 10px;
@@ -444,7 +444,7 @@ export default {
                     display: inline-block;
                     position: absolute;
                     bottom: -6px;
-                    left: 56px;
+                    left: 64px;
                     width: 0;
                     height: 0;
                     line-height: 0;
@@ -476,6 +476,8 @@ export default {
                 background-position: -40px -86px;
                 .img-box {
                   display: block;
+                  width: 145px;
+                  height: 70px;
                 }
               }
               .ele:nth-child(3) {
