@@ -98,7 +98,7 @@ export default {
     this.listQuery.helpTypeCode = this.$route.query.helpTypeCode
     this.LeveltwoTitle = this.$route.query.LeveltwoTitle
     this.LevelthreeTitle = this.$route.query.LevelthreeTitle
-    if (this.$route.query.keyWords) {
+    if (this.$route.query.keyWords && this.typeCentext !== null) {
       // 如果有关键字，则按关键字搜索
       console.log(this.$route.query.keyWords, '关键字')
       this.getDetail()
