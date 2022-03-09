@@ -260,6 +260,21 @@ import Banner from '~/components/banner/banner.vue'
 
 export default {
   components: { Banner },
+  async asyncData ({ app, $axios, params, query }) {
+    // 获取新闻公告信息
+    const newsData = await app.$api.home.getNewsTypeInfo({
+      pageSize: '3'
+    })
+    const newsList =
+      newsData.data &&
+      Array.isArray(newsData.data.list) &&
+      newsData.data.list.length > 0
+        ? newsData.data.list.filter(item => item.status === 0)
+        : []
+    return {
+      newsList
+    }
+  },
   data () {
     return {
       serviceList: [
@@ -374,98 +389,7 @@ export default {
           content: '中国联通'
         }
       ],
-      newsList: [
-        {
-          newTypeName: '官方公告',
-          mark: '了解官方最新动态',
-          ccNewsResDtos: [
-            {
-              newsTitle: '了解最新资讯了解最新资讯...',
-              modifyTime: '2021-10-10'
-            },
-            {
-              newsTitle: '了解最新资讯了解最新资讯...',
-              modifyTime: '2021-10-10'
-            },
-            {
-              newsTitle: '了解最新资讯了解最新资讯...',
-              modifyTime: '2021-10-10'
-            },
-            {
-              newsTitle: '了解最新资讯了解最新资讯...',
-              modifyTime: '2021-10-10'
-            },
-            {
-              newsTitle: '了解最新资讯了解最新资讯...',
-              modifyTime: '2021-10-10'
-            },
-            {
-              newsTitle: '了解最新资讯了解最新资讯...',
-              modifyTime: '2021-10-10'
-            }
-          ]
-        },
-        {
-          newTypeName: '最新活动',
-          mark: '最新活动等你来抢',
-          ccNewsResDtos: [
-            {
-              newsTitle: '了解最新资讯了解最新资讯...',
-              modifyTime: '2021-10-10'
-            },
-            {
-              newsTitle: '了解最新资讯了解最新资讯...',
-              modifyTime: '2021-10-10'
-            },
-            {
-              newsTitle: '了解最新资讯了解最新资讯...',
-              modifyTime: '2021-10-10'
-            },
-            {
-              newsTitle: '了解最新资讯了解最新资讯...',
-              modifyTime: '2021-10-10'
-            },
-            {
-              newsTitle: '了解最新资讯了解最新资讯...',
-              modifyTime: '2021-10-10'
-            },
-            {
-              newsTitle: '了解最新资讯了解最新资讯...',
-              modifyTime: '2021-10-10'
-            }
-          ]
-        },
-        {
-          newTypeName: '业内新闻',
-          mark: '了解最新业内资讯',
-          ccNewsResDtos: [
-            {
-              newsTitle: '了解最新资讯了解最新资讯...',
-              modifyTime: '2021-10-10'
-            },
-            {
-              newsTitle: '了解最新资讯了解最新资讯...',
-              modifyTime: '2021-10-10'
-            },
-            {
-              newsTitle: '了解最新资讯了解最新资讯...',
-              modifyTime: '2021-10-10'
-            },
-            {
-              newsTitle: '了解最新资讯了解最新资讯...',
-              modifyTime: '2021-10-10'
-            },
-            {
-              newsTitle: '了解最新资讯了解最新资讯...',
-              modifyTime: '2021-10-10'
-            },
-            {
-              newsTitle: '了解最新资讯了解最新资讯...',
-              modifyTime: '2021-10-10'
-            }
-          ]
-        }
-      ],
+      newsList: [],
       choiceList: [
         {
           mark: '稳定',
@@ -555,7 +479,6 @@ export default {
     })
   },
   mounted () {
-    this.getNewsListInfo()
     this.initSwiper()
     this.choiceList[2].content =
       '由于' +
@@ -566,16 +489,6 @@ export default {
       '承诺用户购买云服务器5天内无条件退款，致力为您打造更优良的服务器体验环境'
   },
   methods: {
-    // 获取新闻公告信息
-    async getNewsListInfo () {
-      const newsData = await this.$api.home.getNewsTypeInfo({
-        pageSize: '9999'
-      })
-      this.newsList = newsData.data.list.filter(item => item.status === 0)
-      if (this.newsList.length > 3) {
-        this.newsList = this.newsList.slice(0, 3)
-      }
-    },
     // 解决方案轮播
     initSwiper () {
       this.swiper = new Swiper('.mySwiper', {

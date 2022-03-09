@@ -545,6 +545,11 @@ export default {
       ]
     }
   },
+  computed: {
+    ...mapState({
+      webInfo: state => state.home.webInfo
+    })
+  },
   watch: {
     webInfo: {
       handler () {
@@ -561,11 +566,6 @@ export default {
     changeCurId (item) {
       this.curId = item
     }
-  },
-  computed: {
-    ...mapState({
-      webInfo: state => state.home.webInfo
-    })
   }
 }
 </script>
@@ -872,6 +872,9 @@ export default {
         font-size: 20px;
         color: #333;
         font-weight: bold;
+      }
+      .application-center-bottom {
+        line-height: 20px;
       }
     }
     .application-right {
