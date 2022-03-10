@@ -94,22 +94,24 @@ export default {
     })
   },
   mounted () {
-    this.solutionData.infoList = [this.solutionData.infoList[0].replace(
-      /浙江云盾/g,
-      this.webInfo.title
-    )||'']
+    this.solutionData.infoList = [
+      this.solutionData.infoList[0].replace(
+        /浙江云盾/g,
+        this.webInfo.title || ''
+      )
+    ]
     this.advantageData.list[0].info = this.advantageData.list[0].info.replace(
       '浙江云盾',
-      this.webInfo.title
-    )||''
+      this.webInfo.title || ''
+    )
     this.advantageData.list[1].info = this.advantageData.list[1].info.replace(
       '浙江云盾',
-      this.webInfo.title
-    )||''
+      this.webInfo.title || ''
+    )
     this.advantageData.list[3].info = this.advantageData.list[3].info.replace(
       '浙江云盾',
-      this.webInfo.title
-    )||''
+      this.webInfo.title || ''
+    )
   },
   methods: {
     // 点击跳转

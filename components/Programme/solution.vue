@@ -21,11 +21,19 @@
           >
             {{ item }}
           </p>
-          <div
-            v-if="solutionData.foundbg"
-            class="info-found"
-            :style="`${solutionData.foundbg}`"
-          />
+          <a
+            class="ceshi"
+            target="_blank"
+            :href="`tencent://Message/?Uin=${
+              webInfo.qqNumber || ''
+            }&websiteName=local.edu.com:8888=&Menu=yes`"
+          >
+            <div
+              v-if="solutionData.foundbg"
+              class="info-found"
+              :style="`${solutionData.foundbg}`"
+            />
+          </a>
           <div
             class="info-img"
             :style="`${solutionData.bottombg};${solutionData.bottomwidth}`"
@@ -37,6 +45,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   components: {},
   props: {
@@ -45,6 +55,11 @@ export default {
       default: () => {}
     }
   },
+  computed: {
+    ...mapState({
+      webInfo: state => state.home.webInfo
+    })
+  }
 }
 </script>
 

@@ -12,7 +12,9 @@
           <a
             class="ceshi"
             target="_blank"
-            :href="`http://wpa.qq.com/msgrd?v=3&amp;uin=${webInfo.qqNumber}&amp;site=qq&amp;menu=yes`"
+            :href="`tencent://Message/?Uin=${
+              webInfo.qqNumber || ''
+            }&websiteName=local.edu.com:8888=&Menu=yes`"
           >方案应讯</a>
         </div>
       </div>

@@ -112,10 +112,13 @@ export default {
     // 获取数据
     this.getBanner()
     this.bannerData.choose[0].describe =
-      this.bannerData.choose[0].describe.replace('浙江云盾', this.webInfo.title)
+      this.bannerData.choose[0].describe.replace(
+        '浙江云盾',
+        this.webInfo.title || ''
+      )
     this.bannerData.home[0].title = this.bannerData.home[0].title.replace(
       '浙江云盾',
-      this.webInfo.title
+      this.webInfo.title || ''
     )
   },
   beforeDestroy () {
