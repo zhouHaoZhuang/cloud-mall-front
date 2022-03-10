@@ -679,6 +679,8 @@ export default {
           }
           .introduce-text {
             font-size: 16px;
+            height: 350px;
+            overflow: auto;
             line-height: 21px;
             font-weight: 500;
             color: #666666;
