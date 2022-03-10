@@ -190,10 +190,7 @@
             <p class="about-title">
               关于我们
             </p>
-            <p class="about-content">
-              公司成立于2007年，是国内领先的互联网业务平台服务致力于云计算应用的易用性开发，并引导云计算在国内普及。目前公司研发以及运营云服务基础设施服务平台(laaS)
-              ,面向全球客户提供基于云计算的IT解决方案与客户服务，拥有丰富的国内BGP、双线高防、香港等优质的IDC资源。
-            </p>
+            <p v-if="companyInfo" class="about-content" v-html="companyInfo.context" />
             <div class="about-btn">
               <nuxt-link to="/about/index?tab=0">
                 了解更多 →
@@ -265,6 +262,15 @@ export default {
     const newsData = await app.$api.home.getNewsTypeInfo({
       pageSize: '3'
     })
+    // 获取首页关于我们
+    const companyData = await app.$api.pages.getCompanyPage()
+    console.log(companyData.data.list[0], 'companyData')
+    const companyInfo =
+      companyData.data &&
+      Array.isArray(companyData.data.list) &&
+      companyData.data.list.length > 0
+        ? companyData.data.list[0]
+        : {}
     const newsList =
       newsData.data &&
       Array.isArray(newsData.data.list) &&
@@ -272,7 +278,8 @@ export default {
         ? newsData.data.list.filter(item => item.status === 0)
         : []
     return {
-      newsList
+      newsList,
+      companyInfo
     }
   },
   data () {
@@ -470,7 +477,8 @@ export default {
           content:
             '金融云为客户提供量身定制的云计算服务，IT硬件零投入，云设施运维零维护，高品质保障的售后服务机制，帮助金融用户高效应用云计算服务，是您互联网转型的首选。'
         }
-      ]
+      ],
+      companyInfo: null
     }
   },
   computed: {
@@ -981,7 +989,6 @@ export default {
         }
         .about-content {
           width: 479px;
-          height: 135px;
           font-size: 16px;
           font-family: PingFang SC;
           font-weight: 500;
