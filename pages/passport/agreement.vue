@@ -566,6 +566,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+p {
+  line-height: 26px;
+}
 .black {
   height: 80px;
   background-color: black;
