@@ -124,16 +124,16 @@
                 <DragSlider
                   :value="item.size"
                   :number="item.number"
-                  :min="40"
+                  :min="20"
                   :max="item.number"
                   :on-change="val => changeSsdData(val, index)"
                 />
                 <NumberInput
                   v-model="item.size"
+                  :min="20"
                   :on-change="handleChangeGetPrice"
                 />
                 <a-icon
-                  v-if="!item.default"
                   class="close-icon"
                   type="close"
                   @click="delDisk(index)"
@@ -143,7 +143,9 @@
                 <a-icon class="icon" type="plus" />
                 <div v-if="form.dataDisk" class="txt">
                   还可以添加
-                  <span class="strong"> {{ 4 - form.dataDisk.length }}块 </span>
+                  <span class="strong">
+                    {{ 16 - form.dataDisk.length }}块
+                  </span>
                   磁盘
                 </div>
               </div>
@@ -538,17 +540,7 @@ export default {
         ssdSystem: true, // 系统盘-免费赠送
         // localStorageAmount: regionDetail.localStorageAmount, // 数据盘可添加的总数-默认写死4块
         // 数据盘
-        dataDisk: [
-          {
-            id: -1,
-            // number: 32768,
-            number: 500,
-            default: true,
-            category: 'cloud_essd',
-            performanceLevel: 'PL0',
-            size: 40
-          }
-        ],
+        dataDisk: [],
         internetMaxBandwidthOut: 1, // 公网带宽
         // defense: 20, // 防御峰值
         osName: '', // 系统名称
@@ -787,16 +779,7 @@ export default {
         memory: 1,
         period: 1,
         regionId: item.regionId,
-        dataDisk: [
-          {
-            id: -1,
-            number: 500,
-            default: true,
-            category: 'cloud_essd',
-            performanceLevel: 'PL0',
-            size: 40
-          }
-        ],
+        dataDisk: [],
         internetMaxBandwidthOut: 1,
         tradePrice: '价格计算中...' // 服务器金额
       }
@@ -898,14 +881,18 @@ export default {
     },
     // 添加一块ssd数据盘
     addDisk () {
-      if (this.form.dataDisk.length === 4) {
+      if (this.form.dataDisk.length === 16) {
         return
       }
+      const newId =
+        this.form.dataDisk.length === 0
+          ? -1
+          : this.form.dataDisk[this.form.dataDisk.length - 1].id - 1
       this.form.dataDisk.push({
-        ...this.form.dataDisk[0],
-        id: this.form.dataDisk[0].id - this.form.dataDisk.length,
-        size: 40,
-        default: false
+        id: newId,
+        number: 500,
+        category: 'cloud_ssd',
+        size: 20
       })
       this.handleChangeGetPrice()
     },
@@ -1133,7 +1120,7 @@ export default {
               display: flex;
               margin-bottom: 20px;
               .close-icon {
-                margin-top: 20px;
+                margin-top: 11px;
                 margin-left: 15px;
                 cursor: pointer;
               }
