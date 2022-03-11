@@ -282,19 +282,29 @@
                 v-password-input
                 :max-length="30"
                 class="password-input"
+                @change="inputChangeOrBlur('password')"
+                @blur="inputChangeOrBlur('password')"
               />
               <a-tooltip placement="top">
                 <template slot="title">
                   <div>
-                    1、密码长度8-30位，由英文字母、数字和特殊符号组成，且必须包含字母及数字
+                    1、8-30个字符，必须同时包含下面四项中的三项：大写字母、小写字母、数字、和特殊字符
                   </div>
                   <div>
-                    2、特殊符号支持如下_ ( ) ` ~ ! @ # $ % ^ * - + = { } [ ] : ;
-                    , . ? /
+                    2、（仅支持下列特殊字符： ( ) ` ~ ! @ # $ % ^ {{ '&' }} * -
+                    _ + = | { } [ ] : ; ' >
+                    <span v-text="'<'" />
+                    , . ? / ）。
                   </div>
                 </template>
                 <a-icon class="question-icon" type="question-circle" />
               </a-tooltip>
+            </div>
+            <div v-if="passwordStatus === 2" class="password-info">
+              请输入密码
+            </div>
+            <div v-if="passwordStatus === 3" class="password-info">
+              密码格式不正确
             </div>
           </div>
         </div>
@@ -309,7 +319,15 @@
                 v-password-input
                 :max-length="30"
                 class="password-input"
+                @change="inputChangeOrBlur('okPassword')"
+                @blur="inputChangeOrBlur('okPassword')"
               />
+            </div>
+            <div v-if="okPasswordStatus === 2" class="password-info">
+              请输入确认密码
+            </div>
+            <div v-if="okPasswordStatus === 3" class="password-info">
+              两次密码不一致
             </div>
           </div>
         </div>
@@ -702,8 +720,23 @@ export default {
       ],
       // 单个实例
       regionDetail: {},
+      passwordStatus: 1,
+      okPasswordStatus: 1,
       // 校验密码正则
-      pwdReg: /(?=.*[0-9])(?=.*[a-z]).{8,30}/
+      // 必须包含大写字母，小写字母，数字，特殊字符
+      pwdReg:
+        /^.*(?=.{8,})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[()`~!@#$%^&*-_+=|{}][:;'><,.?/]).*$/,
+      // 必须包含大写字母，小写字母，数字
+      pwdReg1: /^.*(?=.{8,})(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).*$/,
+      // 必须包含大写字母，小写字母，特殊字符
+      pwdReg2:
+        /^.*(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[()`~!@#$%^&*-_+=|{}][:;'><,.?/]).*$/,
+      // 必须包含大写字母，数字，特殊字符
+      pwdReg3:
+        /^.*(?=.{8,})(?=.*\d)(?=.*[A-Z])(?=.*[()`~!@#$%^&*-_+=|{}][:;'><,.?/]).*$/,
+      // 必须包含小写字母，数字，特殊字符
+      pwdReg4:
+        /^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[()`~!@#$%^&*-_+=|{}][:;'><,.?/]).*$/
     }
   },
   computed: {
@@ -913,6 +946,43 @@ export default {
     handleChangeGetPrice () {
       this.getCloudPrice()
     },
+    validatePass () {
+      const value = this.form.password
+      if (!value) {
+        this.passwordStatus = 2
+      } else {
+        if (
+          !(
+            this.pwdReg1.test(value) ||
+            this.pwdReg2.test(value) ||
+            this.pwdReg3.test(value) ||
+            this.pwdReg4.test(value)
+          )
+        ) {
+          this.passwordStatus = 3
+        } else {
+          this.passwordStatus = 1
+        }
+      }
+    },
+    validatePass2 () {
+      const value = this.form.okPassword
+      if (!value) {
+        this.okPasswordStatus = 2
+      } else if (value !== this.form.password) {
+        this.okPasswordStatus = 3
+      } else {
+        this.okPasswordStatus = 1
+      }
+    },
+    // 密码输入框+确认密码输入框change+blur事件
+    inputChangeOrBlur (type) {
+      if (type === 'password') {
+        this.validatePass()
+      } else {
+        this.validatePass2()
+      }
+    },
     // 系统镜像-系统change
     handleSystemChange (val) {
       this.systemEditionList = this.systemList[val].map((item) => {
@@ -992,6 +1062,10 @@ export default {
 
 <style lang="scss" scoped>
 .cloud-price-container {
+  .password-info {
+    color: red;
+    margin-top: 6px;
+  }
   // 轮播图
   .banner-wrap {
     width: 100%;
