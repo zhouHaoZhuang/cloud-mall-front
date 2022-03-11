@@ -1010,6 +1010,11 @@ export default {
           color: #333;
           margin-bottom: 50px;
           line-height: 30px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 6;
+          -webkit-box-orient: vertical;
         }
         .about-btn {
           width: 120px;
