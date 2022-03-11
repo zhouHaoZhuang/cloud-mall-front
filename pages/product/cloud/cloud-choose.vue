@@ -578,6 +578,15 @@ export default {
       immediate: true
     }
   },
+  created () {
+    // 仅作调试使用---start
+    // 获取网站信息+公司信息
+    this.$api.home.getWebInfo()
+    this.$api.home.getCompanyInfo()
+    // 获取全局配置
+    this.$api.user.getAllConfig()
+    // 仅作调试使用---end
+  },
   methods: {
     changeCurId (item) {
       this.curId = item
