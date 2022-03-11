@@ -722,21 +722,9 @@ export default {
       regionDetail: {},
       passwordStatus: 1,
       okPasswordStatus: 1,
-      // 校验密码正则
-      // 必须包含大写字母，小写字母，数字，特殊字符
-      pwdReg:
-        /^.*(?=.{8,})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[()`~!@#$%^&*-_+=|{}][:;'><,.?/]).*$/,
-      // 必须包含大写字母，小写字母，数字
-      pwdReg1: /^.*(?=.{8,})(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).*$/,
-      // 必须包含大写字母，小写字母，特殊字符
-      pwdReg2:
-        /^.*(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[()`~!@#$%^&*-_+=|{}][:;'><,.?/]).*$/,
-      // 必须包含大写字母，数字，特殊字符
-      pwdReg3:
-        /^.*(?=.{8,})(?=.*\d)(?=.*[A-Z])(?=.*[()`~!@#$%^&*-_+=|{}][:;'><,.?/]).*$/,
-      // 必须包含小写字母，数字，特殊字符
-      pwdReg4:
-        /^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[()`~!@#$%^&*-_+=|{}][:;'><,.?/]).*$/
+      // 新的密码校验
+      newReg:
+        /(?!^\d{8-30}$)(?!^[a-zA-Z]{8,30}$)(?!^[0-9a-zA-Z]{8,30}$)^[0-9a-zA-Z()`~!@#$%^&*-_+=|{}[:;'><,.?/]{8,30}$/
     }
   },
   computed: {
@@ -951,14 +939,7 @@ export default {
       if (!value) {
         this.passwordStatus = 2
       } else {
-        if (
-          !(
-            this.pwdReg1.test(value) ||
-            this.pwdReg2.test(value) ||
-            this.pwdReg3.test(value) ||
-            this.pwdReg4.test(value)
-          )
-        ) {
+        if (!this.newReg.exec(value)) {
           this.passwordStatus = 3
         } else {
           this.passwordStatus = 1

@@ -2,7 +2,7 @@
   <div class="about-container">
     <!-- 轮播图 -->
     <div class="banner-wrap">
-      <Banner :type="{ typeName: 'assurance', typeId: 4 }" />
+      <Banner :data="bannerList" />
       <div class="container">
         <div class="tabs">
           <div
@@ -303,7 +303,15 @@ import Map from '@/components/Map'
 export default {
   components: { Statement, Banner, Map },
   async asyncData ({ app, query }) {
-    console.log(query, 'query')
+    // 获取轮播图数据
+    const bannerData = await app.$api.home.getBannerList({
+      'qp-bannerType-eq': 4,
+      sorter: 'desc'
+    })
+    const bannerList =
+      bannerData.data && Array.isArray(bannerData.data.list)
+        ? bannerData.data.list.filter(item => item.status === 0)
+        : []
     const tabKey = query.tab
     if (tabKey === '0') {
       // 获取公司简介
@@ -322,7 +330,8 @@ export default {
           : cpmpanyObj
 
       return {
-        resultCompany
+        resultCompany,
+        bannerList
       }
     }
     if (tabKey === '1') {
@@ -370,8 +379,14 @@ export default {
           newsTabsList,
           newsTabSelectIndex,
           newTypeCode,
-          newsList
+          newsList,
+          bannerList
         }
+      }
+    }
+    if (tabKey !== '0' && tabKey !== '1') {
+      return {
+        bannerList
       }
     }
   },
@@ -401,7 +416,8 @@ export default {
       // 复制文本所需参数
       txtMessage: false,
       imgMessage: false,
-      loading: false
+      loading: false,
+      bannerList: []
     }
   },
   computed: {

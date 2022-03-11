@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <!-- 轮播图 -->
-    <Banner :type="{ typeName: 'home', typeId: 0 }" />
+    <Banner :data="bannerList" />
     <!-- 服务提供 -->
     <div class="service">
       <div class="about-container">
@@ -262,13 +262,21 @@ import Banner from '~/components/banner/banner.vue'
 export default {
   components: { Banner },
   async asyncData ({ app, $axios, params, query }) {
+    // 获取轮播图数据
+    const bannerData = await app.$api.home.getBannerList({
+      'qp-bannerType-eq': 0,
+      sorter: 'desc'
+    })
+    const bannerList =
+      bannerData.data && Array.isArray(bannerData.data.list)
+        ? bannerData.data.list.filter(item => item.status === 0)
+        : []
     // 获取新闻公告信息
     const newsData = await app.$api.home.getNewsTypeInfo({
       pageSize: '3'
     })
     // 获取首页关于我们
     const companyData = await app.$api.pages.getCompanyPage()
-    console.log(companyData.data.list[0], 'companyData')
     const companyInfo =
       companyData.data &&
       Array.isArray(companyData.data.list) &&
@@ -282,6 +290,7 @@ export default {
         ? newsData.data.list.filter(item => item.status === 0)
         : []
     return {
+      bannerList,
       newsList,
       companyInfo
     }
@@ -482,7 +491,9 @@ export default {
             '金融云为客户提供量身定制的云计算服务，IT硬件零投入，云设施运维零维护，高品质保障的售后服务机制，帮助金融用户高效应用云计算服务，是您互联网转型的首选。'
         }
       ],
-      companyInfo: null
+      companyInfo: null,
+      // 轮播图数据
+      bannerList: []
     }
   },
   computed: {
