@@ -490,7 +490,7 @@ export default {
           memory: 1,
           text: [
             { title: 'CPU', content: '1核' },
-            { title: '内存', content: '2G' },
+            { title: '内存', content: '1G' },
             { title: '宽带', content: '1M' },
             { title: '时长', content: '1个月' }
           ]
