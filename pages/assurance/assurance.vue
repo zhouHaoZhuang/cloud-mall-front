@@ -1,7 +1,7 @@
 <template>
   <div class="assurance">
     <!-- 轮播图 -->
-    <Banner :type="{ typeName: 'assurance', typeId: 3 }" />
+    <Banner :data="bannerList" />
     <!-- 优势 -->
     <div class="goodness">
       <div class="assurance-container">
@@ -355,6 +355,19 @@ export default {
           title: '售后服务',
           content:
             '专业的技术支持7*24小时待命，充分保障您产品的无忧使用和业务的稳定运行'
+        }
+      ],
+      bannerList: [
+        {
+          id: 3,
+          status: 0,
+          display: true,
+          title: '百分服务，助您上云无忧 ',
+          pcButtonLink: '/cloud-price',
+          describe:
+            '百分服务,助您上云无忧匠心打造完整的VIP会员服务体系，为国内国际用户提供多种服务支持和服务保障让用户尊享售后服务，让云端部署更轻松、更高效',
+          pcPicture:
+            'https://ydidc-test.oss-cn-shanghai.aliyuncs.com/idc-mall/assurance/assurancebanner.png'
         }
       ]
     }

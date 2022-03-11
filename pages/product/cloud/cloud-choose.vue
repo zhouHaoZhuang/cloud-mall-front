@@ -2,7 +2,7 @@
   <!-- 弹性云服务器 -->
   <div class="cloud">
     <!-- 轮播图 -->
-    <Banner :type="{ typeName: 'choose', typeId: 1 }" />
+    <Banner :data="bannerList" />
     <!-- 产品优势 -->
     <div class="goodness-module auto">
       <p class="title">
@@ -541,6 +541,22 @@ export default {
         {
           bg: require('~/static/img/cloud/question3.png'),
           content: '基础类问题'
+        }
+      ],
+      bannerList: [
+        {
+          id: 1,
+          status: 0,
+          display: true,
+          openLinkType: '1',
+          title: '弹性云服务器',
+          pcButtonLink: '/cloud-price',
+          pictureLink: '/cloud-price',
+          pcButtonName: '立即选购',
+          describe:
+            '服务器配备纯SSD架构打造的高性能存储，旨在为用户提供优质、高效、弹性伸缠的云计算服务。云服务器采用由数据切片技术构建的三层存储功能，切实保护客户数据的安全。同时可弹性扩展的资源用量，为客户业务在高峰期的赎畅保驾护航;灵活多样的计费方式，为客户最大程度的节省IT运营成本，提高资源的有效利用率。',
+          pcPicture:
+            'https://ydidc-test.oss-cn-shanghai.aliyuncs.com/idc-mall/cloud/bg.png'
         }
       ]
     }
