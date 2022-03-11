@@ -190,7 +190,11 @@
             <p class="about-title">
               关于我们
             </p>
-            <p v-if="companyInfo" class="about-content" v-html="companyInfo.context" />
+            <p
+              v-if="companyInfo"
+              class="about-content"
+              v-html="companyInfo.context"
+            />
             <div class="about-btn">
               <nuxt-link to="/about/index?tab=0">
                 了解更多 →
@@ -995,6 +999,11 @@ export default {
           color: #333;
           margin-bottom: 50px;
           line-height: 30px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 6;
+          -webkit-box-orient: vertical;
         }
         .about-btn {
           width: 120px;
