@@ -96,13 +96,13 @@ export default {
   },
   proxy: {
     // 代理
-    // '/api': {
-    //   target: 'http://site.sailayun.com', // 代理转发地址
-    //   changeOrigin: true,
-    //   pathRewrite: {
-    //     '^/api': ''
-    //   }
-    // },
+    '/api': {
+      target: 'http://site.sailayun.com/ims', // 代理转发地址
+      changeOrigin: true,
+      pathRewrite: {
+        '^/api': ''
+      }
+    },
     '/map': {
       target: 'https://restapi.amap.com', // 代理转发地址
       changeOrigin: true,
