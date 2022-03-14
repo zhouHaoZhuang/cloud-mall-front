@@ -106,7 +106,7 @@
                 <NumberInput
                   v-model="form.systemDisk.size"
                   company="G"
-                  :step="1"
+                  :step="10"
                   :min="40"
                   :max="500"
                   :on-change="handleChangeGetPrice"
