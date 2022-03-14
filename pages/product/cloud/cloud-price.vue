@@ -94,18 +94,23 @@
           </div>
           <div class="choose-value">
             <div class="selection">
-              <TabSelect
-                v-model="form.ssdSystem"
-                :list="[{ title: '免费开启', value: true }]"
-                bg-color="#FCAC33"
-              />
-              <div class="info-txt">
-                系统盘免费赠送
-                <span class="strong"> 40G </span>
-                <img
-                  class="info-icon"
-                  src="../../../static/img/cloud/gift.png"
-                >
+              <div class="ssd-item">
+                <DragSlider
+                  :value="form.systemDisk.size"
+                  company="G"
+                  :number="500"
+                  :min="40"
+                  :max="500"
+                  :on-change="changeSsdSystem"
+                />
+                <NumberInput
+                  v-model="form.systemDisk.size"
+                  company="G"
+                  :step="1"
+                  :min="40"
+                  :max="500"
+                  :on-change="handleChangeGetPrice"
+                />
               </div>
             </div>
           </div>
@@ -124,13 +129,12 @@
                 <DragSlider
                   :value="item.size"
                   :number="item.number"
-                  :min="20"
+                  :min="40"
                   :max="item.number"
                   :on-change="val => changeSsdData(val, index)"
                 />
                 <NumberInput
                   v-model="item.size"
-                  :min="20"
                   :on-change="handleChangeGetPrice"
                 />
                 <a-icon
@@ -555,8 +559,12 @@ export default {
         ioOptimized: 'optimized', // I/O优化
         cpu: newCpu, // CPU
         memory: newMemory, // 内存
-        ssdSystem: true, // 系统盘-免费赠送
-        // localStorageAmount: regionDetail.localStorageAmount, // 数据盘可添加的总数-默认写死4块
+        systemDisk: {
+          category: 'cloud_essd',
+          performanceLevel: 'PL0',
+          size: 40
+        }, // 系统盘-免费赠送
+        // localStorageAmount: regionDetail.localStorageAmount, // 数据盘可添加的总数-默认写死16块
         // 数据盘
         dataDisk: [],
         internetMaxBandwidthOut: 1, // 公网带宽
@@ -900,6 +908,11 @@ export default {
     changeIsShowCloudSelect () {
       this.isShowCloudSelect = !this.isShowCloudSelect
     },
+    // 修改ssd系统盘
+    changeSsdSystem (val) {
+      this.form.systemDisk.size = val
+      this.handleChangeGetPrice()
+    },
     // 添加一块ssd数据盘
     addDisk () {
       if (this.form.dataDisk.length === 16) {
@@ -912,8 +925,9 @@ export default {
       this.form.dataDisk.push({
         id: newId,
         number: 500,
-        category: 'cloud_ssd',
-        size: 20
+        category: 'cloud_essd',
+        performanceLevel: 'PL0',
+        size: 40
       })
       this.handleChangeGetPrice()
     },
@@ -1155,6 +1169,9 @@ export default {
           // 选型
           .selection {
             display: flex;
+            .ssd-item {
+              display: flex;
+            }
           }
           .info-txt {
             color: #ff9900;
