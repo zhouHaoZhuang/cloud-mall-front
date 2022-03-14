@@ -540,7 +540,7 @@ export default {
         return
       }
       if (!this.whiteList.includes(this.$route.path)) {
-        this.$store.commit('user/saveRedirectPath', this.$route.path)
+        this.$store.commit('user/saveRedirectPath', this.$route.fullPath)
       }
       this.$router.push(path)
     },
