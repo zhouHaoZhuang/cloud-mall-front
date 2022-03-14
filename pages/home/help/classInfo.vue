@@ -153,6 +153,7 @@ h2 {
     margin: 0;
     display: flex;
     align-items: center;
+    cursor: pointer;
     box-shadow: 0px 2px 10px 0px #0000000f;
     img {
       margin-right: 10px;

@@ -191,6 +191,7 @@ export default {
             padding-left: 10%;
             display: block;
             line-height: 40px;
+            cursor: pointer;
             height: 40px;
             img {
               margin-right: 5px;
