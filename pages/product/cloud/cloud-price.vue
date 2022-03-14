@@ -148,7 +148,7 @@
                 <div v-if="form.dataDisk" class="txt">
                   还可以添加
                   <span class="strong">
-                    {{ 16 - form.dataDisk.length }}块
+                    {{ 4 - form.dataDisk.length }}块
                   </span>
                   磁盘
                 </div>
@@ -564,7 +564,7 @@ export default {
           performanceLevel: 'PL0',
           size: 40
         }, // 系统盘-免费赠送
-        // localStorageAmount: regionDetail.localStorageAmount, // 数据盘可添加的总数-默认写死16块
+        // localStorageAmount: regionDetail.localStorageAmount, // 数据盘可添加的总数-默认写死4块
         // 数据盘
         dataDisk: [],
         internetMaxBandwidthOut: 1, // 公网带宽
@@ -915,7 +915,7 @@ export default {
     },
     // 添加一块ssd数据盘
     addDisk () {
-      if (this.form.dataDisk.length === 16) {
+      if (this.form.dataDisk.length === 4) {
         return
       }
       const newId =
