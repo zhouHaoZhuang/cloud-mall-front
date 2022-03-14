@@ -147,9 +147,7 @@
                 <a-icon class="icon" type="plus" />
                 <div v-if="form.dataDisk" class="txt">
                   还可以添加
-                  <span class="strong">
-                    {{ 4 - form.dataDisk.length }}块
-                  </span>
+                  <span class="strong"> {{ 4 - form.dataDisk.length }}块 </span>
                   磁盘
                 </div>
               </div>
@@ -461,7 +459,8 @@ import NumberInput from '@/components/NumberInput/index'
 import {
   setCpuOrDiskData,
   jumpCloudAdminDetail,
-  jumpCloudAdminRealName
+  jumpCloudAdminRealName,
+  judgePwdFormat
 } from '@/utils/index'
 export default {
   components: {
@@ -729,10 +728,7 @@ export default {
       // 单个实例
       regionDetail: {},
       passwordStatus: 1,
-      okPasswordStatus: 1,
-      // 新的密码校验
-      newReg:
-        /(?!^\d{8-30}$)(?!^[a-zA-Z]{8,30}$)(?!^[0-9a-zA-Z]{8,30}$)(?!^[()`~!@#$%^&*-_+=|{}[:;'><,.?/]{8,30}$)^[0-9a-zA-Z()`~!@#$%^&*-_+=|{}[:;'><,.?/]{8,30}$/
+      okPasswordStatus: 1
     }
   },
   computed: {
@@ -953,7 +949,7 @@ export default {
       if (!value) {
         this.passwordStatus = 2
       } else {
-        if (!this.newReg.exec(value)) {
+        if (judgePwdFormat(value) < 3) {
           this.passwordStatus = 3
         } else {
           this.passwordStatus = 1
