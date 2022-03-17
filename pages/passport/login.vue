@@ -24,9 +24,9 @@
               :label-col="labelCol"
               :wrapper-col="wrapperCol"
             >
-              <a-form-model-item prop="phone">
+              <a-form-model-item prop="username">
                 <a-input
-                  v-model="form.phone"
+                  v-model="form.username"
                   v-number-evolution
                   type="text"
                   placeholder="请输入手机号"
@@ -77,13 +77,13 @@ export default {
       labelCol: { span: 0 },
       wrapperCol: { span: 25 },
       form: {
-        phone: '',
+        username: '',
         password: '',
         autoLogin: false
       },
       pwdReg: /(?=.*[0-9])(?=.*[a-z])(?=.*[^a-zA-Z0-9]).{8,20}/,
       rules: {
-        phone: [
+        username: [
           {
             required: true,
             message: '手机号为必填项',
