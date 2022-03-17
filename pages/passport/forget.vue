@@ -321,6 +321,7 @@ export default {
         this.$message.warning('两次输入的密码不一致')
         return
       }
+      this.form.username = this.form.phone
       this.$api.user.forgetPwd(this.form).then((res) => {
         if (res.code === '000000') {
           this.$message.success('修改成功，请重新登录')
