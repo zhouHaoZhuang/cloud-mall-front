@@ -74,6 +74,36 @@
             {{ codeTxt }}
           </a-button>
         </div>
+        <div v-show="showVerfication" class="item" style="position: relative">
+          <div class="input-box">
+            <Iconfont class="left-icon" type="icon-code" />
+            <a-input
+              ref="verificationCode"
+              v-model="form.verificationCode"
+              type="text"
+              placeholder="请输入图片验证码"
+              :max-length="4"
+              @keyup="getCode"
+            />
+          </div>
+          <div class="info">
+            <div v-if="verificateStatus === 1" class="info-item">
+              <Iconfont class="info-icon" type="icon-err" />
+              <span>图片验证码不能为空</span>
+            </div>
+            <div v-else-if="verificateStatus === 2" class="info-item">
+              <Iconfont class="info-icon" type="icon-err" />
+              <span>图片验证码填写错误</span>
+            </div>
+            <div v-else-if="verificateStatus === 3" class="info-item">
+              <Iconfont class="info-icon" type="icon-ok" />
+              <span>图片验证码填写正确</span>
+            </div>
+          </div>
+          <div class="code" title="点击切换验证码" @click="refreshCode()">
+            <Identify :identify-code="identifyCode" />
+          </div>
+        </div>
         <div class="item">
           <div class="input-box">
             <Iconfont class="left-icon" type="icon-lock" />
@@ -193,8 +223,11 @@
 
 <script>
 import { mapState } from 'vuex'
-
+import CodeBtn from '@/components/CodeBtn/index'
+import Identify from '@/components/Identify'
+import { getRandomCode } from '@/utils/index'
 export default {
+  components: { CodeBtn, Identify },
   data () {
     return {
       // 下方所有验证的status 0:默认 1:未通过验证 2:验证通过
@@ -210,6 +243,8 @@ export default {
       //   确认密码
       confirmPwdEnter: false,
       confirmPwdStatus: 0,
+      // 图片验证码
+      verificateStatus: 0,
       // 手机号正则
       phoneReg:
         /^(13[0-9]|14[01456879]|15[0-3,5-9]|16[2567]|17[0-8]|18[0-9]|19[0-3,5-9])\d{8}$/,
@@ -218,7 +253,8 @@ export default {
         phone: '',
         code: '',
         password: '',
-        confrimPassword: ''
+        confrimPassword: '',
+        verificationCode: ''
       },
       // 获取验证码loading
       codeLoading: false,
@@ -230,7 +266,9 @@ export default {
       isRead: false,
       passwordType: true,
       confirmPwdType: true,
-      registerLoading: false
+      registerLoading: false,
+      identifyCode: '', // 要核对的验证码
+      showVerfication: false // 是否进行图片验证码
     }
   },
   computed: {
@@ -238,6 +276,9 @@ export default {
       webInfo: state => state.home.webInfo,
       allConfig: state => state.user.allConfig
     })
+  },
+  mounted () {
+    this.refreshCode()
   },
   methods: {
     // 手机号码失去焦点
@@ -258,6 +299,19 @@ export default {
         this.codeStatus = 2
       } else {
         this.codeStatus = 1
+      }
+    },
+    // 图片验证码校验
+    getCode () {
+      if (!this.$refs.verificationCode.value) {
+        this.verificateStatus = 1
+        return
+      }
+      if (this.$refs.verificationCode.value !== this.identifyCode) {
+        this.verificateStatus = 2
+      } else {
+        this.verificateStatus = 3
+        this.toSend()
       }
     },
     // 密码失去焦点
@@ -297,6 +351,14 @@ export default {
         this.$message.warning('请输入格式正确的手机号')
         return
       }
+      this.showVerfication = true
+      if (this.verificateStatus !== 3) {
+        console.log('到这里')
+        return
+      }
+      this.toSend()
+    },
+    toSend () {
       this.codeLoading = true
       this.$api.user
         .getCode({
@@ -330,6 +392,10 @@ export default {
       } else {
         this.confirmPwdType = flag
       }
+    },
+    // 更新验证码
+    refreshCode () {
+      this.identifyCode = getRandomCode()
     },
     // 注册
     handleRegister () {
@@ -454,6 +520,11 @@ export default {
           font-size: 10px;
           display: inline-block;
           margin-bottom: 30px;
+        }
+        .code {
+          position: absolute;
+          right: 0;
+          top: 1px;
         }
       }
       .short {
