@@ -40,6 +40,21 @@
                   @pressEnter="handleLoginBefore"
                 />
               </a-form-model-item>
+              <a-form-model-item prop="verificationCode">
+                <a-input
+                  v-model="form.verificationCode"
+                  type="text"
+                  style="width: 190px"
+                  size="large"
+                  placeholder="请输入图片验证码"
+                  :max-length="4"
+                >
+                  <a-icon slot="prefix" type="safety-certificate" />
+                </a-input>
+                <div class="code" title="点击切换验证码" @click="refreshCode()">
+                  <Identify :identify-code="identifyCode" />
+                </div>
+              </a-form-model-item>
             </a-form-model>
             <div class="auto-login">
               <div class="left">
@@ -71,7 +86,10 @@
 
 <script>
 import { mapState } from 'vuex'
+import Identify from '@/components/Identify'
+import { getRandomCode } from '@/utils/index'
 export default {
+  components: { Identify },
   data () {
     return {
       labelCol: { span: 0 },
@@ -79,7 +97,8 @@ export default {
       form: {
         phone: '',
         password: '',
-        autoLogin: false
+        autoLogin: false,
+        verificationCode: ''
       },
       pwdReg: /(?=.*[0-9])(?=.*[a-z])(?=.*[^a-zA-Z0-9]).{8,20}/,
       rules: {
@@ -124,9 +143,26 @@ export default {
             },
             trigger: 'blur'
           }
+        ],
+        verificationCode: [
+          {
+            required: true,
+            message: '请输入图片校验码',
+            trigger: ['blur', 'change']
+          },
+          {
+            validator: (rule, value, callback) => {
+              if (value !== this.identifyCode) {
+                callback(new Error('图形验证码不正确'))
+              }
+              callback()
+            },
+            trigger: ['blur', 'change']
+          }
         ]
       },
-      loginLoading: false
+      loginLoading: false,
+      identifyCode: ''
     }
   },
   computed: {
@@ -149,6 +185,7 @@ export default {
     }
   },
   mounted () {
+    this.refreshCode()
     if (this.$route.query.out) {
       localStorage.setItem('store', '{}')
       this.$router.push('/login')
@@ -204,6 +241,19 @@ export default {
         .finally(() => {
           this.loginLoading = false
         })
+    },
+    // 获取验证码组件校验图形验证
+    validateImgCode (callback) {
+      let flag = false
+      this.$refs.ruleForm.validateField(
+        'verificationCode',
+        err => (flag = !err)
+      )
+      callback(flag)
+    },
+    // 更新验证码
+    refreshCode () {
+      this.identifyCode = getRandomCode()
     }
   }
 }
@@ -216,6 +266,11 @@ export default {
   background-size: cover;
   .login-btn {
     width: 100%;
+  }
+  .code {
+    position: absolute;
+    right: -110px;
+    top: -10px;
   }
 }
 
