@@ -94,18 +94,23 @@
           </div>
           <div class="choose-value">
             <div class="selection">
-              <TabSelect
-                v-model="form.ssdSystem"
-                :list="[{ title: '免费开启', value: true }]"
-                bg-color="#FCAC33"
-              />
-              <div class="info-txt">
-                系统盘免费赠送
-                <span class="strong"> 40G </span>
-                <img
-                  class="info-icon"
-                  src="../../../static/img/cloud/gift.png"
-                >
+              <div class="ssd-item">
+                <DragSlider
+                  :value="form.systemDisk.size"
+                  company="G"
+                  :number="500"
+                  :min="40"
+                  :max="500"
+                  :on-change="changeSsdSystem"
+                />
+                <NumberInput
+                  v-model="form.systemDisk.size"
+                  company="G"
+                  :step="10"
+                  :min="40"
+                  :max="500"
+                  :on-change="handleChangeGetPrice"
+                />
               </div>
             </div>
           </div>
@@ -124,13 +129,12 @@
                 <DragSlider
                   :value="item.size"
                   :number="item.number"
-                  :min="20"
+                  :min="40"
                   :max="item.number"
                   :on-change="val => changeSsdData(val, index)"
                 />
                 <NumberInput
                   v-model="item.size"
-                  :min="20"
                   :on-change="handleChangeGetPrice"
                 />
                 <a-icon
@@ -143,9 +147,7 @@
                 <a-icon class="icon" type="plus" />
                 <div v-if="form.dataDisk" class="txt">
                   还可以添加
-                  <span class="strong">
-                    {{ 16 - form.dataDisk.length }}块
-                  </span>
+                  <span class="strong"> {{ 4 - form.dataDisk.length }}块 </span>
                   磁盘
                 </div>
               </div>
@@ -457,7 +459,8 @@ import NumberInput from '@/components/NumberInput/index'
 import {
   setCpuOrDiskData,
   jumpCloudAdminDetail,
-  jumpCloudAdminRealName
+  jumpCloudAdminRealName,
+  judgePwdFormat
 } from '@/utils/index'
 export default {
   components: {
@@ -555,7 +558,11 @@ export default {
         ioOptimized: 'optimized', // I/O优化
         cpu: newCpu, // CPU
         memory: newMemory, // 内存
-        ssdSystem: true, // 系统盘-免费赠送
+        systemDisk: {
+          category: 'cloud_essd',
+          performanceLevel: 'PL0',
+          size: 40
+        }, // 系统盘-免费赠送
         // localStorageAmount: regionDetail.localStorageAmount, // 数据盘可添加的总数-默认写死4块
         // 数据盘
         dataDisk: [],
@@ -721,10 +728,7 @@ export default {
       // 单个实例
       regionDetail: {},
       passwordStatus: 1,
-      okPasswordStatus: 1,
-      // 新的密码校验
-      newReg:
-        /(?!^\d{8-30}$)(?!^[a-zA-Z]{8,30}$)(?!^[0-9a-zA-Z]{8,30}$)(?!^[()`~!@#$%^&*-_+=|{}[:;'><,.?/]{8,30}$)^[0-9a-zA-Z()`~!@#$%^&*-_+=|{}[:;'><,.?/]{8,30}$/
+      okPasswordStatus: 1
     }
   },
   computed: {
@@ -900,9 +904,14 @@ export default {
     changeIsShowCloudSelect () {
       this.isShowCloudSelect = !this.isShowCloudSelect
     },
+    // 修改ssd系统盘
+    changeSsdSystem (val) {
+      this.form.systemDisk.size = val
+      this.handleChangeGetPrice()
+    },
     // 添加一块ssd数据盘
     addDisk () {
-      if (this.form.dataDisk.length === 16) {
+      if (this.form.dataDisk.length === 4) {
         return
       }
       const newId =
@@ -912,8 +921,9 @@ export default {
       this.form.dataDisk.push({
         id: newId,
         number: 500,
-        category: 'cloud_ssd',
-        size: 20
+        category: 'cloud_essd',
+        performanceLevel: 'PL0',
+        size: 40
       })
       this.handleChangeGetPrice()
     },
@@ -939,7 +949,7 @@ export default {
       if (!value) {
         this.passwordStatus = 2
       } else {
-        if (!this.newReg.exec(value)) {
+        if (judgePwdFormat(value) < 3) {
           this.passwordStatus = 3
         } else {
           this.passwordStatus = 1
@@ -1155,6 +1165,9 @@ export default {
           // 选型
           .selection {
             display: flex;
+            .ssd-item {
+              display: flex;
+            }
           }
           .info-txt {
             color: #ff9900;
