@@ -55,7 +55,14 @@
               />
             </div>
             <!-- mask 鼠标进入nav展示列表 -->
-            <div v-if="hoverIndex == 4" class="popup-box">
+            <div
+              v-if="hoverIndex === index"
+              :class="{
+                'popup-all': true,
+                'popup-box': hoverIndex === 4,
+                'popup-boxlong': hoverIndex === 1
+              }"
+            >
               <div class="container popup-wrap">
                 <HeaderItem
                   v-for="(ele, idx) in headerItemData"
@@ -149,140 +156,144 @@ export default {
         },
         {
           title: '产品',
-          path: '/cloud-choose',
+          path: '',
+          show: true,
           children: [
             {
               title: '云计算',
+              iconimg: require('../static/img/home/cloudcomputing.svg'),
               list: [
                 {
-                  title: '云服务器',
+                  title: '阿里云ECS云服务器',
                   info: '高速稳定高弹性的计算服务',
                   path: '/cloud-choose',
-                  hot: true,
-                  new: false
-                },
-                {
-                  title: '负载均衡',
-                  info: '高性能流量分发的负载均衡服务',
-                  path: '/balancing-ba',
                   hot: false,
-                  new: false
-                },
-                {
-                  title: '对象存储',
-                  info: '高可用、易扩展、低成本、一站式',
-                  path: '/object-based-use',
-                  hot: false,
-                  new: false
-                },
-                {
-                  title: '云数据库 MySQL',
-                  info: '稳定可靠、可弹性伸缩的数据方案',
-                  path: '/mysql',
-                  hot: false,
-                  new: false
-                },
-                {
-                  title: '云数据库 SQL Server',
-                  info: '安全运行、轻松管理的数据方案',
-                  path: '/sqlserver',
-                  hot: false,
-                  new: false
+                  new: false,
+                  iconimg: require('../static/img/home/aliyun.png')
                 }
+                // {
+                //   title: '负载均衡',
+                //   info: '高性能流量分发的负载均衡服务',
+                //   path: '/balancing-ba',
+                //   hot: false,
+                //   new: false
+                // },
+                // {
+                //   title: '对象存储',
+                //   info: '高可用、易扩展、低成本、一站式',
+                //   path: '/object-based-use',
+                //   hot: false,
+                //   new: false
+                // },
+                // {
+                //   title: '云数据库 MySQL',
+                //   info: '稳定可靠、可弹性伸缩的数据方案',
+                //   path: '/mysql',
+                //   hot: false,
+                //   new: false
+                // },
+                // {
+                //   title: '云数据库 SQL Server',
+                //   info: '安全运行、轻松管理的数据方案',
+                //   path: '/sqlserver',
+                //   hot: false,
+                //   new: false
+                // }
               ]
             },
             {
-              title: '网站服务',
+              title: '网络',
+              iconimg: require('../static/img/home/network.svg'),
               list: [
                 {
-                  title: '云虚拟主机',
+                  title: 'CDN云加速',
                   info: '基于云计算的虚拟主机服务',
-                  path: '',
-                  hot: true,
-                  new: false
-                },
-                {
-                  title: '域名注册',
-                  info: '提供五星级的域名注册服务',
-                  path: '/Domain-name',
-                  hot: true,
-                  new: false
-                },
-                {
-                  title: 'CDN加速',
-                  info: '智能调度的内容分发服务',
-                  path: '',
-                  hot: false,
-                  new: false
-                },
-                {
-                  title: '百度智能建站',
-                  info: '智能化构建网站和小程序',
-                  path: '',
-                  hot: false,
-                  new: true
-                }
-              ]
-            },
-            {
-              title: 'IDC服务',
-              list: [
-                {
-                  title: '服务器托管',
-                  info: '安全贴心高品质的托管服务',
-                  path: '',
-                  hot: false,
-                  new: false
-                },
-                {
-                  title: '裸金属服务器',
-                  info: '高性能安全隔离物理集群服务',
-                  path: '',
-                  hot: false,
-                  new: true
-                },
-                {
-                  title: '浙江云盾分销系统',
-                  info: '一键部署、低成本、快速运营',
-                  path: '',
-                  hot: false,
-                  new: true
-                },
-                {
-                  title: '商标注册',
-                  info: '品牌保护，从商标注册开始',
-                  path: '',
-                  hot: false,
-                  new: true
-                }
-              ]
-            },
-            {
-              title: '安全与管理',
-              list: [
-                {
-                  title: 'SSL证书',
-                  info: '提供一站式的证书部署服务',
-                  path: '',
-                  hot: false,
-                  new: false
-                },
-                {
-                  title: '云监控',
-                  info: '精准灵活超便捷的资源预警服务',
-                  path: '',
-                  hot: false,
-                  new: false
-                },
-                {
-                  title: '网站备案',
-                  info: '免费、快速、便捷的备案服务',
-                  path: '',
+                  path: '/',
                   hot: false,
                   new: false
                 }
+                // {
+                //   title: '域名注册',
+                //   info: '提供五星级的域名注册服务',
+                //   path: '/Domain-name',
+                //   hot: true,
+                //   new: false
+                // },
+                // {
+                //   title: 'CDN加速',
+                //   info: '智能调度的内容分发服务',
+                //   path: '',
+                //   hot: false,
+                //   new: false
+                // },
+                // {
+                //   title: '百度智能建站',
+                //   info: '智能化构建网站和小程序',
+                //   path: '',
+                //   hot: false,
+                //   new: true
+                // }
               ]
             }
+            // {
+            //   title: 'IDC服务',
+            //   list: [
+            //     {
+            //       title: '服务器托管',
+            //       info: '安全贴心高品质的托管服务',
+            //       path: '',
+            //       hot: false,
+            //       new: false
+            //     },
+            //     {
+            //       title: '裸金属服务器',
+            //       info: '高性能安全隔离物理集群服务',
+            //       path: '',
+            //       hot: false,
+            //       new: true
+            //     },
+            //     {
+            //       title: '浙江云盾分销系统',
+            //       info: '一键部署、低成本、快速运营',
+            //       path: '',
+            //       hot: false,
+            //       new: true
+            //     },
+            //     {
+            //       title: '商标注册',
+            //       info: '品牌保护，从商标注册开始',
+            //       path: '',
+            //       hot: false,
+            //       new: true
+            //     }
+            //   ]
+            // },
+            // {
+            //   title: '安全与管理',
+            //   list: [
+            //     {
+            //       title: 'SSL证书',
+            //       info: '提供一站式的证书部署服务',
+            //       path: '',
+            //       hot: false,
+            //       new: false
+            //     },
+            //     {
+            //       title: '云监控',
+            //       info: '精准灵活超便捷的资源预警服务',
+            //       path: '',
+            //       hot: false,
+            //       new: false
+            //     },
+            //     {
+            //       title: '网站备案',
+            //       info: '免费、快速、便捷的备案服务',
+            //       path: '',
+            //       hot: false,
+            //       new: false
+            //     }
+            //   ]
+            // }
           ]
         },
         {
@@ -622,27 +633,39 @@ export default {
             left: 73px;
           }
         }
-        .popup-box {
+        .popup-all {
           // display: block;
-          position: absolute;
-          top: 75px;
-          left: -640px;
           right: 0;
           z-index: 1000;
           margin: 0 auto;
           min-width: 1200px;
-          max-width: 60%;
-          height: 150px;
+          max-width: 100%;
           // padding-top: 40px;
-          background: url('../static/img/home/indexHover.png') no-repeat;
-          background-size: 150% 100%;
-          background-position: -405px -15px;
           font-size: 14px;
           .popup-wrap {
             margin-top: 15px;
             display: flex;
             width: 100%;
           }
+        }
+        .popup-box {
+          height: 150px;
+          position: absolute;
+          top: 75px;
+          left: -640px;
+          background: url('../static/img/home/indexHover.png') no-repeat;
+          background-size: 150% 100%;
+          background-position: -405px -15px;
+        }
+        .popup-boxlong {
+          height: 300px;
+          position: absolute;
+          top: 75px;
+          left: -280px;
+          padding-top: 25px;
+          background: url('../static/img/home/headerlong.svg') no-repeat;
+          background-size: 200% 100%;
+          background-position: -305px 10px;
         }
       }
       .noSubmenu:hover {
