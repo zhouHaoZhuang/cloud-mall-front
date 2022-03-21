@@ -131,21 +131,25 @@ export const judgePwdFormat = (value, minLength = 8, maxLength = 30) => {
 }
 
 const identifyCodes = [
-  '0',
-  '1',
-  '2',
-  '3',
-  '4',
-  '5',
-  '6',
-  '7',
-  '8',
-  '9',
-  'a',
-  'b',
-  'c',
-  'd'
-] // 根据实际需求加入自己想要的字符
+  "0",
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "a",
+  "b",
+  "c",
+  "d",
+  'A',
+  'B',
+  'C',
+  'D'
+]; //根据实际需求加入自己想要的字符
 // 生成随机数
 export const randomNum = (min, max) => {
   max = max + 1

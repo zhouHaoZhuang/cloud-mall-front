@@ -45,11 +45,9 @@
                   v-model="form.verificationCode"
                   type="text"
                   style="width: 190px"
-                  size="large"
                   placeholder="请输入图片验证码"
                   :max-length="4"
                 >
-                  <a-icon slot="prefix" type="safety-certificate" />
                 </a-input>
                 <div class="code" title="点击切换验证码" @click="refreshCode()">
                   <Identify :identify-code="identifyCode" />
