@@ -67,10 +67,9 @@ function getBaseUrl (cookie, store) {
   if (process.env.NODE_ENV === 'local') {
     return env.BASE_URL
   }
-  if (store.state.user.baseUrl) {
-    return `${store.state.user.baseUrl}${env.BASE_URL}`
-  }
-  return `${getCookieObj(cookie).baseUrl}${env.BASE_URL}`
+  const baseUrl = store.state.user.baseUrl || getCookieObj(cookie).baseUrl
+  const urlHead = baseUrl.includes('http://') ? 'http://' : 'https://'
+  return `${urlHead}${env.BASE_URL}`
 }
 
 // 拦截器
