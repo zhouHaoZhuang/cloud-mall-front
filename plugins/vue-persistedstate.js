@@ -6,7 +6,7 @@ export default ({ store, $cookies }) => {
   $cookies.set('domain', getWindowUrl(window.location.href))
   $cookies.set('baseUrl', getWindowUrl(window.location.href, true))
   localStorage.setItem('idcUrl', getIdcAdminUrl(window.location.href))
-  // store.dispatch('user/setWindowsHref', getWindowUrl(window.location.href))
+  // 保存带有网络协议的浏览器地址
   store.dispatch('user/setBaseUrl', getWindowUrl(window.location.href, true))
   // 配置需要持久化的模块
   // const PERSIST_PATHS = [

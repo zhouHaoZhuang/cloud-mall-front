@@ -2,9 +2,9 @@
 const baseUrl = {
   local: 'http://site.sailayun.com/ims',
   // local: '/api',
-  dev: 'http://site.sailayun.com/ims',
-  test: 'http://site.zjyundun.com/ims',
-  prod: 'https://site.slayun.com/ims'
+  dev: '/ims',
+  test: '/ims',
+  prod: '/ims'
 }
 // 请求头携带domain参数
 const domains = {

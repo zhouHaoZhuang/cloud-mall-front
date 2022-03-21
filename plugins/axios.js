@@ -63,15 +63,15 @@ function getTenantId (cookie, store) {
   return getCookieObj(cookie).tenantId
 }
 // 如果不是本地开发环境，需要处理请求地址
-// function getBaseUrl (cookie, store) {
-//   if (process.env.NODE_ENV === 'local') {
-//     return env.BASE_URL
-//   }
-//   if (store.state.user.baseUrl) {
-//     return `${store.state.user.baseUrl}${env.BASE_URL}`
-//   }
-//   return `${getCookieObj(cookie).baseUrl}${env.BASE_URL}`
-// }
+function getBaseUrl (cookie, store) {
+  if (process.env.NODE_ENV === 'local') {
+    return env.BASE_URL
+  }
+  if (store.state.user.baseUrl) {
+    return `${store.state.user.baseUrl}${env.BASE_URL}`
+  }
+  return `${getCookieObj(cookie).baseUrl}${env.BASE_URL}`
+}
 
 // 拦截器
 export default ({ $axios, redirect, route, store }) => {
@@ -82,11 +82,7 @@ export default ({ $axios, redirect, route, store }) => {
   $axios.onRequest((config) => {
     const cookieToken = config.headers.common.cookie
     // 如果不是本地开发环境，需要处理请求地址
-    // config.baseURL = getBaseUrl(cookieToken, store)
-    // 地图请求地址
-    if (config.map) {
-      config.baseURL = '/map'
-    }
+    config.baseURL = getBaseUrl(cookieToken, store)
     config.headers.token = getToken(cookieToken, store)
     config.headers.domain = getDomainUrl(cookieToken, store)
     config.headers.tenantId = getTenantId(cookieToken, store)
@@ -97,6 +93,12 @@ export default ({ $axios, redirect, route, store }) => {
     //   getBaseUrl(cookieToken, store),
     //   config.headers.domain
     // )
+    // 根据用户访问不同的请求方式处理请求地址
+    console.log(store.state.user.windowHref)
+    // 地图请求地址
+    if (config.map) {
+      config.baseURL = '/map'
+    }
     // 查看请求参数
     getRequestParams(config)
     return config
