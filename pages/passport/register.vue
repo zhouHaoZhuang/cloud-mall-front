@@ -351,6 +351,9 @@ export default {
         this.$message.warning('请输入格式正确的手机号')
         return
       }
+      if (!this.form.verificationCode) {
+        this.$message.warning('请先正确输入图片验证码')
+      }
       this.showVerfication = true
       if (this.verificateStatus !== 3) {
         console.log('到这里')
