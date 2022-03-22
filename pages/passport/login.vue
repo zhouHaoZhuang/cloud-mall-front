@@ -37,7 +37,7 @@
                   v-model="form.password"
                   type="password"
                   placeholder="请输入登录密码"
-                  @pressEnter="handleLoginBefore"
+                  
                 />
               </a-form-model-item>
               <a-form-model-item prop="verificationCode">
@@ -47,6 +47,7 @@
                   style="width: 190px"
                   placeholder="请输入图片验证码"
                   :max-length="4"
+                  @pressEnter="handleLoginBefore"
                 >
                 </a-input>
                 <div class="code" title="点击切换验证码" @click="refreshCode()">
