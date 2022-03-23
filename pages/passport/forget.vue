@@ -340,7 +340,7 @@ export default {
         .getCode({ receiverAccount: this.form.phone, codeType: '3' })
         .then((res) => {
           this.sendCodeTime()
-        })
+        }) 
     },
     // 验证码发送成功后开始倒计时
     sendCodeTime () {
