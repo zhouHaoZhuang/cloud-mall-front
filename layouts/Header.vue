@@ -161,15 +161,14 @@ export default {
           children: [
             {
               title: '云计算',
-              iconimg: '/img/home/cloudcomputing.svg',
+              iconimg: '/img/home/cloudcomputing.png',
               list: [
                 {
                   title: '阿里云ECS云服务器',
                   info: '高速稳定高弹性的计算服务',
                   path: '/cloud-choose',
                   hot: false,
-                  new: false,
-                  iconimg: '/img/home/aliyun.png'
+                  new: false
                 }
                 // {
                 //   title: '负载均衡',
@@ -203,7 +202,7 @@ export default {
             },
             {
               title: '网络',
-              iconimg: '/img/home/network.svg',
+              iconimg: '/img/home/network.png',
               list: [
                 {
                   title: 'CDN云加速',
