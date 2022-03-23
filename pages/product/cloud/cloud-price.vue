@@ -9,49 +9,37 @@
     <!-- 地域 -->
     <div class="choose-public-box container">
       <div class="choose-left">
-        <span> 地域 </span>
-      </div>
-      <div class="choose-right">
-        <div class="choose-item">
-          <div class="choose-label" style="width: 110px">
-            地域：
-          </div>
-          <div class="choose-value">
-            <div class="address">
-              <div
-                v-for="item in addressData"
-                :key="item.regionId"
-                :class="
-                  selectAddressId === item.regionId
-                    ? 'address-item active'
-                    : 'address-item'
-                "
-                @click="addressChange(item)"
-              >
-                <div class="top-tit">
-                  {{ item.localName }}
-                </div>
-                <div class="bot-info">
-                  {{ item.localName }}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- 选型 -->
-    <div class="choose-public-box container">
-      <div class="choose-left">
-        <span> 选型 </span>
+        <span> 地域及可用区 </span>
       </div>
       <div class="choose-right">
         <div class="choose-item">
           <div class="choose-label">
-            分类：
+            地域：
           </div>
           <div class="choose-value">
-            <div class="selection">
+            <div class="address">
+              <a-select
+                style="width: 200px"
+                placeholder="请选择地域"
+                size="large"
+                @change="handleAddressChange"
+              >
+                <a-select-option
+                  v-for="item in addressData"
+                  :key="item.regionId"
+                >
+                  {{ item.localName }}
+                </a-select-option>
+              </a-select>
+            </div>
+          </div>
+        </div>
+        <div class="choose-item">
+          <div class="choose-label">
+            可用区：
+          </div>
+          <div class="choose-value">
+            <div class="address">
               <TabSelect
                 v-model="typeId"
                 :list="typeList"
@@ -60,41 +48,113 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <!-- 实例规格 -->
+    <div class="choose-public-box container">
+      <div class="choose-left">
+        <span> 实例规格 </span>
+      </div>
+      <div class="choose-right">
         <div class="choose-item">
           <div class="choose-label">
             CPU：
           </div>
           <div class="choose-value">
-            <div class="selection">
-              <TabSelect
-                v-model="form.cpu"
-                :list="cpuData"
-                @change="handleCpuOrMemoryChange('cpu')"
-              />
+            <div class="cpu-box">
+              <a-select
+                style="width: 200px"
+                size="large"
+                placeholder="请选择CPU"
+                @change="handleAddressChange"
+              >
+                <a-select-option
+                  v-for="item in addressData"
+                  :key="item.regionId"
+                >
+                  {{ item.localName }}
+                </a-select-option>
+              </a-select>
+              <div class="label">
+                内存：
+              </div>
+              <a-select
+                style="width: 200px"
+                placeholder="请选择内存"
+                size="large"
+                @change="handleAddressChange"
+              >
+                <a-select-option
+                  v-for="item in addressData"
+                  :key="item.regionId"
+                >
+                  {{ item.localName }}
+                </a-select-option>
+              </a-select>
             </div>
           </div>
         </div>
         <div class="choose-item">
           <div class="choose-label">
-            内存：
+            类型：
           </div>
           <div class="choose-value">
-            <div class="selection">
-              <TabSelect
-                v-model="form.memory"
-                :list="memoryData"
-                @change="handleCpuOrMemoryChange('memory')"
-              />
-            </div>
+            <TabSelect
+              v-model="typeId"
+              :loose="true"
+              :list="typeList"
+              @change="typeChange"
+            />
           </div>
         </div>
+        <!-- 实例列表 -->
+        <div class="choose-item">
+          <div class="table-box">
+            <a-table
+              :columns="columns"
+              :data-source="regionList"
+              row-key="id"
+              :pagination="false"
+              :scroll="{ y: 300 }"
+            >
+              <div slot="abc" slot-scope="text, record">
+                <a-radio
+                  v-model="instanceType"
+                  @click="handleSelectRegion(record)"
+                >
+                  {{ text }}高主频内存型 hfr6
+                </a-radio>
+              </div>
+            </a-table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 存储 -->
+    <div class="choose-public-box container">
+      <div class="choose-left">
+        <span> 存储 </span>
+      </div>
+      <div class="choose-right">
         <div class="choose-item">
           <div class="choose-label">
-            SSD系统盘：
+            系统盘：
           </div>
           <div class="choose-value">
             <div class="selection">
               <div class="ssd-item">
+                <a-select
+                  default-value="1"
+                  style="width: 130px; margin-right: 20px"
+                  size="large"
+                >
+                  <a-select-option value="1">
+                    ESSD
+                  </a-select-option>
+                  <a-select-option value="2">
+                    SSD
+                  </a-select-option>
+                </a-select>
                 <DragSlider
                   :value="form.systemDisk.size"
                   company="G"
@@ -117,7 +177,7 @@
         </div>
         <div class="choose-item">
           <div class="choose-label">
-            SSD数据盘：
+            数据盘：
           </div>
           <div class="choose-value">
             <div class="selection-ssd">
@@ -126,6 +186,18 @@
                 :key="item.id"
                 class="ssd-item"
               >
+                <a-select
+                  default-value="1"
+                  style="width: 130px; margin-right: 20px"
+                  size="large"
+                >
+                  <a-select-option value="1">
+                    ESSD
+                  </a-select-option>
+                  <a-select-option value="2">
+                    SSD
+                  </a-select-option>
+                </a-select>
                 <DragSlider
                   :value="item.size"
                   :number="item.number"
@@ -154,31 +226,6 @@
             </div>
           </div>
         </div>
-        <div class="choose-item">
-          <div class="choose-label">
-            公网带宽：
-          </div>
-          <div class="choose-value">
-            <div class="selection">
-              <DragSlider
-                :value="form.internetMaxBandwidthOut"
-                company="M"
-                :number="100"
-                :min="1"
-                :max="100"
-                :on-change="changeBandWidth"
-              />
-              <NumberInput
-                v-model="form.internetMaxBandwidthOut"
-                company="M"
-                :step="1"
-                :min="1"
-                :max="100"
-                :on-change="handleChangeGetPrice"
-              />
-            </div>
-          </div>
-        </div>
         <!-- 暂时删除防御峰值 -->
         <!-- <div class="choose-item">
           <div class="choose-label">
@@ -202,10 +249,51 @@
         </div> -->
       </div>
     </div>
-    <!-- 系统信息 -->
+    <!-- 网络 -->
     <div class="choose-public-box container">
       <div class="choose-left">
-        <span> 系统信息 </span>
+        <span> 网络 </span>
+      </div>
+      <div class="choose-right">
+        <div class="choose-item">
+          <div class="choose-label">
+            计费方式：
+          </div>
+          <div class="choose-value">
+            <TabSelect v-model="billingMethod" :list="billingMethodList" />
+          </div>
+        </div>
+        <div class="choose-item">
+          <div class="choose-label">
+            带宽值：
+          </div>
+          <div class="choose-value">
+            <div class="selection">
+              <DragSlider
+                :value="form.internetMaxBandwidthOut"
+                company="M"
+                :number="100"
+                :min="1"
+                :max="100"
+                :on-change="changeBandWidth"
+              />
+              <NumberInput
+                v-model="form.internetMaxBandwidthOut"
+                company="M"
+                :step="1"
+                :min="1"
+                :max="100"
+                :on-change="handleChangeGetPrice"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 镜像 -->
+    <div class="choose-public-box container">
+      <div class="choose-left">
+        <span> 镜像 </span>
       </div>
       <div class="choose-right">
         <div class="choose-item">
@@ -219,6 +307,7 @@
                 allow-clear
                 class="select1"
                 placeholder="请选择系统类别"
+                size="large"
                 @change="handleSystemChange"
               >
                 <a-select-option v-for="(val, key) in systemList" :key="key">
@@ -235,6 +324,7 @@
                 allow-clear
                 class="select2"
                 placeholder="请选择系统版本"
+                size="large"
                 @change="handleChangeGetPrice"
               >
                 <a-select-option
@@ -253,6 +343,14 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <!-- 密码 -->
+    <div class="choose-public-box container">
+      <div class="choose-left">
+        <span> 密码 </span>
+      </div>
+      <div class="choose-right">
         <div class="choose-item">
           <div class="choose-label">
             登录方式：
@@ -335,10 +433,10 @@
         </div>
       </div>
     </div>
-    <!-- 购买量 -->
+    <!-- 购买数量 -->
     <div class="choose-public-box container">
       <div class="choose-left">
-        <span> 购买量 </span>
+        <span> 购买数量 </span>
       </div>
       <div class="choose-right">
         <div class="choose-item">
@@ -349,6 +447,7 @@
             <div class="count">
               <TabSelect
                 v-model="form.period"
+                :loose="true"
                 :list="buyTimes"
                 width="80"
                 @change="handleChangeGetPrice"
@@ -374,6 +473,7 @@
             <div class="count">
               <NumberInput
                 v-model="form.amount"
+                style="margin-left: 0"
                 company="台"
                 :step="1"
                 :min="1"
@@ -385,64 +485,63 @@
         </div>
       </div>
     </div>
-    <!-- 价格 -->
+    <!-- 配置价格 -->
     <div class="choose-public-box price-box container">
       <div class="choose-left">
-        <span> 价格 </span>
+        <span> 配置价格 </span>
       </div>
       <div class="choose-right">
         <div class="choose-item">
           <div class="choose-label">
-            配置价格：
+            最终价格：
           </div>
           <div class="choose-value">
             <div class="price">
-              <div class="price-txt">
-                ￥{{ form.tradePrice }}
+              <span> ￥ </span>
+              <span class="price-txt">
+                {{ form.tradePrice }}
+              </span>
+            </div>
+            <div class="coupon-box">
+              <div class="left">
+                <Iconfont class="icon" type="" />
+                已节省¥100.00
+              </div>
+              <div class="right">
+                <Iconfont class="icon" type="" />
+                已享7.5折
               </div>
             </div>
           </div>
         </div>
-        <div class="choose-item" style="margin-top: 10px">
-          <div class="choose-label" />
-          <div class="choose-value">
-            <div class="price">
-              <div class="left-box">
-                <div v-if="isShowCloudSelect" class="cloud-select-info">
-                  <div class="label">
-                    已选择的规格：
-                  </div>
-                  <span>{{ addressName }}</span>
-                  <span>{{ form.cpu }}核(CPU)</span>
-                  <span>{{ form.memory }}G(内存)</span>
-                  <span>{{ form.internetMaxBandwidthOut }}M(带宽)</span>
-                  <span>{{ diskNum }}G(磁盘)</span>
-                  <!-- <span>{{ form.cpu }}G(防御)</span> -->
-                  <span>{{ form.period }}个月</span>
-                  <span>x {{ form.amount }}台(购买量)</span>
-                </div>
-                <!-- 收起/展开配置 -->
-                <!-- <div
-                  v-if="isShowCloudSelect"
-                  class="off"
-                  @click="changeIsShowCloudSelect"
-                  v-text="'>>收起<<'"
-                />
-                <div
-                  v-else
-                  class="open"
-                  @click="changeIsShowCloudSelect"
-                  v-text="'>>展开配置<<'"
-                /> -->
-              </div>
-              <div v-if="!isLogin" class="right-txt">
-                请先登录，此地域购买需要实名认证
-              </div>
-            </div>
+        <div
+          v-show="isShowCloudSelect"
+          class="choose-item"
+          style="margin-top: 30px"
+        >
+          <div class="table-box" style="margin-left: 33px">
+            <a-table
+              :columns="configColumns"
+              :data-source="configData"
+              row-key="id"
+              :pagination="false"
+            >
+              <!-- <div slot="abc" slot-scope="text, record">
+                <a-radio
+                  v-model="instanceType"
+                  @click="handleSelectRegion(record)"
+                >
+                  {{ text }}高主频内存型 hfr6
+                </a-radio>
+              </div> -->
+            </a-table>
           </div>
         </div>
       </div>
-      <!-- 购买按钮 -->
+      <!-- 购买+配置按钮 -->
+      <div class="config-btn" @click="changeIsShowCloudSelect">
+        {{ isShowCloudSelect ? '关闭' : '展开' }}配置
+      </div>
       <div class="buy-btn" @click="handleBuyCloud">
         立即购买
       </div>
@@ -616,7 +715,7 @@ export default {
       // 查询价格参数
       form: {},
       // 是否显示已选择配置
-      isShowCloudSelect: true,
+      isShowCloudSelect: false,
       // 渲染cpu tab选择数据
       cpuData: [],
       // 内存数据
@@ -646,6 +745,14 @@ export default {
         {
           title: '300G',
           value: 300
+        }
+      ],
+      // 计费方式
+      billingMethod: 1,
+      billingMethodList: [
+        {
+          title: '按固定宽带',
+          value: 1
         }
       ],
       // 系统镜像
@@ -726,9 +833,103 @@ export default {
         }
       ],
       // 单个实例
+      regionList: [
+        { typeName: '1sadsa' },
+        { typeName: '1sadsa' },
+        { typeName: '1sadsa' },
+        { typeName: '1sadsa' },
+        { typeName: '1sadsa' },
+        { typeName: '1sadsa' },
+        { typeName: '1sadsa' },
+        { typeName: '1sadsa' },
+        { typeName: '1sadsa' },
+        { typeName: '1sadsa' },
+        { typeName: '1sadsa' },
+        { typeName: '1sadsa' },
+        { typeName: '1sadsa' },
+        { typeName: '1sadsa' },
+        { typeName: '1sadsa' },
+        { typeName: '1sadsa' },
+        { typeName: '1sadsa' },
+        { typeName: '1sadsa' },
+        { typeName: '1sadsa' },
+        { typeName: '1sadsa' },
+        { typeName: '1sadsa' },
+        { typeName: '1sadsa' },
+        { typeName: '1sadsa' },
+        { typeName: '1sadsa' }
+      ],
+      columns: [
+        {
+          title: '规格族',
+          dataIndex: 'abc',
+          scopedSlots: { customRender: 'abc' }
+        },
+        {
+          title: '实例规格',
+          dataIndex: 'typeName'
+        },
+        {
+          title: 'vCPUs｜内存',
+          dataIndex: 'typeSort'
+        },
+        {
+          title: '内网宽带',
+          key: 'actdion',
+          scopedSlots: { customRender: 'title1' }
+        },
+        {
+          title: '内网收发包',
+          key: 'action',
+          scopedSlots: { customRender: 'title1' }
+        }
+      ],
       regionDetail: {},
       passwordStatus: 1,
-      okPasswordStatus: 1
+      okPasswordStatus: 1,
+      instanceType: false,
+      configColumns: [
+        {
+          title: '地域',
+          dataIndex: 'abc',
+          scopedSlots: { customRender: 'abc' }
+        },
+        {
+          title: '可用区',
+          dataIndex: 'typeName'
+        },
+        {
+          title: '实例',
+          dataIndex: 'typxxcveSort'
+        },
+        {
+          title: '类型',
+          key: 'actdion',
+          scopedSlots: { customRender: 'title1' }
+        },
+        {
+          title: '系统盘',
+          key: 'action',
+          scopedSlots: { customRender: 'title1' }
+        },
+        {
+          title: '数据盘',
+          dataIndex: 'typeSxxort'
+        },
+        {
+          title: '宽带',
+          dataIndex: 'tyxpeSoxrt'
+        },
+        {
+          title: '购买数量',
+          dataIndex: 'tyapeSort'
+        },
+        {
+          title: '系统镜像',
+          dataIndex: 'typeSzzort'
+        }
+      ],
+      configData: [{}]
     }
   },
   computed: {
@@ -794,7 +995,7 @@ export default {
         })
     },
     // 地域切换
-    addressChange (item) {
+    handleAddressChange (item) {
       this.selectAddressId = item.regionId
       this.typeId = this.typeList.length > 0 ? this.typeList[0].value : ''
       // 生成询价+购买参数
@@ -866,6 +1067,10 @@ export default {
             this.form.tradePrice = '---'
           }
         })
+    },
+    // 选择实例
+    handleSelectRegion (record) {
+      console.log(record)
     },
     // 获取对应地域的系统镜像
     getSystemData () {
@@ -1053,6 +1258,8 @@ export default {
 
 <style lang="scss" scoped>
 .cloud-price-container {
+  background: #f5f7fd;
+  padding-bottom: 20px;
   .password-info {
     color: red;
     margin-top: 6px;
@@ -1080,22 +1287,25 @@ export default {
   }
   // 选购主体
   .choose-public-box {
-    min-height: 155px;
+    min-height: 100px;
     display: flex;
     margin-bottom: 16px;
     background-color: #fff;
-    border: 1px solid rgb(238, 238, 238);
     border-left: 0;
     font-size: 14px;
     color: #999;
     position: relative;
+    border-radius: 4px;
+    overflow: hidden;
     .choose-left {
-      width: 30px;
+      width: 35px;
       position: absolute;
       left: 0;
       top: 0;
       bottom: 0;
-      background-color: rgb(235, 236, 238);
+      background-color: rgba(235, 241, 252, 1);
+      color: #12264c;
+      font-size: 16px;
       span {
         width: 1em;
         position: absolute;
@@ -1105,61 +1315,66 @@ export default {
       }
     }
     .choose-right {
-      padding: 35px 0;
+      padding: 30px 0;
       flex: 1;
       margin-left: 30px;
+      background: #fff;
       .choose-item {
         display: flex;
         margin-bottom: 20px;
+        .table-box {
+          width: 100%;
+          margin-left: 60px;
+          margin-right: 30px;
+          .ant-table-body {
+            /* 整个滚动条 */
+            &::-webkit-scrollbar {
+              width: 20px;
+              height: 20px;
+              background-color: red;
+            }
+            /* 滚动条上的按钮 (上下箭头). */
+            &::-webkit-scrollbar-button {
+              background-color: #2196f3;
+              border-radius: 50px;
+              height: 20px;
+              width: 20px;
+            }
+            /* 滚动条上的滚动滑块. */
+            &::-webkit-scrollbar-thumb {
+              background-color: #e91e63;
+              border-radius: 50px;
+            }
+            /*  滚动条轨道. */
+            &::-webkit-scrollbar-track {
+              background-color: #eff6fc;
+            }
+            /* 滚动条没有滑块的轨道部分 */
+            &::-webkit-scrollbar-track-piece {
+              background-color: red;
+            }
+          }
+        }
         .choose-label {
-          width: 140px;
+          width: 110px;
           text-align: right;
           margin-right: 15px;
           line-height: 33px;
+          color: #13274b;
         }
         .choose-value {
           flex: 1;
           // 地域
-          .address {
+          // .address {
+          // }
+          // 实例规格-cpu
+          .cpu-box {
             display: flex;
-            flex-wrap: wrap;
-            .address-item {
-              width: 129px;
-              height: 70px;
-              border-right: none;
-              background: #fff;
-              text-align: center;
-              color: #4c4c4c;
-              margin-bottom: 20px;
-              margin-right: 20px;
-              cursor: pointer;
-              .top-tit,
-              .bot-info {
-                text-overflow: ellipsis;
-                word-break: keep-all;
-                white-space: nowrap;
-                overflow: hidden;
-              }
-              .top-tit {
-                height: 35px;
-                line-height: 35px;
-                background: #f5f7fa;
-              }
-              .bot-info {
-                margin-top: 5px;
-                height: 35px;
-                line-height: 35px;
-                background: #f5f7fa;
-                color: #999;
-              }
-              &.active {
-                color: #fff;
-                .top-tit,
-                .bot-info {
-                  background: #1d7aec;
-                  color: #fff;
-                }
-              }
+            align-items: center;
+            .label {
+              color: #12264c;
+              font-size: 16px;
+              margin-left: 50px;
             }
           }
           // 选型
@@ -1196,12 +1411,12 @@ export default {
             .ssd-item-add {
               width: 609px;
               height: 40px;
-              border: 1px dashed #1d7aec;
+              border: 1px dashed #3b77e3;
               display: flex;
               align-items: center;
               justify-content: center;
               color: #1d7aec;
-              background: rgba(29, 122, 236, 0.1);
+              background: rgba(211, 241, 255, 0.5);
               cursor: pointer;
               .icon {
                 font-size: 20px;
@@ -1214,7 +1429,7 @@ export default {
           }
           .question-icon {
             font-size: 18px;
-            color: #059fff;
+            color: #3b77e3;
             line-height: 39px;
             margin-left: 10px;
           }
@@ -1250,13 +1465,11 @@ export default {
           // }
           // 价格
           .price {
-            display: flex;
-            justify-content: space-between;
+            color: #13274b;
+            line-height: 25px;
             .price-txt {
-              line-height: 35px;
-              font-size: 24px;
-              font-weight: 700;
-              color: #f43131;
+              font-size: 26px;
+              color: #3b77e3;
             }
             .left-box {
               display: flex;
@@ -1282,13 +1495,29 @@ export default {
               margin-right: 10px;
             }
           }
+          .coupon-box {
+            display: flex;
+            margin-top: 10px;
+            .left,
+            .right {
+              display: flex;
+              align-items: center;
+              color: #12264c;
+            }
+            .right {
+              margin-left: 40px;
+              color: #ff7f61;
+            }
+          }
+        }
+        &:last-child {
+          margin-bottom: 0 !important;
         }
       }
     }
     &:hover {
-      border-color: #1d7aec;
       .choose-left {
-        background-color: #1d7aec;
+        background-color: #3b77e3;
         color: #fff;
       }
     }
@@ -1298,8 +1527,8 @@ export default {
     z-index: 10;
     box-shadow: 0 -2px 12px 1px rgba(0, 0, 0, 0.11);
     border: solid 1px rgb(238, 238, 238);
-    background-color: rgb(255, 255, 255);
     bottom: 0;
+    .config-btn,
     .buy-btn {
       position: absolute;
       top: 35px;
@@ -1308,13 +1537,51 @@ export default {
       height: 40px;
       line-height: 40px;
       border: none;
-      border-radius: 2px;
-      background-color: #1d7aec;
+      background-color: #3b77e3;
+      border-radius: 0px 4px 4px 0px;
       font-size: 16px;
       color: #fff;
       text-align: center;
       cursor: pointer;
       font-weight: 700;
+    }
+    .config-btn {
+      border: 1px solid #3b77e3;
+      color: #3b77e3;
+      border-radius: 4px 0px 0px 4px;
+      border-right: none;
+      right: 144px;
+      background: transparent;
+    }
+  }
+}
+</style>
+<style lang="scss">
+.cloud-price-container {
+  .table-box {
+    .ant-table-thead > tr > th,
+    .ant-table-tbody > tr > td {
+      padding: 12px 16px;
+    }
+    .ant-table-body {
+      /* 整个滚动条 */
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+      /* 滚动条上的按钮 (上下箭头). */
+      &::-webkit-scrollbar-button {
+        display: none;
+      }
+      /* 滚动条上的滚动滑块. */
+      &::-webkit-scrollbar-thumb {
+        background-color: #3b77e3;
+        border-radius: 50px;
+      }
+      /* 滚动条没有滑块的轨道部分 */
+      &::-webkit-scrollbar-track-piece {
+        background-color: #eff6fc;
+        border-radius: 50px;
+      }
     }
   }
 }
