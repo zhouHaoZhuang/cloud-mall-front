@@ -1,13 +1,23 @@
 <template>
   <div class="header-item">
     <div class="top-title">
-      {{ itemData.title }}
+      <img v-if="itemData.iconimg" :src="itemData.iconimg" alt="">
+      <span>
+        {{ itemData.title }}
+      </span>
     </div>
     <div class="con-list">
       <div v-for="(item, index) in itemData.list" :key="index" class="item">
         <a :href="item.path">
           <div class="item-top">
             <span>{{ item.title }}</span>
+            <img
+              v-if="item.iconimg"
+              width="20px"
+              style="margin-left: 10px"
+              :src="item.iconimg"
+              alt=""
+            >
             <div v-if="item.hot" class="hot-img" />
             <div v-if="item.new" class="new-img" />
           </div>
@@ -41,14 +51,24 @@ export default {
   // border: 1px solid #59ff2f;
   color: #fff;
   .top-title {
+    display: flex;
+    align-items: center;
     height: 16px;
-    color: #7a8185;
+    color: #ffffff;
     margin-bottom: 16px;
+    font-size: 19px;
+    font-weight: 500;
+    img {
+      margin-right: 10px;
+      width: 25px;
+      height: 20px;
+    }
   }
   .con-list {
     .item {
-      width: 100%;
+      // width: 100%;
       margin-bottom: 16px;
+      margin-left: 35px;
       // background: #2b3033;
       // padding: 16px;
       // border: 1px solid #2b3033;
@@ -62,7 +82,10 @@ export default {
       .item-top {
         display: inline-block;
         margin-bottom: 5px;
+        margin-top: 5px;
         position: relative;
+        display: flex;
+        align-items: center;
         div {
           position: absolute;
           right: -38px;
