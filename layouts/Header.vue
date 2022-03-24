@@ -207,7 +207,7 @@ export default {
                 {
                   title: 'CDN云加速',
                   info: '基于云计算的虚拟主机服务',
-                  path: '/',
+                  path: '/introduce-product',
                   hot: false,
                   new: false
                 }

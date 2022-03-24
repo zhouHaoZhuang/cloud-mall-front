@@ -101,6 +101,15 @@ export const $routes = [
     }
   },
   {
+    path: '/introduce-product',
+    name: 'introduce',
+    component: resolve('pages/product/introduce/introduce-prod.vue'),
+    meta: {
+      title: 'CDN产品介绍页',
+      icon: 'icon'
+    }
+  },
+  {
     path: '/balancing-ba',
     name: 'balancing',
     component: resolve('pages/product/balancing/balancing-ba.vue'),
