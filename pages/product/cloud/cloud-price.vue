@@ -94,7 +94,7 @@
                   :key="item"
                   :value="item"
                 >
-                  {{ item }}核
+                  {{ item }}G
                 </a-select-option>
               </a-select>
             </div>
@@ -357,6 +357,14 @@
                 <a-icon class="question-icon" type="question-circle" />
               </a-tooltip>
             </div>
+            <div
+              v-if="overseasList.includes(addressName)"
+              class="txt-info"
+              style="margin-top: 20px"
+            >
+              当前地域下的云服务器购买后，暂不支持 Linux 和 Windows
+              系统互相更换，请慎重选择。
+            </div>
           </div>
         </div>
       </div>
@@ -521,11 +529,11 @@
             <div class="coupon-box">
               <div class="left">
                 <Iconfont class="icon" type="" />
-                已节省¥100.00
+                已节省¥{{ form.discountPrice }}
               </div>
               <div class="right">
                 <Iconfont class="icon" type="" />
-                已享7.5折
+                已享{{ form.discount }}折
               </div>
             </div>
           </div>
@@ -623,7 +631,7 @@ import {
   jumpCloudAdminRealName,
   judgePwdFormat
 } from '@/utils/index'
-import { cpuData, memoryData } from '@/utils/enum'
+import { cpuData, memoryData, overseasList } from '@/utils/enum'
 export default {
   components: {
     DragSlider,
@@ -632,7 +640,6 @@ export default {
   },
   // nuxt推荐请求方式
   async asyncData ({ app, $axios, params, query }) {
-    console.log('进入请求', params, query)
     // 获取产品code
     const productData = await app.$api.cloud.productList()
     const productCode =
@@ -678,9 +685,14 @@ export default {
       value: -1
     })
     if (selectAddressId) {
+      const regionQuery = {
+        cpuCoreCount: query.cpu ? query.cpu : undefined,
+        memorySize: query.memory ? query.memory : undefined
+      }
       // 获取对应的实例列表
       const regionData = await app.$api.cloud.getRegionDetail({
-        regionId: selectAddressId
+        regionId: selectAddressId,
+        ...regionQuery
       })
       const regionList =
         Array.isArray(regionData.data) && regionData.data.length > 0
@@ -705,8 +717,7 @@ export default {
         // 生成询价+购买参数
         const form = {
           regionId: selectAddressId, // 地域id
-          zoneId, // 可用区id
-          instanceTypeFamily: firstRegion.instanceTypeId, // 分类id
+          instanceTypeFamily: firstRegion.instanceTypeFamily, // 分类id
           ioOptimized: 'optimized', // I/O优化
           instanceType: firstRegion.instanceTypeId, // 实例规格ID
           cpu: firstRegion.cpuCoreCount,
@@ -751,7 +762,8 @@ export default {
           form: {
             ...form,
             ...priceData.data
-          }
+          },
+          regionQuery
         }
       } else {
         return {
@@ -760,7 +772,8 @@ export default {
           sureAreaData,
           zoneId,
           typeId,
-          typeList
+          typeList,
+          regionQuery
         }
       }
     } else {
@@ -769,6 +782,7 @@ export default {
   },
   data () {
     return {
+      overseasList,
       // 渲染cpu tab选择数据
       cpuData,
       // 内存数据
@@ -985,8 +999,7 @@ export default {
       configData: [
         {
           regionId: this.selectAddressId, // 地域id
-          zoneId: this.zoneId, // 可用区id
-          instanceTypeFamily: this.typeId // 分类id
+          zoneId: this.zoneId // 可用区id
         }
       ],
       regionQuery: {
@@ -1088,6 +1101,8 @@ export default {
     // 查询服务器价格
     getCloudPrice () {
       this.form.tradePrice = '价格计算中...'
+      this.form.discountPrice = '0.00'
+      this.form.discount = ''
       this.$api.cloud
         .getCloudPrice({
           ...this.form,
@@ -1100,6 +1115,8 @@ export default {
     },
     // 地域切换
     handleAddressChange (val) {
+      this.zoneId = -1
+      this.typeId = -1
       const addressObj = this.addressData.find(ele => ele.regionId === val)
       this.sureAreaData = addressObj.regionZone.zones.map((ele) => {
         return {
@@ -1108,16 +1125,21 @@ export default {
           value: ele.zoneId
         }
       })
-      this.zoneId = -1
-      this.typeId = -1
+      this.sureAreaData.unshift({
+        title: '随机可用区',
+        value: -1
+      })
       // 生成询价+购买参数
       const newForm = {
         ...this.form,
-        period: 1,
         regionId: this.selectAddressId,
+        zoneId: undefined,
+        period: 1,
         dataDisk: [],
         internetMaxBandwidthOut: 1,
-        tradePrice: '价格计算中...' // 服务器金额
+        tradePrice: '价格计算中...',
+        discountPrice: '0.00',
+        discount: ''
       }
       this.form = { ...newForm }
       this.regionQuery.cpuCoreCount = undefined
@@ -1140,11 +1162,11 @@ export default {
         .getRegionDetail({
           regionId: this.selectAddressId,
           specFamily: this.typeId === -1 ? undefined : this.typeId,
-          // zoneId: this.zoneId === -1 ? undefined : this.zoneId,
+          regionZone: this.zoneId === -1 ? undefined : this.zoneId,
           ...this.regionQuery
         })
         .then((res) => {
-          if (res.data && res.data.length > 0) {
+          if (Array.isArray(res.data) && res.data.length > 0) {
             this.regionList = [...res.data]
             this.form.instanceType = res.data[0].instanceTypeId
             this.form.cpu = res.data[0].cpuCoreCount
@@ -1160,6 +1182,7 @@ export default {
     // 选择实例
     handleSelectRegion (record) {
       this.form.instanceType = record.instanceTypeId
+      this.form.instanceTypeFamily = record.instanceTypeFamily
       this.form.cpu = record.cpuCoreCount
       this.form.memory = record.memorySize
       this.handleChangeGetPrice()
@@ -1231,7 +1254,7 @@ export default {
     },
     // cpu+内存 发生改变，需要先请求实例列表，再去请求价格
     handleCpuOrMemoryChange () {
-      this.typeId = this.typeList.length > 0 ? this.typeList[0].value : ''
+      this.typeId = -1
       this.getRegionData()
     },
     // cpu+内存+数据盘+带宽+镜像+购买时长+数量发生改变，再次进行询价
@@ -1305,10 +1328,6 @@ export default {
       const osName = this.systemEditionList.find(
         ele => ele.imageId === this.form.imageId
       ).OSName
-      // 获取当前选择的实例的instanceTypeFamily
-      const newInstanceTypeFamily = this.regionList.find(
-        item => item.instanceTypeId === this.form.instanceType
-      ).instanceTypeFamily
       // 处理购买时后端所需要数据
       const newForm = {
         // 兼容后期可能一次性购买多个
@@ -1325,10 +1344,12 @@ export default {
         // 询价时所用参数
         productConfig: {
           ...this.form,
-          instanceTypeFamily: newInstanceTypeFamily,
+          instanceTypeFamily: this.form.instanceTypeFamily,
           osName,
           // 处理时间，判断是年还是月
-          ...time
+          ...time,
+          regionId: this.selectAddressId,
+          zoneId: this.zoneId === -1 ? undefined : this.zoneId
         },
         // 交易类型
         tradeType: 1
