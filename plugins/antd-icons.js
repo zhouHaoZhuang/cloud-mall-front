@@ -62,5 +62,9 @@ export {
   // 实底对号
   CheckCircleFill,
   CheckCircleOutline,
-  CheckCircleTwoTone
+  CheckCircleTwoTone,
+  // i
+  InfoCircleFill,
+  InfoCircleOutline,
+  InfoCircleTwoTone
 } from '@ant-design/icons'
