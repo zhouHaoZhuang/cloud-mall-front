@@ -110,6 +110,24 @@ export const $routes = [
     }
   },
   {
+    path: '/instant-open',
+    name: 'instant',
+    component: resolve('pages/product/instant/instant-open.vue'),
+    meta: {
+      title: 'CDN开通页',
+      icon: 'icon'
+    }
+  },
+  {
+    path: '/price-detail',
+    name: 'price',
+    component: resolve('pages/product/pricedetail/price.vue'),
+    meta: {
+      title: 'CDN详细价格信息',
+      icon: 'icon'
+    }
+  },
+  {
     path: '/balancing-ba',
     name: 'balancing',
     component: resolve('pages/product/balancing/balancing-ba.vue'),

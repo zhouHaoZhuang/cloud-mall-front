@@ -53,6 +53,11 @@ function getCloudAdminUrl () {
     ? cloudAdminUrl[process.env.NODE_ENV]
     : localStorage.getItem('idcUrl')
 }
+// 跳转到CDN云加速页面
+export const jumpCloudAdminDash = (token) => {
+  const url = getCloudAdminUrl()
+  window.open(url + '/control/cdn/dashboard' + `?token=${token}`, '_self')
+}
 // 跳转控制台-首页
 export const jumpCloudAdmin = (token, type) => {
   const url = getCloudAdminUrl()
@@ -131,25 +136,25 @@ export const judgePwdFormat = (value, minLength = 8, maxLength = 30) => {
 }
 
 const identifyCodes = [
-  "0",
-  "1",
-  "2",
-  "3",
-  "4",
-  "5",
-  "6",
-  "7",
-  "8",
-  "9",
-  "a",
-  "b",
-  "c",
-  "d",
+  '0',
+  '1',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  '9',
+  'a',
+  'b',
+  'c',
+  'd',
   'A',
   'B',
   'C',
   'D'
-]; //根据实际需求加入自己想要的字符
+] // 根据实际需求加入自己想要的字符
 // 生成随机数
 export const randomNum = (min, max) => {
   max = max + 1

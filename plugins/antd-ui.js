@@ -10,7 +10,9 @@ import {
   Carousel,
   Checkbox,
   Pagination,
-  message
+  message,
+  Table,
+  Alert
 } from 'ant-design-vue'
 import VueClipboard from 'vue-clipboard2'
 import VueScrollTo from 'vue-scrollto'
@@ -43,6 +45,8 @@ Vue.use(Checkbox)
 Vue.use(Pagination)
 Vue.use(Icon)
 Vue.use(Pagination)
+Vue.use(Table)
+Vue.use(Alert)
 Vue.component('Iconfont', iconfont) // 注册组件
 Vue.use(VueClipboard)
 Vue.use(VueScrollTo, options)

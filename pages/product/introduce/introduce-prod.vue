@@ -1,6 +1,5 @@
 <template>
-  <!-- 弹性云服务器 -->
-  <div class="cloud">
+  <div class="recruit-container">
     <!-- 轮播图 -->
     <div class="banner-wrap">
       <div class="container">
@@ -8,645 +7,288 @@
         <div class="txt-list">
           CDN通过广泛的网络节点分布，提供快速、稳定、安全、可编程的全球内容分发加速服务，支持将网站、音视频、下载等内容分发至接近用户的节点，使用户可就近取得所需内容，提高用户访问的响应速度和成功率
         </div>
-        <a class="btn right-margin"> 立即开通 </a>
-        <a class="btn2 right-margin"> 管理控制台 </a>
-        <a class="right-margin price-color">产品价格</a>
+        <a class="btn right-margin" @click="skipInstant"> 立即开通 </a>
+        <a class="btn2 right-margin" @click="skipAdmin"> 管理控制台 </a>
+        <a
+          class="right-margin price-color"
+          @click="skipPriceDetail"
+        >产品价格</a>
       </div>
     </div>
     <!-- 锚点导航 -->
     <AnchorNav :nav-data="navList" />
-    <!-- 页面顶部吸顶锚点导航 -->
-    <FixedTopNav :nav-data="navList" />
     <!-- 产品优势 -->
-    <div class="goodness-module auto">
-      <p class="title">
-        <span class="title-name"> 产品优势我吾问无为谓无无无无无无无 </span>
-      </p>
-      <div class="adv-wrap">
-        <ul class="clearfix">
-          <li class="">
-            <!-- 图标 -->
-            <div class="adv-icon adv-icon-1" />
-            <div class="adv-title">
-              跨机房热迁移服务
+    <div id="support" class="support-wrap">
+      <div class="container">
+        <div class="public-title">
+          产品优势
+        </div>
+        <div class="public-title-down">
+          ADVANTAGES
+        </div>
+        <div class="list">
+          <div
+            v-for="(item, index) in productSuperiority"
+            :key="index"
+            class="item"
+          >
+            <div class="bg" :style="item.bg" />
+            <div class="title">
+              {{ item.title }}
             </div>
-            <div class="adv-content">
-              打破地域限制，轻松应对时间空间带来的运营困扰，最快仅需5分钟，即可将数据从一机房迁移至另一机房。
-            </div>
-          </li>
-          <li>
-            <div class="adv-icon adv-icon-2" />
-            <div class="adv-title">
-              服务器在线push功能
-            </div>
-            <div class="adv-content">
-              {{
-                webInfo.title
-              }}鼓励支持用户将手中闲置服务器随时转让，提高闲置资源使用率，减少资源浪费并帮用户有效降低成本。
-            </div>
-          </li>
-          <li>
-            <div class="adv-icon adv-icon-3" />
-            <div class="adv-title">
-              三层存储技术
-            </div>
-            <div class="adv-content">
-              缓存、沉淀、备份层，三层分别对数据进行处理、缓存与灾备，三层间实时同步，数据安全性达到99.999%，高可用性达到99.99%。
-            </div>
-          </li>
-          <li>
-            <div class="adv-icon adv-icon-4" />
-            <div class="adv-title">
-              免费20G防御
-            </div>
-            <div class="adv-content">
-              {{
-                webInfo.title
-              }}采用自带硬防节点，部分节点享免费20G防御，可实现300G防御峰值，有效防御DDoS、CC等恶意攻击，保障用户网络安全。
-            </div>
-          </li>
-          <li>
-            <div class="adv-icon adv-icon-7" />
-            <div class="adv-title title-line-height">
-              纯SSD架构配备至强硬件
-            </div>
-            <div class="adv-content margin-top14">
-              搭建纯SSD架构的高性能企业级云服务器，同时采用Intel Haswell
-              CPU、高频DDR4内存、高速Sas3
-              SSD闪存作为底层硬件配置，分钟级响应速度。
-            </div>
-          </li>
-          <li>
-            <div class="adv-icon adv-icon-8" />
-            <div class="adv-title">
-              全网BGP带宽
-            </div>
-            <div class="adv-content">
-              {{
-                webInfo.title
-              }}使用BGP线路，解决了南北互联互通的问题。同时自身具有容灾性，保障线路安全稳定。
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <!-- 产品功能 -->
-    <div class="function-moudle">
-      <div class="auto">
-        <p class="title">
-          <span class="title-name"> 产品功能 </span>
-        </p>
-        <div class="container">
-          <div class="function-left">
-            <p class="left-title">
-              01 计算
-            </p>
-            <p class="left-content">
-              丰富的实例规格，灵活扩容，支撑用户业务发展;有北京、辽宁、江苏、香港、广东五大节点，满足用户多样化需求。云服务器提供丰富的实例规格(CPU、内存）和带宽、云盘选择，支持随时升级，满足各种业务需求。99.99%的高可用性，为业务的稳定运行捉供保障
-            </p>
-          </div>
-          <div class="function-right">
-            <div class="right-container">
-              <p class="right-title">
-                02 存储
-              </p>
-              <p class="right-content">
-                三层存储技术，支撑用户数据自动生成备份,切实保障用户数据安全，满足不同的I/O性能要求。采用{{
-                  webInfo.title
-                }}三层存储革新技术，自动分层缓存、沉淀、备份数据保障用户数据完整性、可用性，数据安全性高达99.9999%,
-              </p>
-            </div>
-            <div class="right-container">
-              <p class="right-title">
-                03 管理
-              </p>
-              <p class="right-content">
-                提供控制台、远程终端和API等多种管理方式，给您完全管理权限。提供web控制台、API两种方式，能够轻松的开通、关闭、重启、升级云服务器;提供CPU、内存、硬盘IO的实时监控和报表,随时了解云服务器运行情况。
-              </p>
-            </div>
-            <div class="right-container">
-              <p class="right-title">
-                04 安全
-              </p>
-              <p class="right-content">
-                网络安全、服务器安全等基础防护;云监控监测,实时预警。提供DDos防护、DNS劫持检测、入侵检测、漏洞扫描、网页木马检测、登录防护等安全服务。对服务器的监控报警服务，提供实时监控,性能高低一目了然。
-              </p>
-            </div>
-            <div class="right-container">
-              <p class="right-title">
-                05 网络
-              </p>
-              <p class="right-content">
-                全网BGP带宽，承诺独享，多运营商覆盖。BGP网络支持国内所有主流运营商接入;覆盖全国的快速公网体验，提供灵活的网络规划选择。
-              </p>
+            <div class="title-desc">
+              {{ item.desc }}
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- 优势对比 -->
-    <div class="contrast-moudle">
-      <div class="auto">
-        <p class="title">
-          <span class="title-name"> 优势对比 </span>
-        </p>
-        <div class="container">
-          <div class="contrast-left box">
-            <div class="line">
-              服务器可用性(SLA)
-            </div>
-            <div class="line">
-              数据持久性
-            </div>
-            <div class="line">
-              网络可用性
-            </div>
-            <div class="line">
-              虚拟化架构
-            </div>
-            <div class="line">
-              资源超卖
-            </div>
-            <div class="line">
-              交付时间
-            </div>
-            <div class="line">
-              ARP攻击防护
-            </div>
-            <div class="line">
-              在线过户
-            </div>
-            <div class="line">
-              控制面板
-            </div>
-            <div class="line">
-              攻击防护
-            </div>
-            <div class="line">
-              SSD能力
-            </div>
-            <div class="line">
-              OEM能力
-            </div>
-            <div class="line">
-              自建数据中心
-            </div>
-            <div class="line">
-              资源监控告警
-            </div>
-          </div>
-          <div class="contrast-right box">
-            <div class="contrast-title">
-              其他云厂商
-            </div>
-            <div class="contrast-content">
-              <div class="line">
-                大多99%至99.959%
+    <!-- 产品功能 -->
+    <div id="process" class="process-wrap">
+      <div class="container">
+        <div class="public-title">
+          产品功能
+        </div>
+        <div class="public-title-down">
+          FEATURES
+        </div>
+        <div class="list">
+          <div
+            v-for="(item, index) in cooperationProcess"
+            :key="index"
+            class="item"
+          >
+            <div class="bg" :style="item.bg" />
+            <div class="right">
+              <div class="title">
+                {{ item.title }}
               </div>
-              <div class="line">
-                一
-              </div>
-              <div class="line">
-                一
-              </div>
-              <div class="line">
-                KVM/Hyper-v/VmWare等
-              </div>
-              <div class="line">
-                超卖情况普遍
-              </div>
-              <div class="line">
-                几分钟至几小时
-              </div>
-              <div class="line">
-                —般没有彻底解决
-              </div>
-              <div class="line red">
-                <a-icon type="close-circle" theme="filled" />
-              </div>
-              <div class="line">
-                部分半自动
-              </div>
-              <div class="line">
-                大多没有免费防护
-              </div>
-              <div class="line">
-                50~200M/s
-              </div>
-              <div class="line red">
-                <a-icon type="close-circle" theme="filled" />
-              </div>
-              <div class="line">
-                大多没有自建数据中心
-              </div>
-              <div class="line">
-                大多没有
-              </div>
-            </div>
-          </div>
-          <div class="contrast-right box">
-            <div class="contrast-title">
-              {{ webInfo.title }}主机
-              <div class="icon" />
-            </div>
-            <div class="contrast-content">
-              <div class="line">
-                99.99%
-              </div>
-              <div class="line">
-                99.999%
-              </div>
-              <div class="line">
-                99.999%
-              </div>
-              <div class="line">
-                VM
-              </div>
-              <div class="line">
-                绝不超卖
-              </div>
-              <div class="line">
-                1-10分钟
-              </div>
-              <div class="line">
-                彻底隔离
-              </div>
-              <div class="line">
-                <a-icon type="check-circle" theme="filled" />
-              </div>
-              <div class="line">
-                全部自动完成
-              </div>
-              <div class="line">
-                5G免费DDOS防护
-              </div>
-              <div class="line">
-                随机读800M/s，随机写500M/s
-              </div>
-              <div class="line">
-                <a-icon type="check-circle" theme="filled" />
-              </div>
-              <div class="line">
-                <a-icon type="check-circle" theme="filled" />
-              </div>
-              <div class="line">
-                <a-icon type="check-circle" theme="filled" />
-              </div>
-            </div>
-          </div>
-          <div class="contrast-right box">
-            <div class="contrast-title">
-              传统独立主机
-            </div>
-            <div class="contrast-content">
-              <div class="line">
-                较低
-              </div>
-              <div class="line">
-                较低
-              </div>
-              <div class="line">
-                较低
-              </div>
-              <div class="line red">
-                <a-icon type="close-circle" theme="filled" />
-              </div>
-              <div class="line red">
-                <a-icon type="close-circle" theme="filled" />
-              </div>
-              <div class="line">
-                1-2天
-              </div>
-              <div class="line red">
-                <a-icon type="close-circle" theme="filled" />
-              </div>
-              <div class="line red">
-                <a-icon type="close-circle" theme="filled" />
-              </div>
-              <div class="line red">
-                <a-icon type="close-circle" theme="filled" />
-              </div>
-              <div class="line">
-                大多没有免费防护
-              </div>
-              <div class="line">
-                100~150M/s
-              </div>
-              <div class="line red">
-                <a-icon type="close-circle" theme="filled" />
-              </div>
-              <div class="line">
-                大多没有自建数据中心
-              </div>
-              <div class="line red">
-                <a-icon type="close-circle" theme="filled" />
-              </div>
+              <p class="desc">
+                {{ item.desc }}
+              </p>
             </div>
           </div>
         </div>
       </div>
     </div>
     <!-- 应用场景 -->
-    <div class="application-moudle">
-      <div class="auto">
-        <p class="title">
-          <span class="title-name"> 应用场景 </span>
-        </p>
-        <div class="container">
-          <div class="application-left">
-            <div
-              v-for="item in items"
-              :key="item.id"
-              :class="
-                curId === item.id
-                  ? 'application-left-box check'
-                  : 'application-left-box'
-              "
-              @click="changeCurId(item.id)"
-            >
-              {{ item.item }}
-            </div>
-          </div>
-          <div class="application-center">
-            <div
-              v-for="item in application"
-              v-show="curId === item.id"
-              :key="item.id"
-              class="application-show"
-            >
-              <div class="application-center-top">
-                <p class="application-center-title">
-                  {{ item.titleOne }}
-                </p>
-                {{ item.contentOne }}
-              </div>
-              <div class="application-center-bottom">
-                <p class="application-center-title">
-                  {{ item.titleTwo }}
-                </p>
-                {{ item.contentTwo }}
-              </div>
-            </div>
-          </div>
-          <div class="application-right">
-            <div
-              v-for="(item, index) in contents"
-              v-show="curId === item.id"
-              :key="index"
-              class="application-list"
-            >
-              <div
-                v-for="(ele, ind) in item.text"
-                :key="ind"
-                class="application-items"
-              >
-                {{ ele.title }}:{{ ele.content }}
-              </div>
-              <div class="application-btn">
-                <nuxt-link
-                  :to="{
-                    path: '/cloud-price',
-                    query: { cpu: item.cpu, memory: item.memory }
-                  }"
-                >
-                  立即购买
-                </nuxt-link>
-              </div>
-            </div>
-          </div>
+    <div id="environment" class="environment-wrap">
+      <div class="container">
+        <div class="public-title">
+          应用场景
         </div>
-      </div>
-    </div>
-    <!-- 常见问题 -->
-    <div class="question-moudle">
-      <div class="auto">
-        <p class="title">
-          <span class="title-name"> 常见问题 </span>
-        </p>
-        <div class="container">
+        <div class="public-title-down">
+          SCENARIOS
+        </div>
+        <div class="list">
           <div
-            v-for="(item, index) in question"
+            v-for="(item, index) in applicationSce"
             :key="index"
-            class="question-list"
+            class="item"
           >
-            <div
-              class="bg"
-              :style="`background:url(${item.bg}) center no-repeat`"
-            />
-            <div class="content">
-              {{ item.content }}
+            <div class="bg" :style="item.bg" />
+            <div class="title">
+              {{ item.title }}
+            </div>
+            <div class="desc-two">
+              {{ item.desc }}
             </div>
           </div>
         </div>
-        <div class="question-btn">
-          <nuxt-link to="/help/helpInfo">
-            更多
-          </nuxt-link>
-          <!-- <a href=":;javaScript">更多</a> -->
+      </div>
+    </div>
+    <!-- 帮助文档 -->
+    <div id="helpdoc" class="help-wrap">
+      <div class="container">
+        <div class="public-title">
+          帮助文档
+        </div>
+        <div class="public-title-down">
+          DUCUMENTATION
+        </div>
+        <div class="list">
+          <div v-for="(item, index) in helpList" :key="index" class="item">
+            <div class="bg" :style="item.bg" />
+            <div class="right">
+              <div class="title">
+                {{ item.title }}
+              </div>
+              <p class="desc">
+                {{ item.desc }}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- 页面顶部吸顶锚点导航 -->
+    <FixedTopNav :nav-data="navList" />
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import AnchorNav from '@/components/AnchorNav/introduce'
-import FixedTopNav from '@/components/FixedTopNav/introduce'
+import AnchorNav from '@/components/AnchorNav/index'
+import FixedTopNav from '@/components/FixedTopNav/index'
+import { jumpCloudAdmin } from '@/utils/index.js'
+
 export default {
   components: { AnchorNav, FixedTopNav },
   data () {
     return {
+      jumpCloudAdmin,
       navList: [
         {
-          id: 'open',
-          title: '开放产品能力'
-        },
-        {
-          id: 'market',
-          title: '市场机遇'
-        },
-        {
-          id: 'advantage',
-          title: '合作优势'
+          id: 'support',
+          title: '产品优势'
         },
         {
           id: 'process',
-          title: '合作流程 '
+          title: '产品功能 '
+        },
+
+        {
+          id: 'environment',
+          title: '应用场景'
         },
         {
-          id: 'support',
-          title: '合作支持'
-        },
-        {
-          id: 'support',
-          title: '合作咨询'
-        },
-        {
-          id: 'condition',
-          title: '合作条件'
-        },
-        {
-          id: 'system',
-          title: '搭配系统'
+          id: 'helpdoc',
+          title: '帮助文档'
         }
       ],
-      curId: 1,
-      items: [
-        { item: '入门型', id: 1 },
-        { item: '进阶型', id: 2 },
-        { item: '专业型', id: 3 },
-        { item: '理想型', id: 4 }
-      ],
-      application: [
+      navSelectIndex: 0,
+      productSuperiority: [
         {
-          titleOne: '适用对象',
-          contentOne: '小型企业官网或者个人站长',
-          titleTwo: '上云建议',
-          contentTwo:
-            '网站初始阶段并发访问量小，只需要一台低配置的服务器即可，应用程序，数据库，文件等所有资源均在一台服务器上，后期可以基于云计算弹性特征随时调整资源配置，无需担心低配服务器在业务突增时带来的资源不足问题。',
-          id: 1
+          title: '快速，全球覆盖',
+          bg: `width: 120px;height: 120px;background: url(${require('~/static/img/introduce/productSuperiority_1.png')}) no-repeat center;margin-top:38px`,
+          desc: '全球拥有2800+节点。覆盖70多个国家和地区，包括中国内地（大陆）、中国香港、中国澳门、中国台湾、其他国家和地区，全网带宽输出能力达150 Tbps'
         },
         {
-          titleOne: '适用对象',
-          contentOne: '地方与行业门户网站',
-          titleTwo: '上云建议',
-          contentTwo:
-            '社区网站业务相对个人网站，有更多的用户访问，为保证性能，此时就需要对带宽、内存、CPU进行优化，以便提供更大的空间，提升访问速度。',
-          id: 2
+          title: '站点安全性',
+          bg: `width: 90px;height:130px;background: url(${require('~/static/img/introduce/productSuperiority_2.png')}) no-repeat center;margin-top:28px`,
+          desc: '为网络提供系统级保护，您的流量和程序受益于各种形式的保护，支持多种防盗链功能、HTTPS安全传输、IP黑名单等高级安全控制功能'
         },
         {
-          titleOne: '适用对象',
-          contentOne: '网上商城、团购网',
-          titleTwo: '上云建议',
-          contentTwo:
-            '随着电子商务的不断发展，众多企业逐渐意识到电子商务的重要性。该配置适用于开发、测试、上线初期，后期可根据您的业务的实际增长进行增减，可灵活控制。计算能力满足90%云计算使用者需求，适合企业运营活动、并行计算应用、普通数据处理服务等。',
-          id: 3
+          title: '简单且高效',
+          bg: `width: 148px;height: 76px;background: url(${require('~/static/img/introduce/productSuperiority_3.png')}) no-repeat center;margin-top:52px;margin-bottom:96px`,
+          desc: '通过标准化配置，更及时的的作出响应，用户自主在控制台进行访问控制、性能优化、缓存策略等配置，实时掌握CDN服务使用情况'
         },
         {
-          titleOne: '适用对象',
-          contentOne: '社区SNS/论坛/ERP/OACRM、网络游戏等其他高端服务',
-          titleTwo: '上云建议',
-          contentTwo:
-            '适合对计算性能要求较高的应用场景，如企业运营活动、批量处理、分布式分析、游戏app等。网络游戏在近年来发展迅速，除了传统网络终端之外，网页游戏、手机游戏等发展迅速，也让整个游戏市场愈发壮大。浙江云盾按需付费的方式节省了大量现金流和运营费用。',
-          id: 4
+          title: '心动的价格',
+          bg: `width: 138px;height: 124px;background: url(${require('~/static/img/introduce/productSuperiority_4.png')}) no-repeat center;margin-top:34px`,
+          desc: '性能和技术强大的同时，价格也同样有竞争力，灵活的计费模式，免去您的麻烦'
         }
       ],
-      contents: [
+      cooperationProcess: [
         {
-          id: 1,
-          cpu: 1,
-          memory: 1,
-          text: [
-            { title: 'CPU', content: '1核' },
-            { title: '内存', content: '1G' },
-            { title: '宽带', content: '1M' },
-            { title: '时长', content: '1个月' }
-          ]
+          title: '全链路加速',
+          bg: `width: 120px;height: 120px;background: url(${require('~/static/img/introduce/productfunc-1.png')}) no-repeat center;background-size: cover !important;display:inline-block`,
+          desc: '只需上传加速域名证书/私钥，获得企业级HTTPS加速服务。自此基础上，用户进行自定义配置后，可将原请求方式进行强制 HTTPS 跳转'
         },
         {
-          id: 2,
-          cpu: 2,
-          memory: 4,
-          text: [
-            { title: 'CPU', content: '2核' },
-            { title: '内存', content: '4G' },
-            { title: '宽带', content: '1M' },
-            { title: '时长', content: '1个月' }
-          ]
+          title: '智能优化',
+          bg: `width: 120px;height: 120px;background: url(${require('~/static/img/introduce/2.png')}) no-repeat center;background-size: cover !important;display:inline-block`,
+          desc: '通过页面优化、智能压缩、过滤参数（提高缓存命中率）等方式来提升用户请求的响应速度和文件下载速度，减少传输内容节约开销的同时提升加速效果'
         },
         {
-          id: 3,
-          cpu: 4,
-          memory: 8,
-          text: [
-            { title: 'CPU', content: '4核' },
-            { title: '内存', content: '8G' },
-            { title: '宽带', content: '1M' },
-            { title: '时长', content: '1个月' }
-          ]
+          title: '静态资产缓存',
+          bg: `width: 120px;height: 120px;background: url(${require('~/static/img/introduce/8.png')}) no-repeat center;background-size: cover !important;display:inline-block`,
+          desc: '加速向查看者交付静态内容（即图像、样式表等）。均衡使用 CPU 多核处理能力，进行高性能缓存，配合 SSD 加速能力，减少用户访问等待时间'
         },
         {
-          id: 4,
-          cpu: 8,
-          memory: 16,
-          text: [
-            { title: 'CPU', content: '8核' },
-            { title: '内存', content: '16G' },
-            { title: '宽带', content: '1M' },
-            { title: '时长', content: '1个月' }
-          ]
+          title: '访问控制',
+          bg: `width: 120px;height: 120px;background: url(${require('~/static/img/introduce/4.png')}) no-repeat center;background-size: cover !important;display:inline-block`,
+          desc: '可通过URL鉴权设置、Refer防盗链设置、IP黑/白名单设置、UA黑/白名单设置能够很好地解决盗链危害'
         }
       ],
-      question: [
+      applicationSce: [
         {
-          bg: require('~/static/img/cloud/question1.png'),
-          content: '备案指南'
+          title: '移动加速 ',
+          bg: `width: 182px;height: 182px;background: url(${require('~/static/img/introduce/14.png')}) no-repeat center`,
+          desc: '当全球分布的客户端进行更新文件（apk文件）时，将自动扩展，通过 HTTPDNS 服务，避免 DNS 劫持并进行DNS精准解析。可以通过内容分发网络使更新的内容立即在用户所在的边缘站点可用'
         },
         {
-          bg: require('~/static/img/cloud/question2.png'),
-          content: '安全类问题'
+          title: '直播和点播视频流',
+          bg: `width: 182px;height: 182px;background: url(${require('~/static/img/introduce/9.png')}) no-repeat center`,
+          desc: '提供多种选项来将媒体（包括预录制文件和直播） 分发给所需的持续高吞吐量流式传输给全球查看者。视频直播，将媒体片段缓存到边缘站点，并折叠对清单文件的多个请求，以减少来源应用程序的负载'
         },
         {
-          bg: require('~/static/img/cloud/question3.png'),
-          content: '基础类问题'
+          title: '站点/下载加速',
+          bg: `width: 182px;height: 182px;background: url(${require('~/static/img/introduce/11.png')}) no-repeat center`,
+          desc: '应用于中小文件的加速分发，例如，各种门户网站、电子商务类网站、新闻资讯类网站或应用、娱乐游戏类网站等；同时支持各类大文件的下载和分发加速，例如游戏安装包、应用更新、手机ROM升级、应用程序包下载'
         }
       ],
-      bannerList: [
+      helpList: [
         {
-          id: 1,
-          status: 0,
-          display: true,
-          openLinkType: '1',
-          title: '弹性云服务器',
-          pcButtonLink: '/cloud-price',
-          pictureLink: '/cloud-price',
-          pcButtonName: '立即选购',
-          describe:
-            '服务器配备纯SSD架构打造的高性能存储，旨在为用户提供优质、高效、弹性伸缠的云计算服务。云服务器采用由数据切片技术构建的三层存储功能，切实保护客户数据的安全。同时可弹性扩展的资源用量，为客户业务在高峰期的赎畅保驾护航;灵活多样的计费方式，为客户最大程度的节省IT运营成本，提高资源的有效利用率。',
-          pcPicture:
-            'https://ydidc-test.oss-cn-shanghai.aliyuncs.com/idc-mall/cloud/bg.png'
+          title: '产品文档',
+          bg: `width: 64px;height: 80px;background: url(${require('~/static/img/introduce/help_1.png')}) no-repeat center;background-size: cover !important;display:inline-block`,
+          desc: 'CDN产品帮助文档'
+        },
+        {
+          title: '常见问题',
+          bg: `width: 76px;height: 90px;background: url(${require('~/static/img/introduce/help_2.png')}) no-repeat center;background-size: cover !important;display:inline-block`,
+          desc: '问题解惑，汇总合集'
         }
       ]
     }
   },
   computed: {
     ...mapState({
-      webInfo: state => state.home.webInfo
+      isLogin: state => state.user.isLogin,
+      token: state => state.user.token
     })
   },
-  watch: {
-    webInfo: {
-      handler () {
-        this.application[3].contentTwo = this.application[3].contentTwo.replace(
-          '浙江云盾',
-          this.webInfo.title || ''
-        )
-      },
-      deep: true,
-      immediate: true
-    }
-  },
-  created () {
-    // 仅作调试使用---start
-    // 获取网站信息+公司信息
-    this.$api.home.getWebInfo()
-    this.$api.home.getCompanyInfo()
-    // 获取全局配置
-    this.$api.user.getAllConfig()
-    // 仅作调试使用---end
-  },
   methods: {
-    changeCurId (item) {
-      this.curId = item
+    skipAdmin () {
+      if (this.isLogin === true) {
+        this.jumpCloudAdmin(this.token)
+      } else {
+        this.$message.warning('请先登录')
+        setInterval(() => {
+          this.$router.push('/login')
+        }, 2000)
+      }
+    },
+    skipInstant () {
+      // 判断是否开通过,开通过就提示,没开通过就让跳转,开通过进行提示
+      this.$api.cloud.isAccountSetup().then((res) => {
+        // 开通过
+        if (res.code === '000000') {
+          if (res.data === true) {
+            this.$message.warning('已开通CDN服务')
+          } else {
+            // 未开通
+            this.$router.push('/instant-open')
+          }
+        } else if (res.code === '000001') {
+          this.$message.warning('请先登录')
+          setInterval(() => {
+            this.$router.push('/login')
+          }, 2000)
+        } else {
+          this.$message.warning(res.msg)
+        }
+      })
+    },
+    skipPriceDetail () {
+      // 跳转到产品价格详情
+      this.$router.push('/price-detail')
+    },
+    // 点击跳转
+    handleClickJump (path) {
+      if (!path) {
+        return
+      }
+      this.$router.push(path)
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.cloud {
-  background-color: #fff;
+.recruit-container {
+  background: #fff;
   .banner-wrap {
     position: relative;
     height: 702px;
@@ -665,7 +307,7 @@ export default {
         width: 706px;
         line-height: 30px;
         font-size: 20px;
-        margin: 60px 0 50px 0;
+        margin: 60px 0 70px 0;
       }
       .btn {
         margin: 30px 0 28px;
@@ -699,397 +341,319 @@ export default {
         margin-right: 30px;
       }
       .price-color {
+        cursor: pointer;
         color: #f9f9f9;
       }
     }
   }
-}
-.auto {
-  overflow: hidden;
-  margin: 0 auto;
-  width: 1200px;
-  height: 100%;
-  box-sizing: border-box;
-}
-//产品优势
-.goodness-module {
-  margin: 20px auto 80px;
-  width: 1200px !important;
-}
-.title {
-  position: relative;
-  height: 32px;
-  line-height: 32px;
-  text-align: center;
-  margin: 70px auto;
-}
-.title .title-name {
-  display: inline-block;
-  padding-right: 15px;
-  font-size: 36px;
-  font-weight: bold;
-  color: #333;
-}
-.adv-wrap ul li {
-  width: 366px;
-  height: 310px;
-  float: left;
-  padding: 50px;
-  background: #fff;
-  border: 2px solid #edf2fa;
-  margin-top: 30px;
-  .adv-title {
-    font-size: 24px;
-    font-weight: bold;
-    font-stretch: normal;
-    line-height: 16px;
-    letter-spacing: 0px;
+  // 公共头部
+  .public-title {
+    height: 32px;
+    line-height: 32px;
     text-align: center;
-    margin: 30px 0 20px;
-    line-height: 1;
+    padding-right: 15px;
+    font-size: 36px;
+    color: #333;
   }
-  .adv-content {
-    font-size: 14px;
-    margin-top: 38px;
-    font-weight: normal;
-    font-stretch: normal;
-    letter-spacing: 0px;
-    line-height: 24px;
-    color: #778699;
+  .public-title-down {
+    font-size: 24px;
+    text-align: center;
+    font-weight: 400;
+    color: #8b95a7;
+    line-height: 33px;
+    margin: 20px 0 50px 0;
+    text-indent: -0.6em;
   }
-  .title-line-height {
-    margin-bottom: 0;
-  }
-  .margin-top14 {
-    margin-top: 14px;
-  }
-  .adv-icon {
-    width: 60px;
-    height: 54px;
-    margin: 0 auto;
-    background-size: contain !important;
-  }
-  .adv-icon-1 {
-    background: url(~/static/img/cloud/product_adv_1.png) no-repeat center;
-  }
-  .adv-icon-2 {
-    background: url(~/static/img/cloud/product_adv_2.png) no-repeat center;
-  }
-  .adv-icon-3 {
-    background: url(~/static/img/cloud/product_adv_3.png) no-repeat center;
-  }
-  .adv-icon-4 {
-    background: url(~/static/img/cloud/product_adv_4.png) no-repeat center;
-  }
-  .adv-icon-7 {
-    background: url(~/static/img/cloud/product_adv_5.png) no-repeat center;
-  }
-  .adv-icon-8 {
-    background: url(~/static/img/cloud/product_adv_6.png) no-repeat center;
-  }
-}
-.adv-wrap ul li:nth-child(2) {
-  margin: 30px 30px 0;
-}
-.adv-wrap ul li:nth-child(5) {
-  margin: 30px 30px 0;
-}
-.clearfix:after {
-  display: block;
-  clear: both;
-  content: '';
-}
-// 产品功能
-.function-moudle {
-  width: 100%;
-  height: 798px;
-  background: #f9f9f9;
-  .container {
-    display: flex;
-    justify-content: flex-start;
-    width: 100%;
-    height: 530px;
-    color: #fff;
-    .function-left {
-      width: 380px;
-      height: 530px;
-      padding: 0 48px;
-      background: url(~/static/img/cloud/function_left_bg.png) center no-repeat;
-      background-size: cover;
-      .left-title {
-        width: 100%;
-        margin: 40px 0 28px 0;
-        font-size: 24px;
-        font-weight: 800;
-      }
-      .left-content {
-        width: 100%;
-        font-size: 14px;
-        font-weight: 500;
-        line-height: 28px;
-        opacity: 0.72;
-      }
-    }
-    .function-right {
-      display: flex;
-      flex-wrap: wrap;
-      align-content: space-between;
-      justify-content: flex-start;
-      width: 840px;
-      .right-container {
-        box-sizing: border-box;
-        width: 380px;
-        height: 250px;
-        margin-left: 30px;
-        padding: 0 48px;
-        background-size: cover !important;
-        .right-title {
-          margin: 40px 0 20px 0;
-          font-size: 24px;
-          font-weight: 800;
-          color: #fff;
-        }
-        .right-content {
-          width: 100%;
-          font-size: 14px;
-          font-weight: 500;
-          line-height: 26px;
-          color: #778699;
-        }
-      }
-      .right-container:nth-child(1) {
-        background: url(~/static/img/cloud/function_right_bg1.png) center
-          no-repeat;
-      }
-      .right-container:nth-child(2) {
-        background: url(~/static/img/cloud/function_right_bg2.png) center
-          no-repeat;
-      }
-      .right-container:nth-child(3) {
-        background: url(~/static/img/cloud/function_right_bg3.png) center
-          no-repeat;
-      }
-      .right-container:nth-child(4) {
-        background: url(~/static/img/cloud/function_right_bg4.png) center
-          no-repeat;
-      }
-    }
-  }
-}
-// 优势对比
-.contrast-moudle {
-  width: 100%;
-  .container {
-    display: flex;
-    justify-content: flex-start;
-    width: 822px;
-    margin-bottom: 80px;
-    .box {
-      width: 320px;
-      height: 622px;
-    }
-    .contrast-left {
-      width: 120px;
-      height: 463px;
-      font-size: 14px;
-      margin-right: 30px;
-      margin-top: 117px;
-      font-weight: bold;
-      color: #778699;
-      line-height: 50px;
-      .line {
-        height: 32px;
-      }
-    }
-    .contrast-right {
-      margin-left: 30px;
-      border: 2px solid #edf2fa;
-      .contrast-title {
-        width: 100%;
-        height: 80px;
-        line-height: 80px;
-        text-align: center;
-        font-size: 24px;
-        font-weight: 800;
-        color: #fff;
-        background: url(~/static/img/cloud/contrast-right-titlebg1.png)
-          no-repeat center;
-        background-size: cover;
-      }
-      .contrast-content {
-        text-align: center;
-        font-size: 14px;
-        font-weight: bold;
-        color: #778699;
-        line-height: 50px;
-        .line {
-          height: 37px;
-        }
-        .red {
-          color: red;
-        }
-      }
-    }
-    .contrast-right:nth-child(3) {
-      background: url(~/static/img/cloud/contrast-right-content2.png) no-repeat
-        bottom right;
-      background-size: cover;
-      .contrast-title {
-        position: relative;
-        background: url(~/static/img/cloud/contrast-right-titlebg2.png)
-          no-repeat center;
-        background-size: cover;
-        .icon {
-          position: absolute;
-          right: 70px;
-          top: 10px;
-          width: 33px;
-          height: 28px;
-          background: url(~/static/img/cloud/contrast-right-title2.png)
-            no-repeat center;
-          background-size: cover;
-        }
-      }
-      .contrast-content {
-        color: #fff;
-      }
-    }
-  }
-}
-// 应用场景
-.application-moudle {
-  width: 100%;
-  height: 586px;
-  background: #f9f9f9;
-  .container {
-    display: flex;
-    justify-content: flex-start;
-    width: 100%;
-    height: 320px;
-    .application-left {
-      width: 200px;
-      height: 100%;
-      background-color: #fff;
-      .application-left-box {
-        width: 100%;
-        height: 80px;
-        line-height: 80px;
-        text-align: center;
-        font-size: 24px;
-        color: #333;
-        cursor: pointer;
-      }
-      .check {
-        width: 210px;
-        color: #fff;
-        background: url(~/static/img/cloud/applicationcheck.png) no-repeat
-          center;
-        background-size: cover;
-      }
-    }
-    .application-center {
-      width: 594px;
-      height: 100%;
-      margin: 0 30px;
-      font-size: 16px;
-      color: #778699;
-      padding: 40px 28px 0 32px;
-      background-color: #fff;
-      .application-center-top {
-        margin-bottom: 30px;
-      }
-      .application-center-title {
-        font-size: 20px;
-        color: #333;
-        font-weight: bold;
-      }
-      .application-center-bottom {
-        line-height: 20px;
-      }
-    }
-    .application-right {
-      position: relative;
-      width: 346px;
-      height: 100%;
-      padding: 30px 30px 0px 30px;
-      background: url(~/static/img/cloud/applicationlist.png) no-repeat center;
-      background-size: cover;
-      .application-list {
+  .support-wrap {
+    padding: 50px 0 0;
+    margin-bottom: 100px;
+    .container {
+      width: 1600px;
+      .list {
         display: flex;
         flex-wrap: wrap;
-        align-content: flex-start;
-        .application-items {
-          width: 140px;
-          height: 40px;
-          font-size: 20px;
-          color: #fff;
+        .item {
+          width: 370px;
+          height: 528px;
+          padding: 30px 20px 40px 20px;
+          margin: 10px;
+          box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.1);
+          .bg {
+            background-size: 100% !important;
+            margin: 0 auto;
+          }
+          .title {
+            font-size: 28px;
+            font-family: Microsoft YaHei;
+            font-weight: 600;
+            color: rgba(51, 51, 51, 1);
+            text-align: center;
+            margin: 68px 0 20px 0;
+          }
+
+          .title-desc {
+            font-size: 20px;
+            line-height: 28px;
+          }
+        }
+        .item:hover {
+          box-shadow: 0px 0px 10px 2px rgba(59, 119, 227, 0.1);
+        }
+        .item:nth-child(1):hover .bg {
+          background: url('~/static/img/introduce/18.png') no-repeat center !important;
+        }
+        .item:nth-child(2):hover .bg {
+          background: url('~/static/img/introduce/16.png') no-repeat center !important;
+        }
+        .item:nth-child(3):hover .bg {
+          background: url('~/static/img/introduce/15.png') no-repeat center !important;
+        }
+        .item:nth-child(4):hover .bg {
+          background: url('~/static/img/introduce/17.png') no-repeat center !important;
         }
       }
-      .application-btn {
-        position: absolute;
-        left: 83px;
-        bottom: 23px;
-        width: 180px;
-        height: 60px;
-        font-size: 24px;
-        color: #fff;
-        line-height: 60px;
-        text-align: center;
-        background-color: #fcac33;
-        a {
-          color: #fff;
+      .consulting {
+        height: 180px;
+        background: url('~/static/img/about/consulting1.jpg') no-repeat center;
+        display: flex;
+        margin-top: 60px;
+        .txt-box {
+          padding-top: 40px;
+          margin-left: 368px;
+          font-family: Microsoft YaHei;
+          div:nth-child(1) {
+            font-size: 27px;
+            font-weight: 400;
+            color: #fff;
+            line-height: 62px;
+          }
+          div:nth-child(2) {
+            font-size: 18px;
+            font-weight: 400;
+            color: #fff;
+            line-height: 50px;
+          }
+        }
+        .btn {
+          width: 180px;
+          height: 55px;
+          background: #fff;
+          border-radius: 4px;
+          font-size: 18px;
+          font-weight: bold;
+          color: #0066ff;
+          text-align: center;
+          line-height: 55px;
+          margin-left: 80px;
+          margin-top: 65px;
         }
       }
     }
   }
-}
-// 常见问题
-.question-moudle {
-  height: 543px;
-  .container {
+  .process-wrap {
     display: flex;
-    height: 240px;
-    .question-list {
-      display: flex;
-      align-items: center;
-      width: 380px;
-      height: 160px;
-      padding-left: 40px;
-      background-color: #fff;
-      border: 2px solid #edf2fa;
-      .bg {
-        width: 80px;
-        height: 80px;
-        background-color: blue;
-        background-size: cover !important;
+    justify-content: space-between;
+    padding: 140px 0;
+    background-color: #f5f7fd;
+    .container {
+      width: 1600px;
+
+      .list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        .item {
+          width: 754px;
+          height: 220px;
+          margin: 10px 10px 20px 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: #ffffff;
+          .bg {
+            background-size: 23px 24px !important;
+            height: 28px;
+          }
+          .right {
+            width: 534px;
+            height: 220px;
+            padding: 0 10px;
+            display: inline-block;
+            margin-left: 30px;
+            .title {
+              font-size: 14px;
+              font-family: Microsoft YaHei;
+              font-weight: 400;
+              color: rgba(102, 102, 102, 1);
+              line-height: 24px;
+              text-align: left;
+              margin-top: 40px;
+              font-size: 20px;
+              font-weight: 600;
+              color: #333;
+              margin-bottom: 20px;
+            }
+            .desc {
+              font-size: 20px;
+              color: #9ca4b5;
+              line-height: 28px;
+            }
+          }
+        }
+        .item:hover {
+          box-shadow: 0px 0px 10px 2px rgba(59, 119, 227, 0.1);
+        }
+        .item:nth-child(1):hover .bg {
+          background: url('~/static/img/introduce/6.png') no-repeat center !important;
+        }
+        .item:nth-child(2):hover .bg {
+          background: url('~/static/img/introduce/1.png') no-repeat center !important;
+        }
+        .item:nth-child(3):hover .bg {
+          background: url('~/static/img/introduce/7.png') no-repeat center !important;
+        }
+        .item:nth-child(4):hover .bg {
+          background: url('~/static/img/introduce/3.png') no-repeat center !important;
+        }
       }
-      .content {
-        margin-left: 23px;
-        height: 80px;
-        line-height: 80px;
-        text-align-last: left;
-        font-size: 24px;
-        color: #333;
-      }
-    }
-    .question-list:nth-child(2) {
-      margin: 0 30px;
     }
   }
-  .question-btn {
-    width: 300px;
-    height: 60px;
-    line-height: 60px;
-    text-align: center;
-    font-size: 16px;
-    font-weight: 500;
-    margin: 0 auto;
-    color: #1d7aec;
-    background-color: #e8f1fd;
-    a {
-      display: inline-block;
-      width: 100%;
-      height: 100%;
+  .environment-wrap {
+    padding: 140px 0 116px 0;
+    .container {
+      width: 1600px;
+      .list {
+        display: flex;
+        justify-content: space-around;
+        .item {
+          width: 492px;
+          height: 552px;
+          padding: 70px 44px 50px 44px;
+          margin: 10px;
+          box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.1);
+          .bg {
+            background-size: 100% !important;
+            margin: 0 auto;
+          }
+          .title {
+            font-family: Microsoft YaHei;
+            font-weight: 400;
+            color: rgba(51, 51, 51, 1);
+            text-align: center;
+            font-size: 24px;
+            margin: 70px 0 16px 0;
+          }
+
+          .desc-two {
+            font-size: 20px;
+            line-height: 28px;
+            color: #9ca4b5;
+          }
+        }
+        .item:hover {
+          box-shadow: 0px 0px 10px 2px rgba(59, 119, 227, 0.1);
+        }
+        .item:nth-child(1):hover .bg {
+          background: url('~/static/img/introduce/13.png') no-repeat center !important;
+        }
+        .item:nth-child(2):hover .bg {
+          background: url('~/static/img/introduce/10.png') no-repeat center !important;
+        }
+        .item:nth-child(3):hover .bg {
+          background: url('~/static/img/introduce/12.png') no-repeat center !important;
+        }
+      }
+      .consulting {
+        height: 180px;
+        background: url('~/static/img/about/consulting1.jpg') no-repeat center;
+        display: flex;
+        margin-top: 60px;
+        .txt-box {
+          padding-top: 40px;
+          margin-left: 368px;
+          font-family: Microsoft YaHei;
+          div:nth-child(1) {
+            font-size: 27px;
+            font-weight: 400;
+            color: #fff;
+            line-height: 62px;
+          }
+          div:nth-child(2) {
+            font-size: 18px;
+            font-weight: 400;
+            color: #fff;
+            line-height: 50px;
+          }
+        }
+        .btn {
+          width: 180px;
+          height: 55px;
+          background: #fff;
+          border-radius: 4px;
+          font-size: 18px;
+          font-weight: bold;
+          color: #0066ff;
+          text-align: center;
+          line-height: 55px;
+          margin-left: 80px;
+          margin-top: 65px;
+        }
+      }
+    }
+  }
+  .help-wrap {
+    display: flex;
+    justify-content: space-between;
+    padding: 90px 0;
+    background-color: #f5f7fd;
+    .container {
+      width: 1600px;
+      .list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: left;
+        .item {
+          width: 370px;
+          height: 134px;
+          margin: 10px 10px 20px 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: #ffffff;
+          margin-right: 30px;
+          .bg {
+            background-size: 23px 24px !important;
+            height: 28px;
+          }
+          .right {
+            width: 234px;
+            height: 134px;
+            padding: 0 10px;
+            display: inline-block;
+            margin-left: 30px;
+            .title {
+              font-size: 28px;
+              font-family: Microsoft YaHei;
+              font-weight: 400;
+              color: rgba(102, 102, 102, 1);
+              line-height: 24px;
+              text-align: left;
+              margin-top: 30px;
+              font-weight: 600;
+              color: #333;
+              margin-bottom: 20px;
+            }
+            .desc {
+              font-size: 18px;
+              color: #9ca4b5;
+              line-height: 28px;
+            }
+          }
+        }
+        .item:hover {
+          box-shadow: 0px 0px 10px 2px rgba(59, 119, 227, 0.1);
+        }
+      }
     }
   }
 }

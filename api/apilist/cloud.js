@@ -1,4 +1,12 @@
 export default axios => ({
+  // 立即开通
+  isAccountSetup () {
+    return axios.post('/tcOrder/checkOpenCdnProductServer')
+  },
+  // 立即开通
+  instantAccountSetup () {
+    return axios.post('/tcOrder/openCdnProductServer')
+  },
   // 获取产品列表
   productList (params) {
     return axios({
