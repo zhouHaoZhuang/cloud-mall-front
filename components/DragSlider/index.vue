@@ -146,21 +146,21 @@ export default {
 .slider-wrap {
   position: relative;
   width: 600px;
-  height: 35px;
-  border: 1px solid #ddd;
+  height: 38px;
+  border: 1px solid #3B77E3;
   background-color: #fff;
-  border-radius: 2px;
+  border-radius: 4px;
   font-size: 14px;
   .slider-box {
     width: 600px;
     display: flex;
     .item {
       width: 25%;
-      height: 35px;
-      line-height: 35px;
-      color: #4c4c4c;
+      height: 37px;
+      line-height: 38px;
+      color: #3B77E3;
       padding-right: 8px;
-      border-left: 1px solid #ddd;
+      border-left: 1px solid #3B77E3;
       text-align: right;
       cursor: pointer;
       font-weight: 400;
@@ -170,11 +170,11 @@ export default {
     }
   }
   .slider-bg {
-    height: 35px;
+    height: 38px;
     position: absolute;
     top: 0;
     overflow: hidden;
-    background-color: #1d7aec;
+    background-color: #3B77E3;
     margin-top: -1px;
     border-radius: 2px 0 0 2px;
     transition: width 0.2s;
@@ -189,11 +189,12 @@ export default {
   }
   .slider-btn {
     position: absolute;
-    top: -3px;
+    top: -11px;
     left: 0;
     width: 16px;
-    height: 40px;
+    height: 57px;
     background: url('~/static/img/common/slide_range_bg.png') no-repeat center;
+    background-size: 100%;
     cursor: pointer;
     z-index: 3;
     cursor: pointer;

@@ -9,92 +9,168 @@
     <!-- 地域 -->
     <div class="choose-public-box container">
       <div class="choose-left">
-        <span> 地域 </span>
+        <span> 地域及可用区 </span>
       </div>
       <div class="choose-right">
         <div class="choose-item">
-          <div class="choose-label" style="width: 110px">
+          <div class="choose-label">
             地域：
           </div>
           <div class="choose-value">
             <div class="address">
-              <div
-                v-for="item in addressData"
-                :key="item.regionId"
-                :class="
-                  selectAddressId === item.regionId
-                    ? 'address-item active'
-                    : 'address-item'
-                "
-                @click="addressChange(item)"
+              <a-select
+                v-model="selectAddressId"
+                style="width: 200px"
+                placeholder="请选择地域"
+                size="large"
+                @change="handleAddressChange"
               >
-                <div class="top-tit">
+                <a-select-option
+                  v-for="item in addressData"
+                  :key="item.regionId"
+                  :value="item.regionId"
+                >
                   {{ item.localName }}
-                </div>
-                <div class="bot-info">
-                  {{ item.localName }}
-                </div>
-              </div>
+                </a-select-option>
+              </a-select>
+            </div>
+          </div>
+        </div>
+        <div class="choose-item">
+          <div class="choose-label">
+            可用区：
+          </div>
+          <div class="choose-value">
+            <div class="address">
+              <TabSelect
+                v-model="zoneId"
+                :list="sureAreaData"
+                @change="zoneChange"
+              />
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- 选型 -->
+    <!-- 实例规格 -->
     <div class="choose-public-box container">
       <div class="choose-left">
-        <span> 选型 </span>
+        <span> 实例规格 </span>
       </div>
       <div class="choose-right">
-        <div class="choose-item">
-          <div class="choose-label">
-            分类：
-          </div>
-          <div class="choose-value">
-            <div class="selection">
-              <TabSelect
-                v-model="typeId"
-                :list="typeList"
-                @change="typeChange"
-              />
-            </div>
-          </div>
-        </div>
         <div class="choose-item">
           <div class="choose-label">
             CPU：
           </div>
           <div class="choose-value">
-            <div class="selection">
-              <TabSelect
-                v-model="form.cpu"
-                :list="cpuData"
-                @change="handleCpuOrMemoryChange('cpu')"
-              />
+            <div class="cpu-box">
+              <a-select
+                v-model="regionQuery.cpuCoreCount"
+                style="width: 200px"
+                size="large"
+                placeholder="请选择CPU"
+                @change="handleCpuOrMemoryChange"
+              >
+                <a-select-option
+                  v-for="item in cpuData"
+                  :key="item"
+                  :value="item"
+                >
+                  {{ item }}核
+                </a-select-option>
+              </a-select>
+              <div class="label">
+                内存：
+              </div>
+              <a-select
+                v-model="regionQuery.memorySize"
+                style="width: 200px"
+                placeholder="请选择内存"
+                size="large"
+                @change="handleCpuOrMemoryChange"
+              >
+                <a-select-option
+                  v-for="item in memoryData"
+                  :key="item"
+                  :value="item"
+                >
+                  {{ item }}G
+                </a-select-option>
+              </a-select>
             </div>
           </div>
         </div>
         <div class="choose-item">
           <div class="choose-label">
-            内存：
+            类型：
           </div>
           <div class="choose-value">
-            <div class="selection">
-              <TabSelect
-                v-model="form.memory"
-                :list="memoryData"
-                @change="handleCpuOrMemoryChange('memory')"
-              />
-            </div>
+            <TabSelect
+              v-model="typeId"
+              :loose="true"
+              :list="typeList"
+              @change="typeChange"
+            />
           </div>
         </div>
+        <!-- 实例列表 -->
+        <div class="choose-item">
+          <div class="table-box">
+            <a-table
+              :locale="{ emptyText: '暂无数据' }"
+              :columns="columns"
+              :data-source="regionList"
+              row-key="instanceTypeId"
+              :pagination="false"
+              :scroll="{ y: 300 }"
+            >
+              <div slot="instanceTypeFamily" slot-scope="text, record">
+                <a-radio
+                  :checked="radioValue(record)"
+                  @click="handleSelectRegion(record)"
+                >
+                  {{ text }}
+                </a-radio>
+              </div>
+              <div slot="cpuCoreCount" slot-scope="text, record">
+                {{ text }} vCPU | {{ record.memorySize }} GB
+              </div>
+              <div slot="instanceBandwidthRx" slot-scope="text">
+                {{ text }} kbit/s
+              </div>
+              <div slot="instancePpsRx" slot-scope="text">
+                {{ text }} PPS
+              </div>
+            </a-table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 存储 -->
+    <div class="choose-public-box container">
+      <div class="choose-left">
+        <span> 存储 </span>
+      </div>
+      <div class="choose-right">
         <div class="choose-item">
           <div class="choose-label">
-            SSD系统盘：
+            系统盘：
           </div>
           <div class="choose-value">
             <div class="selection">
               <div class="ssd-item">
+                <a-select
+                  default-value="1"
+                  style="width: 130px; margin-right: 20px"
+                  size="large"
+                >
+                  <a-select-option value="1">
+                    ESSD
+                  </a-select-option>
+                  <a-select-option value="2">
+                    SSD
+                  </a-select-option>
+                </a-select>
                 <DragSlider
                   :value="form.systemDisk.size"
                   company="G"
@@ -117,7 +193,7 @@
         </div>
         <div class="choose-item">
           <div class="choose-label">
-            SSD数据盘：
+            数据盘：
           </div>
           <div class="choose-value">
             <div class="selection-ssd">
@@ -126,6 +202,18 @@
                 :key="item.id"
                 class="ssd-item"
               >
+                <a-select
+                  default-value="1"
+                  style="width: 130px; margin-right: 20px"
+                  size="large"
+                >
+                  <a-select-option value="1">
+                    ESSD
+                  </a-select-option>
+                  <a-select-option value="2">
+                    SSD
+                  </a-select-option>
+                </a-select>
                 <DragSlider
                   :value="item.size"
                   :number="item.number"
@@ -154,31 +242,6 @@
             </div>
           </div>
         </div>
-        <div class="choose-item">
-          <div class="choose-label">
-            公网带宽：
-          </div>
-          <div class="choose-value">
-            <div class="selection">
-              <DragSlider
-                :value="form.internetMaxBandwidthOut"
-                company="M"
-                :number="100"
-                :min="1"
-                :max="100"
-                :on-change="changeBandWidth"
-              />
-              <NumberInput
-                v-model="form.internetMaxBandwidthOut"
-                company="M"
-                :step="1"
-                :min="1"
-                :max="100"
-                :on-change="handleChangeGetPrice"
-              />
-            </div>
-          </div>
-        </div>
         <!-- 暂时删除防御峰值 -->
         <!-- <div class="choose-item">
           <div class="choose-label">
@@ -202,10 +265,51 @@
         </div> -->
       </div>
     </div>
-    <!-- 系统信息 -->
+    <!-- 网络 -->
     <div class="choose-public-box container">
       <div class="choose-left">
-        <span> 系统信息 </span>
+        <span> 网络 </span>
+      </div>
+      <div class="choose-right">
+        <div class="choose-item">
+          <div class="choose-label">
+            计费方式：
+          </div>
+          <div class="choose-value">
+            <TabSelect v-model="billingMethod" :list="billingMethodList" />
+          </div>
+        </div>
+        <div class="choose-item">
+          <div class="choose-label">
+            带宽值：
+          </div>
+          <div class="choose-value">
+            <div class="selection">
+              <DragSlider
+                :value="form.internetMaxBandwidthOut"
+                company="M"
+                :number="100"
+                :min="1"
+                :max="100"
+                :on-change="changeBandWidth"
+              />
+              <NumberInput
+                v-model="form.internetMaxBandwidthOut"
+                company="M"
+                :step="1"
+                :min="1"
+                :max="100"
+                :on-change="handleChangeGetPrice"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 镜像 -->
+    <div class="choose-public-box container">
+      <div class="choose-left">
+        <span> 镜像 </span>
       </div>
       <div class="choose-right">
         <div class="choose-item">
@@ -219,6 +323,7 @@
                 allow-clear
                 class="select1"
                 placeholder="请选择系统类别"
+                size="large"
                 @change="handleSystemChange"
               >
                 <a-select-option v-for="(val, key) in systemList" :key="key">
@@ -235,6 +340,7 @@
                 allow-clear
                 class="select2"
                 placeholder="请选择系统版本"
+                size="large"
                 @change="handleChangeGetPrice"
               >
                 <a-select-option
@@ -251,8 +357,24 @@
                 <a-icon class="question-icon" type="question-circle" />
               </a-tooltip>
             </div>
+            <div
+              v-if="overseasList.includes(addressName)"
+              class="txt-info"
+              style="margin-top: 20px"
+            >
+              当前地域下的云服务器购买后，暂不支持 Linux 和 Windows
+              系统互相更换，请慎重选择。
+            </div>
           </div>
         </div>
+      </div>
+    </div>
+    <!-- 密码 -->
+    <div class="choose-public-box container">
+      <div class="choose-left">
+        <span> 密码 </span>
+      </div>
+      <div class="choose-right">
         <div class="choose-item">
           <div class="choose-label">
             登录方式：
@@ -335,10 +457,10 @@
         </div>
       </div>
     </div>
-    <!-- 购买量 -->
+    <!-- 购买数量 -->
     <div class="choose-public-box container">
       <div class="choose-left">
-        <span> 购买量 </span>
+        <span> 购买数量 </span>
       </div>
       <div class="choose-right">
         <div class="choose-item">
@@ -349,6 +471,7 @@
             <div class="count">
               <TabSelect
                 v-model="form.period"
+                :loose="true"
                 :list="buyTimes"
                 width="80"
                 @change="handleChangeGetPrice"
@@ -374,6 +497,7 @@
             <div class="count">
               <NumberInput
                 v-model="form.amount"
+                style="margin-left: 0"
                 company="台"
                 :step="1"
                 :min="1"
@@ -385,64 +509,109 @@
         </div>
       </div>
     </div>
-    <!-- 价格 -->
+    <!-- 配置价格 -->
     <div class="choose-public-box price-box container">
       <div class="choose-left">
-        <span> 价格 </span>
+        <span> 配置价格 </span>
       </div>
       <div class="choose-right">
         <div class="choose-item">
           <div class="choose-label">
-            配置价格：
+            最终价格：
           </div>
           <div class="choose-value">
             <div class="price">
-              <div class="price-txt">
-                ￥{{ form.tradePrice }}
+              <span> ￥ </span>
+              <span class="price-txt">
+                {{ form.tradePrice }}
+              </span>
+            </div>
+            <div class="coupon-box">
+              <div class="left">
+                <Iconfont class="icon" type="" />
+                已节省¥{{ form.discountPrice }}
+              </div>
+              <div class="right">
+                <Iconfont class="icon" type="" />
+                已享{{ form.discount }}折
               </div>
             </div>
           </div>
         </div>
-        <div class="choose-item" style="margin-top: 10px">
-          <div class="choose-label" />
-          <div class="choose-value">
-            <div class="price">
-              <div class="left-box">
-                <div v-if="isShowCloudSelect" class="cloud-select-info">
-                  <div class="label">
-                    已选择的规格：
+        <div
+          v-show="isShowCloudSelect"
+          class="choose-item"
+          style="margin-top: 30px"
+        >
+          <div class="table-box" style="margin-left: 33px">
+            <a-table
+              :columns="configColumns"
+              :data-source="configData"
+              :row-key="
+                (record, index) => {
+                  return index
+                }
+              "
+              :pagination="false"
+            >
+              <div slot="regionId">
+                {{ addressName }}
+              </div>
+              <div slot="zoneId">
+                {{ getSureAreaName }}
+              </div>
+              <div slot="region">
+                {{ getRegion }}
+              </div>
+              <div slot="instanceTypeFamily">
+                {{ getTypeName }}
+              </div>
+              <div slot="systemDisk">
+                高效云盘-{{ form.systemDisk.size }}G
+              </div>
+              <div slot="dataDisk">
+                <a-tooltip placement="top">
+                  <template slot="title">
+                    <span> {{ diskNum }} G </span>
+                  </template>
+                  <div>
+                    {{ form.dataDisk.length }}块
+                    <a-icon type="info-circle" />
                   </div>
-                  <span>{{ addressName }}</span>
-                  <span>{{ form.cpu }}核(CPU)</span>
-                  <span>{{ form.memory }}G(内存)</span>
-                  <span>{{ form.internetMaxBandwidthOut }}M(带宽)</span>
-                  <span>{{ diskNum }}G(磁盘)</span>
-                  <!-- <span>{{ form.cpu }}G(防御)</span> -->
-                  <span>{{ form.period }}个月</span>
-                  <span>x {{ form.amount }}台(购买量)</span>
-                </div>
-                <!-- 收起/展开配置 -->
-                <!-- <div
-                  v-if="isShowCloudSelect"
-                  class="off"
-                  @click="changeIsShowCloudSelect"
-                  v-text="'>>收起<<'"
-                />
-                <div
-                  v-else
-                  class="open"
-                  @click="changeIsShowCloudSelect"
-                  v-text="'>>展开配置<<'"
-                /> -->
+                </a-tooltip>
               </div>
-              <div v-if="!isLogin" class="right-txt">
-                请先登录，此地域购买需要实名认证
+              <div slot="internetMaxBandwidthOut">
+                {{ form.internetMaxBandwidthOut }}Mbps
               </div>
-            </div>
+              <div slot="amount">
+                {{ form.amount }}台 x {{ form.period
+                }}{{
+                  setBuyTimeData(form.period).priceUnit === 'Month'
+                    ? '个月'
+                    : '年'
+                }}
+              </div>
+              <div slot="imageSystem">
+                <a-tooltip placement="top">
+                  <template slot="title">
+                    <span>
+                      {{ getSystemName }}
+                    </span>
+                  </template>
+                  <div class="text-overflow" style="width: 100px">
+                    {{ getSystemName }}
+                    <a-icon type="info-circle" />
+                  </div>
+                </a-tooltip>
+              </div>
+            </a-table>
           </div>
         </div>
       </div>
-      <!-- 购买按钮 -->
+      <!-- 购买+配置按钮 -->
+      <div class="config-btn" @click="changeIsShowCloudSelect">
+        {{ isShowCloudSelect ? '关闭' : '展开' }}配置
+      </div>
       <div class="buy-btn" @click="handleBuyCloud">
         立即购买
       </div>
@@ -462,6 +631,7 @@ import {
   jumpCloudAdminRealName,
   judgePwdFormat
 } from '@/utils/index'
+import { cpuData, memoryData, overseasList } from '@/utils/enum'
 export default {
   components: {
     DragSlider,
@@ -470,7 +640,6 @@ export default {
   },
   // nuxt推荐请求方式
   async asyncData ({ app, $axios, params, query }) {
-    console.log('进入请求', params, query)
     // 获取产品code
     const productData = await app.$api.cloud.productList()
     const productCode =
@@ -480,20 +649,29 @@ export default {
         ? productData.data.list[0].productCode
         : ''
     // 获取地域列表
-    const data = await app.$api.cloud.addressList()
-    console.log('地域列表', data)
-    const selectAddressId =
-      Array.isArray(data.data) && data.data.length > 1
-        ? data.data[1].regionId
-        : ''
-    // console.log('地域id', selectAddressId)
+    const addressData = await app.$api.cloud.addressList()
+    const firstData =
+      Array.isArray(addressData.data) && addressData.data.length > 0
+        ? addressData.data[0]
+        : { regionId: '', regionZone: { zones: [] } }
+    const selectAddressId = firstData.regionId
+    // 设置可用区数据
+    const sureAreaData = firstData.regionZone.zones.map((ele) => {
+      return {
+        ...ele,
+        title: ele.localName,
+        value: ele.zoneId
+      }
+    })
+    const zoneId = -1
+    sureAreaData.unshift({
+      title: '随机可用区',
+      value: -1
+    })
     // 获取规格簇列表
     const typeData = await app.$api.cloud.typeList()
-    const typeId =
-      Array.isArray(typeData.data) && typeData.data.length > 0
-        ? typeData.data[0].typeFamily
-        : ''
-    const typeList = typeId
+    const typeId = -1
+    const typeList = Array.isArray(typeData.data)
       ? typeData.data.map((ele) => {
         return {
           ...ele,
@@ -502,103 +680,101 @@ export default {
         }
       })
       : []
-    console.log('获取规格簇列表', typeData, typeId, typeList)
-    if (selectAddressId && typeId) {
-      // 获取cpu数据
-      const cpu = await app.$api.cloud.getAddressCpu({
-        regionId: selectAddressId,
-        specFamily: typeId
-      })
-      const cpuData = [...setCpuOrDiskData(cpu.data, '核')]
-      // console.log('cpu数据', cpu, cpuData)
-      // 生成获取内存/询价/购买时，cpu和内存的参数/可能会别的页面跳转
-      const newCpu = query.cpu ? query.cpu * 1 : cpuData[0]?.value
-      // 获取内存数据
-      const disk = await app.$api.cloud.getAddressDisk({
-        regionId: selectAddressId,
-        specFamily: typeId,
-        cpuCoreCount: newCpu
-      })
-      const memoryData = [...setCpuOrDiskData(disk.data, 'G')]
-      // console.log('memory数据', disk, memoryData)
-      // 生成获取内存/询价/购买时，cpu和内存的参数/可能会别的页面跳转
-      const newMemory = query.memory
-        ? query.memory * 1
-        : memoryData[0]?.value * 1
-      // console.log('cpu+内存', cpuData, memoryData)
-      // 获取对应的实例和实例属性，属性值---目前页面没有设计选择，默认拿第一个
-      const regionList = await app.$api.cloud.getRegionDetail({
-        regionId: selectAddressId,
-        specFamily: typeId,
-        cpuCoreCount: newCpu,
-        memorySize: newMemory
-      })
-      const regionDetail =
-        regionList.data && regionList.data[0] ? regionList.data[0] : {}
-      // console.log('实例数据', regionList, regionDetail)
-      // 获取镜像数据
-      const systemList = await app.$api.cloud.systemList({
-        regionId: selectAddressId,
-        instanceType: regionDetail.instanceTypeId
-      })
-      // 设置默认选中的系统镜像
-      const newSystemList = systemList.data.imageMap
-      const defaultSystem = Object.keys(newSystemList)[0]
-      const systemEditionList = newSystemList[defaultSystem]
-      const imageId =
-        Array.isArray(newSystemList[defaultSystem]) &&
-        newSystemList[defaultSystem].length > 0
-          ? newSystemList[defaultSystem][0].imageId
-          : ''
-      // 生成询价+购买参数
-      const form = {
-        instanceType: regionDetail.instanceTypeId, // 实例规格ID
-        regionId: selectAddressId, // 地域id
-        instanceTypeFamily: typeId, // 分类id
-        ioOptimized: 'optimized', // I/O优化
-        cpu: newCpu, // CPU
-        memory: newMemory, // 内存
-        systemDisk: {
-          category: 'cloud_essd',
-          performanceLevel: 'PL0',
-          size: 40
-        }, // 系统盘-免费赠送
-        // localStorageAmount: regionDetail.localStorageAmount, // 数据盘可添加的总数-默认写死4块
-        // 数据盘
-        dataDisk: [],
-        internetMaxBandwidthOut: 1, // 公网带宽
-        // defense: 20, // 防御峰值
-        osName: '', // 系统名称
-        imageId, // 镜像id
-        loginType: 0, // 登录方式
-        password: '',
-        okPassword: '',
-        period: 1, // 购买时长
-        priceUnit: 'Month', // 购买时长单位
-        autoRenew: 0, // 自动续费
-        amount: 1, // 购买数量
-        tradePrice: '0.00', // 服务器金额
-        // 产品编码-从导航云服务点击进来，每个产品都有自己的编码-暂时写死
-        productCode
+    typeList.unshift({
+      title: '全部类型',
+      value: -1
+    })
+    if (selectAddressId) {
+      const regionQuery = {
+        cpuCoreCount: query.cpu ? query.cpu : undefined,
+        memorySize: query.memory ? query.memory : undefined
       }
-      // 查询服务器价格
-      const priceData = await app.$api.cloud.getCloudPrice(form)
-      return {
-        addressData: data.data,
-        selectAddressId,
-        typeId,
-        typeList,
-        cpuData,
-        memoryData,
-        systemList: newSystemList,
-        systemEditionList,
-        defaultSystem,
-        form: {
-          ...form,
-          ...priceData.data
-        },
-        // 单个实例
-        regionDetail
+      // 获取对应的实例列表
+      const regionData = await app.$api.cloud.getRegionDetail({
+        regionId: selectAddressId,
+        ...regionQuery
+      })
+      const regionList =
+        Array.isArray(regionData.data) && regionData.data.length > 0
+          ? regionData.data
+          : []
+      const firstRegion = regionList.length > 0 ? regionList[0] : {}
+      if (regionList.length > 0) {
+        // 获取镜像数据
+        const systemList = await app.$api.cloud.systemList({
+          regionId: selectAddressId,
+          instanceType: firstRegion.instanceTypeId
+        })
+        // 设置默认选中的系统镜像
+        const newSystemList = systemList.data.imageMap
+        const defaultSystem = Object.keys(newSystemList)[0]
+        const systemEditionList = newSystemList[defaultSystem]
+        const imageId =
+          Array.isArray(newSystemList[defaultSystem]) &&
+          newSystemList[defaultSystem].length > 0
+            ? newSystemList[defaultSystem][0].imageId
+            : ''
+        // 生成询价+购买参数
+        const form = {
+          regionId: selectAddressId, // 地域id
+          instanceTypeFamily: firstRegion.instanceTypeFamily, // 分类id
+          ioOptimized: 'optimized', // I/O优化
+          instanceType: firstRegion.instanceTypeId, // 实例规格ID
+          cpu: firstRegion.cpuCoreCount,
+          memory: firstRegion.memorySize,
+          systemDisk: {
+            category: 'cloud_essd',
+            performanceLevel: 'PL0',
+            size: 40
+          }, // 系统盘-免费赠送
+          // localStorageAmount: regionDetail.localStorageAmount, // 数据盘可添加的总数-默认写死4块
+          // 数据盘
+          dataDisk: [],
+          internetMaxBandwidthOut: 1, // 公网带宽
+          // defense: 20, // 防御峰值
+          osName: '', // 系统名称
+          imageId, // 镜像id
+          loginType: 0, // 登录方式
+          password: '',
+          okPassword: '',
+          period: 1, // 购买时长
+          priceUnit: 'Month', // 购买时长单位
+          autoRenew: 0, // 自动续费
+          amount: 1, // 购买数量
+          tradePrice: '0.00', // 服务器金额
+          // 产品编码-从导航云服务点击进来，每个产品都有自己的编码-暂时写死
+          productCode
+        }
+        // 查询服务器价格
+        const priceData = await app.$api.cloud.getCloudPrice(form)
+        return {
+          addressData: addressData.data,
+          selectAddressId,
+          sureAreaData,
+          zoneId,
+          typeId,
+          typeList,
+          // 列表实例
+          regionList,
+          systemList: newSystemList,
+          systemEditionList,
+          defaultSystem,
+          form: {
+            ...form,
+            ...priceData.data
+          },
+          regionQuery
+        }
+      } else {
+        return {
+          addressData: addressData.data,
+          selectAddressId,
+          sureAreaData,
+          zoneId,
+          typeId,
+          typeList,
+          regionQuery
+        }
       }
     } else {
       return {}
@@ -606,21 +782,31 @@ export default {
   },
   data () {
     return {
+      overseasList,
+      // 渲染cpu tab选择数据
+      cpuData,
+      // 内存数据
+      memoryData,
       setCpuOrDiskData,
       // 地域数据
       addressData: [],
       selectAddressId: '',
+      // 可用区数据
+      sureAreaData: [],
+      zoneId: -1,
       // 规格簇数据
       typeList: [],
-      typeId: '',
+      typeId: -1,
       // 查询价格参数
-      form: {},
+      form: {
+        systemDisk: {
+          category: 'cloud_essd',
+          performanceLevel: 'PL0',
+          size: 40
+        }
+      },
       // 是否显示已选择配置
-      isShowCloudSelect: true,
-      // 渲染cpu tab选择数据
-      cpuData: [],
-      // 内存数据
-      memoryData: [],
+      isShowCloudSelect: false,
       // 防御峰值
       defenseData: [
         {
@@ -646,6 +832,14 @@ export default {
         {
           title: '300G',
           value: 300
+        }
+      ],
+      // 计费方式
+      billingMethod: 1,
+      billingMethodList: [
+        {
+          title: '按固定宽带',
+          value: 1
         }
       ],
       // 系统镜像
@@ -726,15 +920,104 @@ export default {
         }
       ],
       // 单个实例
-      regionDetail: {},
+      regionList: [],
+      columns: [
+        {
+          title: '规格族',
+          dataIndex: 'instanceTypeFamily',
+          scopedSlots: { customRender: 'instanceTypeFamily' }
+        },
+        {
+          title: '实例规格',
+          dataIndex: 'instanceTypeId'
+        },
+        {
+          title: 'vCPUs｜内存',
+          dataIndex: 'cpuCoreCount',
+          scopedSlots: { customRender: 'cpuCoreCount' }
+        },
+        {
+          title: '内网宽带',
+          dataIndex: 'instanceBandwidthRx',
+          scopedSlots: { customRender: 'instanceBandwidthRx' }
+        },
+        {
+          title: '内网收发包',
+          dataIndex: 'instancePpsRx',
+          scopedSlots: { customRender: 'instancePpsRx' }
+        }
+      ],
       passwordStatus: 1,
-      okPasswordStatus: 1
+      okPasswordStatus: 1,
+      configColumns: [
+        {
+          title: '地域',
+          dataIndex: 'regionId',
+          scopedSlots: { customRender: 'regionId' }
+        },
+        {
+          title: '可用区',
+          dataIndex: 'zoneId',
+          scopedSlots: { customRender: 'zoneId' }
+        },
+        {
+          title: '实例',
+          dataIndex: 'region',
+          scopedSlots: { customRender: 'region' }
+        },
+        {
+          title: '类型',
+          key: 'instanceTypeFamily',
+          scopedSlots: { customRender: 'instanceTypeFamily' }
+        },
+        {
+          title: '系统盘',
+          key: 'systemDisk',
+          scopedSlots: { customRender: 'systemDisk' }
+        },
+        {
+          title: '数据盘',
+          dataIndex: 'dataDisk',
+          scopedSlots: { customRender: 'dataDisk' }
+        },
+        {
+          title: '宽带',
+          dataIndex: 'internetMaxBandwidthOut',
+          scopedSlots: { customRender: 'internetMaxBandwidthOut' }
+        },
+        {
+          title: '购买数量',
+          dataIndex: 'amount',
+          scopedSlots: { customRender: 'amount' }
+        },
+        {
+          title: '系统镜像',
+          dataIndex: 'imageSystem',
+          scopedSlots: { customRender: 'imageSystem' }
+        }
+      ],
+      configData: [
+        {
+          regionId: this.selectAddressId, // 地域id
+          zoneId: this.zoneId // 可用区id
+        }
+      ],
+      regionQuery: {
+        cpuCoreCount: undefined,
+        memorySize: undefined
+      }
     }
   },
   computed: {
     ...mapState({
-      token: state => state.user.token
+      token: state => state.user.token,
+      isLogin: state => state.user.isLogin
     }),
+    radioValue () {
+      return function (record) {
+        return this.form.instanceType === record.instanceTypeId
+      }
+    },
     // 返回选择的那个地域名称
     addressName () {
       if (this.addressData.length > 0) {
@@ -742,6 +1025,37 @@ export default {
           item => item.regionId === this.selectAddressId
         )
         return newAddress.localName
+      } else {
+        return ''
+      }
+    },
+    // 返回可用区名称
+    getSureAreaName () {
+      if (this.sureAreaData.length > 0) {
+        const newSureArea = this.sureAreaData.find(
+          item => item.value === this.zoneId
+        )
+        return newSureArea.title
+      } else {
+        return ''
+      }
+    },
+    // 返回类型名称
+    getTypeName () {
+      if (this.typeList.length > 0) {
+        const newType = this.typeList.find(item => item.value === this.typeId)
+        return newType.title
+      } else {
+        return ''
+      }
+    },
+    // 返回实例数据
+    getRegion () {
+      if (this.regionList.length > 0) {
+        const newRegion = this.regionList.find(
+          item => item.instanceTypeId === this.form.instanceType
+        )
+        return `${newRegion.cpuCoreCount}vCPU | ${newRegion.memorySize}G`
       } else {
         return ''
       }
@@ -758,9 +1072,16 @@ export default {
         return 0
       }
     },
-    ...mapState({
-      isLogin: state => state.user.isLogin
-    })
+    // 返回选择的系统镜像名称
+    getSystemName () {
+      const systemName1 = Object.keys(this.systemList).find(
+        ele => ele === this.defaultSystem
+      )
+      const systemName2 = this.systemEditionList.find(
+        ele => ele.imageId === this.form.imageId
+      ).OSName
+      return `${systemName1}/${systemName2}`
+    }
   },
   methods: {
     // 处理询价或者购买时，购买时长的字段
@@ -780,92 +1101,91 @@ export default {
     // 查询服务器价格
     getCloudPrice () {
       this.form.tradePrice = '价格计算中...'
+      this.form.discountPrice = '0.00'
+      this.form.discount = ''
       this.$api.cloud
         .getCloudPrice({
           ...this.form,
-          // 产品编码-从导航云服务点击进来，每个产品都有自己的编码-暂时写死
-          productCode: this.form.productCode,
           // 处理时间，判断是年还是月
           ...this.setBuyTimeData(this.form.period)
         })
         .then((res) => {
-          console.log('查询价格', res)
           this.form = { ...this.form, ...res.data }
         })
     },
     // 地域切换
-    addressChange (item) {
-      this.selectAddressId = item.regionId
-      this.typeId = this.typeList.length > 0 ? this.typeList[0].value : ''
+    handleAddressChange (val) {
+      this.zoneId = -1
+      this.typeId = -1
+      const addressObj = this.addressData.find(ele => ele.regionId === val)
+      this.sureAreaData = addressObj.regionZone.zones.map((ele) => {
+        return {
+          ...ele,
+          title: ele.localName,
+          value: ele.zoneId
+        }
+      })
+      this.sureAreaData.unshift({
+        title: '随机可用区',
+        value: -1
+      })
       // 生成询价+购买参数
       const newForm = {
         ...this.form,
-        cpu: 1,
-        memory: 1,
+        regionId: this.selectAddressId,
+        zoneId: undefined,
         period: 1,
-        regionId: item.regionId,
         dataDisk: [],
         internetMaxBandwidthOut: 1,
-        tradePrice: '价格计算中...' // 服务器金额
+        tradePrice: '价格计算中...',
+        discountPrice: '0.00',
+        discount: ''
       }
       this.form = { ...newForm }
-      this.getCpu()
+      this.regionQuery.cpuCoreCount = undefined
+      this.regionQuery.memorySize = undefined
+      this.getRegionData()
+    },
+    // 可用区切换
+    zoneChange () {
+      this.getRegionData()
     },
     // 分类切换
     typeChange () {
-      this.getCpu()
-    },
-    // 获取地域对应的cpu信息
-    getCpu () {
-      this.$api.cloud
-        .getAddressCpu({
-          regionId: this.selectAddressId,
-          specFamily: this.typeId
-        })
-        .then((res) => {
-          this.cpuData = [...setCpuOrDiskData(res.data, '核')]
-          if (this.cpuData.length > 0) {
-            this.form.cpu = this.cpuData[0]?.value
-            this.getDisk()
-          } else {
-            this.$message.warning('该地域/内存/CPU下没有实例')
-            this.form.tradePrice = '---'
-            this.memoryData = []
-          }
-        })
-    },
-    // 获取地域对应的内存信息
-    getDisk (cpu) {
-      this.$api.cloud
-        .getAddressDisk({
-          regionId: this.selectAddressId,
-          specFamily: this.typeId,
-          cpuCoreCount: cpu || this.cpuData[0].value
-        })
-        .then((res) => {
-          this.memoryData = [...setCpuOrDiskData(res.data, 'G')]
-          this.form.memory = this.memoryData[0]?.value
-          this.getRegionData()
-        })
+      this.regionQuery.cpuCoreCount = undefined
+      this.regionQuery.memorySize = undefined
+      this.getRegionData()
     },
     // 获取对应的实例和实例属性，属性值---目前页面没有设计选择，默认拿第一个
     getRegionData () {
       this.$api.cloud
         .getRegionDetail({
           regionId: this.selectAddressId,
-          specFamily: this.typeId,
-          cpuCoreCount: this.form.cpu,
-          memorySize: this.form.memory
+          specFamily: this.typeId === -1 ? undefined : this.typeId,
+          regionZone: this.zoneId === -1 ? undefined : this.zoneId,
+          ...this.regionQuery
         })
         .then((res) => {
-          if (res.data && res.data.length > 0) {
+          if (Array.isArray(res.data) && res.data.length > 0) {
+            this.regionList = [...res.data]
             this.form.instanceType = res.data[0].instanceTypeId
+            this.form.cpu = res.data[0].cpuCoreCount
+            this.form.memory = res.data[0].memorySize
             this.getSystemData()
           } else {
-            this.$message.warning('该地域/内存/CPU下没有实例')
+            this.regionList = []
+            this.$message.warning('没有实例')
             this.form.tradePrice = '---'
           }
         })
+    },
+    // 选择实例
+    handleSelectRegion (record) {
+      this.form.instanceType = record.instanceTypeId
+      this.form.instanceTypeFamily = record.instanceTypeFamily
+      this.form.cpu = record.cpuCoreCount
+      this.form.memory = record.memorySize
+      this.handleChangeGetPrice()
     },
     // 获取对应地域的系统镜像
     getSystemData () {
@@ -884,7 +1204,7 @@ export default {
             newSystemList[this.defaultSystem].length > 0
               ? newSystemList[this.defaultSystem][0].imageId
               : ''
-          this.getCloudPrice()
+          this.handleChangeGetPrice()
         })
     },
     // 修改ssd数据盘
@@ -933,12 +1253,9 @@ export default {
       this.handleChangeGetPrice()
     },
     // cpu+内存 发生改变，需要先请求实例列表，再去请求价格
-    handleCpuOrMemoryChange (type) {
-      if (type === 'cpu') {
-        this.getDisk(this.form.cpu)
-      } else {
-        this.getRegionData()
-      }
+    handleCpuOrMemoryChange () {
+      this.typeId = -1
+      this.getRegionData()
     },
     // cpu+内存+数据盘+带宽+镜像+购买时长+数量发生改变，再次进行询价
     handleChangeGetPrice () {
@@ -1018,7 +1335,7 @@ export default {
           {
             purchaseDuration: time.period,
             durationUnit: time.priceUnit,
-            itemCode: this.regionDetail.instanceTypeId,
+            itemCode: this.form.instanceTypeId,
             quantity: this.form.amount
           }
         ],
@@ -1027,10 +1344,12 @@ export default {
         // 询价时所用参数
         productConfig: {
           ...this.form,
-          instanceTypeFamily: this.typeId,
+          instanceTypeFamily: this.form.instanceTypeFamily,
           osName,
           // 处理时间，判断是年还是月
-          ...time
+          ...time,
+          regionId: this.selectAddressId,
+          zoneId: this.zoneId === -1 ? undefined : this.zoneId
         },
         // 交易类型
         tradeType: 1
@@ -1053,6 +1372,8 @@ export default {
 
 <style lang="scss" scoped>
 .cloud-price-container {
+  background: #f5f7fd;
+  padding-bottom: 20px;
   .password-info {
     color: red;
     margin-top: 6px;
@@ -1080,22 +1401,25 @@ export default {
   }
   // 选购主体
   .choose-public-box {
-    min-height: 155px;
+    min-height: 100px;
     display: flex;
     margin-bottom: 16px;
     background-color: #fff;
-    border: 1px solid rgb(238, 238, 238);
     border-left: 0;
     font-size: 14px;
     color: #999;
     position: relative;
+    border-radius: 4px;
+    overflow: hidden;
     .choose-left {
-      width: 30px;
+      width: 35px;
       position: absolute;
       left: 0;
       top: 0;
       bottom: 0;
-      background-color: rgb(235, 236, 238);
+      background-color: rgba(235, 241, 252, 1);
+      color: #12264c;
+      font-size: 16px;
       span {
         width: 1em;
         position: absolute;
@@ -1105,61 +1429,66 @@ export default {
       }
     }
     .choose-right {
-      padding: 35px 0;
+      padding: 30px 0;
       flex: 1;
       margin-left: 30px;
+      background: #fff;
       .choose-item {
         display: flex;
         margin-bottom: 20px;
+        .table-box {
+          width: 100%;
+          margin-left: 60px;
+          margin-right: 30px;
+          .ant-table-body {
+            /* 整个滚动条 */
+            &::-webkit-scrollbar {
+              width: 20px;
+              height: 20px;
+              background-color: red;
+            }
+            /* 滚动条上的按钮 (上下箭头). */
+            &::-webkit-scrollbar-button {
+              background-color: #2196f3;
+              border-radius: 50px;
+              height: 20px;
+              width: 20px;
+            }
+            /* 滚动条上的滚动滑块. */
+            &::-webkit-scrollbar-thumb {
+              background-color: #e91e63;
+              border-radius: 50px;
+            }
+            /*  滚动条轨道. */
+            &::-webkit-scrollbar-track {
+              background-color: #eff6fc;
+            }
+            /* 滚动条没有滑块的轨道部分 */
+            &::-webkit-scrollbar-track-piece {
+              background-color: red;
+            }
+          }
+        }
         .choose-label {
-          width: 140px;
+          width: 110px;
           text-align: right;
           margin-right: 15px;
           line-height: 33px;
+          color: #13274b;
         }
         .choose-value {
           flex: 1;
           // 地域
-          .address {
+          // .address {
+          // }
+          // 实例规格-cpu
+          .cpu-box {
             display: flex;
-            flex-wrap: wrap;
-            .address-item {
-              width: 129px;
-              height: 70px;
-              border-right: none;
-              background: #fff;
-              text-align: center;
-              color: #4c4c4c;
-              margin-bottom: 20px;
-              margin-right: 20px;
-              cursor: pointer;
-              .top-tit,
-              .bot-info {
-                text-overflow: ellipsis;
-                word-break: keep-all;
-                white-space: nowrap;
-                overflow: hidden;
-              }
-              .top-tit {
-                height: 35px;
-                line-height: 35px;
-                background: #f5f7fa;
-              }
-              .bot-info {
-                margin-top: 5px;
-                height: 35px;
-                line-height: 35px;
-                background: #f5f7fa;
-                color: #999;
-              }
-              &.active {
-                color: #fff;
-                .top-tit,
-                .bot-info {
-                  background: #1d7aec;
-                  color: #fff;
-                }
-              }
+            align-items: center;
+            .label {
+              color: #12264c;
+              font-size: 16px;
+              margin-left: 50px;
             }
           }
           // 选型
@@ -1196,12 +1525,12 @@ export default {
             .ssd-item-add {
               width: 609px;
               height: 40px;
-              border: 1px dashed #1d7aec;
+              border: 1px dashed #3b77e3;
               display: flex;
               align-items: center;
               justify-content: center;
               color: #1d7aec;
-              background: rgba(29, 122, 236, 0.1);
+              background: rgba(211, 241, 255, 0.5);
               cursor: pointer;
               .icon {
                 font-size: 20px;
@@ -1214,7 +1543,7 @@ export default {
           }
           .question-icon {
             font-size: 18px;
-            color: #059fff;
+            color: #3b77e3;
             line-height: 39px;
             margin-left: 10px;
           }
@@ -1250,13 +1579,11 @@ export default {
           // }
           // 价格
           .price {
-            display: flex;
-            justify-content: space-between;
+            color: #13274b;
+            line-height: 25px;
             .price-txt {
-              line-height: 35px;
-              font-size: 24px;
-              font-weight: 700;
-              color: #f43131;
+              font-size: 26px;
+              color: #3b77e3;
             }
             .left-box {
               display: flex;
@@ -1282,13 +1609,29 @@ export default {
               margin-right: 10px;
             }
           }
+          .coupon-box {
+            display: flex;
+            margin-top: 10px;
+            .left,
+            .right {
+              display: flex;
+              align-items: center;
+              color: #12264c;
+            }
+            .right {
+              margin-left: 40px;
+              color: #ff7f61;
+            }
+          }
+        }
+        &:last-child {
+          margin-bottom: 0 !important;
         }
       }
     }
     &:hover {
-      border-color: #1d7aec;
       .choose-left {
-        background-color: #1d7aec;
+        background-color: #3b77e3;
         color: #fff;
       }
     }
@@ -1298,8 +1641,8 @@ export default {
     z-index: 10;
     box-shadow: 0 -2px 12px 1px rgba(0, 0, 0, 0.11);
     border: solid 1px rgb(238, 238, 238);
-    background-color: rgb(255, 255, 255);
     bottom: 0;
+    .config-btn,
     .buy-btn {
       position: absolute;
       top: 35px;
@@ -1308,13 +1651,51 @@ export default {
       height: 40px;
       line-height: 40px;
       border: none;
-      border-radius: 2px;
-      background-color: #1d7aec;
+      background-color: #3b77e3;
+      border-radius: 0px 4px 4px 0px;
       font-size: 16px;
       color: #fff;
       text-align: center;
       cursor: pointer;
       font-weight: 700;
+    }
+    .config-btn {
+      border: 1px solid #3b77e3;
+      color: #3b77e3;
+      border-radius: 4px 0px 0px 4px;
+      border-right: none;
+      right: 144px;
+      background: transparent;
+    }
+  }
+}
+</style>
+<style lang="scss">
+.cloud-price-container {
+  .table-box {
+    .ant-table-thead > tr > th,
+    .ant-table-tbody > tr > td {
+      padding: 12px 16px;
+    }
+    .ant-table-body {
+      /* 整个滚动条 */
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+      /* 滚动条上的按钮 (上下箭头). */
+      &::-webkit-scrollbar-button {
+        display: none;
+      }
+      /* 滚动条上的滚动滑块. */
+      &::-webkit-scrollbar-thumb {
+        background-color: #3b77e3;
+        border-radius: 50px;
+      }
+      /* 滚动条没有滑块的轨道部分 */
+      &::-webkit-scrollbar-track-piece {
+        background-color: #eff6fc;
+        border-radius: 50px;
+      }
     }
   }
 }

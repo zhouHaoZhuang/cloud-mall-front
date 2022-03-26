@@ -111,38 +111,40 @@ export default {
 
 <style lang="scss" scoped>
 .number-input-wrap {
+  width: 139px;
+  height: 38px;
   display: flex;
   margin-left: 20px;
+  border-radius: 4px;
+  overflow: hidden;
   .left,
   .right {
-    width: 36px;
-    height: 36px;
-    background: #edf2fa;
+    width: 38px;
+    height: 38px;
+    background: #3b77e3;
     display: flex;
     align-items: center;
     justify-content: center;
+    border: 1px solid #3b77e3;
     .icon {
       font-size: 20px;
-      color: #bbc2ce;
-    }
-    &:hover {
-      background: #1d7aec;
-      .icon {
-        color: #fff;
-      }
+      color: #fff;
     }
   }
   .center {
     display: flex;
     align-items: center;
-    height: 36px;
+    height: 38px;
     overflow: hidden;
-    color: #000;
+    color: #3b77e3;
     position: relative;
     padding-right: 5px;
+    border-top: 1px solid #3b77e3;
+    border-bottom: 1px solid #3b77e3;
     .input {
       width: 60px;
       border: none;
+      color: #3b77e3;
       &:hover,
       &:focus {
         border: none;
@@ -153,7 +155,7 @@ export default {
       position: absolute;
       top: 50%;
       right: 5px;
-      transform: translateY(-50%);
+      transform: translateY(-46%);
     }
   }
 }

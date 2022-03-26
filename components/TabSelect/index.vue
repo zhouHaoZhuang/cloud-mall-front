@@ -2,8 +2,12 @@
   <div class="tab-select-wrap">
     <div
       v-for="item in list"
+      :id="list.length === 1 ? 'radius' : ''"
       :key="item.value"
-      :class="selectValue === item.value ? 'tab-item active' : 'tab-item'"
+      :class="[
+        selectValue === item.value ? 'tab-item active' : 'tab-item',
+        loose ? 'tab-margin' : ''
+      ]"
       :style="{
         width: width + 'px',
         background: bgColor,
@@ -43,6 +47,11 @@ export default {
     bgColor: {
       type: String,
       default: ''
+    },
+    // 是否分开展示
+    loose: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -73,31 +82,43 @@ export default {
 .tab-select-wrap {
   display: flex;
   flex-wrap: wrap;
+  #radius {
+    border-radius: 4px;
+  }
   .tab-item {
-    height: 35px;
+    height: 40px;
     border: 1px solid #ddd;
     border-right: none;
     background-color: #fff;
-    line-height: 35px;
+    line-height: 40px;
     text-align: center;
     font-size: 14px;
     color: #4c4c4c;
     text-overflow: ellipsis;
     word-break: keep-all;
     white-space: nowrap;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
     cursor: pointer;
+    &:first-child {
+      border-radius: 4px 0 0 4px;
+    }
     &:last-child {
       border-right: 1px solid #ddd;
+      border-radius: 0 4px 4px 0;
     }
     &:nth-child(8n) {
       border-right: 1px solid #ddd;
     }
     &.active {
-      border-color: #1a92dd;
-      background-color: #1d7aec;
+      border-color: #3b77e3;
+      background-color: #3b77e3;
       color: #fff;
     }
+  }
+  .tab-margin {
+    margin-right: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px !important;
   }
 }
 </style>
