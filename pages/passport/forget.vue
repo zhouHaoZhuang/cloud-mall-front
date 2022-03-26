@@ -7,6 +7,28 @@
       <div class="content">
         <div class="item">
           <div class="input-box">
+            <Iconfont class="left-icon" type="icon-zhanghao" />
+            <a-input
+              v-model="form.username"
+              placeholder="请输入账号"
+              @focus="
+                usernameEnter = true
+                usernameStatus = 0
+              "
+              @blur="usernameblurfns"
+            />
+          </div>
+          <div class="info">
+            <div v-if="usernameStatus === 0" class="info-item">
+              <Iconfont class="info-icon" type="icon-info" />
+              <span>账号可用于找回密码</span>
+            </div>
+            <div v-else-if="usernameStatus === 2" class="info-item">
+              <Iconfont class="info-icon" type="icon-ok" />
+              <span>填写正确</span>
+            </div>
+          </div>
+          <div class="input-box">
             <Iconfont class="left-icon" type="icon-phone" />
             <a-input
               v-model="form.phone"
@@ -208,6 +230,9 @@ export default {
   data () {
     return {
       // 下方所有验证的status 0:默认 1:未通过验证 2:验证通过
+      // 账号
+      usernameEnter: false,
+      usernameStatus: 0,
       // 手机号码验证
       phoneEnter: false,
       phoneStatus: 0,
@@ -228,6 +253,7 @@ export default {
       pwdReg: /(?=.*[0-9])(?=.*[a-z])(?=.*[^a-zA-Z0-9]).{8,20}/,
       form: {
         phone: '',
+        username: '',
         code: '',
         password: '',
         confrimPassword: '',
@@ -254,6 +280,15 @@ export default {
     this.refreshCode()
   },
   methods: {
+    usernameblurfns () {
+      if (this.form.username === '') {
+        this.usernameEnter = false
+        this.usernameStatus = 0
+      } else {
+        this.usernameEnter = false
+        this.usernameStatus = 2
+      }
+    },
     // 手机号码失去焦点
     phoneblurfns () {
       if (this.form.phone === '') {
@@ -298,7 +333,7 @@ export default {
         this.confirmPwdStatus = 1
       }
     },
-    //图片验证码校验
+    // 图片验证码校验
     getCode () {
       if (!this.$refs.verificationCode.value) {
         this.verificateStatus = 1
@@ -308,7 +343,7 @@ export default {
         this.verificateStatus = 2
       } else {
         this.verificateStatus = 3
-         this.toSend()
+        this.toSend()
       }
     },
     // 发送验证码
@@ -316,6 +351,7 @@ export default {
       if (this.codeLoading) {
         return
       }
+
       if (this.form.phone === '') {
         this.$message.warning('请输入手机号')
         return
@@ -363,6 +399,10 @@ export default {
     },
     // 修改密码
     handleUpdatePwd () {
+      if (this.form.username === '') {
+        this.$message.warning('请输入账号')
+        return
+      }
       if (this.phoneStatus !== 2) {
         this.$message.warning('请输入手机号')
         return
