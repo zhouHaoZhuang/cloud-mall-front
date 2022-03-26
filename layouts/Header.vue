@@ -1,6 +1,10 @@
 <template>
   <div
-    :class="{ 'layout-header': true, 'background-white': isWhite($route.path) }"
+    :class="{
+      'layout-header': true,
+      'background-white': isWhite($route.path),
+      'background-blue': isBlue($route.path)
+    }"
   >
     <div class="container header-box">
       <!-- logo -->
@@ -115,9 +119,13 @@
         </div>
         <!-- 已登录用户信息 -->
         <div v-else class="userinfo">
+          <div class="control" @click="jumpCloudAdmin(token)">
+            <img class="controlimg">
+            控制台
+          </div>
           <img
-            width="30px"
-            src="~/static/img/home/member.png"
+            width="20px"
+            src="~/static/img/introduce/path.png"
             alt=""
             @click="jumpCloudAdmin(token)"
           >
@@ -126,9 +134,7 @@
             <span>{{ userInfo.phone }}</span>
           </div>
           <!-- 控制台 -->
-          <div class="control" @click="jumpCloudAdmin(token)">
-            控制台
-          </div>
+
           <!-- 登出 -->
           <div class="logout" @click="handleLoginOut">
             退出
@@ -207,7 +213,7 @@ export default {
                 {
                   title: 'CDN云加速',
                   info: '基于云计算的虚拟主机服务',
-                  path: '/',
+                  path: '/introduce-product',
                   hot: false,
                   new: false
                 }
@@ -529,6 +535,13 @@ export default {
     isWhite (path) {
       return this.whiteList.includes(path)
     },
+    isBlue (path) {
+      if (path === '/instant-open' || path === '/price-detail') {
+        return true
+      } else {
+        return false
+      }
+    },
     jumpConsole () {
       console.log(this.token, this.jumpCloudAdmin)
       this.jumpCloudAdmin(this.token)
@@ -625,6 +638,10 @@ export default {
           align-items: center;
           .title-wrap {
             position: relative;
+          }
+          .title-wrap:hover {
+            transform: scale(1.1);
+            transition: all 0.3s ease-in-out;
           }
           .hot {
             position: absolute;
@@ -817,6 +834,14 @@ export default {
         }
         .control {
           margin: 0 20px;
+          .controlimg {
+            width: 20px;
+            height: 20px;
+            vertical-align: middle;
+            margin-right: 4px;
+            background: url('~/static/img/introduce/control.png') no-repeat
+              center !important;
+          }
         }
         .logout {
           margin-left: 17px;
@@ -841,6 +866,9 @@ export default {
 }
 .background-white {
   background-color: #2b303b;
+}
+.background-blue {
+  background-color: #3b77e3;
 }
 .layout-header:hover {
   // background-color: #2b3033;

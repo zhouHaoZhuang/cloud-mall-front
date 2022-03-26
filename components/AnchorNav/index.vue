@@ -70,14 +70,26 @@ export default {
           height: 68px;
           line-height: 68px;
           padding: 0 10px;
-          font-size: 14px;
-          color: #4c4c4c;
-          &.active {
-            border-bottom: 2px solid #059fff;
+          font-size: 20px;
+          color: #333333;
+          &.active::after {
+            content: '';
+            display: block;
+            height: 6px;
+            background: #3b77e3;
+            border-radius: 100px 100px 0px 0px;
+            margin-top: -6px;
+            // border-bottom: 2px solid #059fff;
           }
         }
-        span:hover {
-          border-bottom: 2px solid #059fff;
+        span:hover::after {
+          content: '';
+          display: block;
+          height: 6px;
+          background: #3b77e3;
+          border-radius: 100px 100px 0px 0px;
+          margin-top: -6px;
+          // border-bottom: 2px solid #059fff;
         }
       }
     }

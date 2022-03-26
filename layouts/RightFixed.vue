@@ -1,7 +1,7 @@
 <template>
   <div v-show="show" class="right-fixed">
     <div class="item">
-      <span>QQ咨询</span>
+      <span>QQ客服</span>
       <div class="detail">
         <span>请选择QQ进行咨询</span>
         <div class="box">
@@ -23,7 +23,7 @@
       </div>
     </div> -->
     <div class="item">
-      <span>电话咨询</span>
+      <span>电话客服</span>
       <div class="detail">
         <span>请选择客服进行咨询</span>
         <div class="box">
@@ -48,7 +48,7 @@
       @click="backTop"
     >
       <div class="img" />
-      <span>TOP</span>
+      <!-- <span>TOP</span> -->
     </div>
   </div>
 </template>
@@ -182,7 +182,7 @@ export default {
     padding-top: 35px;
   }
   .item:nth-child(1) {
-    background: url('~/static/img/home/qq.png') #fff no-repeat center 8px;
+    background: url('~/static/img/home/newqq.png') #fff no-repeat center 8px;
     .detail {
       .box {
         background: url('~/static/img/home/message-hover.png') no-repeat;
@@ -198,7 +198,7 @@ export default {
   //   }
   // }
   .item:nth-child(2) {
-    background: url('~/static/img/home/tel.png') #fff no-repeat center 8px;
+    background: url('~/static/img/home/newer.png') #fff no-repeat center 8px;
     .detail {
       width: 220px;
       .box {
@@ -218,7 +218,7 @@ export default {
     }
   }
   .item:nth-child(1):hover {
-    background: url('~/static/img/home/qq-active.png') #fff no-repeat center 8px;
+    background: url('~/static/img/home/newqq-active.png') #fff no-repeat center 8px;
     .detail {
       display: block;
     }
@@ -230,7 +230,7 @@ export default {
   //   }
   // }
   .item:nth-child(2):hover {
-    background: url('~/static/img/home/tel-active.png') #fff no-repeat center
+    background: url('~/static/img/home/newer-active.png') #fff no-repeat center
       8px;
     .detail {
       display: block;
@@ -247,12 +247,14 @@ export default {
   .item:nth-child(4),
   .item:nth-child(5),
   .item:nth-child(6) {
-    .img {
-      width: 26px;
-      height: 26px;
-      margin: 5px auto 2px;
-      background: url('~/static/img/home/side-menu.png') no-repeat;
-    }
+      background: url('~/static/img/home/146.png') no-repeat center;
+
+    // .img {
+    //   width: 26px;
+    //   height: 26px;
+    //   margin: 5px auto 2px;
+    //   background: url('~/static/img/home/146.png') no-repeat;
+    // }
   }
   .item:nth-child(3) {
     display: none;
@@ -269,12 +271,13 @@ export default {
   //     background-position: -116px 0;
   //   }
   // }
-  .item:nth-child(5) {
-    // transition: 0.3s all linear;
-    .img {
-      background-position: -206px 0;
-    }
-  }
+  // .item:nth-child(5) {
+  //   // transition: 0.3s all linear;
+  //   //这个是返回顶部按钮
+  //   // .img {
+  //   //   background-position: -206px 0;
+  //   // }
+  // }
   .item:nth-child(4):hover {
     .img {
       background-position: -85px -28px;
@@ -293,7 +296,8 @@ export default {
   }
   .item:hover {
     color: #059fff;
-    border-color: #059fff;
+    // border-color: #059fff;
+    box-shadow: 0px 0px 8px 2px rgba(59, 119, 227, 0.1);
   }
 }
 /*右侧咨询*/

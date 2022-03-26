@@ -29,7 +29,7 @@
         </ul>
       </div>
       <div class="right-btn">
-        立即加入
+        立即开通
       </div>
     </div>
   </div>
@@ -52,110 +52,117 @@ export default {
       navShow: true,
       linksList: [
         {
-          title: '弹性云服务器',
-          info: '高速稳定高弹性的计算服务',
-          path: '/cloud-choose',
-          hot: true,
-          new: false
-        },
-        {
-          title: '服务器托管',
-          info: '安全贴心高品质的托管服务',
-          path: '',
-          hot: false,
-          new: false
-        },
-        {
-          title: '裸金属服务器',
-          info: '高性能安全隔离物理集群服务',
-          path: '',
-          hot: false,
-          new: true
-        },
-        {
-          title: '云虚拟主机',
-          info: '基于云计算的虚拟主机服务',
-          path: '',
-          hot: true,
-          new: false
-        },
-        {
-          title: '负载均衡',
-          info: '高性能流量分发的负载均衡服务',
-          path: '/balancing-ba',
-          hot: false,
-          new: false
-        },
-        {
-          title: 'SSL证书',
-          info: '提供一站式的证书部署服务',
-          path: '',
-          hot: false,
-          new: false
-        },
-        {
-          title: '域名注册',
-          info: '提供五星级的域名注册服务',
-          path: '/Domain-name',
-          hot: true,
-          new: false
-        },
-        {
-          title: '云监控',
-          info: '精准灵活超便捷的资源预警服务',
-          path: '',
-          hot: false,
-          new: false
-        },
-        {
-          title: '对象存储',
-          info: '高可用、易扩展、低成本、一站式',
-          path: '/object-based-use',
-          hot: false,
-          new: false
-        },
-        {
-          title: 'CDN加速',
+          //   title: '弹性云服务器',
+          //   info: '高速稳定高弹性的计算服务',
+          //   path: '/cloud-choose',
+          //   hot: true,
+          //   new: false
+          // },
+          // {
+          //   title: '服务器托管',
+          //   info: '安全贴心高品质的托管服务',
+          //   path: '',
+          //   hot: false,
+          //   new: false
+          // },
+          // {
+          //   title: '裸金属服务器',
+          //   info: '高性能安全隔离物理集群服务',
+          //   path: '',
+          //   hot: false,
+          //   new: true
+          // },
+          // {
+          //   title: '云虚拟主机',
+          //   info: '基于云计算的虚拟主机服务',
+          //   path: '',
+          //   hot: true,
+          //   new: false
+          // },
+          // {
+          //   title: '负载均衡',
+          //   info: '高性能流量分发的负载均衡服务',
+          //   path: '/balancing-ba',
+          //   hot: false,
+          //   new: false
+          // },
+          // {
+          //   title: 'SSL证书',
+          //   info: '提供一站式的证书部署服务',
+          //   path: '',
+          //   hot: false,
+          //   new: false
+          // },
+          // {
+          //   title: '域名注册',
+          //   info: '提供五星级的域名注册服务',
+          //   path: '/Domain-name',
+          //   hot: true,
+          //   new: false
+          // },
+          // {
+          //   title: '云监控',
+          //   info: '精准灵活超便捷的资源预警服务',
+          //   path: '',
+          //   hot: false,
+          //   new: false
+          // },
+          // {
+          //   title: '对象存储',
+          //   info: '高可用、易扩展、低成本、一站式',
+          //   path: '/object-based-use',
+          //   hot: false,
+          //   new: false
+          // },
+          // {
+          title: 'CDN',
           info: '智能调度的内容分发服务',
-          path: '',
+          path: '/introduce-product',
           hot: false,
           new: false
         },
+        // {
+        //   title: '价格详情',
+        //   info: '价格详情页面',
+        //   path: '/instant-open',
+        //   hot: false,
+        //   new: false
+        // },
+        // {
+        //   title: '云数据库 MySQL',
+        //   info: '稳定可靠、可弹性伸缩的数据方案',
+        //   path: '/mysql',
+        //   hot: false,
+        //   new: false
+        // },
+        // {
+        //   title: '云数据库 SQL Server',
+        //   info: '安全运行、轻松管理的数据方案',
+        //   path: '/sqlserver',
+        //   hot: false,
+        //   new: false
+        // },
         {
-          title: '云数据库 MySQL',
-          info: '稳定可靠、可弹性伸缩的数据方案',
-          path: '/mysql',
-          hot: false,
-          new: false
-        },
-        {
-          title: '云数据库 SQL Server',
-          info: '安全运行、轻松管理的数据方案',
-          path: '/sqlserver',
-          hot: false,
-          new: false
-        },
-        {
-          title: '浙江云盾分销系统',
+          title: '阿里云ECS云服务器',
           info: '一键部署、低成本、快速运营',
           path: '',
           hot: false,
           new: true
         },
         {
-          title: '百度智能建站',
+          title: 'CDN云加速',
           info: '智能化构建网站和小程序',
           path: '',
           hot: false,
           new: true
-        },
-        {
-          title: '代理招募',
-          info: '',
-          path: '/about/recruit',
-          hot: false,
-          new: true
         }
+        // {
+        //   title: '代理招募',
+        //   info: '',
+        //   path: '/about/recruit',
+        //   hot: false,
+        //   new: true
+        // }
       ],
       linkTitle: ''
     }
@@ -276,18 +283,23 @@ export default {
       font-size: 16px;
       color: #4c4c4c;
       padding-left: 61px;
-      height: 68px;
-      line-height: 68px;
+      height: 88px;
+      line-height: 88px;
       width: auto;
       padding-right: 25px;
       min-width: 185px;
+      .nav-server-name {
+        color: #6795e9;
+        margin-left: 20px;
+        margin-top: -16px;
+        font-size: 18px;
+      }
       &::before {
         position: absolute;
         left: 20px;
-        top: 2px;
-        width: 16px;
-        height: 14px;
-        content: url('~/static/img/common/nav_server_ico.png');
+        width: 42px;
+        height: 40px;
+        content: url('~/static/img/introduce/gengduo-5.png');
       }
       & > ul {
         display: none;
@@ -295,9 +307,9 @@ export default {
         left: 0;
         right: 0;
         top: 60px;
-        background-color: #fafafa;
+        background-color: #f5f7fd;
         width: 100%;
-        padding: 10px 0;
+        padding: 10px 0 0 0;
         box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
         li {
           height: 50px;
@@ -310,7 +322,7 @@ export default {
             padding: 0 23px;
             transition: 0s;
             &:hover {
-              background-color: #059fff;
+              background-color: #3b77e3;
               color: #fff;
             }
           }
@@ -331,32 +343,45 @@ export default {
     .nav-list {
       .list {
         display: flex;
-        height: 68px;
+        height: 88px;
         justify-content: space-around;
         transition: all ease 0.8s;
         position: absolute;
-        right: 100px;
+        left: 260px;
         top: 0;
         li {
-          height: 66px;
-          margin-right: 5px;
+          height: 88px;
+          margin-right: 100px;
           cursor: pointer;
           span {
             display: block;
-            height: 68px;
-            line-height: 68px;
+            height: 88px;
+            line-height: 58px;
             padding: 0 10px;
-            font-size: 14px;
+            font-size: 16px;
             color: #4c4c4c;
-            &.active {
-              height: 64px;
-              border-bottom: 2px solid #059fff;
+            &.active::after {
+              // height: 64px;
+              // border-bottom: 2px solid #059fff;
+               content: '';
+            display: block;
+            height: 6px;
+            background: #3b77e3;
+            border-radius: 100px 100px 0px 0px;
             }
           }
-          span:hover {
-            height: 64px;
-            border-bottom: 2px solid #059fff;
+          span:hover::after {
+            content: '';
+            display: block;
+            height: 6px;
+            background: #3b77e3;
+            border-radius: 100px 100px 0px 0px;
+            // border-bottom: 2px solid #059fff;
           }
+          // span:hover {
+          //   height: 64px;
+          //   border-bottom: 2px solid #059fff;
+          // }
         }
       }
     }
@@ -370,7 +395,8 @@ export default {
       text-align: center;
       font-size: 14px;
       color: #fff;
-      background: #ff6600;
+      background: #3b77e3;
+      border-radius: 4px;
       cursor: pointer;
       &:hover {
         color: #059fff;

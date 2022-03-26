@@ -177,19 +177,19 @@ export default {
             {
               name: '云服务器',
               path: '/cloud-choose'
+            },
+            {
+              name: '云服务器托管',
+              path: ''
+            },
+            {
+              name: '云虚拟主机',
+              path: ''
+            },
+            {
+              name: '云监控',
+              path: ''
             }
-            // {
-            //   name: '云服务器托管',
-            //   path: ''
-            // },
-            // {
-            //   name: '云虚拟主机',
-            //   path: ''
-            // },
-            // {
-            //   name: '云监控',
-            //   path: ''
-            // }
           ]
         },
         {
@@ -224,22 +224,22 @@ export default {
               name: '帮助中心',
               path: '/help/helpInfo'
             },
-            // {
-            //   name: 'Whois查询',
-            //   path: ''
-            // },
+            {
+              name: 'Whois查询',
+              path: ''
+            },
             {
               name: '控制台',
               path: 'controlPanel'
+            },
+            {
+              name: '备案服务',
+              path: ''
+            },
+            {
+              name: '工单服务',
+              path: ''
             }
-            // {
-            //   name: '备案服务',
-            //   path: ''
-            // },
-            // {
-            //   name: '工单服务',
-            //   path: ''
-            // }
           ]
         },
         {
@@ -282,7 +282,12 @@ export default {
   watch: {
     $route: {
       handler (newVal) {
-        if (newVal.path === '/login' || newVal.path === '/register') {
+        if (
+          newVal.path === '/login' ||
+          newVal.path === '/register' ||
+          newVal.path === '/instant-open' ||
+           newVal.path === '/price-detail'
+        ) {
           this.show = false
         } else {
           this.show = true
