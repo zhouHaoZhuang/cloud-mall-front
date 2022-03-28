@@ -124,7 +124,7 @@
               :pagination="false"
               :scroll="{ y: 300 }"
             >
-              <div slot="instanceTypeFamily" slot-scope="text, record">
+              <div slot="instanceTypeFamilyShow" slot-scope="text, record">
                 <a-radio
                   :checked="radioValue(record)"
                   @click="handleSelectRegion(record)"
@@ -646,7 +646,9 @@ export default {
       productData.data &&
       Array.isArray(productData.data.list) &&
       productData.data.list.length > 0
-        ? productData.data.list[0].productCode
+        ? productData.data.list.find(
+          ele => ele.supplierProductCode === 'ECS_ALI'
+        ).productCode
         : ''
     // 获取地域列表
     const addressData = await app.$api.cloud.addressList()
@@ -668,22 +670,6 @@ export default {
       title: '随机可用区',
       value: -1
     })
-    // 获取规格簇列表
-    const typeData = await app.$api.cloud.typeList()
-    const typeId = -1
-    const typeList = Array.isArray(typeData.data)
-      ? typeData.data.map((ele) => {
-        return {
-          ...ele,
-          title: ele.description,
-          value: ele.typeFamily
-        }
-      })
-      : []
-    typeList.unshift({
-      title: '全部类型',
-      value: -1
-    })
     if (selectAddressId) {
       const regionQuery = {
         cpuCoreCount: query.cpu ? query.cpu : undefined,
@@ -692,6 +678,8 @@ export default {
       // 获取对应的实例列表
       const regionData = await app.$api.cloud.getRegionDetail({
         regionId: selectAddressId,
+        specFamily: 'general-purpose',
+        family: 'general-purpose',
         ...regionQuery
       })
       const regionList =
@@ -752,8 +740,6 @@ export default {
           selectAddressId,
           sureAreaData,
           zoneId,
-          typeId,
-          typeList,
           // 列表实例
           regionList,
           systemList: newSystemList,
@@ -771,8 +757,6 @@ export default {
           selectAddressId,
           sureAreaData,
           zoneId,
-          typeId,
-          typeList,
           regionQuery
         }
       }
@@ -795,8 +779,41 @@ export default {
       sureAreaData: [],
       zoneId: -1,
       // 规格簇数据
-      typeList: [],
-      typeId: -1,
+      typeList: [
+        {
+          title: '通用型',
+          value: 'general-purpose'
+        },
+        {
+          title: '计算型',
+          value: 'compute-optimized'
+        },
+        {
+          title: '内存型',
+          value: 'memory-optimized'
+        },
+        {
+          title: '大数据型',
+          value: 'big-data'
+        },
+        {
+          title: '本地SSD',
+          value: 'local-ssd'
+        },
+        {
+          title: '高主频型',
+          value: 'high-clockSpeed'
+        },
+        {
+          title: '共享型',
+          value: 'basic'
+        },
+        {
+          title: '增强型',
+          value: 'enhancement'
+        }
+      ],
+      typeId: 'general-purpose',
       // 查询价格参数
       form: {
         systemDisk: {
@@ -924,8 +941,8 @@ export default {
       columns: [
         {
           title: '规格族',
-          dataIndex: 'instanceTypeFamily',
-          scopedSlots: { customRender: 'instanceTypeFamily' }
+          dataIndex: 'instanceTypeFamilyShow',
+          scopedSlots: { customRender: 'instanceTypeFamilyShow' }
         },
         {
           title: '实例规格',
@@ -1116,7 +1133,7 @@ export default {
     // 地域切换
     handleAddressChange (val) {
       this.zoneId = -1
-      this.typeId = -1
+      this.typeId = 'general-purpose'
       const addressObj = this.addressData.find(ele => ele.regionId === val)
       this.sureAreaData = addressObj.regionZone.zones.map((ele) => {
         return {
@@ -1161,7 +1178,8 @@ export default {
       this.$api.cloud
         .getRegionDetail({
           regionId: this.selectAddressId,
-          specFamily: this.typeId === -1 ? undefined : this.typeId,
+          specFamily: this.typeId,
+          family: this.typeId,
           regionZone: this.zoneId === -1 ? undefined : this.zoneId,
           ...this.regionQuery
         })
@@ -1254,7 +1272,7 @@ export default {
     },
     // cpu+内存 发生改变，需要先请求实例列表，再去请求价格
     handleCpuOrMemoryChange () {
-      this.typeId = -1
+      this.typeId = 'general-purpose'
       this.getRegionData()
     },
     // cpu+内存+数据盘+带宽+镜像+购买时长+数量发生改变，再次进行询价
