@@ -304,7 +304,7 @@ export default {
         this.verificateStatus = 1
         return
       }
-      if (this.$refs.verificationCode.value !== this.identifyCode) {
+      if (this.$refs.verificationCode.value.toLowerCase() !== this.identifyCode.toLowerCase()) {
         this.verificateStatus = 2
       } else {
         this.verificateStatus = 3
