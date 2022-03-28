@@ -28,7 +28,7 @@
           </li>
         </ul>
       </div>
-      <div class="right-btn">
+      <div class="right-btn" @click="skipInstant">
         立即开通
       </div>
     </div>
@@ -197,6 +197,27 @@ export default {
     this.navShow = false
   },
   methods: {
+    skipInstant () {
+      // 判断是否开通过,开通过就提示,没开通过就让跳转,开通过进行提示
+      this.$api.cloud.isAccountSetup().then((res) => {
+        // 开通过
+        if (res.code === '000000') {
+          if (res.data === true) {
+            this.$message.warning('已开通CDN服务')
+          } else {
+            // 未开通
+            this.$router.push('/instant-open')
+          }
+        } else if (res.code === '000001') {
+          this.$message.warning('请先登录')
+          setInterval(() => {
+            this.$router.push('/login')
+          }, 2000)
+        } else {
+          this.$message.warning(res.msg)
+        }
+      })
+    },
     // 锚点导航点击
     handleNavJump (item) {
       VueScrollTo.scrollTo(`#${item.id}`, 'body', {
@@ -388,7 +409,7 @@ export default {
     .right-btn {
       position: absolute;
       right: 0px;
-      top: 20px;
+      top: 16px;
       width: 100px;
       height: 32px;
       line-height: 32px;

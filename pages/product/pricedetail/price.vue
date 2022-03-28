@@ -102,35 +102,25 @@ import VueScrollTo from 'vue-scrollto'
 const columns = [
   {
     title: '流量（计算单位：元/GB）',
-    dataIndex: 'address',
-    key: 'address 2',
-    ellipsis: true
+    dataIndex: 'address'
   },
   {
     title: '中国内地',
-    dataIndex: 'age',
-    key: 'address 3',
-    ellipsis: true
+    dataIndex: 'age'
   },
   {
     title: '境外',
-    dataIndex: 'name',
-    key: 'address 4',
-    ellipsis: true
+    dataIndex: 'name'
   }
 ]
 const columnsTwo = [
   {
     title: '计费项',
-    dataIndex: 'address',
-    key: 'address 2',
-    ellipsis: true
+    dataIndex: 'address'
   },
   {
     title: '价格（元/万次）',
-    dataIndex: 'age',
-    key: 'address 3',
-    ellipsis: true
+    dataIndex: 'age'
   }
 ]
 const data = [
@@ -138,36 +128,31 @@ const data = [
     key: '1',
     name: '0.80',
     age: 0.21,
-    address: '0GB-10TB（含）',
-    tags: ['nice', 'developer']
+    address: '0GB-10TB（含）'
   },
   {
     key: '2',
     name: '0.80',
     age: 0.19,
-    address: '10GB-50TB（含）',
-    tags: ['loser']
+    address: '10GB-50TB（含）'
   },
   {
     key: '3',
     name: '0.80',
     age: 0.17,
-    address: '50GB-100TB（含）',
-    tags: ['cool', 'teacher']
+    address: '50GB-100TB（含）'
   },
   {
     key: '4',
     name: '0.80',
     age: 0.14,
-    address: '100GB-1PB（含）',
-    tags: ['cool', 'teacher']
+    address: '100GB-1PB（含）'
   },
   {
     key: '5',
     name: '0.80',
     age: 0.11,
-    address: '大雨1PB（含）',
-    tags: ['cool', 'teacher']
+    address: '大雨1PB（含）'
   }
 ]
 const dataTwo = [
@@ -175,8 +160,7 @@ const dataTwo = [
     key: '1',
     name: '0.80',
     age: 0.05,
-    address: '静态HTTPS请求数',
-    tags: ['nice', 'developer']
+    address: '静态HTTPS请求数'
   }
 ]
 export default {
@@ -282,6 +266,15 @@ export default {
         left: 20px;
         bottom: 20px;
       }
+    }
+    .charge-type:hover {
+      box-shadow: 0px 0px 12px 4px rgba(59, 119, 227, 0.1);
+    }
+    .charge-type-two:hover {
+      box-shadow: 0px 0px 12px 4px rgba(59, 119, 227, 0.1);
+    }
+    .charge-type-three:hover {
+      box-shadow: 0px 0px 12px 4px rgba(59, 119, 227, 0.1);
     }
     .charge-type-two {
       width: 1540px;
