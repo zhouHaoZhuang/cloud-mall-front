@@ -69,7 +69,7 @@
                 style="width: 200px"
                 size="large"
                 placeholder="请选择CPU"
-                @change="handleCpuOrMemoryChange"
+                @change="handleCpuOrMemoryChange('cpu')"
               >
                 <a-select-option
                   v-for="item in cpuData"
@@ -87,7 +87,7 @@
                 style="width: 200px"
                 placeholder="请选择内存"
                 size="large"
-                @change="handleCpuOrMemoryChange"
+                @change="handleCpuOrMemoryChange('memory')"
               >
                 <a-select-option
                   v-for="item in memoryData"
@@ -107,6 +107,7 @@
           <div class="choose-value">
             <TabSelect
               v-model="typeId"
+              width="100"
               :loose="true"
               :list="typeList"
               @change="typeChange"
@@ -531,11 +532,11 @@
             </div>
             <div class="coupon-box">
               <div class="left">
-                <Iconfont class="icon" type="" />
+                <Iconfont class="icon" type="icon-youhuiquan_1" />
                 已节省¥{{ form.discountPrice }}
               </div>
               <div class="right">
-                <Iconfont class="icon" type="" />
+                <Iconfont class="icon" type="icon-liwu" />
                 已享{{ form.discount }}折
               </div>
             </div>
@@ -681,8 +682,6 @@ export default {
       // 获取对应的实例列表
       const regionData = await app.$api.cloud.getRegionDetail({
         regionId: selectAddressId,
-        specFamily: 'general-purpose',
-        family: 'general-purpose',
         ...regionQuery
       })
       const regionList =
@@ -784,6 +783,10 @@ export default {
       // 规格簇数据
       typeList: [
         {
+          title: '全部类型',
+          value: 'all'
+        },
+        {
           title: '通用型',
           value: 'general-purpose'
         },
@@ -816,7 +819,7 @@ export default {
           value: 'enhancement'
         }
       ],
-      typeId: 'general-purpose',
+      typeId: 'all',
       // 查询价格参数
       form: {
         systemDisk: {
@@ -1136,7 +1139,7 @@ export default {
     // 地域切换
     handleAddressChange (val) {
       this.zoneId = -1
-      this.typeId = 'general-purpose'
+      this.typeId = 'all'
       const addressObj = this.addressData.find(ele => ele.regionId === val)
       this.sureAreaData = addressObj.regionZone.zones.map((ele) => {
         return {
@@ -1274,8 +1277,11 @@ export default {
       this.handleChangeGetPrice()
     },
     // cpu+内存 发生改变，需要先请求实例列表，再去请求价格
-    handleCpuOrMemoryChange () {
-      this.typeId = 'general-purpose'
+    handleCpuOrMemoryChange (type) {
+      if (type === 'cpu') {
+        this.regionQuery.memorySize = undefined
+      }
+      this.typeId = 'all'
       this.getRegionData()
     },
     // cpu+内存+数据盘+带宽+镜像+购买时长+数量发生改变，再次进行询价
@@ -1643,6 +1649,10 @@ export default {
             .right {
               margin-left: 40px;
               color: #ff7f61;
+            }
+            .icon {
+              font-size: 22px;
+              margin-right: 10px;
             }
           }
         }
