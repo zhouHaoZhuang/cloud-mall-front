@@ -320,7 +320,6 @@
             <div v-if="systemList" class="system">
               <a-select
                 v-model="defaultSystem"
-                allow-clear
                 class="select1"
                 placeholder="请选择系统类别"
                 size="large"
@@ -337,7 +336,6 @@
               </a-select>
               <a-select
                 v-model="form.imageId"
-                allow-clear
                 class="select2"
                 placeholder="请选择系统版本"
                 size="large"
@@ -347,7 +345,12 @@
                   v-for="item in systemEditionList"
                   :key="item.imageId"
                 >
-                  {{ item.OSName }}
+                  <a-tooltip placement="top">
+                    <template slot="title">
+                      <span> {{ item.OSName }}</span>
+                    </template>
+                    <span> {{ item.OSName }}</span>
+                  </a-tooltip>
                 </a-select-option>
               </a-select>
               <a-tooltip placement="top">
@@ -1504,8 +1507,8 @@ export default {
             display: flex;
             align-items: center;
             .label {
-              color: #12264c;
-              font-size: 16px;
+              color: #13274b;
+              font-size: 14px;
               margin-left: 50px;
             }
           }
@@ -1569,6 +1572,7 @@ export default {
           .system {
             .select1,
             .select2 {
+              font-size: 14px;
               height: 35px;
               border-radius: 2px !important;
               .ant-select-selection {
@@ -1576,10 +1580,10 @@ export default {
               }
             }
             .select1 {
-              width: 200px;
+              width: 230px;
             }
             .select2 {
-              width: 280px;
+              width: 380px;
             }
             .password-input {
               width: 280px;
