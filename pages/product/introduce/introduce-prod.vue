@@ -3,7 +3,8 @@
     <!-- 轮播图 -->
     <div class="banner-wrap">
       <div class="container">
-        <p>CDN加速</p>
+        <!-- <p>CDN加速</p> -->
+        <div class="cdn-speed" />
         <div class="txt-list">
           CDN通过广泛的网络节点分布，提供快速、稳定、安全、可编程的全球内容分发加速服务，支持将网站、音视频、下载等内容分发至接近用户的节点，使用户可就近取得所需内容，提高用户访问的响应速度和成功率
         </div>
@@ -138,6 +139,7 @@ export default {
   data () {
     return {
       jumpCloudAdmin,
+      timer: null,
       navList: [
         {
           id: 'support',
@@ -239,6 +241,11 @@ export default {
       token: state => state.user.token
     })
   },
+  beforeDestroy () {
+    if (this.timer) {
+      clearInterval(this.timer)
+    }
+  },
   methods: {
     skipAdmin () {
       if (this.isLogin === true) {
@@ -263,7 +270,7 @@ export default {
           }
         } else if (res.code === '000001') {
           this.$message.warning('请先登录')
-          setInterval(() => {
+          this.timer = setInterval(() => {
             this.$router.push('/login')
           }, 2000)
         } else {
@@ -292,11 +299,16 @@ export default {
   .banner-wrap {
     position: relative;
     height: 702px;
-    background: url('~/static/img/programme/textimg.jpg') no-repeat center;
+    background: url('~/static/img/programme/prudect-nav.gif') no-repeat center;
     color: #fff;
     font-size: 18px;
     .container {
       padding-top: 180px;
+      .cdn-speed {
+        width: 270px;
+        height: 50px;
+        background: url('~/static/img/programme/cdn-speed.png') no-repeat center;
+      }
       p:nth-child(1) {
         font-size: 50px;
         margin-bottom: 30px;
@@ -394,6 +406,7 @@ export default {
           .title-desc {
             font-size: 20px;
             line-height: 28px;
+            color: #9ca4b5;
           }
         }
         .item:hover {
