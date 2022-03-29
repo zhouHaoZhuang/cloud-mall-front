@@ -52,12 +52,10 @@ function getCloudAdminUrl () {
   if (process.env.NODE_ENV === 'local') {
     return cloudAdminUrl[process.env.NODE_ENV]
   }
-  if (localStorage.getItem('idcUrl')) {
-    return localStorage.getItem('idcUrl')
-  } else {
+  if (!localStorage.getItem('idcUrl')) {
     localStorage.setItem('idcUrl', getIdcAdminUrl(window.location.href))
-    return localStorage.getItem('idcUrl')
   }
+  return localStorage.getItem('idcUrl')
 }
 // 跳转到CDN云加速页面
 export const jumpCloudAdminDash = (token) => {
