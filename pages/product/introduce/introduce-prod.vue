@@ -278,7 +278,7 @@ export default {
       if (this.isLogin === true) {
         // this.jumpCloudAdmin(this.token)
         const isName = await this.isRealName()
-        if (isName === '000000') {
+        if (isName === '1310013') {
           // 已经实名认证
           jumpCloudAdminDash(this.token)
         } else if (isName === '1313009') {
