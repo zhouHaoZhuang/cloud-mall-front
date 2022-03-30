@@ -7,7 +7,12 @@
       </span>
     </div>
     <div class="con-list">
-      <div v-for="(item, index) in itemData.list" :key="index" class="item">
+      <div
+        v-for="(item, index) in itemData.list"
+        :key="index"
+        :class="{ item: true, 'item-two': hoverIndex === 1 }"
+      >
+        <span v-if="item.title === '阿里云ECS云服务器'" class="right-after" />
         <a :href="item.path">
           <div class="item-top">
             <span>{{ item.title }}</span>
@@ -34,11 +39,16 @@ export default {
     itemData: {
       type: Object,
       default: () => {}
+    },
+    hoverIndex: {
+      type: Number,
+      default: () => {}
     }
   },
   data () {
     return {}
   },
+  mounted () {},
   methods: {}
 }
 </script>
@@ -108,6 +118,11 @@ export default {
         display: block;
       }
     }
+    .item-two {
+      margin-left: 0px;
+      position: relative;
+    }
+
     .item:hover {
       a {
         color: #ffffff;
@@ -117,6 +132,24 @@ export default {
         color: #059fff;
       }
     }
+    // .item:hover::after {
+    //   content: '';
+    //   display: block;
+    //   height: 6px;
+    //   background: #3b77e3;
+    //   border-radius: 100px 100px 0px 0px;
+    // }
   }
+}
+.right-after {
+  content: '';
+  position: absolute;
+  width: 1px;
+  height: 30px;
+  background: #ffffff;
+  opacity: 0.2;
+  z-index: 1;
+  right: -38px;
+  top: -26px;
 }
 </style>

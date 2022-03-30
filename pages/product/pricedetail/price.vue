@@ -99,12 +99,21 @@
         </div>
       </div>
     </div>
+    <a-modal
+      :title="title"
+      :visible="visible"
+      :ok-text="oktext"
+      :cancel-text="canceltext"
+      @ok="handleOk"
+      @cancel="handleCancel"
+    >
+      {{ ModalText }}
+    </a-modal>
   </div>
 </template>
 
 <script>
 import VueScrollTo from 'vue-scrollto'
-
 const columns = [
   {
     title: '流量（计算单位：元/GB）',
@@ -177,26 +186,46 @@ export default {
       dataTwo,
       columnsTwo,
       checked: false,
-      skip: ''
+      skip: '',
+      ModalText: '',
+      visible: false,
+      title: '提示',
+      oktext: '',
+      canceltext: ''
     }
   },
   methods: {
+    // 判断确认按钮的功能
+    handleOk (e) {
+      // 未登录
+      if (this.func === 1) {
+        this.$router.push('/login')
+      } else if (this.func === 2) {
+        this.$router.push('/instant-open')
+      }
+      this.visible = false
+    },
+    handleCancel (e) {
+      this.visible = false
+    },
     skipInstant () {
       // 判断是否开通过,开通过就提示,没开通过就让跳转,开通过进行提示
       this.$api.cloud.isAccountSetup().then((res) => {
-        // 开通过
         if (res.code === '000000') {
           if (res.data === true) {
-            this.$message.warning('已开通CDN服务')
+            this.$message.warning('当前账户已开通CDN服务')
           } else {
             // 未开通
-            this.$router.push('/instant-open')
+            this.func = 2
+            this.handleOk()
           }
         } else if (res.code === '000001') {
-          this.$message.warning('请先登录')
-          setInterval(() => {
-            this.$router.push('/login')
-          }, 2000)
+          // 未登录
+          this.visible = true
+          this.ModalText = '您还未登录，请登录后再进行服务开通'
+          this.oktext = '确认登录'
+          this.canceltext = '取消'
+          this.func = 1
         } else {
           this.$message.warning(res.msg)
         }

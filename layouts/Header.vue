@@ -71,6 +71,7 @@
                 <HeaderItem
                   v-for="(ele, idx) in headerItemData"
                   :key="idx"
+                  :hover-index="hoverIndex"
                   :item-data="ele"
                 />
               </div>
@@ -124,21 +125,32 @@
             控制台
           </div>
           <img
-            width="20px"
+            width="16px"
             src="~/static/img/introduce/path.png"
             alt=""
             @click="jumpCloudAdmin(token)"
           >
-          <div class="name" @click="jumpCloudAdmin(token)">
-            <!-- <i>*</i> -->
-            <span>{{ userInfo.phone }}</span>
-          </div>
-          <!-- 控制台 -->
-
+          <a-dropdown>
+            <a class="ant-dropdown-link" @click="e => e.preventDefault()">
+              <div class="name" @click="jumpCloudAdmin(token)">
+                <span>{{ userInfo.phone }}
+                </span>
+              </div>
+            </a>
+            <a-menu slot="overlay">
+              <a-menu-item>
+                <a
+                  href="javascript:;"
+                  class="logout-color"
+                  @click="handleLoginOut"
+                >退出</a>
+              </a-menu-item>
+            </a-menu>
+          </a-dropdown>
           <!-- 登出 -->
-          <div class="logout" @click="handleLoginOut">
+          <!-- <div class="logout" @click="handleLoginOut">
             退出
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -595,6 +607,7 @@ export default {
     display: flex;
     padding: 0;
     width: 1220px;
+    position: relative;
     .logo {
       width: 116px;
       margin: 0 10px;
@@ -616,16 +629,18 @@ export default {
     }
     .nav {
       margin-left: 20px;
+      margin-right: 260px;
       height: 80px;
       display: flex;
       font-size: 18px;
       color: #fff;
+      position: relative;
       .item {
         height: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 0 30px;
+        padding: 0 20px;
         // overflow: hidden;
         cursor: pointer;
         box-sizing: border-box;
@@ -638,6 +653,7 @@ export default {
           align-items: center;
           .title-wrap {
             position: relative;
+            font-size: 16px;
           }
           .title-wrap:hover {
             transform: scale(1.1);
@@ -655,7 +671,7 @@ export default {
           z-index: 1000;
           margin: 0 auto;
           min-width: 1200px;
-          max-width: 100%;
+          // max-width: 100%;
           // padding-top: 40px;
           font-size: 14px;
           .popup-wrap {
@@ -674,14 +690,18 @@ export default {
           background-position: -405px -15px;
         }
         .popup-boxlong {
-          height: 300px;
+          height: 180px;
+          width: 1910px;
           position: absolute;
           top: 75px;
-          left: -280px;
+          left: -602px;
+          padding-left: 300px;
           padding-top: 25px;
-          background: url('../static/img/home/headerlong.svg') no-repeat;
-          background-size: 200% 100%;
-          background-position: -305px 10px;
+          background-color: #202835;
+          position: absolute;
+          // background: url('../static/img/home/headerlong.svg') no-repeat;
+          // background-size: 200% 100%;
+          // background-position: -305px 10px;
         }
       }
       .noSubmenu:hover {
@@ -694,17 +714,18 @@ export default {
         //   display: block;
         // }
         .underscore {
-          background-color: #059fff;
+          background-color: #fff;
         }
       }
       .underscore {
-        width: 60%;
-        height: 3px;
+        width: 80%;
+        height: 6px;
         background-color: transparent;
         position: absolute;
-        // border: 1px solid #b6c8d3;
         bottom: 0;
-        left: 20%;
+        left: 15%;
+        border-radius: 100px 100px 0 0;
+        // border: 1px solid #b6c8d3;
       }
       // .item:nth-child(1) {
       //   // a {
@@ -715,7 +736,8 @@ export default {
     .login {
       height: 100%;
       // margin-left: 130px;
-      float: right;
+      position: absolute;
+    right: -10%;
       display: flex;
       align-items: center;
       color: #fff;
@@ -813,6 +835,7 @@ export default {
         align-items: center;
         cursor: pointer;
         .name {
+          color: white !important;
           margin-left: 5px;
           margin-right: 3px;
           position: relative;
@@ -826,7 +849,7 @@ export default {
             left: 0;
           }
           span {
-            width: 40px;
+            width: 140px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -835,12 +858,12 @@ export default {
         .control {
           margin: 0 20px;
           .controlimg {
-            width: 20px;
-            height: 20px;
+            width: 28px;
+            height: 26px;
             vertical-align: middle;
-            margin-right: 4px;
             background: url('~/static/img/introduce/control.png') no-repeat
               center !important;
+            transform: scale(0.7);
           }
         }
         .logout {
@@ -872,6 +895,13 @@ export default {
 }
 .layout-header:hover {
   // background-color: #2b3033;
-  border-bottom-color: transparent;
+  // border-bottom-color: rgba(0,0,0,255);
+  background-color: #19315e;
+}
+// .logout-color {
+//   margin-left: 70px;
+// }
+.logout-color:hover {
+  color: #3b77e3;
 }
 </style>
