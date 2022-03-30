@@ -372,6 +372,11 @@ export default {
       this.$api.user
         .getCode({ receiverAccount: this.form.phone, codeType: '3' })
         .then((res) => {
+          if (res.code === '500') {
+            this.$message.error(res.msg)
+            this.codeLoading = false
+            return
+          }
           this.sendCodeTime()
         })
     },
