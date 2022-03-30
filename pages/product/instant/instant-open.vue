@@ -32,23 +32,33 @@
         立即开通
       </a-button>
     </div>
+    <a-modal
+      :title="title"
+      :visible="visible"
+      :ok-text="oktext"
+      :cancel-text="canceltext"
+      @ok="handleOk"
+      @cancel="handleCancel"
+    >
+      {{ ModalText }}
+    </a-modal>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import { jumpCloudAdminDash, jumpCloudAdminRealName } from '@/utils/index'
-const close = () => {
-  console.log(
-    'Notification was closed. Either the close button was clicked or duration time elapsed.'
-  )
-}
 export default {
   data () {
     return {
       jumpCloudAdminRealName,
       jumpCloudAdminDash,
-      checked: false
+      checked: false,
+      ModalText: '',
+      visible: false,
+      title: '提示',
+      oktext: '',
+      canceltext: ''
     }
   },
   computed: {
@@ -57,10 +67,19 @@ export default {
     })
   },
   methods: {
+    handleCancel (e) {
+      this.visible = false
+    },
+    handleOk (e) {
+      // 跳转到实名认证页面
+      if (this.func === 1) {
+        jumpCloudAdminRealName(this.token)
+      }
+      this.visible = false
+    },
     instantSetup () {
       // 如果未登录，弹窗提示“您还未登录，请登录后再进行服务开通。马上登录”，点击【马上登录】跳转到登录页面
       // 已经登录，未认证，弹窗提示“您尚未实名认证，开通CDN服务需要先实名认证通过。去认证” ，点击【去认证】跳转到实名认证页面
-
       // 不用判断登录,只用判断是否实名认证就可以,没有实名认证跳转到实名认证页面
       this.$api.cloud.instantAccountSetup().then((res) => {
         // 已经实名认证
@@ -70,10 +89,12 @@ export default {
         // 没有实名认证
         if (res.code === '1313009') {
           this.$message.warning(res.msg)
-          // 两秒之后跳转到控制台
-          setInterval(() => {
-            jumpCloudAdminRealName(this.token)
-          }, 2000)
+          // 跳转到控制台
+          this.visible = true
+          this.ModalText = '当前账户未进行实名认证,是否先进行实名认证?'
+          this.oktext = '确认'
+          this.canceltext = '取消'
+          this.func = 1
         }
       })
     }

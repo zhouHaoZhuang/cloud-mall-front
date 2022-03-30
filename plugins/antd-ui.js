@@ -13,8 +13,12 @@ import {
   Table,
   Radio,
   message,
-  Alert
+  Alert,
+  Dropdown,
+  Modal,
+  Menu
 } from 'ant-design-vue'
+
 import VueClipboard from 'vue-clipboard2'
 import VueScrollTo from 'vue-scrollto'
 // 自定义字体图标
@@ -49,8 +53,12 @@ Vue.use(Pagination)
 Vue.use(Table)
 Vue.use(Radio)
 Vue.use(Alert)
+Vue.use(Dropdown)
+Vue.use(Modal)
+Vue.use(Menu)
 Vue.component('Iconfont', iconfont) // 注册组件
 Vue.use(VueClipboard)
 Vue.use(VueScrollTo, options)
 // 全局挂在message组件
 Vue.prototype.$message = message
+// Vue.prototype.$confirm = confirm

@@ -8,6 +8,16 @@
         <div class="txt-list">
           CDN通过广泛的网络节点分布，提供快速、稳定、安全、可编程的全球内容分发加速服务，支持将网站、音视频、下载等内容分发至接近用户的节点，使用户可就近取得所需内容，提高用户访问的响应速度和成功率
         </div>
+        <a-modal
+          :title="title"
+          :visible="visible"
+          :ok-text="oktext"
+          :cancel-text="canceltext"
+          @ok="handleOk"
+          @cancel="handleCancel"
+        >
+          {{ ModalText }}
+        </a-modal>
         <a class="btn right-margin" @click="skipInstant"> 立即开通 </a>
         <a class="btn2 right-margin" @click="skipAdmin"> 管理控制台 </a>
         <a
@@ -132,7 +142,11 @@
 import { mapState } from 'vuex'
 import AnchorNav from '@/components/AnchorNav/index'
 import FixedTopNav from '@/components/FixedTopNav/index'
-import { jumpCloudAdmin } from '@/utils/index.js'
+import {
+  jumpCloudAdmin,
+  jumpCloudAdminRealName,
+  jumpCloudAdminDash
+} from '@/utils/index.js'
 
 export default {
   components: { AnchorNav, FixedTopNav },
@@ -140,6 +154,11 @@ export default {
     return {
       jumpCloudAdmin,
       timer: null,
+      ModalText: '',
+      visible: false,
+      title: '提示',
+      oktext: '',
+      canceltext: '',
       navList: [
         {
           id: 'support',
@@ -247,32 +266,70 @@ export default {
     }
   },
   methods: {
-    skipAdmin () {
+    // 判断是否实名认证
+    isRealName () {
+      return new Promise((resolve, reject) => {
+        this.$api.cloud.instantAccountSetup().then((res) => {
+          resolve(res.code)
+        })
+      })
+    },
+    async skipAdmin () {
       if (this.isLogin === true) {
-        this.jumpCloudAdmin(this.token)
+        // this.jumpCloudAdmin(this.token)
+        const isName = await this.isRealName()
+        if (isName === '000000') {
+          // 已经实名认证
+          jumpCloudAdminDash(this.token)
+        } else if (isName === '1313009') {
+          this.visible = true
+          this.ModalText = '当前账户未进行实名认证,是否先进行实名认证?'
+          this.oktext = '确认'
+          this.canceltext = '取消'
+          this.func = 3
+        }
       } else {
-        this.$message.warning('请先登录')
-        setInterval(() => {
-          this.$router.push('/login')
-        }, 2000)
+        this.visible = true
+        this.ModalText = '您还未登录，请先登录'
+        this.oktext = '确认登录'
+        this.canceltext = '取消'
+        this.func = 1
       }
     },
+    // 判断确认按钮的功能
+    handleOk (e) {
+      // 未登录
+      if (this.func === 1) {
+        this.$router.push('/login')
+      } else if (this.func === 2) {
+        this.$router.push('/instant-open')
+      } else if (this.func === 3) {
+        jumpCloudAdminRealName(this.token)
+      }
+      this.visible = false
+    },
+    handleCancel (e) {
+      this.visible = false
+    },
+
     skipInstant () {
       // 判断是否开通过,开通过就提示,没开通过就让跳转,开通过进行提示
       this.$api.cloud.isAccountSetup().then((res) => {
-        // 开通过
         if (res.code === '000000') {
           if (res.data === true) {
-            this.$message.warning('已开通CDN服务')
+            this.$message.warning('当前账户已开通CDN服务')
           } else {
             // 未开通
-            this.$router.push('/instant-open')
+            this.func = 2
+            this.handleOk()
           }
         } else if (res.code === '000001') {
-          this.$message.warning('请先登录')
-          this.timer = setInterval(() => {
-            this.$router.push('/login')
-          }, 2000)
+          // 未登录
+          this.visible = true
+          this.ModalText = '您还未登录，请登录后再进行服务开通'
+          this.oktext = '确认登录'
+          this.canceltext = '取消'
+          this.func = 1
         } else {
           this.$message.warning(res.msg)
         }
