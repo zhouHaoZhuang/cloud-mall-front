@@ -27,7 +27,12 @@
         <p class="text-one">
           CDN的计费方式:按流量计费
         </p>
-        <a-table :columns="columns" :data-source="data" :pagination="false" />
+        <a-table
+          :row-class-name="getRowClassname"
+          :columns="columns"
+          :data-source="data"
+          :pagination="false"
+        />
         <div class="centerbox">
           <p class="tittle">
             计费规则:
@@ -73,6 +78,7 @@
           :columns="columnsTwo"
           :data-source="dataTwo"
           :pagination="false"
+          :row-class-name="getRowClassname"
         />
         <div class="centerbox">
           <p class="tittle">
@@ -195,6 +201,9 @@ export default {
           this.$message.warning(res.msg)
         }
       })
+    },
+    getRowClassname (record) {
+      return 'data-rule-invalid'
     },
     // 锚点导航点击
     handleNavJump (item) {
@@ -338,6 +347,36 @@ export default {
         }
       }
     }
+  }
+}
+//设置标表头颜色
+::v-deep .ant-table-thead {
+  tr {
+    th {
+      background-color: #ecf2fd !important;
+      padding-left: 120px !important;
+      font-size: 16px;
+    }
+  }
+}
+::v-deep .ant-table-tbody {
+  tr {
+    td {
+      padding-left: 120px;
+    }
+  }
+}
+::v-deep .data-rule-invalid:hover {
+  box-shadow: 0px 0px 8px 2px rgba(59, 119, 227, 0.3);
+}
+::v-deep .data-rule-invalid {
+  box-shadow: 0px 0px 4px 0px rgba(59, 119, 227, 0.2);
+}
+::v-deep .ant-table-tbody {
+  tr:hover:not(.ant-table-expanded-row) > td,
+  .ant-table-row-hover,
+  .ant-table-row-hover > td {
+    background-color: #fff;
   }
 }
 </style>

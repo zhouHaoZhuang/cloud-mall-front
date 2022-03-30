@@ -342,6 +342,8 @@ export default {
             font-size: 14px;
             padding: 0 23px;
             transition: 0s;
+            text-align: center !important;
+
             &:hover {
               background-color: #3b77e3;
               color: #fff;
@@ -384,11 +386,11 @@ export default {
             &.active::after {
               // height: 64px;
               // border-bottom: 2px solid #059fff;
-               content: '';
-            display: block;
-            height: 6px;
-            background: #3b77e3;
-            border-radius: 100px 100px 0px 0px;
+              content: '';
+              display: block;
+              height: 6px;
+              background: #3b77e3;
+              border-radius: 100px 100px 0px 0px;
             }
           }
           span:hover::after {
