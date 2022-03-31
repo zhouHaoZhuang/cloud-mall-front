@@ -182,44 +182,44 @@ export default {
       productSuperiority: [
         {
           title: '快速，全球覆盖',
-          bg: `width: 120px;height: 120px;background: url(${require('~/static/img/introduce/productSuperiority_1.png')}) no-repeat center;margin-top:38px`,
+          bg: `width: 114px;height: 114px;background: url(${require('~/static/img/introduce/productSuperiority_1.png')}) no-repeat center;margin-top:20px`,
           desc: '全球拥有2800+节点。覆盖70多个国家和地区，包括中国内地（大陆）、中国香港、中国澳门、中国台湾、其他国家和地区，全网带宽输出能力达150 Tbps'
         },
         {
           title: '站点安全性',
-          bg: `width: 90px;height:130px;background: url(${require('~/static/img/introduce/productSuperiority_2.png')}) no-repeat center;margin-top:28px`,
+          bg: `width: 82px;height:104px;background: url(${require('~/static/img/introduce/productSuperiority_2.png')}) no-repeat center;margin-top:28px`,
           desc: '为网络提供系统级保护，您的流量和程序受益于各种形式的保护，支持多种防盗链功能、HTTPS安全传输、IP黑名单等高级安全控制功能'
         },
         {
           title: '简单且高效',
-          bg: `width: 148px;height: 76px;background: url(${require('~/static/img/introduce/productSuperiority_3.png')}) no-repeat center;margin-top:52px;margin-bottom:96px`,
+          bg: `width: 104px;height: 54px;background: url(${require('~/static/img/introduce/productSuperiority_3.png')}) no-repeat center;margin-top:52px;margin-bottom:76px`,
           desc: '通过标准化配置，更及时的的作出响应，用户自主在控制台进行访问控制、性能优化、缓存策略等配置，实时掌握CDN服务使用情况'
         },
         {
           title: '心动的价格',
-          bg: `width: 138px;height: 124px;background: url(${require('~/static/img/introduce/productSuperiority_4.png')}) no-repeat center;margin-top:34px`,
+          bg: `width: 118px;height: 104px;background: url(${require('~/static/img/introduce/productSuperiority_4.png')}) no-repeat center;margin-top:34px`,
           desc: '性能和技术强大的同时，价格也同样有竞争力，灵活的计费模式，免去您的麻烦'
         }
       ],
       cooperationProcess: [
         {
           title: '全链路加速',
-          bg: `width: 120px;height: 120px;background: url(${require('~/static/img/introduce/productfunc-1.png')}) no-repeat center;background-size: cover !important;display:inline-block`,
+          bg: `width: 135px;height: 105px;background: url(${require('~/static/img/introduce/productfunc-1.png')}) no-repeat center;background-size: cover !important;display:inline-block`,
           desc: '只需上传加速域名证书/私钥，获得企业级HTTPS加速服务。自此基础上，用户进行自定义配置后，可将原请求方式进行强制 HTTPS 跳转'
         },
         {
           title: '智能优化',
-          bg: `width: 120px;height: 120px;background: url(${require('~/static/img/introduce/2.png')}) no-repeat center;background-size: cover !important;display:inline-block`,
+          bg: `width: 135px;height: 105px;background: url(${require('~/static/img/introduce/2.png')}) no-repeat center;background-size: cover !important;display:inline-block`,
           desc: '通过页面优化、智能压缩、过滤参数（提高缓存命中率）等方式来提升用户请求的响应速度和文件下载速度，减少传输内容节约开销的同时提升加速效果'
         },
         {
           title: '静态资产缓存',
-          bg: `width: 120px;height: 120px;background: url(${require('~/static/img/introduce/8.png')}) no-repeat center;background-size: cover !important;display:inline-block`,
+          bg: `width: 135px;height: 105px;background: url(${require('~/static/img/introduce/8.png')}) no-repeat center;background-size: cover !important;display:inline-block`,
           desc: '加速向查看者交付静态内容（即图像、样式表等）。均衡使用 CPU 多核处理能力，进行高性能缓存，配合 SSD 加速能力，减少用户访问等待时间'
         },
         {
           title: '访问控制',
-          bg: `width: 120px;height: 120px;background: url(${require('~/static/img/introduce/4.png')}) no-repeat center;background-size: cover !important;display:inline-block`,
+          bg: `width: 135px;height: 105px;background: url(${require('~/static/img/introduce/4.png')}) no-repeat center;background-size: cover !important;display:inline-block`,
           desc: '可通过URL鉴权设置、Refer防盗链设置、IP黑/白名单设置、UA黑/白名单设置能够很好地解决盗链危害'
         }
       ],
@@ -243,12 +243,12 @@ export default {
       helpList: [
         {
           title: '产品文档',
-          bg: `width: 64px;height: 80px;background: url(${require('~/static/img/introduce/help_1.png')}) no-repeat center;background-size: cover !important;display:inline-block`,
+          bg: `width: 50px;height: 60px;background: url(${require('~/static/img/introduce/help_1.png')}) no-repeat center;background-size: cover !important;display:inline-block;margin-left:20px`,
           desc: 'CDN产品帮助文档'
         },
         {
           title: '常见问题',
-          bg: `width: 76px;height: 90px;background: url(${require('~/static/img/introduce/help_2.png')}) no-repeat center;background-size: cover !important;display:inline-block`,
+          bg: `width: 51px;height: 61px;background: url(${require('~/static/img/introduce/help_2.png')}) no-repeat center;background-size: cover !important;display:inline-block;margin-left:20px`,
           desc: '问题解惑，汇总合集'
         }
       ]
@@ -441,9 +441,10 @@ export default {
       .list {
         display: flex;
         flex-wrap: wrap;
+        justify-content: center;
         .item {
-          width: 370px;
-          height: 528px;
+          width: 290px;
+          height: 424px;
           padding: 30px 20px 40px 20px;
           margin: 10px;
           box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.1);
@@ -452,17 +453,17 @@ export default {
             margin: 0 auto;
           }
           .title {
-            font-size: 28px;
+            font-size: 24px;
             font-family: Microsoft YaHei;
             font-weight: 600;
             color: rgba(51, 51, 51, 1);
             text-align: center;
-            margin: 68px 0 20px 0;
+            margin: 50px 0 20px 0;
           }
 
           .title-desc {
-            font-size: 20px;
-            line-height: 28px;
+            font-size: 16px;
+            line-height: 24px;
             color: #9ca4b5;
           }
         }
@@ -470,7 +471,7 @@ export default {
           box-shadow: 0px 0px 10px 2px rgba(59, 119, 227, 0.1);
         }
         .item:nth-child(1):hover .bg {
-          background: url('~/static/img/introduce/18.png') no-repeat center !important;
+          background: url('~/static/img/introduce/18.png') no-repeat center  !important;
         }
         .item:nth-child(2):hover .bg {
           background: url('~/static/img/introduce/16.png') no-repeat center !important;
@@ -531,15 +532,16 @@ export default {
       .list {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-around;
+        justify-content:center;
         .item {
-          width: 754px;
-          height: 220px;
-          margin: 10px 10px 20px 0;
+          width: 584px;
+          height: 178px;
+          margin: 10px 20px 20px 0;
           display: flex;
           align-items: center;
           justify-content: center;
           background-color: #ffffff;
+          padding-left: 20px;
           .bg {
             background-size: 23px 24px !important;
             height: 28px;
@@ -551,22 +553,21 @@ export default {
             display: inline-block;
             margin-left: 30px;
             .title {
-              font-size: 14px;
               font-family: Microsoft YaHei;
               font-weight: 400;
               color: rgba(102, 102, 102, 1);
               line-height: 24px;
               text-align: left;
-              margin-top: 40px;
-              font-size: 20px;
+              margin-top: 50px;
+              font-size: 24px;
               font-weight: 600;
               color: #333;
               margin-bottom: 20px;
             }
             .desc {
-              font-size: 20px;
+              font-size: 16px;
               color: #9ca4b5;
-              line-height: 28px;
+              line-height: 24px;
             }
           }
         }
@@ -594,10 +595,10 @@ export default {
       width: 1600px;
       .list {
         display: flex;
-        justify-content: space-around;
+        justify-content:center;
         .item {
-          width: 492px;
-          height: 552px;
+          width: 386px;
+          height: 510px;
           padding: 70px 44px 50px 44px;
           margin: 10px;
           box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.1);
@@ -611,12 +612,13 @@ export default {
             color: rgba(51, 51, 51, 1);
             text-align: center;
             font-size: 24px;
-            margin: 70px 0 16px 0;
+            margin: 40px 0 16px 0;
+            font-weight: 600;
           }
 
           .desc-two {
-            font-size: 20px;
-            line-height: 28px;
+            font-size: 16px;
+            line-height: 24px;
             color: #9ca4b5;
           }
         }
@@ -677,14 +679,14 @@ export default {
     padding: 90px 0;
     background-color: #f5f7fd;
     .container {
-      width: 1600px;
+      width: 1200px;
       .list {
         display: flex;
         flex-wrap: wrap;
         justify-content: left;
         .item {
-          width: 370px;
-          height: 134px;
+          width: 330px;
+          height: 128px;
           margin: 10px 10px 20px 0;
           display: flex;
           align-items: center;
@@ -700,9 +702,9 @@ export default {
             height: 134px;
             padding: 0 10px;
             display: inline-block;
-            margin-left: 30px;
+            margin-left: 20px;
             .title {
-              font-size: 28px;
+              font-size: 24px;
               font-family: Microsoft YaHei;
               font-weight: 400;
               color: rgba(102, 102, 102, 1);
