@@ -826,7 +826,8 @@ export default {
           category: 'cloud_essd',
           performanceLevel: 'PL0',
           size: 40
-        }
+        },
+        dataDisk: []
       },
       // 是否显示已选择配置
       isShowCloudSelect: false,
@@ -1097,13 +1098,16 @@ export default {
     },
     // 返回选择的系统镜像名称
     getSystemName () {
+      if (this.systemList.length === 0 && this.systemEditionList.length === 0) {
+        return ''
+      }
       const systemName1 = Object.keys(this.systemList).find(
         ele => ele === this.defaultSystem
       )
       const systemName2 = this.systemEditionList.find(
         ele => ele.imageId === this.form.imageId
-      ).OSName
-      return `${systemName1}/${systemName2}`
+      )
+      return `${systemName1}/${systemName2?.OSName}`
     }
   },
   methods: {
