@@ -35,7 +35,12 @@
                 />
               </div>
             </div>
-            <div class="underscore" />
+            <div
+              :class="{
+                underscore: true,
+                'underscore-left': item.title === '首页'
+              }"
+            />
           </nuxt-link>
           <a
             v-else
@@ -76,7 +81,12 @@
                 />
               </div>
             </div>
-            <div class="underscore" />
+            <div
+              :class="{
+                underscore: true,
+                'underscore-prod': item.title === '产品'
+              }"
+            />
           </a>
         </div>
       </div>
@@ -133,8 +143,7 @@
           <a-dropdown>
             <a class="ant-dropdown-link" @click="e => e.preventDefault()">
               <div class="name" @click="jumpCloudAdmin(token)">
-                <span>{{ userInfo.phone }}
-                </span>
+                <span>{{ userInfo.phone }} </span>
               </div>
             </a>
             <a-menu slot="overlay">
@@ -562,6 +571,7 @@ export default {
     mouseEnter (index, show) {
       console.log(index, show)
       this.hoverIndex = index
+      console.log(this.hoverIndex, 'wwwwwww')
       this.headerItemData = { ...this.navList[index].children }
       console.log(this.headerItemData)
     },
@@ -640,7 +650,7 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 0 20px;
+        padding: 0 25px;
         // overflow: hidden;
         cursor: pointer;
         box-sizing: border-box;
@@ -716,14 +726,33 @@ export default {
         .underscore {
           background-color: #fff;
         }
+        .underscore-prod{
+          width: 100px;
+          height: 6px;
+          background-color: transparent;
+          position: absolute;
+          bottom: 0;
+          left: -22%;
+          border-radius: 100px 100px 0 0;
+        }
+        .underscore-left {
+          width: 100px;
+          height: 6px;
+          background-color: transparent;
+          position: absolute;
+          bottom: 0;
+          left: -94%;
+          border-radius: 100px 100px 0 0;
+          background-color: #fff;
+        }
       }
       .underscore {
-        width: 80%;
+        width: 100px;
         height: 6px;
         background-color: transparent;
         position: absolute;
         bottom: 0;
-        left: 15%;
+        left: -22%;
         border-radius: 100px 100px 0 0;
         // border: 1px solid #b6c8d3;
       }
@@ -737,7 +766,7 @@ export default {
       height: 100%;
       // margin-left: 130px;
       position: absolute;
-    right: -10%;
+      right: -10%;
       display: flex;
       align-items: center;
       color: #fff;
@@ -863,7 +892,7 @@ export default {
             vertical-align: middle;
             background: url('~/static/img/introduce/control.png') no-repeat
               center !important;
-              transform: scale(0.7);
+            transform: scale(0.7);
           }
         }
         .logout {
