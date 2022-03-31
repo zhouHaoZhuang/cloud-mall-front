@@ -70,9 +70,9 @@
             >
               <div class="left">
                 <p>{{ item.title }}</p>
-                <div class="btn">
+                <!-- <div class="btn">
                   查看详情
-                </div>
+                </div> -->
               </div>
               <div class="right">
                 {{ item.content }}
@@ -94,9 +94,9 @@
             >
               <div class="left">
                 <p>{{ item.title }}</p>
-                <div class="btn">
+                <!-- <div class="btn">
                   查看详情
-                </div>
+                </div> -->
               </div>
               <div class="right">
                 {{ item.content }}

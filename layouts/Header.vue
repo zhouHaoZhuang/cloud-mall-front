@@ -863,7 +863,7 @@ export default {
             vertical-align: middle;
             background: url('~/static/img/introduce/control.png') no-repeat
               center !important;
-            transform: scale(0.7);
+              transform: scale(0.7);
           }
         }
         .logout {

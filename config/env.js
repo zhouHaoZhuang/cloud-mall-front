@@ -1,14 +1,14 @@
 // 请求地址头
 const baseUrl = {
-  local: 'http://site.sailayun.com/ims',
-  // local: '/api',
+  // local: 'http://site.sailayun.com/ims',
+  local: '/api',
   dev: 'site.sailayun.com/ims',
   test: 'site.zjyundun.com/ims',
   prod: 'site.slayun.com/ims'
 }
 // 请求头携带domain参数
 const domains = {
-  local: 't410796.site.sailayun.com'
+  local: 't940857.site.sailayun.com'
 }
 
 export default {
