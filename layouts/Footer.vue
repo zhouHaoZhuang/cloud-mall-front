@@ -35,8 +35,16 @@
                 class="list-item"
                 @click="handleClick(ele.path)"
               >
-                {{ ele.name }}
-              </a>
+                <span
+                  v-if="ele.path == 'controlPanel'"
+                  @click="handleClick(ele.path)"
+                >
+                  {{ ele.name }}
+                </span>
+                <a v-else style="color: #ffffffcf" :href="ele.path">
+                  {{ ele.name }}
+                </a>
+              </div>
             </div>
           </div>
           <!-- 联系我们 -->
