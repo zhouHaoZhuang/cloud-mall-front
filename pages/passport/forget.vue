@@ -222,11 +222,11 @@
 
 <script>
 import { mapState } from 'vuex'
-import CodeBtn from '@/components/CodeBtn/index'
+// import CodeBtn from '@/components/CodeBtn/index'
 import Identify from '@/components/Identify'
 import { getRandomCode } from '@/utils/index'
 export default {
-  components: { CodeBtn, Identify },
+  components: { Identify },
   data () {
     return {
       // 下方所有验证的status 0:默认 1:未通过验证 2:验证通过
@@ -354,7 +354,6 @@ export default {
       if (this.codeLoading) {
         return
       }
-
       if (this.form.phone === '') {
         this.$message.warning('请输入手机号')
         return
@@ -363,14 +362,11 @@ export default {
         this.$message.warning('请输入格式正确的手机号')
         return
       }
+      this.showVerfication = true
       if (!this.form.verificationCode) {
         this.$message.warning('请先正确输入图片验证码')
+        this.verificateStatus = 1
       }
-      this.showVerfication = true
-      if (this.verificateStatus !== 3) {
-        return
-      }
-      // this.toSend()
     },
     toSend () {
       if (this.codeLoading) {
@@ -387,10 +383,8 @@ export default {
           }
           this.sendCodeTime()
         })
-        .finally(() => {
-          setTimeout(() => {
-            this.codeLoading = false
-          }, 500)
+        .catch(() => {
+          this.codeLoading = false
         })
     },
     // 验证码发送成功后开始倒计时

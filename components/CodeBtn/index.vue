@@ -15,7 +15,8 @@
 export default {
   props: {
     phone: {
-      type: [String, Number]
+      type: [String, Number],
+      default: ''
     },
     size: {
       type: String,
@@ -60,7 +61,9 @@ export default {
         this.$emit('validate', (val) => {
           flag = val
         })
-        if (!flag) { return }
+        if (!flag) {
+          return
+        }
       }
       if (this.loading) { return }
       this.loading = true
@@ -73,7 +76,7 @@ export default {
         .then((res) => {
           this.startTime()
         })
-        .finally(() => {
+        .catch(() => {
           this.loading = false
         })
     },
