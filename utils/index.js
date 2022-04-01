@@ -75,11 +75,19 @@ export const jumpCloudAdminDetail = (id, token) => {
     '_self'
   )
 }
+// 跳转到工单页面
+export const jumpCloudAdminWork = (token, type) => {
+  const url = getCloudAdminUrl()
+  window.open(
+    url + '/user/setting/realname' + `?token=${token}`,
+    type ? '_blank' : '_self'
+  )
+}
 // 跳转控制台-实名认证
 export const jumpCloudAdminRealName = (token, type) => {
   const url = getCloudAdminUrl()
   window.open(
-    url + '/user/setting/realname' + `?token=${token}`,
+    url + '/user/workOrder/submit' + `?token=${token}`,
     type ? '_blank' : '_self'
   )
 }

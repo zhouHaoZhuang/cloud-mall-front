@@ -353,6 +353,8 @@ export default {
 <style lang="scss" scoped>
 .recruit-container {
   background: #fff;
+      width: 1920px;
+    margin: 0 auto;
   .banner-wrap {
     position: relative;
     height: 702px;

@@ -44,6 +44,7 @@
                 <span
                   v-for="title in item.ccHelpTypeList"
                   :key="title.typeCode"
+                  :title="title.typeName"
                   @click="
                     changeList(title.typeCode, item.typeName, title.typeName)
                   "
@@ -193,6 +194,10 @@ export default {
             line-height: 40px;
             cursor: pointer;
             height: 40px;
+            width: 156px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
             img {
               margin-right: 5px;
             }

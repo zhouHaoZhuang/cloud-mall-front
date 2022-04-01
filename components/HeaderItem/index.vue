@@ -12,7 +12,7 @@
         :key="index"
         :class="{ item: true, 'item-two': hoverIndex === 1 }"
       >
-        <span v-if="item.title === '阿里云ECS云服务器'" class="right-after" />
+        <span v-if="item.title === '阿里云'" class="right-after" />
         <a :href="item.path">
           <div class="item-top">
             <span>{{ item.title }}</span>
