@@ -27,17 +27,16 @@
               <a-form-model-item prop="username">
                 <a-input
                   v-model="form.username"
-                  v-number-evolution
                   type="text"
                   placeholder="请输入手机号"
                 />
+                <!-- v-number-evolution -->
               </a-form-model-item>
               <a-form-model-item prop="password">
                 <a-input
                   v-model="form.password"
                   type="password"
                   placeholder="请输入登录密码"
-                  
                 />
               </a-form-model-item>
               <a-form-model-item prop="verificationCode">
@@ -48,8 +47,7 @@
                   placeholder="请输入图片验证码"
                   :max-length="4"
                   @pressEnter="handleLoginBefore"
-                >
-                </a-input>
+                />
                 <div class="code" title="点击切换验证码" @click="refreshCode()">
                   <Identify :identify-code="identifyCode" />
                 </div>
@@ -106,21 +104,21 @@ export default {
             required: true,
             message: '手机号为必填项',
             trigger: 'blur'
-          },
-          {
-            validator: (rule, value, callback) => {
-              if (value === '') {
-                callback()
-              } else {
-                if (/^1[3456789]\d{9}$/.test(value)) {
-                  callback()
-                } else {
-                  callback(new Error('请输入正确格式的手机号'))
-                }
-              }
-            },
-            trigger: 'blur'
           }
+          // {
+          //   validator: (rule, value, callback) => {
+          //     if (value === '') {
+          //       callback()
+          //     } else {
+          //       if (/^1[3456789]\d{9}$/.test(value)) {
+          //         callback()
+          //       } else {
+          //         callback(new Error('请输入正确格式的手机号'))
+          //       }
+          //     }
+          //   },
+          // trigger: 'blur'
+          // }
         ],
         password: [
           {
