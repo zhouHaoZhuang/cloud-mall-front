@@ -658,7 +658,7 @@ export default {
     const addressData = await app.$api.cloud.addressList()
     const firstData =
       Array.isArray(addressData.data) && addressData.data.length > 0
-        ? addressData.data[0]
+        ? addressData.data[1]
         : { regionId: '', regionZone: { zones: [] } }
     const selectAddressId = firstData.regionId
     // 设置可用区数据
