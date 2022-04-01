@@ -44,7 +44,7 @@
                 <a v-else style="color: #ffffffcf" :href="ele.path">
                   {{ ele.name }}
                 </a>
-              </div>
+              </a>
             </div>
           </div>
           <!-- 联系我们 -->
