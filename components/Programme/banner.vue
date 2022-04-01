@@ -84,7 +84,9 @@ export default {
 <style lang="scss" scoped>
 .banner-container {
   .banner {
-    height: 657px;
+    height: 700px;
+    width: 1920px;
+    margin: 0 auto;
     background-size: cover !important;
     .container {
       padding-left: 10px;
