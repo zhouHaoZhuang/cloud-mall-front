@@ -371,6 +371,11 @@ export default {
         })
         .then((res) => {
           console.log(res)
+          if (res.code === '500') {
+            this.$message.error(res.msg)
+            this.codeLoading = false
+            return
+          }
           this.sendCodeTime()
         })
     },
