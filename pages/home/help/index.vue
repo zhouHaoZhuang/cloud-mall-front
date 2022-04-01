@@ -77,10 +77,11 @@ export default {
 .titletop {
   background: url('https://ydidc-test.oss-cn-shanghai.aliyuncs.com/idc-mall/help/helptitle.png') no-repeat;
   background-size: 110% 100%;
-  height: 580px;
+  height: 700px;
   padding-top: 175px;
   position: relative;
-  min-width: 1220px;
+  width: 1920px;
+  margin: 0 auto;
   background-position: -155px 0;
   .help-center {
     font-size: 36px;

@@ -28,7 +28,7 @@
               {{ item.title }}
             </div>
             <div class="list">
-              <div
+              <a
                 v-for="(ele, idx) in item.list"
                 :key="idx"
                 :to="ele.path"
@@ -151,7 +151,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { jumpCloudAdmin } from '@/utils/index'
+import { jumpCloudAdmin, jumpCloudAdminWork } from '@/utils/index'
 export default {
   data () {
     return {
@@ -178,6 +178,7 @@ export default {
         }
       ],
       jumpCloudAdmin,
+      jumpCloudAdminWork,
       linkList: [
         {
           title: '浙江云盾产品',
@@ -187,17 +188,17 @@ export default {
               path: '/cloud-choose'
             },
             {
-              name: '云服务器托管',
-              path: ''
-            },
-            {
-              name: '云虚拟主机',
-              path: ''
-            },
-            {
-              name: '云监控',
-              path: ''
+              name: 'CDN加速',
+              path: '/introduce-product'
             }
+            // {
+            //   name: '云虚拟主机',
+            //   path: ''
+            // },
+            // {
+            //   name: '云监控',
+            //   path: ''
+            // }
           ]
         },
         {
@@ -232,21 +233,21 @@ export default {
               name: '帮助中心',
               path: '/help/helpInfo'
             },
-            {
-              name: 'Whois查询',
-              path: ''
-            },
+            // {
+            //   name: 'Whois查询',
+            //   path: ''
+            // },
             {
               name: '控制台',
               path: 'controlPanel'
             },
-            {
-              name: '备案服务',
-              path: ''
-            },
+            // {
+            //   name: '备案服务',
+            //   path: ''
+            // },
             {
               name: '工单服务',
-              path: ''
+              path: 'workBillService'
             }
           ]
         },
@@ -323,6 +324,9 @@ export default {
     handleClick (path) {
       if (path === 'controlPanel') {
         this.jumpCloudAdmin(this.token)
+        return
+      } else if (path === 'workBillService') {
+        this.jumpCloudAdminWork(this.token)
         return
       }
       this.$router.push(path)

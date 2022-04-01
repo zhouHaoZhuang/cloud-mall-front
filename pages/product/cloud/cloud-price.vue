@@ -529,6 +529,20 @@
               <span class="price-txt">
                 {{ form.tradePrice }}
               </span>
+              <a-tooltip placement="top" overlay-class-name="overlay-wrap">
+                <template slot="title">
+                  <div class="price-tooltip">
+                    <span>镜像</span>
+                    <span>￥{{ form.imagePrice }}</span>
+                  </div>
+                  <div class="price-tooltip">
+                    <span>实例</span>
+                    <span>￥{{ form.canEnjoyDiscountPrice }}</span>
+                    <span class="ml"> 省￥{{ form.discountPrice }} </span>
+                  </div>
+                </template>
+                <a-icon class="question-icon" type="question-circle" />
+              </a-tooltip>
             </div>
             <div class="coupon-box">
               <div class="left">
@@ -658,7 +672,7 @@ export default {
     const addressData = await app.$api.cloud.addressList()
     const firstData =
       Array.isArray(addressData.data) && addressData.data.length > 0
-        ? addressData.data[0]
+        ? addressData.data[1]
         : { regionId: '', regionZone: { zones: [] } }
     const selectAddressId = firstData.regionId
     // 设置可用区数据
@@ -1732,6 +1746,27 @@ export default {
         background-color: #eff6fc;
         border-radius: 50px;
       }
+    }
+  }
+}
+.overlay-wrap {
+  .ant-tooltip-inner {
+    background-color: #fff !important;
+    width: 200px;
+    height: 80px;
+    border-radius: 4px;
+    color: #3b77e3;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    .ml {
+      margin-left: 15px;
+      color: #ff7f61;
+    }
+  }
+  .ant-tooltip-arrow {
+    &::before {
+      background: #fff;
     }
   }
 }
