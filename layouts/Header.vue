@@ -541,19 +541,19 @@ export default {
       return this.allConfig.enable_register * 1 === 1
     }
   },
-  watch: {
-    $route: {
-      immediate: true,
-      handler (to, from) {
-        if (to.path === '/login' && this.allConfig.enable_login !== '1') {
-          this.$router.push('/')
-        }
-        if (to.path === '/register' && this.allConfig.enable_register !== '1') {
-          this.$router.push('/')
-        }
-      }
-    }
-  },
+  // watch: {
+  //   $route: {
+  //     immediate: true,
+  //     handler (to, from) {
+  //       if (to.path === '/login' && this.allConfig.enable_login !== '1') {
+  //         this.$router.push('/')
+  //       }
+  //       if (to.path === '/register' && this.allConfig.enable_register !== '1') {
+  //         this.$router.push('/')
+  //       }
+  //     }
+  //   }
+  // },
   methods: {
     isWhite (path) {
       return this.whiteList.includes(path)

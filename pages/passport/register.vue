@@ -307,7 +307,10 @@ export default {
         this.verificateStatus = 1
         return
       }
-      if (this.$refs.verificationCode.value.toLowerCase() !== this.identifyCode.toLowerCase()) {
+      if (
+        this.$refs.verificationCode.value.toLowerCase() !==
+        this.identifyCode.toLowerCase()
+      ) {
         this.verificateStatus = 2
       } else {
         this.verificateStatus = 3
@@ -356,12 +359,14 @@ export default {
       }
       this.showVerfication = true
       if (this.verificateStatus !== 3) {
-        console.log('到这里')
         return
       }
-      this.toSend()
+      // this.toSend()
     },
     toSend () {
+      if (this.codeLoading) {
+        return
+      }
       this.codeLoading = true
       this.$api.user
         .getCode({
@@ -377,6 +382,11 @@ export default {
             return
           }
           this.sendCodeTime()
+        })
+        .finally(() => {
+          setTimeout(() => {
+            this.codeLoading = false
+          }, 500)
         })
     },
     // 验证码发送成功后开始倒计时
