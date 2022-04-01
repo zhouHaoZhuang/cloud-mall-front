@@ -38,10 +38,12 @@
                 <span
                   v-if="ele.path == 'controlPanel'"
                   @click="handleClick(ele.path)"
-                >{{ ele.name }}</span>
-                <a v-else style="color: #ffffffcf" :href="ele.path">{{
-                  ele.name
-                }}</a>
+                >
+                  {{ ele.name }}
+                </span>
+                <a v-else style="color: #ffffffcf" :href="ele.path">
+                  {{ ele.name }}
+                </a>
               </div>
             </div>
           </div>
