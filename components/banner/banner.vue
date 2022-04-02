@@ -101,6 +101,10 @@ export default {
 <style lang="scss" scoped>
 .banner-container {
   position: relative;
+  background-image: url('~/static/img/assurance/bgcolor.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+
   .banner-wrap {
     height: 700px;
     position: relative;
@@ -110,7 +114,7 @@ export default {
       height: 100%;
       position: relative;
       max-width: 1920px;
-    margin: 0 auto;
+      margin: 0 auto;
       .banner-item {
         width: 100%;
         height: 700px;

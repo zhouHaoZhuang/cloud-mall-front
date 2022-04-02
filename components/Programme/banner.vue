@@ -83,6 +83,9 @@ export default {
 
 <style lang="scss" scoped>
 .banner-container {
+    background-image: url('~/static/img/assurance/bgcolor.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
   .banner {
     height: 700px;
     max-width: 1920px;

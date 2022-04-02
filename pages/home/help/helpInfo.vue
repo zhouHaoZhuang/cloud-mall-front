@@ -135,7 +135,7 @@ export default {
   }
 }
 .helpInfo {
-  width: 1290px;
+  width: 1224px;
   margin: 30px auto;
   background-color: #fff;
   h3 {
