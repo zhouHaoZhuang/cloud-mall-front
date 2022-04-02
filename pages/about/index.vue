@@ -573,7 +573,9 @@ export default {
   .banner-wrap {
     position: relative;
     top: 0px;
-    height: 576px;
+    height: 700px;
+    width: 1920px;
+    margin: 0 auto;
     min-width: 1220px;
     overflow: hidden;
     background: url('https://ydidc-test.oss-cn-shanghai.aliyuncs.com/idc-mall/about/banner.png')
@@ -583,6 +585,7 @@ export default {
     .container {
       position: relative;
       height: 80px;
+      z-index: 99999;
       .product {
         position: absolute;
         top: 234px;

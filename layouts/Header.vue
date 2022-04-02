@@ -64,29 +64,31 @@
               />
             </div>
             <!-- mask 鼠标进入nav展示列表 -->
-            <div
-              v-if="hoverIndex === index"
-              :class="{
-                'popup-all': true,
-                'popup-box': hoverIndex === 4,
-                'popup-boxlong': hoverIndex === 1
-              }"
-            >
-              <div class="container popup-wrap">
-                <HeaderItem
-                  v-for="(ele, idx) in headerItemData"
-                  :key="idx"
-                  :hover-index="hoverIndex"
-                  :item-data="ele"
-                />
+            <div class="outdiv">
+              <div
+                v-if="hoverIndex === index"
+                :class="{
+                  'popup-all': true,
+                  'popup-box': hoverIndex === 4,
+                  'popup-boxlong': hoverIndex === 1
+                }"
+              >
+                <div class="container popup-wrap">
+                  <HeaderItem
+                    v-for="(ele, idx) in headerItemData"
+                    :key="idx"
+                    :hover-index="hoverIndex"
+                    :item-data="ele"
+                  />
+                </div>
               </div>
+              <div
+                :class="{
+                  underscore: true,
+                  'underscore-left': item.title === '产品'
+                }"
+              />
             </div>
-            <div
-              :class="{
-                underscore: true,
-                'underscore-prod': item.title === '产品'
-              }"
-            />
           </a>
         </div>
       </div>
@@ -191,7 +193,7 @@ export default {
               iconimg: '/img/home/cloudcomputing.png',
               list: [
                 {
-                  title: '阿里云ECS云服务器',
+                  title: '阿里云',
                   info: '高速稳定高弹性的计算服务',
                   path: '/cloud-choose',
                   hot: false,
@@ -539,19 +541,19 @@ export default {
       return this.allConfig.enable_register * 1 === 1
     }
   },
-  watch: {
-    $route: {
-      immediate: true,
-      handler (to, from) {
-        if (to.path === '/login' && this.allConfig.enable_login !== '1') {
-          this.$router.push('/')
-        }
-        if (to.path === '/register' && this.allConfig.enable_register !== '1') {
-          this.$router.push('/')
-        }
-      }
-    }
-  },
+  // watch: {
+  //   $route: {
+  //     immediate: true,
+  //     handler (to, from) {
+  //       if (to.path === '/login' && this.allConfig.enable_login !== '1') {
+  //         this.$router.push('/')
+  //       }
+  //       if (to.path === '/register' && this.allConfig.enable_register !== '1') {
+  //         this.$router.push('/')
+  //       }
+  //     }
+  //   }
+  // },
   methods: {
     isWhite (path) {
       return this.whiteList.includes(path)
@@ -691,20 +693,24 @@ export default {
           }
         }
         .popup-box {
-          height: 150px;
+          height: 180px;
+          width: 1910px;
           position: absolute;
-          top: 75px;
-          left: -640px;
-          background: url('../static/img/home/indexHover.png') no-repeat;
-          background-size: 150% 100%;
-          background-position: -405px -15px;
+          top: 80px;
+          left: -916px;
+          background-color: #202835;
+          padding-left: 300px;
+
+          // background: url('../static/img/home/indexHover.png') no-repeat;
+          // background-size: 150% 100%;
+          // background-position: -405px -15px;
         }
         .popup-boxlong {
           height: 180px;
           width: 1910px;
           position: absolute;
-          top: 75px;
-          left: -602px;
+          top: 80px;
+          left: -606px;
           padding-left: 300px;
           padding-top: 25px;
           background-color: #202835;
@@ -726,33 +732,33 @@ export default {
         .underscore {
           background-color: #fff;
         }
-        .underscore-prod{
-          width: 100px;
-          height: 6px;
+        .underscore-prod {
+          width: 60px;
+          height: 4px;
           background-color: transparent;
           position: absolute;
           bottom: 0;
-          left: -22%;
+          left: 4%;
           border-radius: 100px 100px 0 0;
         }
         .underscore-left {
-          width: 100px;
-          height: 6px;
+          width: 60px;
+          height: 4px;
           background-color: transparent;
           position: absolute;
           bottom: 0;
-          left: -94%;
+          left: -42%;
           border-radius: 100px 100px 0 0;
           background-color: #fff;
         }
       }
       .underscore {
-        width: 100px;
-        height: 6px;
+        width: 60px;
+        height: 4px;
         background-color: transparent;
         position: absolute;
         bottom: 0;
-        left: -22%;
+        left: 4%;
         border-radius: 100px 100px 0 0;
         // border: 1px solid #b6c8d3;
       }
@@ -766,7 +772,7 @@ export default {
       height: 100%;
       // margin-left: 130px;
       position: absolute;
-      right: -10%;
+      right: 2px;
       display: flex;
       align-items: center;
       color: #fff;

@@ -102,16 +102,18 @@ export default {
 .banner-container {
   position: relative;
   .banner-wrap {
-    height: 576px;
+    height: 700px;
     position: relative;
-    background-color: #ccc;
+    // background-color: #ccc;
     .banner {
       min-width: 1220px;
       height: 100%;
       position: relative;
+      width: 1920px;
+    margin: 0 auto;
       .banner-item {
         width: 100%;
-        height: 576px;
+        height: 700px;
         background-size: cover !important;
         .banner-info-box {
           position: relative;
