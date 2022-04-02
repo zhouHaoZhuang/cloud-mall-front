@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bgimage">
     <div class="titletop">
       <div>
         <h1 class="help-center">
@@ -74,6 +74,11 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.bgimage{
+   background-image: url('~/static/img/assurance/bgcolor.png');
+  background-repeat: no-repeat;
+  background-size: 100% 66.2%;
+}
 .titletop {
   background: url('https://ydidc-test.oss-cn-shanghai.aliyuncs.com/idc-mall/help/helptitle.png') no-repeat;
   background-size: 100% 100%;

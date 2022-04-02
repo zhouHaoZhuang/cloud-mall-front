@@ -784,4 +784,10 @@ export default {
     }
   }
 }
+@media screen and (max-width: 1200px) {
+.point{
+  left:198px!important
+}
+
+}
 </style>

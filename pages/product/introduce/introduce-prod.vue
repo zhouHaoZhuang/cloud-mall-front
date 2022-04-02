@@ -1,7 +1,8 @@
 <template>
   <div class="recruit-container">
     <!-- 轮播图 -->
-    <div class="banner-wrap">
+    <div class="bgimage">
+<div class="banner-wrap">
       <div class="container">
         <!-- <p>CDN加速</p> -->
         <div class="cdn-speed" />
@@ -26,31 +27,33 @@
         >产品价格</a>
       </div>
     </div>
+    </div>
+    
     <!-- 锚点导航 -->
     <AnchorNav :nav-data="navList" />
     <!-- 产品优势 -->
     <div id="support" class="support-wrap">
-        <div class="public-title">
-          产品优势
-        </div>
-        <div class="public-title-down">
-          ADVANTAGES
-        </div>
-        <div class="list">
-          <div
-            v-for="(item, index) in productSuperiority"
-            :key="index"
-            class="item"
-          >
-            <div class="bg" :style="item.bg" />
-            <div class="title">
-              {{ item.title }}
-            </div>
-            <div class="title-desc">
-              {{ item.desc }}
-            </div>
+      <div class="public-title">
+        产品优势
+      </div>
+      <div class="public-title-down">
+        ADVANTAGES
+      </div>
+      <div class="list">
+        <div
+          v-for="(item, index) in productSuperiority"
+          :key="index"
+          class="item"
+        >
+          <div class="bg" :style="item.bg" />
+          <div class="title">
+            {{ item.title }}
+          </div>
+          <div class="title-desc">
+            {{ item.desc }}
           </div>
         </div>
+      </div>
     </div>
     <!-- 产品功能 -->
     <div id="process" class="process-wrap">
@@ -82,27 +85,23 @@
     </div>
     <!-- 应用场景 -->
     <div id="environment" class="environment-wrap">
-        <div class="public-title">
-          应用场景
-        </div>
-        <div class="public-title-down">
-          SCENARIOS
-        </div>
-        <div class="list">
-          <div
-            v-for="(item, index) in applicationSce"
-            :key="index"
-            class="item"
-          >
-            <div class="bg" :style="item.bg" />
-            <div class="title">
-              {{ item.title }}
-            </div>
-            <div class="desc-two">
-              {{ item.desc }}
-            </div>
+      <div class="public-title">
+        应用场景
+      </div>
+      <div class="public-title-down">
+        SCENARIOS
+      </div>
+      <div class="list">
+        <div v-for="(item, index) in applicationSce" :key="index" class="item">
+          <div class="bg" :style="item.bg" />
+          <div class="title">
+            {{ item.title }}
+          </div>
+          <div class="desc-two">
+            {{ item.desc }}
           </div>
         </div>
+      </div>
     </div>
     <!-- 帮助文档 -->
     <div id="helpdoc" class="help-wrap">
@@ -349,7 +348,12 @@ export default {
 <style lang="scss" scoped>
 .recruit-container {
   background: #fff;
-    margin: 0 auto;
+  margin: 0 auto;
+  .bgimage{
+    background-image: url('~/static/img/assurance/bgcolor.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  }
   .banner-wrap {
     position: relative;
     height: 700px;
@@ -433,87 +437,87 @@ export default {
   .support-wrap {
     padding: 50px 0 0;
     margin-bottom: 100px;
-      .list {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        .item {
-          width: 290px;
-          height: 424px;
-          padding: 30px 20px 40px 20px;
-          margin: 10px;
-          box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.1);
-          .bg {
-            background-size: 100% !important;
-            margin: 0 auto;
-          }
-          .title {
-            font-size: 24px;
-            font-family: Microsoft YaHei;
-            font-weight: 600;
-            color: rgba(51, 51, 51, 1);
-            text-align: center;
-            margin: 50px 0 20px 0;
-          }
-
-          .title-desc {
-            font-size: 16px;
-            line-height: 24px;
-            color: #9ca4b5;
-          }
+    .list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      .item {
+        width: 290px;
+        height: 424px;
+        padding: 30px 20px 40px 20px;
+        margin: 10px;
+        box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.1);
+        .bg {
+          background-size: 100% !important;
+          margin: 0 auto;
         }
-        .item:hover {
-          box-shadow: 0px 0px 10px 2px rgba(59, 119, 227, 0.1);
-        }
-        .item:nth-child(1):hover .bg {
-          background: url('~/static/img/introduce/18.png') no-repeat center  !important;
-        }
-        .item:nth-child(2):hover .bg {
-          background: url('~/static/img/introduce/16.png') no-repeat center !important;
-        }
-        .item:nth-child(3):hover .bg {
-          background: url('~/static/img/introduce/15.png') no-repeat center !important;
-        }
-        .item:nth-child(4):hover .bg {
-          background: url('~/static/img/introduce/17.png') no-repeat center !important;
-        }
-      }
-      .consulting {
-        height: 180px;
-        background: url('~/static/img/about/consulting1.jpg') no-repeat center;
-        display: flex;
-        margin-top: 60px;
-        .txt-box {
-          padding-top: 40px;
-          margin-left: 368px;
+        .title {
+          font-size: 24px;
           font-family: Microsoft YaHei;
-          div:nth-child(1) {
-            font-size: 27px;
-            font-weight: 400;
-            color: #fff;
-            line-height: 62px;
-          }
-          div:nth-child(2) {
-            font-size: 18px;
-            font-weight: 400;
-            color: #fff;
-            line-height: 50px;
-          }
-        }
-        .btn {
-          width: 180px;
-          height: 55px;
-          background: #fff;
-          border-radius: 4px;
-          font-size: 18px;
-          font-weight: bold;
-          color: #0066ff;
+          font-weight: 600;
+          color: rgba(51, 51, 51, 1);
           text-align: center;
-          line-height: 55px;
-          margin-left: 80px;
-          margin-top: 65px;
+          margin: 50px 0 20px 0;
+        }
+
+        .title-desc {
+          font-size: 16px;
+          line-height: 24px;
+          color: #9ca4b5;
         }
       }
+      .item:hover {
+        box-shadow: 0px 0px 10px 2px rgba(59, 119, 227, 0.1);
+      }
+      .item:nth-child(1):hover .bg {
+        background: url('~/static/img/introduce/18.png') no-repeat center !important;
+      }
+      .item:nth-child(2):hover .bg {
+        background: url('~/static/img/introduce/16.png') no-repeat center !important;
+      }
+      .item:nth-child(3):hover .bg {
+        background: url('~/static/img/introduce/15.png') no-repeat center !important;
+      }
+      .item:nth-child(4):hover .bg {
+        background: url('~/static/img/introduce/17.png') no-repeat center !important;
+      }
+    }
+    .consulting {
+      height: 180px;
+      background: url('~/static/img/about/consulting1.jpg') no-repeat center;
+      display: flex;
+      margin-top: 60px;
+      .txt-box {
+        padding-top: 40px;
+        margin-left: 368px;
+        font-family: Microsoft YaHei;
+        div:nth-child(1) {
+          font-size: 27px;
+          font-weight: 400;
+          color: #fff;
+          line-height: 62px;
+        }
+        div:nth-child(2) {
+          font-size: 18px;
+          font-weight: 400;
+          color: #fff;
+          line-height: 50px;
+        }
+      }
+      .btn {
+        width: 180px;
+        height: 55px;
+        background: #fff;
+        border-radius: 4px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #0066ff;
+        text-align: center;
+        line-height: 55px;
+        margin-left: 80px;
+        margin-top: 65px;
+      }
+    }
   }
   .process-wrap {
     display: flex;
@@ -526,7 +530,7 @@ export default {
       .list {
         display: flex;
         flex-wrap: wrap;
-        justify-content:center;
+        justify-content: center;
         .item {
           width: 584px;
           height: 178px;
@@ -585,84 +589,84 @@ export default {
   }
   .environment-wrap {
     padding: 140px 0 116px 0;
-      .list {
-        display: flex;
-        justify-content:center;
-        .item {
-          width: 386px;
-          height: 510px;
-          padding: 70px 44px 50px 44px;
-          margin: 10px;
-          box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.1);
-          .bg {
-            background-size: 100% !important;
-            margin: 0 auto;
-          }
-          .title {
-            font-family: Microsoft YaHei;
-            font-weight: 400;
-            color: rgba(51, 51, 51, 1);
-            text-align: center;
-            font-size: 24px;
-            margin: 40px 0 16px 0;
-            font-weight: 600;
-          }
-
-          .desc-two {
-            font-size: 16px;
-            line-height: 24px;
-            color: #9ca4b5;
-          }
+    .list {
+      display: flex;
+      justify-content: center;
+      .item {
+        width: 386px;
+        height: 510px;
+        padding: 70px 44px 50px 44px;
+        margin: 10px;
+        box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.1);
+        .bg {
+          background-size: 100% !important;
+          margin: 0 auto;
         }
-        .item:hover {
-          box-shadow: 0px 0px 10px 2px rgba(59, 119, 227, 0.1);
-        }
-        .item:nth-child(1):hover .bg {
-          background: url('~/static/img/introduce/13.png') no-repeat center !important;
-        }
-        .item:nth-child(2):hover .bg {
-          background: url('~/static/img/introduce/10.png') no-repeat center !important;
-        }
-        .item:nth-child(3):hover .bg {
-          background: url('~/static/img/introduce/12.png') no-repeat center !important;
-        }
-      }
-      .consulting {
-        height: 180px;
-        background: url('~/static/img/about/consulting1.jpg') no-repeat center;
-        display: flex;
-        margin-top: 60px;
-        .txt-box {
-          padding-top: 40px;
-          margin-left: 368px;
+        .title {
           font-family: Microsoft YaHei;
-          div:nth-child(1) {
-            font-size: 27px;
-            font-weight: 400;
-            color: #fff;
-            line-height: 62px;
-          }
-          div:nth-child(2) {
-            font-size: 18px;
-            font-weight: 400;
-            color: #fff;
-            line-height: 50px;
-          }
-        }
-        .btn {
-          width: 180px;
-          height: 55px;
-          background: #fff;
-          border-radius: 4px;
-          font-size: 18px;
-          font-weight: bold;
-          color: #0066ff;
+          font-weight: 400;
+          color: rgba(51, 51, 51, 1);
           text-align: center;
-          line-height: 55px;
-          margin-left: 80px;
-          margin-top: 65px;
+          font-size: 24px;
+          margin: 40px 0 16px 0;
+          font-weight: 600;
+        }
+
+        .desc-two {
+          font-size: 16px;
+          line-height: 24px;
+          color: #9ca4b5;
         }
       }
+      .item:hover {
+        box-shadow: 0px 0px 10px 2px rgba(59, 119, 227, 0.1);
+      }
+      .item:nth-child(1):hover .bg {
+        background: url('~/static/img/introduce/13.png') no-repeat center !important;
+      }
+      .item:nth-child(2):hover .bg {
+        background: url('~/static/img/introduce/10.png') no-repeat center !important;
+      }
+      .item:nth-child(3):hover .bg {
+        background: url('~/static/img/introduce/12.png') no-repeat center !important;
+      }
+    }
+    .consulting {
+      height: 180px;
+      background: url('~/static/img/about/consulting1.jpg') no-repeat center;
+      display: flex;
+      margin-top: 60px;
+      .txt-box {
+        padding-top: 40px;
+        margin-left: 368px;
+        font-family: Microsoft YaHei;
+        div:nth-child(1) {
+          font-size: 27px;
+          font-weight: 400;
+          color: #fff;
+          line-height: 62px;
+        }
+        div:nth-child(2) {
+          font-size: 18px;
+          font-weight: 400;
+          color: #fff;
+          line-height: 50px;
+        }
+      }
+      .btn {
+        width: 180px;
+        height: 55px;
+        background: #fff;
+        border-radius: 4px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #0066ff;
+        text-align: center;
+        line-height: 55px;
+        margin-left: 80px;
+        margin-top: 65px;
+      }
+    }
   }
   .help-wrap {
     display: flex;

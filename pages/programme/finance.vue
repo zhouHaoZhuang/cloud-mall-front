@@ -128,5 +128,8 @@ export default {
 <style lang="scss" scoped>
 .finance-container {
   background: #fff;
+  background-image: url('~/static/img/assurance/bgcolor.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 </style>

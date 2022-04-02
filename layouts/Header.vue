@@ -64,31 +64,29 @@
               />
             </div>
             <!-- mask 鼠标进入nav展示列表 -->
-            <div class="outdiv">
-              <div
-                v-if="hoverIndex === index"
-                :class="{
-                  'popup-all': true,
-                  'popup-box': hoverIndex === 4,
-                  'popup-boxlong': hoverIndex === 1
-                }"
-              >
-                <div class="container popup-wrap">
-                  <HeaderItem
-                    v-for="(ele, idx) in headerItemData"
-                    :key="idx"
-                    :hover-index="hoverIndex"
-                    :item-data="ele"
-                  />
-                </div>
+            <div
+              v-if="hoverIndex === index"
+              :class="{
+                'popup-all': true,
+                'popup-box': hoverIndex === 4,
+                'popup-boxlong': hoverIndex === 1
+              }"
+            >
+              <div class="container popup-wrap">
+                <HeaderItem
+                  v-for="(ele, idx) in headerItemData"
+                  :key="idx"
+                  :hover-index="hoverIndex"
+                  :item-data="ele"
+                />
               </div>
-              <div
-                :class="{
-                  underscore: true,
-                  'underscore-left': item.title === '产品'
-                }"
-              />
             </div>
+            <div
+              :class="{
+                underscore: true,
+                'underscore-left': item.title === '产品'
+              }"
+            />
           </a>
         </div>
       </div>
@@ -694,10 +692,10 @@ export default {
         }
         .popup-box {
           height: 180px;
-          width: 1910px;
+          width: 1920px;
           position: absolute;
           top: 80px;
-          left: -916px;
+          left: -922px;
           background-color: #202835;
           padding-left: 300px;
 
@@ -707,10 +705,10 @@ export default {
         }
         .popup-boxlong {
           height: 180px;
-          width: 1910px;
+          width: 1920px;
           position: absolute;
           top: 80px;
-          left: -606px;
+          left: -612px;
           padding-left: 300px;
           padding-top: 25px;
           background-color: #202835;
@@ -938,5 +936,18 @@ export default {
 // }
 .logout-color:hover {
   color: #3b77e3;
+}
+@media screen and (max-width: 1200px) {
+  .popup-boxlong {
+    width: 1547px !important;
+    margin-left: -600px !important;
+    left: 5px !important;
+  }
+  .popup-box {
+    width: 1238px !important;
+    margin-left: -600px !important;
+    left: 0 !important;
+    padding-left: 0 !important;
+  }
 }
 </style>
