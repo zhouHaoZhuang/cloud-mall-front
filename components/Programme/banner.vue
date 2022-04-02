@@ -85,7 +85,7 @@ export default {
 .banner-container {
   .banner {
     height: 700px;
-    width: 1920px;
+    max-width: 1920px;
     margin: 0 auto;
     background-size: cover !important;
     .container {

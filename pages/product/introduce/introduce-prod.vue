@@ -30,7 +30,6 @@
     <AnchorNav :nav-data="navList" />
     <!-- 产品优势 -->
     <div id="support" class="support-wrap">
-      <div class="container">
         <div class="public-title">
           产品优势
         </div>
@@ -52,7 +51,6 @@
             </div>
           </div>
         </div>
-      </div>
     </div>
     <!-- 产品功能 -->
     <div id="process" class="process-wrap">
@@ -84,7 +82,6 @@
     </div>
     <!-- 应用场景 -->
     <div id="environment" class="environment-wrap">
-      <div class="container">
         <div class="public-title">
           应用场景
         </div>
@@ -106,7 +103,6 @@
             </div>
           </div>
         </div>
-      </div>
     </div>
     <!-- 帮助文档 -->
     <div id="helpdoc" class="help-wrap">
@@ -353,11 +349,10 @@ export default {
 <style lang="scss" scoped>
 .recruit-container {
   background: #fff;
-      width: 1920px;
     margin: 0 auto;
   .banner-wrap {
     position: relative;
-    height: 702px;
+    height: 700px;
     background: url('~/static/img/programme/prudect-nav.gif') no-repeat center;
     color: #fff;
     font-size: 18px;
@@ -438,8 +433,6 @@ export default {
   .support-wrap {
     padding: 50px 0 0;
     margin-bottom: 100px;
-    .container {
-      width: 1600px;
       .list {
         display: flex;
         flex-wrap: wrap;
@@ -521,7 +514,6 @@ export default {
           margin-top: 65px;
         }
       }
-    }
   }
   .process-wrap {
     display: flex;
@@ -593,8 +585,6 @@ export default {
   }
   .environment-wrap {
     padding: 140px 0 116px 0;
-    .container {
-      width: 1600px;
       .list {
         display: flex;
         justify-content:center;
@@ -673,7 +663,6 @@ export default {
           margin-top: 65px;
         }
       }
-    }
   }
   .help-wrap {
     display: flex;
