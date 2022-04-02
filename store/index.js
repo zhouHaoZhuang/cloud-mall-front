@@ -38,6 +38,8 @@ export const actions = {
     newArr.forEach((item) => {
       resultData = { ...resultData, ...item }
     })
+    // 重置本地数据
+    store.dispatch('home/setWebCompanyInfo', {})
     store.dispatch('home/setWebCompanyInfo', resultData)
     // 获取全局配置
     const allConfigData = await this.$api.user.getAllConfig()
