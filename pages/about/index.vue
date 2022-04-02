@@ -572,7 +572,7 @@ export default {
   background: #fff;
    background-image: url('~/static/img/assurance/bgcolor.png');
   background-repeat: no-repeat;
-  background-size: 100% 36.9%;
+  background-size: 100% 700px;
   .banner-wrap {
     position: relative;
     top: 0px;
