@@ -36,12 +36,14 @@
                 @click="handleClick(ele.path)"
               >
                 <span
-                  v-if="ele.path == 'controlPanel'"
+                  v-if="
+                    ele.path == 'controlPanel' || ele.path == 'workBillService'
+                  "
                   @click="handleClick(ele.path)"
                 >
                   {{ ele.name }}
                 </span>
-                <a v-else style="color: #ffffffcf" :href="ele.path">
+                <a v-else class="list-a" :href="ele.path">
                   {{ ele.name }}
                 </a>
               </a>
@@ -416,7 +418,11 @@ export default {
               display: block;
               cursor: pointer;
             }
-            .list-item:hover {
+            .list-a {
+              color: #ffffffcf;
+            }
+            .list-item:hover,
+            .list-a:hover {
               color: #1890ff;
             }
             .list-ele {
