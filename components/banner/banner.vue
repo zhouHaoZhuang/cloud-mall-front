@@ -109,7 +109,7 @@ export default {
       min-width: 1220px;
       height: 100%;
       position: relative;
-      width: 1920px;
+      max-width: 1920px;
     margin: 0 auto;
       .banner-item {
         width: 100%;

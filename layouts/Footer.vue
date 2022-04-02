@@ -36,9 +36,7 @@
                 @click="handleClick(ele.path)"
               >
                 <span
-                  v-if="
-                    ele.path == 'controlPanel' || ele.path == 'workBillService'
-                  "
+                  v-if="ele.path == 'controlPanel' || ele.path =='workBillService'"
                   @click="handleClick(ele.path)"
                 >
                   {{ ele.name }}
