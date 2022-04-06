@@ -167,11 +167,12 @@
                   size="large"
                   @change="handleSystemDiskTypeChange"
                 >
-                  <a-select-option value="cloud_essd">
-                    ESSD
-                  </a-select-option>
-                  <a-select-option value="cloud_ssd">
-                    SSD
+                  <a-select-option
+                    v-for="item in systemDiskTypeList"
+                    :key="item"
+                    :value="item"
+                  >
+                    {{ cloudDiskTypeMap[item] }}
                   </a-select-option>
                 </a-select>
                 <DragSlider
@@ -207,16 +208,16 @@
               >
                 <a-select
                   v-model="item.category"
-                  default-value="cloud_essd"
                   style="width: 130px; margin-right: 20px"
                   size="large"
                   @change="val => handleDataDiskTypeChange(val, index)"
                 >
-                  <a-select-option value="cloud_essd">
-                    ESSD
-                  </a-select-option>
-                  <a-select-option value="cloud_ssd">
-                    SSD
+                  <a-select-option
+                    v-for="ele in dataDiskTypeList"
+                    :key="ele"
+                    :value="ele"
+                  >
+                    {{ cloudDiskTypeMap[ele] }}
                   </a-select-option>
                 </a-select>
                 <DragSlider
@@ -737,6 +738,8 @@ export default {
           Array.isArray(dataTypeData.data) && dataTypeData.data.length > 0
             ? dataTypeData.data
             : []
+        const firstDataType =
+          dataDiskTypeList.length > 0 ? dataDiskTypeList[0] : undefined
         // 获取镜像数据
         const systemList = await app.$api.cloud.systemList({
           regionId: selectAddressId,
@@ -801,7 +804,9 @@ export default {
           },
           regionQuery,
           systemDiskTypeList,
-          dataDiskTypeList
+          firstSysType,
+          dataDiskTypeList,
+          firstDataType
         }
       } else {
         return {
@@ -1083,8 +1088,10 @@ export default {
       },
       // 系统盘类型列表
       systemDiskTypeList: [],
+      firstSysType: '',
       // 数据盘类型列表
-      dataDiskTypeList: []
+      dataDiskTypeList: [],
+      firstDataType: ''
     }
   },
   computed: {
@@ -1191,6 +1198,20 @@ export default {
       } else {
         return 0
       }
+    },
+    // 返回高效云盘大小
+    highNum () {
+      if (this.form.dataDisk && Array.isArray(this.form.dataDisk)) {
+        let sum = 0
+        this.form.dataDisk.forEach((item) => {
+          if (item.category === 'cloud_efficiency') {
+            sum += item.size
+          }
+        })
+        return sum
+      } else {
+        return 0
+      }
     }
   },
   methods: {
@@ -1202,16 +1223,12 @@ export default {
           instanceType: this.form.instanceType
         })
         .then((res) => {
-          this.systemList = res.data.imageMap
-          const newSystemList = res.data.imageMap
-          this.defaultSystem = Object.keys(newSystemList)[0]
-          this.systemEditionList = newSystemList[this.defaultSystem]
-          this.form.imageId =
-            Array.isArray(newSystemList[this.defaultSystem]) &&
-            newSystemList[this.defaultSystem].length > 0
-              ? newSystemList[this.defaultSystem][0].imageId
-              : ''
-          this.handleChangeGetPrice()
+          this.systemDiskTypeList =
+            Array.isArray(res.data) && res.data.length > 0 ? [...res.data] : []
+          this.firstSysType =
+            this.systemDiskTypeList.length > 0
+              ? this.systemDiskTypeList[0]
+              : undefined
         })
     },
     // 获取数据盘分类列表
@@ -1222,16 +1239,12 @@ export default {
           instanceType: this.form.instanceType
         })
         .then((res) => {
-        const systemTypeData = await app.$api.cloud.getSystemDiskTypeList({
-          regionId: selectAddressId,
-          instanceType: firstRegion.instanceTypeId
-        })
-        const systemDiskTypeList =
-          Array.isArray(systemTypeData.data) && systemTypeData.data.length > 0
-            ? systemTypeData.data
-            : []
-        const firstSysType =
-          systemDiskTypeList.length > 0 ? systemDiskTypeList[0] : undefined
+          this.dataDiskTypeList =
+            Array.isArray(res.data) && res.data.length > 0 ? [...res.data] : []
+          this.firstDataType =
+            this.dataDiskTypeList.length > 0
+              ? this.dataDiskTypeList[0]
+              : undefined
         })
     },
     // 处理询价或者购买时，购买时长的字段
@@ -1307,6 +1320,13 @@ export default {
     },
     // 获取对应的实例和实例属性，属性值---目前页面没有设计选择，默认拿第一个
     getRegionData () {
+      this.form.systemDisk = {
+        category: this.firstSysType,
+        performanceLevel:
+          this.firstSysType && this.firstSysType === 'cloud_essd' ? 'PL0' : '',
+        size: 40
+      }
+      this.form.dataDisk = []
       this.$api.cloud
         .getRegionDetail({
           regionId: this.selectAddressId,
@@ -1322,6 +1342,8 @@ export default {
             this.form.cpu = res.data[0].cpuCoreCount
             this.form.memory = res.data[0].memorySize
             this.getSystemData()
+            this.getSystemDiskTypeList()
+            this.getDataDiskTypeList()
           } else {
             this.regionList = []
             this.$message.warning('没有实例')
@@ -1391,8 +1413,8 @@ export default {
       this.form.dataDisk.push({
         id: newId,
         number: 500,
-        category: 'cloud_essd',
-        performanceLevel: 'PL0',
+        category: this.firstDataType,
+        performanceLevel: this.firstDataType === 'cloud_essd' ? 'PL0' : '',
         size: 40
       })
       this.handleChangeGetPrice()
