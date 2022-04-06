@@ -161,14 +161,16 @@
             <div class="selection">
               <div class="ssd-item">
                 <a-select
-                  default-value="1"
+                  v-model="form.systemDisk.category"
+                  default-value="cloud_essd"
                   style="width: 130px; margin-right: 20px"
                   size="large"
+                  @change="handleSystemDiskTypeChange"
                 >
-                  <a-select-option value="1">
+                  <a-select-option value="cloud_essd">
                     ESSD
                   </a-select-option>
-                  <a-select-option value="2">
+                  <a-select-option value="cloud_ssd">
                     SSD
                   </a-select-option>
                 </a-select>
@@ -204,14 +206,16 @@
                 class="ssd-item"
               >
                 <a-select
-                  default-value="1"
+                  v-model="item.category"
+                  default-value="cloud_essd"
                   style="width: 130px; margin-right: 20px"
                   size="large"
+                  @change="val => handleDataDiskTypeChange(val, index)"
                 >
-                  <a-select-option value="1">
+                  <a-select-option value="cloud_essd">
                     ESSD
                   </a-select-option>
-                  <a-select-option value="2">
+                  <a-select-option value="cloud_ssd">
                     SSD
                   </a-select-option>
                 </a-select>
@@ -585,12 +589,15 @@
                 {{ getTypeName }}
               </div>
               <div slot="systemDisk">
-                高效云盘-{{ form.systemDisk.size }}G
+                {{
+                  form.systemDisk.category === 'cloud-essd' ? 'essd' : 'ssd'
+                }}-{{ form.systemDisk.size }}G
               </div>
               <div slot="dataDisk">
                 <a-tooltip placement="top">
                   <template slot="title">
-                    <span> {{ diskNum }} G </span>
+                    <div>essd-{{ essdNum }} G </div>
+                    <div>ssd-{{ ssdNum }} G </div>
                   </template>
                   <div>
                     {{ form.dataDisk.length }}块
@@ -1122,6 +1129,34 @@ export default {
         ele => ele.imageId === this.form.imageId
       )
       return `${systemName1}/${systemName2?.OSName}`
+    },
+    // 返回essd数据盘大小
+    essdNum () {
+      if (this.form.dataDisk && Array.isArray(this.form.dataDisk)) {
+        let sum = 0
+        this.form.dataDisk.forEach((item) => {
+          if (item.category === 'cloud_essd') {
+            sum += item.size
+          }
+        })
+        return sum
+      } else {
+        return 0
+      }
+    },
+    // 返回ssd数据盘大小
+    ssdNum () {
+      if (this.form.dataDisk && Array.isArray(this.form.dataDisk)) {
+        let sum = 0
+        this.form.dataDisk.forEach((item) => {
+          if (item.category === 'cloud_ssd') {
+            sum += item.size
+          }
+        })
+        return sum
+      } else {
+        return 0
+      }
     }
   },
   methods: {
@@ -1144,15 +1179,14 @@ export default {
       this.form.tradePrice = '价格计算中...'
       this.form.discountPrice = '0.00'
       this.form.discount = ''
-      this.$api.cloud
-        .getCloudPrice({
-          ...this.form,
-          // 处理时间，判断是年还是月
-          ...this.setBuyTimeData(this.form.period)
-        })
-        .then((res) => {
-          this.form = { ...this.form, ...res.data }
-        })
+      const newForm = {
+        ...this.form,
+        // 处理时间，判断是年还是月
+        ...this.setBuyTimeData(this.form.period)
+      }
+      this.$api.cloud.getCloudPrice(newForm).then((res) => {
+        this.form = { ...this.form, ...res.data }
+      })
     },
     // 地域切换
     handleAddressChange (val) {
@@ -1344,6 +1378,19 @@ export default {
       this.form.osName = this.systemEditionList[0].OSName
       this.form.imageId = this.systemEditionList[0].imageId
       this.handleChangeGetPrice()
+    },
+    // 系统盘类型change
+    handleSystemDiskTypeChange (val) {
+      this.form.systemDisk.performanceLevel = val === 'cloud_essd' ? 'PL0' : ''
+      this.getCloudPrice()
+    },
+    // 数据盘类型change
+    handleDataDiskTypeChange (val, index) {
+      this.form.dataDisk.splice(index, 1, {
+        ...this.form.dataDisk[index],
+        performanceLevel: val === 'cloud_essd' ? 'PL0' : ''
+      })
+      this.getCloudPrice()
     },
     // 立即购买
     handleBuyCloud () {
