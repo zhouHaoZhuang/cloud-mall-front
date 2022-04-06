@@ -589,15 +589,16 @@
                 {{ getTypeName }}
               </div>
               <div slot="systemDisk">
-                {{
-                  form.systemDisk.category === 'cloud-essd' ? 'essd' : 'ssd'
-                }}-{{ form.systemDisk.size }}G
+                {{ cloudDiskTypeMap[form.systemDisk.category] }}-{{
+                  form.systemDisk.size
+                }}G
               </div>
               <div slot="dataDisk">
                 <a-tooltip placement="top">
                   <template slot="title">
-                    <div>essd-{{ essdNum }} G </div>
-                    <div>ssd-{{ ssdNum }} G </div>
+                    <div>ESSD-{{ essdNum }} G</div>
+                    <div>SSD-{{ ssdNum }} G</div>
+                    <div>高效云盘-{{ highNum }} G</div>
                   </template>
                   <div>
                     {{ form.dataDisk.length }}块
@@ -656,7 +657,12 @@ import {
   jumpCloudAdminRealName,
   judgePwdFormat
 } from '@/utils/index'
-import { cpuData, memoryData, overseasList } from '@/utils/enum'
+import {
+  cpuData,
+  memoryData,
+  overseasList,
+  cloudDiskTypeMap
+} from '@/utils/enum'
 export default {
   components: {
     DragSlider,
@@ -711,6 +717,26 @@ export default {
           : []
       const firstRegion = regionList.length > 0 ? regionList[0] : {}
       if (regionList.length > 0) {
+        // 获取系统盘类型列表
+        const systemTypeData = await app.$api.cloud.getSystemDiskTypeList({
+          regionId: selectAddressId,
+          instanceType: firstRegion.instanceTypeId
+        })
+        const systemDiskTypeList =
+          Array.isArray(systemTypeData.data) && systemTypeData.data.length > 0
+            ? systemTypeData.data
+            : []
+        const firstSysType =
+          systemDiskTypeList.length > 0 ? systemDiskTypeList[0] : undefined
+        // 获取数据盘类型列表
+        const dataTypeData = await app.$api.cloud.getDataDiskTypeList({
+          regionId: selectAddressId,
+          instanceType: firstRegion.instanceTypeId
+        })
+        const dataDiskTypeList =
+          Array.isArray(dataTypeData.data) && dataTypeData.data.length > 0
+            ? dataTypeData.data
+            : []
         // 获取镜像数据
         const systemList = await app.$api.cloud.systemList({
           regionId: selectAddressId,
@@ -734,8 +760,9 @@ export default {
           cpu: firstRegion.cpuCoreCount,
           memory: firstRegion.memorySize,
           systemDisk: {
-            category: 'cloud_essd',
-            performanceLevel: 'PL0',
+            category: firstSysType,
+            performanceLevel:
+              firstSysType && firstSysType === 'cloud_essd' ? 'PL0' : '',
             size: 40
           }, // 系统盘-免费赠送
           // localStorageAmount: regionDetail.localStorageAmount, // 数据盘可添加的总数-默认写死4块
@@ -772,7 +799,9 @@ export default {
             ...form,
             ...priceData.data
           },
-          regionQuery
+          regionQuery,
+          systemDiskTypeList,
+          dataDiskTypeList
         }
       } else {
         return {
@@ -790,6 +819,7 @@ export default {
   data () {
     return {
       overseasList,
+      cloudDiskTypeMap,
       // 渲染cpu tab选择数据
       cpuData,
       // 内存数据
@@ -1050,7 +1080,11 @@ export default {
       regionQuery: {
         cpuCoreCount: undefined,
         memorySize: undefined
-      }
+      },
+      // 系统盘类型列表
+      systemDiskTypeList: [],
+      // 数据盘类型列表
+      dataDiskTypeList: []
     }
   },
   computed: {
@@ -1160,6 +1194,46 @@ export default {
     }
   },
   methods: {
+    // 获取系统盘分类列表
+    getSystemDiskTypeList () {
+      this.$api.cloud
+        .getSystemDiskTypeList({
+          regionId: this.selectAddressId,
+          instanceType: this.form.instanceType
+        })
+        .then((res) => {
+          this.systemList = res.data.imageMap
+          const newSystemList = res.data.imageMap
+          this.defaultSystem = Object.keys(newSystemList)[0]
+          this.systemEditionList = newSystemList[this.defaultSystem]
+          this.form.imageId =
+            Array.isArray(newSystemList[this.defaultSystem]) &&
+            newSystemList[this.defaultSystem].length > 0
+              ? newSystemList[this.defaultSystem][0].imageId
+              : ''
+          this.handleChangeGetPrice()
+        })
+    },
+    // 获取数据盘分类列表
+    getDataDiskTypeList () {
+      this.$api.cloud
+        .getDataDiskTypeList({
+          regionId: this.selectAddressId,
+          instanceType: this.form.instanceType
+        })
+        .then((res) => {
+        const systemTypeData = await app.$api.cloud.getSystemDiskTypeList({
+          regionId: selectAddressId,
+          instanceType: firstRegion.instanceTypeId
+        })
+        const systemDiskTypeList =
+          Array.isArray(systemTypeData.data) && systemTypeData.data.length > 0
+            ? systemTypeData.data
+            : []
+        const firstSysType =
+          systemDiskTypeList.length > 0 ? systemDiskTypeList[0] : undefined
+        })
+    },
     // 处理询价或者购买时，购买时长的字段
     setBuyTimeData (time) {
       if (time <= 9) {
