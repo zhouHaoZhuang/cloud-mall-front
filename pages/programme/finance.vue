@@ -130,6 +130,6 @@ export default {
   background: #fff;
   background-image: url('~/static/img/assurance/bgcolor.png');
   background-repeat: no-repeat;
-  background-size: 100% 100%;
+  background-size: 100% 700px;
 }
 </style>

@@ -77,7 +77,7 @@ export default {
 .bgimage{
    background-image: url('~/static/img/assurance/bgcolor.png');
   background-repeat: no-repeat;
-  background-size: 100% 66.2%;
+  background-size: 100% 700px;
 }
 .titletop {
   background: url('https://ydidc-test.oss-cn-shanghai.aliyuncs.com/idc-mall/help/helptitle.png') no-repeat;
