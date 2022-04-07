@@ -1353,6 +1353,15 @@ export default {
     },
     // 选择实例
     handleSelectRegion (record) {
+      this.form.systemDisk = {
+        category: this.firstSysType,
+        performanceLevel:
+          this.firstSysType && this.firstSysType === 'cloud_essd' ? 'PL0' : '',
+        size: 40
+      }
+      this.form.dataDisk = []
+      this.getSystemDiskTypeList()
+      this.getDataDiskTypeList()
       this.form.instanceType = record.instanceTypeId
       this.form.instanceTypeFamily = record.instanceTypeFamily
       this.form.cpu = record.cpuCoreCount
