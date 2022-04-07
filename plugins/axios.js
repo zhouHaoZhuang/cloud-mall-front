@@ -111,9 +111,13 @@ export default ({ $axios, redirect, route, store }) => {
       // 判断是否登录失效
       if (errno === '000001') {
         message.warning('登录已失效，请重新登录')
-        store.dispatch('user/logout')
+        store.dispatch('user/logOut')
         redirect('/login?out=1')
-        return Promise.reject(data)
+      }
+      // 判断是否询价时token失效
+      if (errno === '13111111') {
+        message.warning('登录已失效，请重新登录')
+        store.dispatch('user/logOut')
       }
       // message.warning(errmsg)
       return Promise.reject(data)
