@@ -1360,12 +1360,12 @@ export default {
         size: 40
       }
       this.form.dataDisk = []
-      this.getSystemDiskTypeList()
-      this.getDataDiskTypeList()
       this.form.instanceType = record.instanceTypeId
       this.form.instanceTypeFamily = record.instanceTypeFamily
       this.form.cpu = record.cpuCoreCount
       this.form.memory = record.memorySize
+      this.getSystemDiskTypeList()
+      this.getDataDiskTypeList()
       this.handleChangeGetPrice()
     },
     // 获取对应地域的系统镜像
