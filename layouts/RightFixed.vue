@@ -71,7 +71,7 @@ export default {
   watch: {
     $route: {
       handler (newVal) {
-        if (newVal.path === '/login' || newVal.path === '/register') {
+        if (newVal.path === '/login' || newVal.path === '/register' || newVal.path === '/bypassAccount') {
           this.show = false
         } else {
           this.show = true

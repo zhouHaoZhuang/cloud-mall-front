@@ -18,6 +18,10 @@ export default {
       type: [String, Number],
       default: ''
     },
+    isCode: {
+      type: Boolean,
+      default: false
+    },
     size: {
       type: String,
       default: 'default'
@@ -55,6 +59,34 @@ export default {
         this.$message.warning('手机号格式不正确')
         return
       }
+      if (this.isCode) {
+        this.$api.user
+          .getTest({
+            phone: this.phone
+          })
+          .then((res) => {
+            if (res.code === '000000') {
+              this.$emit('showPicCode', true)
+              this.$message.warning('请输入图形验证码')
+            } else {
+              this.$message.warning(res.msg)
+            }
+          })
+      }
+      if (!this.$listeners.showValidate) {
+        this.getMsg()
+        return
+      }
+      // 判断父组件是否传递显示图片校验的方法
+      if (this.$listeners.showValidate) {
+        let isShow
+        this.$emit('showValidate', (val) => {
+          isShow = val
+        })
+        if (!isShow) {
+          return
+        }
+      }
       // 判断父组件是否传递方法校验
       if (this.$listeners.validate) {
         let flag
@@ -62,23 +94,8 @@ export default {
           flag = val
         })
         if (!flag) {
-          return
         }
       }
-      if (this.loading) { return }
-      this.loading = true
-      this.$store
-        .dispatch('user/sendCode', {
-          receiverAccount: this.phone,
-          codeType: this.codeType,
-          sendType: this.sendType
-        })
-        .then((res) => {
-          this.startTime()
-        })
-        .catch(() => {
-          this.loading = false
-        })
     },
     startTime () {
       this.time = setInterval(() => {
@@ -92,6 +109,24 @@ export default {
         this.timeCount -= 1
         this.btnTxt = this.timeCount + 'S'
       }, 1000)
+    },
+    // 发送验证码
+    getMsg () {
+      if (this.loading === true) {
+        return
+      }
+      this.loading = true
+      this.$store
+        .dispatch('user/sendCode', {
+          receiverAccount: this.phone,
+          codeType: this.codeType
+        })
+        .then((res) => {
+          this.startTime()
+        })
+        .catch(() => {
+          this.loading = false
+        })
     }
   }
 }

@@ -77,9 +77,9 @@ export const numberEvolution = Vue.directive('number-evolution', {
     const RegStr =
       val === 0 ? '^[\\+\\-]?\\d+\\d{0,0}' : `^[\\+\\-]?\\d+\\.?\\d{0,${val}}`
     el.addEventListener('keyup', function () {
-      console.log('键盘抬起1', el.value)
+      // console.log('键盘抬起1', el.value)
       const inpValArr = el.value.match(new RegExp(RegStr, 'g'))
-      console.log('键盘抬起2', inpValArr)
+      // console.log('键盘抬起2', inpValArr)
       const inpVal =
         inpValArr && Array.isArray(inpValArr)
           ? inpValArr[inpValArr.length - 1]
