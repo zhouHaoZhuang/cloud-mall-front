@@ -399,7 +399,7 @@ export default {
         this.$api.user
           .login(form)
           .then((res) => {
-            this.result(res)
+            this.result(res, form)
           })
           .finally(() => {
             this.loginLoading = false
@@ -409,14 +409,14 @@ export default {
         this.$api.user
           .loginByCode(form)
           .then((res) => {
-            this.result(res)
+            this.result(res, form)
           })
           .finally(() => {
             this.loginLoading = false
           })
       }
     },
-    result (res) {
+    result (res, form) {
       if (res.code === '000000') {
         this.$message.success('登录成功')
         // 保存用户信息
