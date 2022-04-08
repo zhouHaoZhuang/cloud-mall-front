@@ -100,5 +100,6 @@ export const overseasList = [
 export const cloudDiskTypeMap = {
   cloud_essd: 'ESSD',
   cloud_efficiency: '高效云盘',
-  cloud_ssd: 'SSD'
+  cloud_ssd: 'SSD',
+  cloud: '普通云盘'
 }

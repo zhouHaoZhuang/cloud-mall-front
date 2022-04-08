@@ -1216,7 +1216,7 @@ export default {
   },
   methods: {
     // 获取系统盘分类列表
-    getSystemDiskTypeList () {
+    getSystemDiskTypeList (isGetPrice = false) {
       this.$api.cloud
         .getSystemDiskTypeList({
           regionId: this.selectAddressId,
@@ -1229,6 +1229,19 @@ export default {
             this.systemDiskTypeList.length > 0
               ? this.systemDiskTypeList[0]
               : undefined
+          this.form.systemDisk = {
+            category: this.firstSysType,
+            performanceLevel:
+              this.firstSysType && this.firstSysType === 'cloud_essd'
+                ? 'PL0'
+                : '',
+            size: 40
+          }
+          this.form.dataDisk = []
+          if (!isGetPrice) {
+            return
+          }
+          this.handleChangeGetPrice()
         })
     },
     // 获取数据盘分类列表
@@ -1320,13 +1333,6 @@ export default {
     },
     // 获取对应的实例和实例属性，属性值---目前页面没有设计选择，默认拿第一个
     getRegionData () {
-      this.form.systemDisk = {
-        category: this.firstSysType,
-        performanceLevel:
-          this.firstSysType && this.firstSysType === 'cloud_essd' ? 'PL0' : '',
-        size: 40
-      }
-      this.form.dataDisk = []
       this.$api.cloud
         .getRegionDetail({
           regionId: this.selectAddressId,
@@ -1342,7 +1348,7 @@ export default {
             this.form.cpu = res.data[0].cpuCoreCount
             this.form.memory = res.data[0].memorySize
             this.getSystemData()
-            this.getSystemDiskTypeList()
+            this.getSystemDiskTypeList(true)
             this.getDataDiskTypeList()
           } else {
             this.regionList = []
@@ -1353,20 +1359,12 @@ export default {
     },
     // 选择实例
     handleSelectRegion (record) {
-      this.form.systemDisk = {
-        category: this.firstSysType,
-        performanceLevel:
-          this.firstSysType && this.firstSysType === 'cloud_essd' ? 'PL0' : '',
-        size: 40
-      }
-      this.form.dataDisk = []
       this.form.instanceType = record.instanceTypeId
       this.form.instanceTypeFamily = record.instanceTypeFamily
       this.form.cpu = record.cpuCoreCount
       this.form.memory = record.memorySize
-      this.getSystemDiskTypeList()
+      this.getSystemDiskTypeList(true)
       this.getDataDiskTypeList()
-      this.handleChangeGetPrice()
     },
     // 获取对应地域的系统镜像
     getSystemData () {
@@ -1385,7 +1383,6 @@ export default {
             newSystemList[this.defaultSystem].length > 0
               ? newSystemList[this.defaultSystem][0].imageId
               : ''
-          this.handleChangeGetPrice()
         })
     },
     // 修改ssd数据盘
