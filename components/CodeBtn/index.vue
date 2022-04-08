@@ -116,8 +116,8 @@ export default {
         return
       }
       this.loading = true
-      this.$store
-        .dispatch('user/sendCode', {
+      this.$api.user
+        .getCode({
           receiverAccount: this.phone,
           codeType: this.codeType
         })

@@ -358,12 +358,22 @@ export default {
     },
     // 是否调用发送验证码接口
     getCode () {
-      if (
-        this.$refs.verificationCode.value.toLowerCase() ==
-        this.identifyCode.toLowerCase()
-      ) {
-        console.log('相等')
-        this.$refs.child.getMsg()
+      if (this.loginType === 'pass') {
+        if (
+          this.$refs.verificationCode.value.toLowerCase() ===
+          this.identifyCode.toLowerCase()
+        ) {
+          console.log('相等')
+          this.$refs.child.getMsg()
+        }
+      } else if (this.loginType === 'code') {
+        if (
+          this.$refs.verificationCode.value.toLowerCase() ===
+          this.identifyPicCode.toLowerCase()
+        ) {
+          console.log('相等')
+          this.$refs.child.getMsg()
+        }
       }
     },
     // 获取验证码组件校验图形验证
