@@ -16,7 +16,8 @@ import {
   Alert,
   Dropdown,
   Modal,
-  Menu
+  Menu,
+  Tabs
 } from 'ant-design-vue'
 
 import VueClipboard from 'vue-clipboard2'
@@ -56,6 +57,7 @@ Vue.use(Alert)
 Vue.use(Dropdown)
 Vue.use(Modal)
 Vue.use(Menu)
+Vue.use(Tabs)
 Vue.component('Iconfont', iconfont) // 注册组件
 Vue.use(VueClipboard)
 Vue.use(VueScrollTo, options)

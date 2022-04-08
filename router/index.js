@@ -38,6 +38,15 @@ const whiteList = [
       title: '登录',
       icon: ''
     }
+  },
+  {
+    path: '/bypassAccount',
+    name: '子账号登陆',
+    component: resolve('pages/passport/bypassAccount.vue'),
+    meta: {
+      title: '子账号登陆',
+      icon: 'icon'
+    }
   }
 ]
 

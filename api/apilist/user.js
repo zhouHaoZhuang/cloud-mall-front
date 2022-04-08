@@ -29,5 +29,18 @@ export default axios => ({
   // 忘记密码-修改密码
   forgetPwd (data) {
     return axios.post('/user/findPassword', data)
+  },
+  // 验证手机号
+  getTest (params) {
+    return axios({
+      url: '/user/phone',
+      params: {
+        ...params
+      }
+    })
+  },
+  // 手机验证码登录
+  loginByCode (data) {
+    return axios.post('/user/loginByCode', data)
   }
 })

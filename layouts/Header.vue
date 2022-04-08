@@ -521,7 +521,7 @@ export default {
       headerItemData: {},
       hoverStyle: '',
       typeCentext: null,
-      whiteList: ['/login', '/register', '/forget']
+      whiteList: ['/login', '/register', '/forget', '/bypassAccount']
     }
   },
   computed: {
