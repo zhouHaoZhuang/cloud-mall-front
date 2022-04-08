@@ -1345,6 +1345,7 @@ export default {
           if (Array.isArray(res.data) && res.data.length > 0) {
             this.regionList = [...res.data]
             this.form.instanceType = res.data[0].instanceTypeId
+            this.form.instanceTypeFamily = res.data[0].instanceTypeFamily
             this.form.cpu = res.data[0].cpuCoreCount
             this.form.memory = res.data[0].memorySize
             this.getSystemData()
