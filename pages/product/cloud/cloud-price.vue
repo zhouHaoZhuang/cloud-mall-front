@@ -240,9 +240,9 @@
               <div class="ssd-item-add" @click="addDisk">
                 <a-icon class="icon" type="plus" />
                 <div v-if="form.dataDisk" class="txt">
-                  还可以添加
+                  <span>还可以添加</span>
                   <span class="strong"> {{ 4 - form.dataDisk.length }}块 </span>
-                  磁盘
+                  <span>磁盘</span>
                 </div>
               </div>
             </div>
@@ -552,11 +552,11 @@
             <div class="coupon-box">
               <div class="left">
                 <Iconfont class="icon" type="icon-youhuiquan_1" />
-                已节省¥{{ form.discountPrice }}
+                <span>已节省¥{{ form.discountPrice }}</span>
               </div>
               <div class="right">
                 <Iconfont class="icon" type="icon-liwu" />
-                已享{{ form.discount }}折
+                <span>已享{{ form.discount }}折</span>
               </div>
             </div>
           </div>
@@ -602,7 +602,7 @@
                     <div>高效云盘-{{ highNum }} G</div>
                   </template>
                   <div>
-                    {{ form.dataDisk.length }}块
+                    <span>{{ form.dataDisk.length }}块</span>
                     <a-icon type="info-circle" />
                   </div>
                 </a-tooltip>
@@ -626,7 +626,7 @@
                     </span>
                   </template>
                   <div class="text-overflow" style="width: 100px">
-                    {{ getSystemName }}
+                    <span>{{ getSystemName }}</span>
                     <a-icon type="info-circle" />
                   </div>
                 </a-tooltip>
@@ -1091,7 +1091,8 @@ export default {
       firstSysType: '',
       // 数据盘类型列表
       dataDiskTypeList: [],
-      firstDataType: ''
+      firstDataType: '',
+      timeout: null
     }
   },
   computed: {
@@ -1323,7 +1324,12 @@ export default {
     },
     // 可用区切换
     zoneChange () {
-      this.getRegionData()
+      if (this.timeout) {
+        clearTimeout(this.timeout)
+      }
+      this.timeout = setTimeout(() => {
+        this.getRegionData()
+      }, 2000)
     },
     // 分类切换
     typeChange () {
