@@ -52,7 +52,7 @@
         <span>如果您忘记密码，请联系主账号在控制台重置密码。</span>
         <a-form-model-item class="login-btn">
           <a-button
-            style="width: 100%;margin-top:30px;"
+            style="width: 100%; margin-top: 30px"
             type="primary"
             size="large"
             :loading="loading"
@@ -152,6 +152,10 @@ export default {
     onSubmit () {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
+          if (!this.form.username.includes('@')) {
+            this.$message.warn('请检查子账号是否正确')
+            return
+          }
           this.loading = true
           this.$api.user
             .login(this.form)
@@ -165,7 +169,7 @@ export default {
                 // 保存租户id到cookies
                 this.$cookies.set('tenantId', res.data.tenantId)
                 // 设置是否自动登录
-                this.$store.dispatch('user/setAutoLogin', form)
+                this.$store.dispatch('user/setAutoLogin', this.form)
                 // 判断是否有需要重定向的地址
                 if (this.redirectPath) {
                   this.$router.replace(this.redirectPath)
