@@ -107,7 +107,7 @@
                       @showPicCode="showPicCodes"
                     />
                   </a-form-model-item>
-                  <a-form-model-item
+                  <!-- <a-form-model-item
                     v-show="showVerfication && showPicCode"
                     prop="verificationCode"
                   >
@@ -132,7 +132,7 @@
                         :identify-code="identifyPicCode"
                       />
                     </div>
-                  </a-form-model-item>
+                  </a-form-model-item> -->
                 </a-form-model>
               </a-tab-pane>
             </a-tabs>
