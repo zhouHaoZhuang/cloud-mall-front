@@ -65,7 +65,6 @@
           <a-button
             style="width: 100%"
             size="large"
-            :loading="loading"
             @click="toPer"
           >
             主账号登录
@@ -178,6 +177,7 @@ export default {
                   this.$router.replace('/')
                 }
               } else {
+                this.loading = false
                 this.$message.warning(res.msg)
               }
             })
