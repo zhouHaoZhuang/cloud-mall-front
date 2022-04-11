@@ -295,7 +295,8 @@ export default {
           newVal.path === '/login' ||
           newVal.path === '/register' ||
           newVal.path === '/instant-open' ||
-          newVal.path === '/price-detail'
+          newVal.path === '/price-detail' ||
+          newVal.path === '/bypassAccount'
         ) {
           this.show = false
         } else {

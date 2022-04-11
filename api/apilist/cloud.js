@@ -61,5 +61,13 @@ export default axios => ({
   // 创建服务器订单
   createCloudOrder (data) {
     return axios.post('/tcOrder', data)
+  },
+  // 根据实例id+地域id查询系统盘的类型列表
+  getSystemDiskTypeList (data) {
+    return axios.post('/index/query/systemDisk', data)
+  },
+  // 根据实例id+地域id查询数据盘的类型列表
+  getDataDiskTypeList (data) {
+    return axios.post('/index/query/dataDisk', data)
   }
 })

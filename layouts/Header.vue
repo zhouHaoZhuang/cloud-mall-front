@@ -191,7 +191,7 @@ export default {
               iconimg: '/img/home/cloudcomputing.png',
               list: [
                 {
-                  title: '阿里云',
+                  title: '阿里云ECS',
                   info: '高速稳定高弹性的计算服务',
                   path: '/cloud-choose',
                   hot: false,
@@ -521,7 +521,7 @@ export default {
       headerItemData: {},
       hoverStyle: '',
       typeCentext: null,
-      whiteList: ['/login', '/register', '/forget']
+      whiteList: ['/login', '/register', '/forget', '/bypassAccount']
     }
   },
   computed: {

@@ -97,3 +97,9 @@ export const overseasList = [
   '阿联酋（迪拜）',
   '德国（法兰克福）'
 ]
+export const cloudDiskTypeMap = {
+  cloud_essd: 'ESSD',
+  cloud_efficiency: '高效云盘',
+  cloud_ssd: 'SSD',
+  cloud: '普通云盘'
+}
