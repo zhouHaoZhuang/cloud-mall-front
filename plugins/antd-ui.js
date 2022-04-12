@@ -22,6 +22,10 @@ import {
 
 import VueClipboard from 'vue-clipboard2'
 import VueScrollTo from 'vue-scrollto'
+
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+
 // 自定义字体图标
 const iconfont = Icon.createFromIconfontCN({
   scriptUrl: '//at.alicdn.com/t/font_3120193_7d687va3nk3.js' // 在 iconfont.cn 上生成
@@ -39,7 +43,7 @@ const options = {
   x: true,
   y: true
 }
-
+Vue.use(ElementUI)
 Vue.use(Button)
 Vue.use(FormModel)
 Vue.use(Input)

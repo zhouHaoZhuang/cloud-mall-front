@@ -107,7 +107,7 @@
                       @showPicCode="showPicCodes"
                     />
                   </a-form-model-item>
-                  <a-form-model-item
+                  <!-- <a-form-model-item
                     v-show="showVerfication && showPicCode"
                     prop="verificationCode"
                   >
@@ -132,7 +132,7 @@
                         :identify-code="identifyPicCode"
                       />
                     </div>
-                  </a-form-model-item>
+                  </a-form-model-item> -->
                 </a-form-model>
               </a-tab-pane>
             </a-tabs>
@@ -171,10 +171,10 @@
 import { mapState } from 'vuex'
 import Identify from '@/components/Identify'
 import { getRandomCode } from '@/utils/index'
-import IdentifyCode from '@/components/Identify'
+// import IdentifyCode from '@/components/Identify'
 import CodeBtn from '@/components/CodeBtn/index'
 export default {
-  components: { Identify, IdentifyCode, CodeBtn },
+  components: { Identify, CodeBtn },
   data () {
     return {
       labelCol: { span: 0 },
@@ -446,17 +446,6 @@ export default {
       } else {
         this.$message.warning(res.msg)
       }
-    },
-    // 获取验证码组件校验图形验证
-    validateImgCode (callback) {
-      let flag = false
-      // if (this.$refs.verificationCode.value) {
-      // }
-      this.$refs.ruleForm.validateField(
-        'verificationCode',
-        err => (flag = !err)
-      )
-      callback(flag)
     },
     // 更新验证码
     refreshCode () {
