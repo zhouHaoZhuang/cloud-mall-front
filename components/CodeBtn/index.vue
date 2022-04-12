@@ -8,7 +8,7 @@
     >
       {{ btnTxt }}
     </a-button>
-       <Verify ref="verify"  @success="win()"   :type="4"></Verify>
+    <Verify ref="verify" @success="win()" :type="4" />
   </div>
 </template>
 
