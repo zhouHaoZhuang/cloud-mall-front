@@ -11,6 +11,7 @@
     :visible.sync="dialogVisible"
     :close-on-click-modal="!dialogVisible"
     custom-class="verify-dialog"
+    :before-close="handleClose"
     @close="close"
   >
     <Verify
@@ -46,6 +47,9 @@ export default {
     }
   },
   methods: {
+    handleClose(){
+      this.dialogVisible = false
+    },
     init() {
       let showButtonTypes = [1, 2]
       this.showButton = showButtonTypes.indexOf(this.type) > -1
@@ -111,14 +115,14 @@ export default {
       top: 50%;
       right: 10px;
       transform: translate(0, -50%);
-      i {
-        color: #fff !important;
-      }
-      &:hover {
-        i {
-          color: #f00 !important;
-        }
-      }
+      // i {
+      //   color: #fff !important;
+      // }
+      // &:hover {
+      //   i {
+      //     color: #f00 !important;
+      //   }
+      // }
     }
   }
   .el-dialog__body {
