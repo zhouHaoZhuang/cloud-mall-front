@@ -26,7 +26,7 @@
                   {{ item.describe }}
                 </div>
                 <div
-                  v-if="item.pcButtonName"
+                  v-if="item.buttonStatus === 0"
                   class="btn"
                   @click.stop="goButton(item.pcButtonLink, item.openLinkType)"
                 >

@@ -360,7 +360,7 @@ export default {
             setTimeout(function() {
               _this.refresh()
             }, 400)
-
+            this.$message.error("验证错误")
             this.$parent.$emit('error', this)
           }
         } else {
