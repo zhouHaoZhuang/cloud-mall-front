@@ -6,7 +6,7 @@
     <div class="register">
       <div class="content">
         <div class="item">
-          <div class="input-box">
+          <!-- <div class="input-box">
             <Iconfont class="left-icon" type="icon-zhanghao" />
             <a-input
               v-model="form.username"
@@ -17,8 +17,8 @@
               "
               @blur="usernameblurfns"
             />
-          </div>
-          <div class="info">
+          </div> -->
+          <!-- <div class="info">
             <div v-if="usernameStatus === 0" class="info-item">
               <Iconfont class="info-icon" type="icon-info" />
               <span>账号可用于找回密码</span>
@@ -27,7 +27,7 @@
               <Iconfont class="info-icon" type="icon-ok" />
               <span>填写正确</span>
             </div>
-          </div>
+          </div> -->
           <div class="input-box">
             <Iconfont class="left-icon" type="icon-phone" />
             <a-input
@@ -411,10 +411,10 @@ export default {
     },
     // 修改密码
     handleUpdatePwd () {
-      if (this.form.username === '') {
-        this.$message.warning('请输入账号')
-        return
-      }
+      // if (this.form.username === '') {
+      //   this.$message.warning('请输入账号')
+      //   return
+      // }
       if (this.phoneStatus !== 2) {
         this.$message.warning('请输入手机号')
         return
