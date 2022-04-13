@@ -199,21 +199,21 @@ export default {
             required: true,
             message: '手机号为必填项',
             trigger: 'blur'
+          },
+          {
+            validator: (rule, value, callback) => {
+              if (value === '') {
+                callback()
+              } else {
+                if (/^1[3456789]\d{9}$/.test(value)) {
+                  callback()
+                } else {
+                  callback(new Error('请输入正确格式的手机号'))
+                }
+              }
+            },
+            trigger: 'blur'
           }
-          // {
-          //   validator: (rule, value, callback) => {
-          //     if (value === '') {
-          //       callback()
-          //     } else {
-          //       if (/^1[3456789]\d{9}$/.test(value)) {
-          //         callback()
-          //       } else {
-          //         callback(new Error('请输入正确格式的手机号'))
-          //       }
-          //     }
-          //   },
-          // trigger: 'blur'
-          // }
         ],
         password: [
           {
