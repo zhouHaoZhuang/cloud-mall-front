@@ -1,6 +1,6 @@
 <template>
   <div v-show="show" class="right-fixed">
-    <div class="item">
+    <div class="item" v-show="webInfo.qqNumber">
       <span>QQ客服</span>
       <div class="detail">
         <span>请选择QQ进行咨询</span>
@@ -22,7 +22,7 @@
         <img class="img" :src="webInfo.wechatQrCode" alt="">
       </div>
     </div> -->
-    <div class="item">
+    <div class="item" v-show="webInfo.serverPhone">
       <span>电话客服</span>
       <div class="detail">
         <span>请选择客服进行咨询</span>
@@ -71,7 +71,7 @@ export default {
   watch: {
     $route: {
       handler (newVal) {
-        if (newVal.path === '/login' || newVal.path === '/register' || newVal.path === '/bypassAccount') {
+        if (newVal.path === '/login' || newVal.path === '/register') {
           this.show = false
         } else {
           this.show = true

@@ -74,7 +74,7 @@
             {{ codeTxt }}
           </a-button>
         </div>
-        <div v-show="showVerfication" class="item" style="position: relative">
+        <!-- <div v-show="showVerfication" class="item" style="position: relative">
           <div class="input-box">
             <Iconfont class="left-icon" type="icon-code" />
             <a-input
@@ -103,7 +103,7 @@
           <div class="code" title="点击切换验证码" @click="refreshCode()">
             <Identify :identify-code="identifyCode" />
           </div>
-        </div>
+        </div> -->
         <div class="item">
           <div class="input-box">
             <Iconfont class="left-icon" type="icon-lock" />
@@ -218,6 +218,7 @@
         </div>
       </div>
     </div>
+    <Verify ref="verify" @success="win()" :type="4" />
   </div>
 </template>
 
@@ -226,8 +227,10 @@ import { mapState } from 'vuex'
 // import CodeBtn from '@/components/CodeBtn/index'
 import Identify from '@/components/Identify'
 import { getRandomCode } from '@/utils/index'
+import Verify from '@/components/verify/verify.vue'
+
 export default {
-  components: { Identify },
+  components: { Identify, Verify },
   data () {
     return {
       // 下方所有验证的status 0:默认 1:未通过验证 2:验证通过
@@ -268,7 +271,8 @@ export default {
       confirmPwdType: true,
       registerLoading: false,
       identifyCode: '', // 要核对的验证码
-      showVerfication: false // 是否进行图片验证码
+      showVerfication: false, // 是否进行图片验证码
+      graph: false
     }
   },
   computed: {
@@ -281,6 +285,11 @@ export default {
     this.refreshCode()
   },
   methods: {
+    win () {
+      this.graph = true
+      this.$message.success("验证码已发送")
+      this.toSend()
+    },
     // 手机号码失去焦点
     phoneblurfns () {
       if (this.form.phone === '') {
@@ -354,11 +363,15 @@ export default {
         this.$message.warning('请输入格式正确的手机号')
         return
       }
-      this.showVerfication = true
-      if (!this.form.verificationCode) {
-        this.$message.warning('请先正确输入图片验证码')
-        this.verificateStatus = 1
-      }
+      this.check()
+      // this.showVerfication = true
+      // if (!this.form.verificationCode) {
+      //   this.$message.warning('请先正确输入图片验证码')
+      //   this.verificateStatus = 1
+      // }
+    },
+    check () {
+      this.$refs.verify.open()
     },
     toSend () {
       if (this.codeLoading) {
