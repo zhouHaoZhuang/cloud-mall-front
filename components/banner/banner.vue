@@ -43,7 +43,7 @@
 
 <script>
 import { mapState } from 'vuex'
-
+import { bannerLinkEnum } from '@/utils/enum'
 export default {
   components: {},
   props: {
@@ -54,6 +54,7 @@ export default {
   },
   data () {
     return {
+      bannerLinkEnum,
       bottomStyle: 'bottom:235px'
     }
   },
@@ -72,28 +73,49 @@ export default {
     },
     // 点击banner进行页面跳转
     goLink (link, type) {
-      if (type === '1') {
-        this.$router.push(link)
-      }
-      if (type === '0') {
-        const routeUrl = this.$router.resolve({
-          path: link
-        })
-        window.open(routeUrl.href, '_blank')
+      // 判断是不是自定义
+      const imgLink = link
+      if (Object.keys(this.bannerLinkEnum).indexOf(imgLink) === -1) {
+        if (type === '1') {
+          window.open(link)
+        }
+        if (type === '0') {
+          window.open(link, '_blank')
+        }
+      } else {
+        if (type === '1') {
+          this.$router.push(link)
+        }
+        if (type === '0') {
+          const routeUrl = this.$router.resolve({
+            path: link
+          })
+          window.open(routeUrl.href, '_blank')
+        }
       }
     },
     // 点击按钮页面跳转
     goButton (link, type) {
-      if (type === '1') {
-        this.$router.push(link)
+      const pcLink = link
+      if (Object.keys(this.bannerLinkEnum).indexOf(pcLink) === -1) {
+        if (type === '1') {
+          window.open(link)
+        }
+        if (type === '0') {
+          window.open(link, '_blank')
+        }
+      } else {
+        if (type === '1') {
+          this.$router.push(link)
+        }
+        if (type === '0') {
+          const routeUrl = this.$router.resolve({
+            path: link
+          })
+          window.open(routeUrl.href, '_blank')
+        }
       }
-      if (type === '0') {
-        const routeUrl = this.$router.resolve({
-          path: link
-        })
-        window.open(routeUrl.href, '_blank')
-      }
-    }
+    },
   }
 }
 </script>
