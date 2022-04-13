@@ -77,7 +77,7 @@ export default {
       const imgLink = link
       if (Object.keys(this.bannerLinkEnum).indexOf(imgLink) === -1) {
         if (type === '1') {
-          window.open(link)
+          window.open(link, '_self')
         }
         if (type === '0') {
           window.open(link, '_blank')
@@ -99,7 +99,7 @@ export default {
       const pcLink = link
       if (Object.keys(this.bannerLinkEnum).indexOf(pcLink) === -1) {
         if (type === '1') {
-          window.open(link)
+          window.open(link, '_self')
         }
         if (type === '0') {
           window.open(link, '_blank')
