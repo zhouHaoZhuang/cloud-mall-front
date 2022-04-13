@@ -137,6 +137,33 @@ export const $routes = [
     }
   },
   {
+    path: '/content-open',
+    name: 'content',
+    component: resolve('pages/product/instant/content-open.vue'),
+    meta: {
+      title: 'CDN服务协议',
+      icon: 'icon'
+    }
+  },
+  {
+    path: '/service-rules',
+    name: 'serviceRule',
+    component: resolve('pages/product/instant/service-rules.vue'),
+    meta: {
+      title: '服务使用规则',
+      icon: 'icon'
+    }
+  },
+  {
+    path: '/service-level',
+    name: 'serviceLevel',
+    component: resolve('pages/product/instant/service-level.vue'),
+    meta: {
+      title: 'CDN服务等级协议',
+      icon: 'icon'
+    }
+  },
+  {
     path: '/price-detail',
     name: 'price',
     component: resolve('pages/product/pricedetail/price.vue'),
