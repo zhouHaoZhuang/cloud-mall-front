@@ -79,7 +79,7 @@ export const jumpCloudAdminDetail = (id, token) => {
 export const jumpCloudAdminWork = (token, type) => {
   const url = getCloudAdminUrl()
   window.open(
-    url + '/user/workOrder/submit' + `?token=${token}`,
+    url + '/user/workOrder/my' + `?token=${token}`,
     type ? '_blank' : '_self'
   )
 }

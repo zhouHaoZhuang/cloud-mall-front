@@ -557,7 +557,7 @@ export default {
       return this.whiteList.includes(path)
     },
     isBlue (path) {
-      if (path === '/instant-open' || path === '/price-detail') {
+      if (path === '/instant-open' || path === '/price-detail' || path === '/content-open'|| path === '/service-level'|| path === '/service-rules') {
         return true
       } else {
         return false

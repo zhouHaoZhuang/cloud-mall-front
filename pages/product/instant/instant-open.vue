@@ -1,16 +1,12 @@
 <template>
   <div class="recruit-container">
     <div class="container">
-      <h2 class="inweb">
-        内部分发网络CDN
-      </h2>
+      <h2 class="inweb">内部分发网络CDN</h2>
       <div class="charge-type">
         <div class="leftbox">
           <span class="innerbox">计费类型</span>
         </div>
-        <div class="rightbox">
-          按使用流量计费
-        </div>
+        <div class="rightbox">按使用流量计费</div>
       </div>
       <div class="charge-type">
         <div :class="{ leftbox: true, 'gray-bg': !checked }">
@@ -18,7 +14,7 @@
         </div>
         <div class="rightcheckbox">
           <a-checkbox v-model="checked" />
-          内容分发网络CDN服务协议
+          <span class="skiphref" @click="skipweb">内容分发网络CDN服务协议</span>
         </div>
       </div>
     </div>
@@ -46,60 +42,66 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import { jumpCloudAdminDash, jumpCloudAdminRealName } from '@/utils/index'
+import { mapState } from "vuex";
+import { jumpCloudAdminDash, jumpCloudAdminRealName } from "@/utils/index";
 export default {
-  data () {
+  data() {
     return {
       jumpCloudAdminRealName,
       jumpCloudAdminDash,
       checked: false,
-      ModalText: '',
+      ModalText: "",
       visible: false,
-      title: '提示',
-      oktext: '',
-      canceltext: ''
-    }
+      title: "提示",
+      oktext: "",
+      canceltext: "",
+    };
   },
   computed: {
     ...mapState({
-      token: state => state.user.token
-    })
+      token: (state) => state.user.token,
+    }),
   },
   methods: {
-    handleCancel (e) {
-      this.visible = false
+    skipweb(){
+      console.log("跳转")
+      this.$router.push({
+        path:"/content-open"
+      })
     },
-    handleOk (e) {
+    handleCancel(e) {
+      this.visible = false;
+    },
+    handleOk(e) {
       // 跳转到实名认证页面
       if (this.func === 1) {
-        jumpCloudAdminRealName(this.token)
+        jumpCloudAdminRealName(this.token);
       }
-      this.visible = false
+      this.visible = false;
     },
-    instantSetup () {
+    instantSetup() {
       // 如果未登录，弹窗提示“您还未登录，请登录后再进行服务开通。马上登录”，点击【马上登录】跳转到登录页面
       // 已经登录，未认证，弹窗提示“您尚未实名认证，开通CDN服务需要先实名认证通过。去认证” ，点击【去认证】跳转到实名认证页面
       // 不用判断登录,只用判断是否实名认证就可以,没有实名认证跳转到实名认证页面
       this.$api.cloud.instantAccountSetup().then((res) => {
         // 已经实名认证
-        if (res.code === '000000') {
-          jumpCloudAdminDash(this.token)
+        if (res.code === "000000") {
+          jumpCloudAdminDash(this.token);
         }
         // 没有实名认证
-        if (res.code === '1313009') {
-          this.$message.warning(res.msg)
+        if (res.code === "1313009") {
+          this.$message.warning(res.msg);
           // 跳转到控制台
-          this.visible = true
-          this.ModalText = '当前账户未进行实名认证,是否先进行实名认证?'
-          this.oktext = '确认'
-          this.canceltext = '取消'
-          this.func = 1
+          this.visible = true;
+          this.ModalText = "当前账户未进行实名认证,是否先进行实名认证?";
+          this.oktext = "确认";
+          this.canceltext = "取消";
+          this.func = 1;
         }
-      })
-    }
-  }
-}
+      });
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -165,6 +167,9 @@ export default {
         top: 50px;
         font-size: 16px;
         color: #3b77e3;
+        .skiphref{
+          cursor: pointer;
+        }
       }
     }
   }

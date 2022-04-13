@@ -103,3 +103,19 @@ export const cloudDiskTypeMap = {
   cloud_ssd: 'SSD',
   cloud: '普通云盘'
 }
+// PC链接
+export const bannerLinkEnum = {
+  '/': '首页',
+  '/cloud-choose': '产品',
+  '/assurance': '服务保障',
+  '/help/helpInfo': '帮助中心',
+  '/programme/finance': '金融解决方案',
+  '/programme/online': '电商解决方案',
+  '/programme/game': '游戏解决方案',
+  '/programme/move': '移动解决方案',
+  '/programme/website': '网站解决方案',
+  '/about/index?tab=0': '关于我们/公司简介',
+  '/about/index?tab=1': '关于我们/新闻公告',
+  '/about/index?tab=2': '关于我们/法律声明',
+  '/about/index?tab=3': '关于我们/友情链接'
+}
