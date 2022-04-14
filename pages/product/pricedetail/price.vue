@@ -263,7 +263,7 @@ export default {
   height: 100%;
   padding-bottom: 40px;
   .container {
-    width: 1540px;
+    width: 1200px;
     .inweb {
       font-weight: 600;
       color: #13274b;
@@ -272,7 +272,7 @@ export default {
       padding: 30px 0 20px 0;
     }
     .charge-type {
-      width: 1540px;
+      width: 1200px;
       height: 280px;
       margin-bottom: 20px;
       background-color: #fff;
@@ -315,7 +315,7 @@ export default {
       box-shadow: 0px 0px 12px 4px rgba(59, 119, 227, 0.1);
     }
     .charge-type-two {
-      width: 1540px;
+      width: 1200px;
       height: 838px;
       background-color: #fff;
       padding: 30px 20px 30px 20px;
@@ -325,7 +325,6 @@ export default {
         color: #12264c;
       }
       .centerbox {
-        width: 1500px;
         height: 370px;
         background-color: #fdfeff;
         border: 1px solid #edf3fc;
@@ -346,7 +345,7 @@ export default {
       }
     }
     .charge-type-three {
-      width: 1540px;
+      width: 1200px;
       height: 408px;
       background-color: #fff;
       padding: 30px 20px 30px 20px;
@@ -356,7 +355,6 @@ export default {
         color: #12264c;
       }
       .centerbox {
-        width: 1500px;
         height: 170px;
         background-color: #fdfeff;
         border: 1px solid #edf3fc;
