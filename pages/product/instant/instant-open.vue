@@ -110,7 +110,7 @@ export default {
   width: 100%;
   height: 100vh;
   .container {
-    width: 1540px;
+    width: 1200px;
     .inweb {
       font-weight: 600;
       color: #13274b;
@@ -119,7 +119,7 @@ export default {
       padding: 30px 0 20px 0;
     }
     .charge-type {
-      width: 1540px;
+      width: 1200px;
       height: 136px;
       margin-bottom: 20px;
       background-color: #fff;
