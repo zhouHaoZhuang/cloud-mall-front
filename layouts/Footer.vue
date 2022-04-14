@@ -106,7 +106,7 @@
                   v-show="webInfo.webLink"
                   @click="jumpOutside(webInfo.webLink)"
                 />
-                <div class="ele" @click="mailsome" v-show="allConfig.email_address" />
+                <div class="ele" @click="mailsome" v-show="webInfo.email" />
               </div>
             </div>
           </div>
@@ -279,6 +279,9 @@ export default {
       ],
       show: true
     }
+  },
+  mounted(){
+    console.log(this.webInfo,this.allConfig,"????????????")
   },
   computed: {
     ...mapState({
