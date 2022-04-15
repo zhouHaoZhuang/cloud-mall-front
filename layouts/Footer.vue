@@ -86,13 +86,13 @@
                 </div>
               </div>
               <div class="list-outerChain">
-                <div v-show="false" class="ele">
+                <div class="ele" v-show="webInfo.wechatQrCode">
                   <div v-if="webInfo.wechatQrCode" class="img-box">
                     <i />
                     <img :src="webInfo.wechatQrCode" alt="">
                   </div>
                 </div>
-                <div class="ele">
+                <div class="ele" v-show="webInfo.qqNumber">
                   <div class="img-box">
                     <i />
                     <span class="qq-hint">请选择QQ进行咨询</span>
@@ -102,11 +102,11 @@
                   </div>
                 </div>
                 <div
-                  v-show="false"
                   class="ele"
+                  v-show="webInfo.webLink"
                   @click="jumpOutside(webInfo.webLink)"
                 />
-                <div class="ele" @click="mailsome" />
+                <div class="ele" @click="mailsome" v-show="webInfo.email" />
               </div>
             </div>
           </div>
@@ -279,6 +279,9 @@ export default {
       ],
       show: true
     }
+  },
+  mounted(){
+    console.log(this.webInfo,this.allConfig,"????????????")
   },
   computed: {
     ...mapState({
