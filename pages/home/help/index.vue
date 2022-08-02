@@ -14,7 +14,7 @@
             >
           </div>
           <!-- icon-31sousuo -->
-          <Iconfont @click="search" class="search" type="icon-31sousuo" />
+          <Iconfont class="search" type="icon-31sousuo" @click="search" />
         </div>
         <ul>
           <li
@@ -54,7 +54,6 @@ export default {
   },
   mounted () {
     this.hotAll = this.hotAll.splice(0, 5)
-    // console.log(this.listAll, 'listAll')
   },
   methods: {
     search () {
