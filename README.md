@@ -37,3 +37,6 @@ $ yarn start
 
 ## 代码格式规范
 1. vscode 安装插件 Prettier ESLint 用来格式化代码，保持代码风格统一
+项目仓库地址
+origin  https://git.ydidc.com/ydidc/jadepool-admin-front.git (fetch)
+origin  https://git.ydidc.com/ydidc/jadepool-admin-front.git (push)
